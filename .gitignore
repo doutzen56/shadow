@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+*.tmp
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+.local/
+KB_ROOT.local

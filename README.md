@@ -1,0 +1,26 @@
+# shadow
+
+Tzen 的可迁移个人影子库：偏好、原则、ADR、可复用技能。与业务仓物理分离。
+
+## 本机路径
+
+默认：`KB_ROOT=E:\shadow`（换机改 User Rules 里这一行）。
+
+## 安装 Cursor skills
+
+```powershell
+pwsh -File .\scripts\install-cursor-skills.ps1
+```
+
+会把 `cursor-skills/*` 安装到 `%USERPROFILE%\.cursor\skills\`（不删除你已有的其它 skill）。
+
+## 口令
+
+- `人生级记住：…` → 写入本仓（视为已确认）
+- `本仓记住：…` → 写入当前业务仓 `.cursor/`
+- `记一条 ADR：…` / `提炼成架构模式：…`
+- 重要任务收尾：Agent 先问要不要沉淀；**未确认不写本仓**
+
+## Token 预算
+
+入口短、库存厚、按需读。不要把本仓长文贴进 User Rules / alwaysApply。
