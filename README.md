@@ -14,15 +14,22 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-cursor-ski
 
 会把 `cursor-skills/*` 安装到 `%USERPROFILE%\.cursor\skills\`（不删除你已有的其它 skill）。
 
-## 挂撮合仓叠层（切分支友好）
+## 项目叠层（任意业务仓可复用）
 
-撮合专用配置真相源在 `projects/hx-matching/`，**不要提交进业务 Git**。挂载：
+每个项目一份配置，真相源在 `projects/<name>/`，**不提交进业务 Git**。
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\sync-hx-matching-overlay.ps1
+# 通用（推荐）
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\sync-project-overlay.ps1 -Project hx-matching
+
+# 或显式指定业务仓路径
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\sync-project-overlay.ps1 -Project my-app -TargetRepo "E:\work\my-app"
 ```
 
-会复制到业务仓，并写入该仓本地 `.git/info/exclude`，`git status` 保持干净、切分支不受影响。
+新项目：复制 `projects\_template` → `projects\<name>`，改 `overlay.json`，再 sync。  
+撮合仓仍可用旧脚本：`.\scripts\sync-hx-matching-overlay.ps1`（内部转调通用脚本）。
+
+会复制到业务仓，并写入该仓本地 `.git/info/exclude`，`git status` 干净、切分支不受影响。
 
 ## 口令
 
