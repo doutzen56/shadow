@@ -1,0 +1,13 @@
+---
+description: Local-only safety for HX.MatchingApi — no push/PR, minimal diffs
+alwaysApply: true
+---
+
+# Safety (local only)
+
+- Do **not** `git push`, `gh pr create`, create remote branches, or force-push
+- Do **not** commit unless the user explicitly asks
+- Do **not** edit secrets, production connection strings, or deploy credentials
+- Prefer minimal diffs; no unrelated refactors
+- End with: changed files, risks, suggested local verify commands
+- Personal KB writes to `E:\shadow` only after user confirmation (or explicit 人生级记住 / ADR口令)
