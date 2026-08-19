@@ -1,43 +1,64 @@
-# shadow
+﻿# SimpX
 
-Tzen 的可迁移个人影子库：偏好、原则、ADR、可复用技能。与业务仓物理分离。
+SimpX 是一个个人智能技术团队框架，用来把技术负责人的判断、智能角色分工、工程流程、项目风格和长期知识沉淀组织起来。
 
-## 本机路径
+它不是一次性的提示词集合，而是一套可复用、可演进、可沉淀的个人技术组织系统。
 
-默认：`KB_ROOT=E:\shadow`（换机改 User Rules 里这一行）。
+## 一阶段目标
 
-## 安装 Cursor skills（个人，全项目）
+一阶段先让团队能够稳定工作：
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-cursor-skills.ps1
+- 明确技术负责人的职责与决策边界。
+- 固定核心智能成员：后端架构、后端实现、测试质量、前端交互。
+- 建立业务交付型与架构治理型两类项目打法。
+- 使用统一的工作流完成需求、设计、实现、审查、测试和复盘。
+- 把经验、决策和教训沉淀到长期知识目录。
+
+## SimpX 1.0 成员
+
+| 正式编号 | 召唤标签 | 职责 |
+| --- | --- | --- |
+| `TL-01` | `@@TL` | 技术负责人 |
+| `BA-01` | `@@BA` | 后端架构工程师 |
+| `BE-01` | `@@BE` | 后端实现工程师 |
+| `QA-01` | `@@QA` | 测试质量工程师 |
+| `FE-01` | `@@FE` | 前端工程师 |
+
+正式编号用于文档、职责边界和长期沉淀；召唤标签用于日常对话和任务分派。
+
+## 如何召唤成员
+
+```text
+@@BA：分析架构边界和技术风险。
+@@BE：拆后端实现步骤和影响范围。
+@@QA：输出测试清单、边界条件和回归风险。
+@@FE：评估前端交互和接口联调影响。
+@@TL：做目标确认、优先级判断和最终取舍。
+@@SimpX：全员进入协作模式。
 ```
 
-会把 `cursor-skills/*` 安装到 `%USERPROFILE%\.cursor\skills\`（不删除你已有的其它 skill）。
+需要多人协作时，可以组合召唤：
 
-## 项目叠层（任意业务仓可复用）
-
-每个项目一份配置，真相源在 `projects/<name>/`，**不提交进业务 Git**。
-
-```powershell
-# 通用（推荐）
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\sync-project-overlay.ps1 -Project hx-matching
-
-# 或显式指定业务仓路径
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\sync-project-overlay.ps1 -Project my-app -TargetRepo "E:\work\my-app"
+```text
+@@BA + @@BE + @@QA：一起评估一个后端需求。
+@@BE + @@QA：实现前先拆步骤和测试清单。
+@@SimpX：按项目风格完成任务分析、方案、验证和沉淀。
 ```
 
-新项目：复制 `projects\_template` → `projects\<name>`，改 `overlay.json`，再 sync。  
-撮合仓仍可用旧脚本：`.\scripts\sync-hx-matching-overlay.ps1`（内部转调通用脚本）。
+## 建设原则
 
-会复制到业务仓，并写入该仓本地 `.git/info/exclude`，`git status` 干净、切分支不受影响。
+- 先可用，再完整。
+- 先沉淀方法，再建设工具。
+- 先稳定角色，再扩展能力。
+- 先服务真实项目，再追求平台化。
 
-## 口令
+## 成熟度
 
-- `人生级记住：…` → 写入本仓（视为已确认）
-- `本仓记住：…` → 写入当前业务仓 `.cursor/`
-- `记一条 ADR：…` / `提炼成架构模式：…`
-- 重要任务收尾：Agent 先问要不要沉淀；**未确认不写本仓**
+- 已启用：当前一阶段需要认真维护。
+- 草稿：一阶段会逐步完善。
+- 规划：未来阶段建设。
+- 实验：用于探索，不进入稳定流程。
 
-## Token 预算
 
-入口短、库存厚、按需读。不要把本仓长文贴进 User Rules / alwaysApply。
+
+

@@ -1,0 +1,31 @@
+﻿项目名称：HX.Matching
+项目类型：支付撮合平台
+源码位置：E:\work\撮合项目
+SimpX归档位置：E:\simpx\projects\examples\hx-matching
+阶段：一阶段真实项目样本
+主风格：企业稳定型
+次风格：业务交付型
+补充风格：性能优先型
+治理标签：演进中的遗留系统
+关键宿主：
+  - 平台管理端
+  - 商户后台
+  - 商户开放接口
+  - 合作方互通接口
+  - 后台任务进程
+关键技术：
+  - .NET 9
+  - ASP.NET Core
+  - SqlSugar
+  - Redis
+  - RabbitMQ
+  - Elasticsearch
+  - Quartz
+  - NLog
+  - AgileConfig
+沉淀策略：
+  - 项目档案放在项目样本目录
+  - 架构与边界放入架构知识
+  - 接口契约和工程约定放入工程知识
+  - 真实事故放入经验教训
+  - 业务仓库原文不整体复制

@@ -1,0 +1,15 @@
+---
+description: 方法必须有完整 XML 文档注释；缺注释视为未完成
+alwaysApply: true
+---
+
+# 编码注释硬规则
+
+来源：`E:\simpx\core\constitution\coding.md`、`E:\simpx\agents\backend\system.md`。
+
+- 新写或改动的方法，无论 public、internal、private 还是测试辅助，都必须有完整 XML 文档注释。
+- `summary` 必填；有参数写 `param`，有返回值写 `returns`，有泛型写 `typeparam`，会抛业务异常写 `exception`。
+- 注释说明做什么、何时用、关键约束，不复述方法名。
+- 核心业务逻辑、兼容分支、幂等、重试、金额/状态变更处，必须补业务注释，说明为什么这样写。
+- 缺注释视为未完成，不能只把代码写通。
+- Cursor 默认的「别给显而易见的代码写注释」不得压过本条。

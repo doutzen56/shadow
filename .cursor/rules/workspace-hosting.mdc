@@ -1,0 +1,17 @@
+---
+description: 工作区映射到 SimpX 项目档案；业务仓不放 agent；沉淀需确认
+alwaysApply: true
+---
+
+# 工作区托管
+
+打开业务仓时，按工作区名映射到已有项目档案，再读该档 `README.md`、`profile.yaml`、`boundaries.md`：
+
+- `BetWin20250303` → `E:\simpx\projects\examples\betwin`
+- `撮合项目` → `E:\simpx\projects\examples\hx-matching`
+- 当前窗口就是 `E:\simpx` 或空窗口：不建档案
+- 未知业务仓：遵循 SimpX 核心规则，不自动建档案
+
+业务仓禁止写 `AGENTS.md` / `.cursor/agents` / `.cursor/rules` / `.cursor/skills`。禁止为了托管或说明去改业务仓自带文件。禁止使用 `E:\shadow`。业务仓禁止 Agent git push / 开 PR。
+
+`记住：` 或 `记一条 ADR` 才写入 SimpX 知识目录；未确认不写。
