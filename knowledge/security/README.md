@@ -10,3 +10,7 @@
 - 草稿：已有方向，随着任务逐步补充。
 - 规划：保留长期方向，暂不进入日常流程。
 - 实验：允许探索，但不作为稳定承诺。
+
+## 已启用
+
+- [HX.Matching 无感 Turnstile 人机验证](hx-matching-turnstile-bot-protect.md)：撞库、刷接口、偷 JWT 后用脚本改凭证。
