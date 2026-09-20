@@ -1,5 +1,36 @@
-﻿# 环境配置
+﻿# 环境配置基线（全局）
+schema_version: v1
+status: 启用
+owner: @@DEVOPS
 
-状态：规划。
+默认环境:
+  - dev
+  - test
+  - uat
 
-未来用于区分开发、测试、生产等环境策略。
+全局规则:
+  secrets_in_repo: false
+  secret_file_pattern: "*.secrets.yaml"
+  required_checks:
+    - db_connectivity
+    - redis_connectivity
+    - mq_connectivity
+    - smoke_api
+  report_result:
+    - 通过
+    - 失败
+    - 阻塞
+  assertion_report_required_fields:
+    - 验证项
+    - 期望值
+    - 实际值
+    - 结论
+    - 证据
+
+项目配置约定:
+  env_file: "projects/<project-id>/envs.yaml"
+  secret_file: "projects/<project-id>/envs.secrets.yaml"
+  include_envs:
+    - dev
+    - test
+    - uat

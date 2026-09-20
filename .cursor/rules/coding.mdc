@@ -5,7 +5,7 @@ alwaysApply: true
 
 # 编码注释硬规则
 
-来源：`E:\simpx\core\constitution\coding.md`、`E:\simpx\agents\backend\system.md`。
+来源：`F:\shadow\core\constitution\coding.md`、`F:\shadow\agents\backend\system.md`。
 
 - 新写或改动的方法，无论 public、internal、private 还是测试辅助，都必须有完整 XML 文档注释。
 - `summary` 必填；有参数写 `param`，有返回值写 `returns`，有泛型写 `typeparam`，会抛业务异常写 `exception`。

@@ -40,6 +40,6 @@
 
 ## 沉淀位置
 
-- 数据流：`E:\simpx\knowledge\architecture\hx-matching-data-flow.md`
-- 服务边界：`E:\simpx\knowledge\architecture\hx-matching-service-boundaries.md`
-- 术语表：`E:\simpx\knowledge\engineering\payment-matching-glossary.md`
+- 数据流：`F:\shadow\knowledge\architecture\hx-matching-data-flow.md`
+- 服务边界：`F:\shadow\knowledge\architecture\hx-matching-service-boundaries.md`
+- 术语表：`F:\shadow\knowledge\engineering\payment-matching-glossary.md`

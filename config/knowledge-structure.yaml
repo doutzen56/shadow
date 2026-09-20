@@ -1,0 +1,120 @@
+schema_version: v1
+purpose: 可复用技术模式库（超级个体记忆）
+
+storage_layers:
+  - name: raw
+    description: 任务原始信息层（实现、验证、问题、修复）
+    write_policy: 自动收集
+  - name: candidate
+    description: 候选模式层（结构化提炼，待TL确认）
+    write_policy: 每次任务结束产出
+  - name: knowledge
+    description: 正式知识层（仅TL确认后入库）
+    write_policy: 仅在用户明确确认后写入
+
+pattern_card_required_fields:
+  - pattern_id
+  - title
+  - domain
+  - abstract_problem
+  - goal_invariant
+  - capability_components
+  - state_invariants
+  - key_methods
+  - key_decision_nodes
+  - algorithm_blueprint
+  - adapter_points
+  - non_negotiable_flow
+  - key_parameters
+  - tradeoffs
+  - failure_contracts
+  - rollback_strategy
+  - verification_checklist
+  - performance_cost
+  - security_invariants
+  - anti_patterns
+  - source_projects
+  - evidence_refs
+  - reusable_assets
+
+pattern_domains:
+  - search
+  - cache
+  - messaging
+  - data-consistency
+  - reliability
+  - rollout
+
+candidate_review_cycle:
+  cadence: weekly
+  owner: "@@X"
+  approver: "@@TL"
+  outcomes:
+    - promote_to_knowledge
+    - merge_existing_pattern
+    - reject
+
+execution_rules:
+  - 方案输出前优先检索已有模式
+  - 若未复用模式，必须说明原因
+  - 遇到失败案例，优先补充候选模式卡
+  - 知识主体必须先写抽象层（能力/契约/状态机/策略点）
+  - 代码内容仅作为证据引用，禁止整文件复制
+  - 必须明确核心功能不变量，确保可跨项目复写同等核心能力
+
+retrieval_policy:
+  strategy: index_first_then_top_k
+  max_patterns_per_query: 3
+  max_rounds_per_query: 2
+  full_scan_allowed: false
+  max_code_refs_per_pattern: 5
+  max_code_snippets_per_pattern: 2
+  snippet_max_lines: 40
+  required_index_filters:
+    - domain
+    - stack
+    - scene
+  token_budget:
+    max_chars_per_round: 12000
+    prefer_summary_before_code: true
+    escalate_when_budget_exceeded: true
+  escalate_to_user_when:
+    - top_k_results_insufficient_after_two_rounds
+    - ambiguous_pattern_selection
+
+code_asset_rules:
+  required_fields:
+    - asset_id
+    - asset_type
+    - source_repo
+    - file_path
+    - symbol
+    - scenario
+    - input_contract
+    - output_contract
+    - failure_contract
+    - dependencies
+    - observability
+    - snippet_or_ref
+  asset_types:
+    - endpoint-flow
+    - domain-service
+    - state-machine
+    - mq-consumer
+    - cache-strategy
+    - retry-policy
+    - compensation-flow
+  quality_gate:
+    abstraction_first: true
+    require_capability_contract_state_machine: true
+    must_be_executable_context: true
+    must_have_boundary_notes: true
+    must_have_risk_notes: true
+    allow_pseudocode_only: false
+  dedup_policy:
+    strategy: variant_over_duplicate
+    same_pattern_threshold: 0.75
+    variant_required_fields:
+      - different_scene
+      - different_tradeoff
+      - different_failure_mode

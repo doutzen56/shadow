@@ -163,5 +163,5 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 - 改平台配置先看 `Handler.System` 与 `Web.System`。
 - 改第三方对接先看对应 `Gateway.*` 和 `Handler.Api` 回调。
 - 改异步、对账、注单先看 `JobSchedule`、`DataAnalysis`、`GameLog`、`MqServer`。
-- 涉及资金、余额、订单状态、回调时，`@@QA` 必须给出回归清单。
+- 涉及资金、余额、订单状态、回调时，`@@DEVOPS` 必须给出环境验证清单和回滚建议。
 - 不把业务仓库的真实代码搬进 SimpX，只沉淀边界、方法和经验。

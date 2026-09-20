@@ -66,4 +66,4 @@ HX.Matching 是一个支付撮合平台，覆盖商户代收、商户代付、�
 - 可以沉淀多宿主 .NET 系统的边界分析方法。
 - 可以形成支付撮合领域术语、接口契约和渠道扩展方法。
 - 可以把线程池饥饿事故变成性能与稳定性治理样本。
-- 无感 Turnstile：`E:\simpx\knowledge\security\hx-matching-turnstile-bot-protect.md`
+- 无感 Turnstile：`F:\shadow\knowledge\security\hx-matching-turnstile-bot-protect.md`
