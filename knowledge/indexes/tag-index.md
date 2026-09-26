@@ -19,3 +19,14 @@
   - pattern-cache-redis-bloom-dual-write-v1
 - lifecycle:
   - pattern-cache-redis-bloom-dual-write-v1
+- azure-sql:
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1
+- query-store:
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1
+- dba:
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1
+- performance:
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1
+- hx-matching:
+  - pattern-cache-redis-bloom-dual-write-v1
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1

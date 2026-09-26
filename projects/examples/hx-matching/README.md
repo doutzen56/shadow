@@ -67,3 +67,5 @@ HX.Matching 是一个支付撮合平台，覆盖商户代收、商户代付、�
 - 可以形成支付撮合领域术语、接口契约和渠道扩展方法。
 - 可以把线程池饥饿事故变成性能与稳定性治理样本。
 - 无感 Turnstile：`F:\shadow\knowledge\security\hx-matching-turnstile-bot-protect.md`
+- Azure SQL 日巡检脚本：`F:\shadow\projects\examples\hx-matching\ops\azure-sql-daily-inspect.sql`
+- 日巡检模式卡：`F:\shadow\knowledge\patterns\reliability\azure-sql-dba-daily-inspect-v1.md`

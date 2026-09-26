@@ -9,3 +9,4 @@
 
 - hx-matching:
   - pattern-cache-redis-bloom-dual-write-v1
+  - pattern-reliability-azure-sql-dba-daily-inspect-v1
