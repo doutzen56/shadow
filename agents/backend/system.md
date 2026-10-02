@@ -54,8 +54,8 @@
 
 ## 模板引用
 
-- 断言清单模板：`F:\shadow\templates\assertion-checklist\README.md`
-- 知识模式卡模板：`F:\shadow\templates\knowledge-pattern-card\README.md`
-- 知识复用检查模板：`F:\shadow\templates\knowledge-reuse-check\README.md`
+- 断言清单模板：`templates/assertion-checklist/README.md`
+- 知识模式卡模板：`templates/knowledge-pattern-card/README.md`
+- 知识复用检查模板：`templates/knowledge-reuse-check/README.md`
 
 说明：模板可选，允许在会话中直接结构化输出断言。

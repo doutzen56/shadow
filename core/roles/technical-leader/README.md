@@ -47,4 +47,4 @@
 
 ## 模板引用
 
-- 放行判定模板：`F:\shadow\templates\release-gate\README.md`
+- 放行判定模板：`templates/release-gate/README.md`

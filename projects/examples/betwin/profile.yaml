@@ -1,7 +1,7 @@
 项目名称：BetWin
 项目类型：多站点游戏平台
-源码位置：E:\work\BetWin20250303
-SimpX归档位置：F:\shadow\projects\examples\betwin
+识别方式：工程名 BetWin5.0.sln（仓库根目录；不看目录名和盘符）
+SimpX归档位置：projects/examples/betwin（相对 SimpX 根）
 阶段：一阶段真实项目样本
 主风格：企业稳定型
 次风格：业务交付型

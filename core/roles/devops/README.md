@@ -10,7 +10,7 @@
 
 ## 核心能力
 
-- 维护并执行 `dev`、`test`、`uat` 环境配置。
+- 维护并执行项目环境配置（按项目 `envs.yaml` 的 `default_envs`，如 hx-matching：`dev`、`uat`；betwin：`test`）。
 - 验证 DB、Redis、MQ 与关键接口链路。
 - 执行断言比对：期望值 vs 实际值。
 - 输出可复验证据、风险和回滚建议。

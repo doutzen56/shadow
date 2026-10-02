@@ -1,7 +1,7 @@
 ﻿项目名称：HX.Matching
 项目类型：支付撮合平台
-源码位置：E:\work\撮合项目
-SimpX归档位置：F:\shadow\projects\examples\hx-matching
+识别方式：工程名 HX.Matching.sln（仓库根目录；不看目录名和盘符）
+SimpX归档位置：projects/examples/hx-matching（相对 SimpX 根）
 阶段：一阶段真实项目样本
 主风格：企业稳定型
 次风格：业务交付型

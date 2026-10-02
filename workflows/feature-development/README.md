@@ -8,7 +8,7 @@
 
 - 需求描述和业务目标。
 - 项目标识（如 `hx-matching`、`betwin`）。
-- 目标环境（默认 `dev`、`test`、`uat`）。
+- 目标环境（按项目 `envs.yaml` 的 `default_envs`，如 hx-matching：`dev`、`uat`；betwin：`test`）。
 - 约束条件（不能动的边界、上线窗口、回滚要求）。
 
 ## 一阶段步骤

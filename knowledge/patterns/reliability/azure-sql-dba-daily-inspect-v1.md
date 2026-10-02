@@ -29,8 +29,8 @@ status: active
 
 | 资产 | 路径 |
 |------|------|
-| 可执行脚本 | `F:\shadow\projects\examples\hx-matching\ops\azure-sql-daily-inspect.sql` |
-| 本模式卡 | `F:\shadow\knowledge\patterns\reliability\azure-sql-dba-daily-inspect-v1.md` |
+| 可执行脚本 | `projects/examples/hx-matching/ops/azure-sql-daily-inspect.sql` |
+| 本模式卡 | `knowledge/patterns/reliability/azure-sql-dba-daily-inspect-v1.md` |
 
 **禁止**把脚本提交进业务仓 `HX.MatchingApi`（SimpX 边界：业务仓不托管运维脚本）。
 

@@ -8,7 +8,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 站点请求入口
 
-路径：`E:\work\BetWin20250303\WebSite\Web.Handler`
+路径：`WebSite/Web.Handler`
 
 职责：
 
@@ -22,7 +22,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 会员与代理前台接口
 
-路径：`E:\work\BetWin20250303\Library\BetWin.Handler.Request`
+路径：`Library/BetWin.Handler.Request`
 
 职责：
 
@@ -37,9 +37,9 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 站点管理端
 
-路径：`E:\work\BetWin20250303\Library\BetWin.Handler.Admin`
+路径：`Library/BetWin.Handler.Admin`
 
-前端：`E:\work\BetWin20250303\WebSite\Web.Admin`
+前端：`WebSite/Web.Admin`
 
 职责：
 
@@ -53,9 +53,9 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 平台系统端
 
-路径：`E:\work\BetWin20250303\Library\BetWin.Handler.System`
+路径：`Library/BetWin.Handler.System`
 
-前端：`E:\work\BetWin20250303\WebSite\Web.System`
+前端：`WebSite/Web.System`
 
 职责：
 
@@ -68,7 +68,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 游戏回调与运维接口
 
-路径：`E:\work\BetWin20250303\Library\Handler\BetWin.Handler.Api`
+路径：`Library/Handler/BetWin.Handler.Api`
 
 职责：
 
@@ -82,7 +82,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 后台任务调度
 
-路径：`E:\work\BetWin20250303\Services\JobSchedule`
+路径：`Services/JobSchedule`
 
 职责：
 
@@ -98,8 +98,8 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 路径：
 
-- `E:\work\BetWin20250303\Services\DataAnalysis`
-- `E:\work\BetWin20250303\Services\GameLog`
+- `Services/DataAnalysis`
+- `Services/GameLog`
 
 职责：
 
@@ -113,7 +113,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 ### 消息消费
 
-路径：`E:\work\BetWin20250303\Services\MqServer`
+路径：`Services/MqServer`
 
 职责：
 

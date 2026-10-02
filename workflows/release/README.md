@@ -7,7 +7,7 @@
 ## 输入
 
 - 项目标识与版本说明。
-- 目标环境：`dev`、`test`、`uat`。
+- 目标环境：按项目 `envs.yaml` 的 `default_envs`（如 hx-matching：`dev`、`uat`；betwin：`test`）。
 - 对应环境配置：`envs.yaml`。
 - 本地密钥文件：`envs.secrets.yaml`（不入库）。
 - `@@BE` 输出的验证断言清单。

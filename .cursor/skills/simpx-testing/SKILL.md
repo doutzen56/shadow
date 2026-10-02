@@ -8,7 +8,7 @@
 
 ## 前置输入
 
-- 目标环境（`dev`/`test`/`uat`）。
+- 目标环境（取项目 `envs.yaml` 的 `default_envs` 中的一个，例如 hx-matching 的 `dev`/`uat`、betwin 的 `test`）。
 - `envs.yaml` 与本地 `envs.secrets.yaml`。
 - `@@BE` 断言清单（验证项、期望值、失败判定条件）。
 

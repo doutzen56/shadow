@@ -8,14 +8,14 @@
 
 ## 前置输入
 
-- 工作区名称或仓库名称。
-- 对应项目档案路径（`F:\shadow\projects\examples\<project-id>`）。
-- 目标环境集合（固定 `dev/test/uat`）。
+- 工程名（仓库根目录的解决方案文件名，例如 `HX.Matching.sln`），不看工作区目录名和盘符。
+- 对应项目档案路径（相对 SimpX 根：`projects/examples/<project-id>`）。
+- 目标环境集合（按项目 `envs.yaml` 的 `default_envs`，不要求 `dev/test/uat` 齐全；例如 hx-matching 只有 `dev/uat`，betwin 只有 `test`）。
 
 ## 执行步骤
 
 1. 确认是否存在项目档案（`README.md`、`profile.yaml`、`boundaries.md`）。
-2. 校验 `workspace-hosting.mdc` 中的映射是否正确。
+2. 校验 `workspace-hosting.mdc` 中按工程名的映射是否正确。
 3. 校验项目环境配置文件是否存在：`envs.yaml`、`envs.secrets.yaml`（本地）。
 4. 若文件缺失，按模板提示补齐最小骨架。
 5. 输出项目初始化检查结果和缺口清单。

@@ -1,31 +1,11 @@
 project_id: betwin
 display_name: BetWin
 owner: @@DEVOPS
+# 本项目只有 test 一套环境（没有 dev、uat）
 default_envs:
-  - dev
   - test
-  - uat
 
 environments:
-  dev:
-    description: 开发联调环境
-    db:
-      engine: sqlserver
-      host: "<dev-db-host>"
-      port: 1433
-      database: "<dev-db-name>"
-      username: "<dev-db-user>"
-    redis:
-      host: "<dev-redis-host>"
-      port: 6379
-      db: 0
-    mq:
-      engine: rabbitmq
-      host: "<dev-mq-host>"
-      port: 5672
-      vhost: "<dev-vhost>"
-      exchange: "<dev-exchange>"
-      queue: "<dev-queue>"
   test:
     description: 回归测试环境
     db:
@@ -45,25 +25,6 @@ environments:
       vhost: "<test-vhost>"
       exchange: "<test-exchange>"
       queue: "<test-queue>"
-  uat:
-    description: 业务验收环境
-    db:
-      engine: sqlserver
-      host: "<uat-db-host>"
-      port: 1433
-      database: "<uat-db-name>"
-      username: "<uat-db-user>"
-    redis:
-      host: "<uat-redis-host>"
-      port: 6379
-      db: 0
-    mq:
-      engine: rabbitmq
-      host: "<uat-mq-host>"
-      port: 5672
-      vhost: "<uat-vhost>"
-      exchange: "<uat-exchange>"
-      queue: "<uat-queue>"
 
 verification:
   required_components:

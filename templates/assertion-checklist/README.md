@@ -12,7 +12,7 @@
 - 项目标识：
 - 需求/缺陷编号：
 - 变更范围：
-- 目标环境：`dev` / `test` / `uat`
+- 目标环境：按项目 `envs.yaml` 的 `default_envs` 填写（如 hx-matching：`dev` / `uat`；betwin：`test`）
 - 输出人：`@@BE`
 - 接收人：`@@DEVOPS`
 

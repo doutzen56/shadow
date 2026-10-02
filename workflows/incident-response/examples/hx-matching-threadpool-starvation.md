@@ -46,6 +46,6 @@
 
 ## 关联知识
 
-- 经验教训：`F:\shadow\knowledge\lessons-learned\hx-matching-threadpool-starvation.md`
-- 多宿主架构：`F:\shadow\knowledge\architecture\hx-matching-multi-host.md`
-- 数据库分表约定：`F:\shadow\knowledge\engineering\sqlsugar-and-splittable-pattern.md`
+- 经验教训：`knowledge/lessons-learned/hx-matching-threadpool-starvation.md`
+- 多宿主架构：`knowledge/architecture/hx-matching-multi-host.md`
+- 数据库分表约定：`knowledge/engineering/sqlsugar-and-splittable-pattern.md`

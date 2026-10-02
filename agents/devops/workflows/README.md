@@ -2,7 +2,7 @@
 
 ## 工作目标
 
-在 `dev/test/uat` 三套环境中，按项目配置完成基础组件验证和交付报告输出。
+在项目 `envs.yaml` 的 `default_envs` 声明的环境中（不一定三套齐全，如 hx-matching 只有 `dev/uat`，betwin 只有 `test`），按项目配置完成基础组件验证和交付报告输出。
 
 ## 标准步骤
 

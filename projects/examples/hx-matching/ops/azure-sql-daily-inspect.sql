@@ -1,7 +1,7 @@
 /*==============================================================================
   Azure SQL 日巡检脚本 - HxMatching（SimpX 归档版）
-  归档：F:\shadow\projects\examples\hx-matching\ops\azure-sql-daily-inspect.sql
-  模式卡：F:\shadow\knowledge\patterns\reliability\azure-sql-dba-daily-inspect-v1.md
+  归档：projects/examples/hx-matching/ops/azure-sql-daily-inspect.sql
+  模式卡：knowledge/patterns/reliability/azure-sql-dba-daily-inspect-v1.md
 
   用途：DBA 日清检出 → 把结果贴给开发（query_id / 等待 / 表体积 / 死锁）
   环境：Azure SQL Database（单库执行）

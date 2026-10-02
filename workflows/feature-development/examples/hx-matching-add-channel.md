@@ -35,6 +35,6 @@
 
 ## 沉淀位置
 
-- 渠道扩展方法：`F:\shadow\knowledge\engineering\external-channel-plugin-model.md`
-- 接口契约风险：`F:\shadow\knowledge\engineering\merchant-partner-api-contracts.md`
-- 项目边界：`F:\shadow\projects\examples\hx-matching\boundaries.md`
+- 渠道扩展方法：`knowledge/engineering/external-channel-plugin-model.md`
+- 接口契约风险：`knowledge/engineering/merchant-partner-api-contracts.md`
+- 项目边界：`projects/examples/hx-matching/boundaries.md`

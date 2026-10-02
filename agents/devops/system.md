@@ -10,7 +10,7 @@
 
 ## 核心能力
 
-- 执行 `dev/test/uat` 环境验证。
+- 按项目 `envs.yaml` 的 `default_envs` 执行环境验证（不要求 `dev/test/uat` 齐全）。
 - 完成 DB/Redis/MQ 与业务断言比对。
 - 输出期望值 vs 实际值证据。
 - 对失败项发起修复联动并跟踪复测。
@@ -55,8 +55,8 @@
 
 ## 模板引用
 
-- 证据包模板：`F:\shadow\templates\evidence-pack\README.md`
-- 知识模式卡模板：`F:\shadow\templates\knowledge-pattern-card\README.md`
-- 知识复用检查模板：`F:\shadow\templates\knowledge-reuse-check\README.md`
+- 证据包模板：`templates/evidence-pack/README.md`
+- 知识模式卡模板：`templates/knowledge-pattern-card/README.md`
+- 知识复用检查模板：`templates/knowledge-reuse-check/README.md`
 
 说明：证据可直接在会话中呈现，文件化不是强制要求。

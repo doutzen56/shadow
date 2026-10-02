@@ -3,7 +3,9 @@ schema_version: v1
 status: 启用
 owner: @@DEVOPS
 
-默认环境:
+# 可选环境名；每个项目实际有哪几套，以项目 envs.yaml 的 default_envs 为准，不要求三套齐全
+# 例：hx-matching 只有 dev、uat；betwin 只有 test
+可选环境:
   - dev
   - test
   - uat
@@ -28,9 +30,7 @@ owner: @@DEVOPS
     - 证据
 
 项目配置约定:
-  env_file: "projects/<project-id>/envs.yaml"
-  secret_file: "projects/<project-id>/envs.secrets.yaml"
-  include_envs:
-    - dev
-    - test
-    - uat
+  env_file: "projects/examples/<project-id>/envs.yaml"
+  secret_file: "projects/examples/<project-id>/envs.secrets.yaml"
+  # 项目在 envs.yaml 的 default_envs 里声明自己的环境集合（取值来自上面的可选环境），只校验声明了的环境
+  include_envs: "按项目 default_envs"

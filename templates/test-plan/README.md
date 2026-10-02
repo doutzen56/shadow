@@ -3,7 +3,7 @@
 ## 基本信息
 
 - 项目标识：
-- 目标环境：`dev` / `test` / `uat`
+- 目标环境：按项目 `envs.yaml` 的 `default_envs` 填写（如 hx-matching：`dev` / `uat`；betwin：`test`）
 - 执行角色：`@@DEVOPS`
 - 协作角色：`@@BE` / `@@TL`
 

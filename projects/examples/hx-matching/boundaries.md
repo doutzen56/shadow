@@ -8,7 +8,7 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 ### 平台管理端
 
-路径：`E:\work\撮合项目\HX.Matching.Admin.WebApi`
+路径：`HX.Matching.Admin.WebApi`
 
 职责：
 
@@ -25,7 +25,7 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 ### 商户后台
 
-路径：`E:\work\撮合项目\HX.Matching.MerchantAdmin.WebApi`
+路径：`HX.Matching.MerchantAdmin.WebApi`
 
 职责：
 
@@ -40,7 +40,7 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 ### 商户开放接口
 
-路径：`E:\work\撮合项目\HX.Matching.MerchantApi`
+路径：`HX.Matching.MerchantApi`
 
 职责：
 
@@ -56,7 +56,7 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 ### 合作方互通接口
 
-路径：`E:\work\撮合项目\HX.Matching.PartnerApi`
+路径：`HX.Matching.PartnerApi`
 
 职责：
 
@@ -72,7 +72,7 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 ### 后台任务进程
 
-路径：`E:\work\撮合项目\HX.Matching.Quartz.Job`
+路径：`HX.Matching.Quartz.Job`
 
 职责：
 

@@ -62,8 +62,8 @@
 
 ## 模板引用
 
-- 异常调度模板：`F:\shadow\templates\orchestration-exception\README.md`
-- 知识周汇总模板：`F:\shadow\templates\knowledge-weekly-review\README.md`
-- 知识复用检查模板：`F:\shadow\templates\knowledge-reuse-check\README.md`
+- 异常调度模板：`templates/orchestration-exception/README.md`
+- 知识周汇总模板：`templates/knowledge-weekly-review/README.md`
+- 知识复用检查模板：`templates/knowledge-reuse-check/README.md`
 
 说明：模板是可选辅助，默认直接在会话中推进联动闭环。

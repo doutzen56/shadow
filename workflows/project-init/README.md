@@ -8,7 +8,7 @@
 
 - 工作区名称/仓库名称
 - 对应项目档案路径
-- 目标环境（`dev/test/uat`）
+- 目标环境（项目实际有的环境，从 `dev/test/uat` 中选，写进 `envs.yaml` 的 `default_envs`）
 
 ## 标准步骤
 

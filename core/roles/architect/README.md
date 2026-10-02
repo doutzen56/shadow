@@ -48,5 +48,5 @@
 
 ## 模板引用
 
-- 知识模式卡模板：`F:\shadow\templates\knowledge-pattern-card\README.md`
-- 知识复用检查模板：`F:\shadow\templates\knowledge-reuse-check\README.md`
+- 知识模式卡模板：`templates/knowledge-pattern-card/README.md`
+- 知识复用检查模板：`templates/knowledge-reuse-check/README.md`
