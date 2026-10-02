@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## 路径约定
 
-- SimpX 根目录不固定盘符，由用户指定（换电脑可能变）；没指定时用本规则文件所在的 SimpX 根。
+- SimpX 根目录不固定盘符（换电脑可能变）：以本次对话里用户第一次让你读的目录为准；用户还没指定时，先问，不要猜。
 - SimpX 文档里的路径一律相对 SimpX 根，例如 `projects/examples/hx-matching`。
 - 项目档案里的源码路径一律相对业务仓根目录，例如 `HX.Matching.Admin.WebApi`；业务仓放在哪个盘、哪个目录都不影响。
 
