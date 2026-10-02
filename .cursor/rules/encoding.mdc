@@ -1,0 +1,27 @@
+---
+description: 我写的文档统一用 UTF-8；读写文档时不管用什么脚本，都要显式指定 UTF-8
+alwaysApply: true
+---
+
+# 文档编码硬规则
+
+来源：用户 2026-10-03「记住：」。
+
+## 写文档
+
+- 凡是由我编写的文档（md、mdc、yaml、json、txt、sql、脚本等），统一用 **UTF-8（不带 BOM）** 保存，保证中文不乱码。
+- 优先用编辑器自带的写文件工具；必须用脚本写时，要显式指定 UTF-8：
+  - Python：`open(path, "w", encoding="utf-8", newline="\n")`
+  - PowerShell：`[IO.File]::WriteAllText(path, text, [Text.UTF8Encoding]::new($false))`；不要用 Windows PowerShell 5 默认的 `Set-Content` / `Out-File` / `>`，它们会写成 ANSI 或 UTF-16。
+  - .NET：`File.WriteAllText(path, text, new UTF8Encoding(false))`
+  - Node：`fs.writeFileSync(path, text, "utf8")`
+- 不要往文件里写进空字节（NUL）、乱码头或混合编码。
+- 写完要自检：文件能按 UTF-8 正常读出中文，开头没有空字节。
+
+## 读文档
+
+- 打开我写的文档时，不管用 Python、PowerShell 还是别的脚本，都要显式按 UTF-8 读，不靠系统默认编码：
+  - Python：`open(path, encoding="utf-8")`（可能带 BOM 时用 `utf-8-sig`）
+  - PowerShell：先 `[Console]::OutputEncoding = [Text.Encoding]::UTF8`，再 `Get-Content -Encoding UTF8 path`
+  - .NET：`File.ReadAllText(path, Encoding.UTF8)`
+- 读出来是乱码或被判成二进制时，先查编码和文件头，不要带着乱码继续往下做。
