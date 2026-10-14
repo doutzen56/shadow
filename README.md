@@ -51,6 +51,20 @@ SimpX 是一个个人智能技术团队框架，用来把技术负责人的判�
 @@X：按项目风格完成任务分析、方案、验证和沉淀。
 ```
 
+## Agent 工作入口
+
+Agent 开始工作前，按以下顺序读取和判断：
+
+1. `.cursor/rules/`：当前必须执行的硬规则。
+2. `config/active-rules.yaml`：当前生效规则清单和优先级。
+3. `config/simpx.yaml`：成员、召唤标签和默认协作顺序。
+4. `workflows/_shared/`：任务入口、权限、证据和完成检查。
+5. 当前任务对应的 `workflows/<name>/README.md`。
+6. 召唤标签对应的 `agents/<role>/system.md`。
+7. 当前业务仓映射到的项目档案。
+
+规则冲突时，以用户当前消息和 `config/active-rules.yaml` 登记的生效规则为准。
+
 ## 建设原则
 
 - 先可用，再完整。

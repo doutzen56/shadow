@@ -1,0 +1,79 @@
+schema_version: v1
+purpose: SimpX 当前生效规则清单。Agent 以这里登记的规则为准，不把规划目录误当成已启用规则。
+
+priority:
+  - user_message
+  - active_rules
+  - project_profile
+  - workflow
+  - role_definition
+  - templates
+
+rule_layers:
+  runtime:
+    source: .cursor/rules/agent-runtime-protocol.mdc
+    status: enabled
+    owner: "@@X"
+  permission:
+    source: .cursor/rules/permission-levels.mdc
+    status: enabled
+    owner: "@@X"
+  task_intake:
+    source: .cursor/rules/task-intake-checklist.mdc
+    status: enabled
+    owner: "@@X"
+  evidence:
+    source: .cursor/rules/evidence-standard.mdc
+    status: enabled
+    owner: "@@TL"
+  completion:
+    source: .cursor/rules/completion-definition.mdc
+    status: enabled
+    owner: "@@TL"
+  simpx_core:
+    source: .cursor/rules/simpx-core.mdc
+    status: enabled
+    owner: "@@X"
+  workspace_hosting:
+    source: .cursor/rules/workspace-hosting.mdc
+    status: enabled
+    owner: "@@X"
+  git:
+    source: .cursor/rules/git.mdc
+    status: enabled
+    owner: "@@DEVOPS"
+  testing:
+    source: .cursor/rules/testing.mdc
+    status: enabled
+    owner: "@@DEVOPS"
+  coding:
+    source: .cursor/rules/coding.mdc
+    status: enabled
+    owner: "@@BE"
+  security:
+    source: .cursor/rules/security.mdc
+    status: enabled
+    owner: "@@TL"
+  encoding:
+    source: .cursor/rules/encoding.mdc
+    status: enabled
+    owner: "@@X"
+
+reference_layers:
+  core:
+    path: core/
+    status: reference
+    note: 原则、宪章和长期设计。与 active_rules 冲突时，以 active_rules 为准。
+  templates:
+    path: templates/
+    status: reference
+    note: 输出模板。只有工作流或角色明确引用时才使用。
+  knowledge:
+    path: knowledge/
+    status: reference
+    note: 长期经验库。正式知识必须经用户或 @@TL 确认。
+
+checks:
+  - 新增 alwaysApply 规则后，必须登记到 rule_layers。
+  - 修改角色召唤标签后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc 和 agents/。
+  - 规划目录不能当作已启用规则引用。

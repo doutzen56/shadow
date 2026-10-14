@@ -1,12 +1,24 @@
-﻿# 模块说明
+﻿# 策略原则
 
-本目录属于 SimpX 长期蓝图的一部分。
+## 当前定位
 
-当前阶段采用分级建设方式：核心能力优先完善，平台化能力先保留方向。目录存在不代表能力已经完成，具体状态以本目录文档和总配置为准。
+`core/policies/` 是长期原则参考，不是当前 agent 的直接执行规则。
 
-状态说明：
+当前真正生效的规则以 `config/active-rules.yaml` 登记的 `.cursor/rules/*.mdc` 为准。
 
-- 已启用：一阶段需要维护并在实际任务中使用。
-- 草稿：已有方向，随着任务逐步补充。
-- 规划：保留长期方向，暂不进入日常流程。
-- 实验：允许探索，但不作为稳定承诺。
+如果本目录内容和 `config/active-rules.yaml` 冲突，按 `config/active-rules.yaml` 执行。
+
+本目录适合沉淀稳定后的原则，不能替代任务入口、权限等级、证据标准和完成定义。
+
+## 文档范围
+
+- `autonomy.md`：agent 自主边界。
+- `change-scope.md`：修改范围。
+- `permission.md`：工具和操作权限。
+- `production-access.md`：生产访问。
+
+## 使用规则
+
+- 日常执行先看 `.cursor/rules/`。
+- 本目录只解释策略原则。
+- 稳定后的策略可以再同步到 `.cursor/rules/` 或 `config/active-rules.yaml`。

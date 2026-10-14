@@ -1,11 +1,13 @@
 ﻿# SimpX 全局配置
-名称：SimpX
-阶段：一阶段
-语言：中文
-文件命名：保留通用英文
-正文要求：全部使用中文
-建设策略：完整结构保留，核心能力优先完善
-核心模块:
+schema_version: v1
+name: SimpX
+stage: 一阶段
+language: 中文
+file_naming: 保留通用英文
+content_language: 全部使用中文
+build_strategy: 完整结构保留，核心能力优先完善
+
+core_modules:
   - 核心规则
   - 角色系统
   - 工作流程
@@ -13,44 +15,49 @@
   - 长期知识
   - 通用模板
   - 全局配置
-未来模块:
+
+future_modules:
   - 工具连接层
   - 自研工具链
   - 质量评估体系
   - 自动化协作配置
-成员清单:
-  - 正式编号：X-01
-    召唤标签：@@X
-    职责：团队调度者
-  - 正式编号：TL-01
-    召唤标签：@@TL
-    职责：技术负责人
-  - 正式编号：BA-01
-    召唤标签：@@BA
-    职责：后端架构工程师
-  - 正式编号：BE-01
-    召唤标签：@@BE
-    职责：后端实现工程师
-  - 正式编号：DEVOPS-01
-    召唤标签：@@DEVOPS
-    职责：环境与交付工程师
-辅助成员:
-  - 标识：reviewer
-    状态：辅助启用
-    职责：高风险改动审查
-  - 标识：researcher
-    状态：辅助启用
-    职责：方案调研与实验结论
-召唤标签映射:
-  @@X：X-01
-  @@TL：TL-01
-  @@BA：BA-01
-  @@BE：BE-01
-  @@DEVOPS：DEVOPS-01
-默认协作顺序:
-  - @@X
-  - @@TL
-  - @@BA
-  - @@BE
-  - @@DEVOPS
-  - @@TL
+
+members:
+  - id: X-01
+    tag: "@@X"
+    role: 团队调度者
+  - id: TL-01
+    tag: "@@TL"
+    role: 技术负责人
+  - id: BA-01
+    tag: "@@BA"
+    role: 后端架构工程师
+  - id: BE-01
+    tag: "@@BE"
+    role: 后端实现工程师
+  - id: DEVOPS-01
+    tag: "@@DEVOPS"
+    role: 环境与交付工程师
+
+assistants:
+  - id: reviewer
+    status: 辅助启用
+    role: 高风险改动审查
+  - id: researcher
+    status: 辅助启用
+    role: 方案调研与实验结论
+
+tag_map:
+  "@@X": X-01
+  "@@TL": TL-01
+  "@@BA": BA-01
+  "@@BE": BE-01
+  "@@DEVOPS": DEVOPS-01
+
+default_collaboration_order:
+  - "@@X"
+  - "@@TL"
+  - "@@BA"
+  - "@@BE"
+  - "@@DEVOPS"
+  - "@@TL"

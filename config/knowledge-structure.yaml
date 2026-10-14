@@ -7,9 +7,11 @@ storage_layers:
     write_policy: 自动收集
   - name: candidate
     description: 候选模式层（结构化提炼，待TL确认）
-    write_policy: 每次任务结束产出
+    path: knowledge/candidates
+    write_policy: 每次任务结束按价值判断是否产出
   - name: knowledge
     description: 正式知识层（仅TL确认后入库）
+    path: knowledge
     write_policy: 仅在用户明确确认后写入
 
 pattern_card_required_fields:
