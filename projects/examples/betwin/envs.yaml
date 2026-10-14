@@ -1,6 +1,6 @@
 project_id: betwin
 display_name: BetWin
-owner: @@DEVOPS
+owner: "@@DEVOPS"
 # 本项目只有 test 一套环境（没有 dev、uat）
 default_envs:
   - test

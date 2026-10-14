@@ -13,7 +13,7 @@ projects:
 maturity: validated
 reuse_score: 90
 last_verified_at: 2026-09-25
-owner: @@X
+owner: "@@X"
 status: active
 ---
 

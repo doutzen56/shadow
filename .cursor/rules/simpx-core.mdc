@@ -65,6 +65,7 @@ alwaysApply: true
 
 - 只读分析：`@@X → @@BA` 或 `researcher → @@TL`。
 - 小型修复：`@@X → @@BE → @@DEVOPS`。
+- 中等改动：`@@X → @@TL → @@BA → @@BE → @@DEVOPS → @@TL`。
 - 高风险改动：`@@X → @@TL → @@BA → @@BE → reviewer → @@DEVOPS → @@TL`。
 
 不管走哪条链路，证据不全不能通过，验证缺失不能宣告完成。

@@ -1,6 +1,6 @@
 project_id: hx-matching
 display_name: HX.Matching
-owner: @@DEVOPS
+owner: "@@DEVOPS"
 # 本项目只有 dev 和 uat 两套环境（没有 test）
 default_envs:
   - dev

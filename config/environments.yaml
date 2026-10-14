@@ -1,7 +1,7 @@
 ﻿# 环境配置基线（全局）
 schema_version: v1
 status: 启用
-owner: @@DEVOPS
+owner: "@@DEVOPS"
 
 # 可选环境名；每个项目实际有哪几套，以项目 envs.yaml 的 default_envs 为准，不要求三套齐全
 # 例：hx-matching 只有 dev、uat；betwin 只有 test

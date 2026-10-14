@@ -46,6 +46,6 @@
 
 ## 关联知识
 
-- 经验教训：`knowledge/lessons-learned/hx-matching-threadpool-starvation.md`
-- 多宿主架构：`knowledge/architecture/hx-matching-multi-host.md`
-- 数据库分表约定：`knowledge/engineering/sqlsugar-and-splittable-pattern.md`
+- 多宿主架构：`projects/examples/hx-matching/architecture-map.md`
+- 事故复盘：业务仓 `docs/线程池饥饿事故复盘与修复说明.md`；SimpX 正式复盘还没有，确认后放 `knowledge/incidents/2026/`。
+- 数据库分表约定：还没有正式条目，先写到 `knowledge/candidates/`。

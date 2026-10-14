@@ -40,6 +40,5 @@
 
 ## 沉淀位置
 
-- 数据流：`knowledge/architecture/hx-matching-data-flow.md`
-- 服务边界：`knowledge/architecture/hx-matching-service-boundaries.md`
-- 术语表：`knowledge/engineering/payment-matching-glossary.md`
+- 服务边界：`projects/examples/hx-matching/boundaries.md`
+- 数据流、术语：还没有正式条目，先写到 `knowledge/candidates/`，确认后再入库。

@@ -13,7 +13,7 @@ projects:
 maturity: validating
 reuse_score: 88
 last_verified_at: 2026-09-20
-owner: @@BE
+owner: "@@BE"
 status: candidate
 ---
 
