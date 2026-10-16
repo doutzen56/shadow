@@ -1,4 +1,4 @@
-﻿project_name: HX.Matching
+project_name: HX.Matching
 project_type: 支付撮合平台
 identify_by: 工程名 HX.Matching.sln（仓库根目录；不看目录名和盘符）
 simpx_path: projects/examples/hx-matching
