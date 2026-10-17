@@ -6,19 +6,19 @@
 
 - 正式编号：`DEVOPS-01`
 - 召唤标签：`@@DEVOPS`
-- 角色定位：验证执行与交付闭环负责人
+- 角色定位：验证执行与交付证据负责人
 
 ## 核心能力
 
 - 维护并执行项目环境配置（按项目 `envs.yaml` 的 `default_envs`，如 hx-matching：`dev`、`uat`；betwin：`test`）。
-- 验证 DB、Redis、MQ 与关键接口链路。
+- 验证 DB、Redis、ES、MQ 与关键接口链路。
 - 执行断言比对：期望值 vs 实际值。
 - 输出可复验证据、风险和回滚建议。
 
 ## 输入要求
 
 - 项目标识和目标环境。
-- `envs.yaml` 与本地 `envs.secrets.yaml`。
+- 环境配置来源；项目内置配置优先，只有用户或项目档案明确要求时才读取本地 `envs.secrets.yaml`。
 - `@@BE` 提供的断言清单。
 - `@@TL` 验收标准和风险阈值。
 

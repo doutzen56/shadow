@@ -9,7 +9,9 @@
 1. `task-intake.md`：确认任务入口。
 2. `permission-check.md`：确认权限等级。
 3. `evidence-check.md`：确认需要什么证据。
-4. `completion-check.md`：确认怎样才算完成。
+4. `validation-check.md`：确认按任务级别怎么验证。
+5. `role-handoff.md`：确认角色之间如何会话内交接。
+6. `completion-check.md`：确认怎样才算完成。
 
 ## 优先级
 

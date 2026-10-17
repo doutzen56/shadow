@@ -16,7 +16,7 @@
 
 1. 确认是否存在项目档案（`README.md`、`profile.yaml`、`boundaries.md`）。
 2. 校验 `workspace-hosting.mdc` 中按工程名的映射是否正确。
-3. 校验项目环境配置文件是否存在：`envs.yaml`、`envs.secrets.yaml`（本地）。
+3. 校验项目环境配置来源：项目内置配置优先；只有用户或项目档案明确要求时才检查 `envs.secrets.yaml`（本地）。
 4. 若文件缺失，按模板提示补齐最小骨架。
 5. 输出项目初始化检查结果和缺口清单。
 
