@@ -1,8 +1,17 @@
 schema_version: v1
 purpose: RAG ingestion 的机器可读清单。
-manifest_version: 0.1.0
-status: draft
-
+manifest_version: 0.2.0
+status: active
+baseline:
+  version: rag-baseline-betwin-0.1.0
+  run_id: 20261018T064704Z-baseline-betwin
+  manifest_hash: c99a9a65937bbad33d53052dd12c54ba10ce41fb9298ae692e2a96cfd98621c8
+  sqlite_schema_version: rag-data-model-v1
+  qdrant_collection_version: local-file-collection-v1
+  embedding_model: not-configured-local-placeholder
+  chunk_strategy: markdown-heading-yaml-top-key-code-summary
+  routing_table_version: rag-x-routing-v1
+  role_matrix_version: rag-role-matrix-v1
 sources:
   configs:
     - config/rag-data-model.yaml
@@ -23,13 +32,16 @@ sources:
     - workflows/knowledge-auto-repair
     - workflows/knowledge-rag-evaluation
     - workflows/knowledge-rag-bootstrap
-
 seed_projects:
   hx-matching:
     status: pending
     profile: projects/examples/hx-matching/profile.yaml
     summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
   betwin:
-    status: pending
+    status: active
     profile: projects/examples/betwin/profile.yaml
     summary_manifest: knowledge/code-summaries/betwin/manifest.yaml
+    repo_root: F:/20260926
+    imported_docs: 73
+    summarized_files: 1545
+    last_ingestion_run: 20261018T064704Z-baseline-betwin

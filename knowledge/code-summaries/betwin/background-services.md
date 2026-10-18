@@ -1,0 +1,139 @@
+# 后台服务
+
+- project_id: `betwin`
+- host_or_layer: `background-service`
+- roots: `Services/JobSchedule`, `Services/DataAnalysis`, `Services/GameLog`, `Services/MqServer`
+- file_count: 72
+- generated_at: 2026-10-18T06:47:04Z
+
+## 风险标签
+
+`async`, `cache-consistency`, `callback`, `elasticsearch`, `funds`, `gateway`, `mq`, `order-state`, `retry`, `user-data`
+
+## 代表文件
+
+- `Services/JobSchedule/App.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/BackgroundService.cs`：符号 `BackgroundService, Start, Stop`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/JobSchedule.csproj`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/NLog.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/packages.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/Program.cs`：符号 `Program, Main`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/JobSchedule/Properties/AssemblyInfo.cs`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/AddPointAction.cs`：符号 `AddPointAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/AgentReturnPlan.cs`：符号 `AgentReturnPlan`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/AutoEventLog.cs`：符号 `AutoEventLog, UserInviteTask, InviteRewardTask, InviteTaskTask, CompetitionTask, WashingTask, FirstRechargeTask, DelotteryCountTask`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/CheckGemeLogDelayAction.cs`：符号 `CheckGemeLogDelayAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/CheckInEvent.cs`：符号 `CheckInEvent`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/CheckWithdraw.cs`：符号 `CheckWithdraw`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/DailyReportAction.cs`：符号 `DailyReportAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/DataMaintenanceAction.cs`：符号 `DataMaintenanceAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/GameEnteranceAction.cs`：符号 `GameEnteranceAction`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/GameLogImport.cs`：符号 `GameLogImport`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/GameMaintainPlanAction.cs`：符号 `GameMaintainPlanAction`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/IAction.cs`：符号 `IAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/PointRecordAction.cs`：符号 `PointRecordAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/ProxyStatistics.cs`：符号 `ProxyStatistics`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/RiskAction.cs`：符号 `RiskAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/SyncAgentGameDateAction.cs`：符号 `SyncAgentGameDateAction`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/SyncUserGameDateAction.cs`：符号 `SyncUserGameDateAction`；风险 `async, elasticsearch, funds, gateway, mq, retry, user-data`。
+- `Services/DataAnalysis/Action/SynGameLog.cs`：符号 `SynGameLog`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/Action/TeamStatistics.cs`：符号 `TeamStatistics`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/TelegramAction.cs`：符号 `TelegramAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/TicketNotify.cs`：符号 `TicketNotify`；风险 `async, callback, elasticsearch, funds, mq, order-state, retry`。
+- `Services/DataAnalysis/Action/UpdateSystem.cs`：符号 `UpdateSystem`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Action/UpdateUserActive.cs`：符号 `UpdateUserActive`；风险 `async, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/Action/UpdateUserExper.cs`：符号 `UpdateUserExper`；风险 `async, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/Action/UpdateUserMoney.cs`：符号 `UpdateUserMoney`；风险 `async, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/Action/UpdateUserVIP.cs`：符号 `UpdateUserVIP`；风险 `async, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/Action/WashFlowAction.cs`：符号 `WashFlowAction`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/App.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/BackgroundService.cs`：符号 `BackgroundService, Start, Stop`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/DataAnalysis.csproj`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/DataTools/GameLogImport.cs`：符号 `GameLogImport, importGameLog, syncOrder`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/DataTools/GameRedisHandle.cs`：符号 `GameRedisHandle, Handle`；风险 `async, cache-consistency, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/DataTools/SynGameLogImport.cs`：符号 `SynGameLogImport, importGameLogLossData`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/DataTools/TransferByGame.cs`：符号 `TransferByGame`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/DataAnalysis/DataTools/UpdateUserAgent.cs`：符号 `UpdateUserAgent`；风险 `async, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/DataTools/UserInfoCache.cs`：符号 `UserInfoCache`；风险 `async, cache-consistency, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/DataTools/UserMoneyCache.cs`：符号 `UserMoneyCache`；风险 `async, cache-consistency, elasticsearch, funds, mq, retry, user-data`。
+- `Services/DataAnalysis/DevNull.cs`：符号 `DevNull`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/NLog.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/packages.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Program.cs`：符号 `Program, Main`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/DataAnalysis/Properties/AssemblyInfo.cs`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/GameLog/App.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/BackgroundService.cs`：符号 `BackgroundService, StartAsync, Stop`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/BackgroundServiceNew.cs`：符号 `BackgroundServiceNew, DownloadJob, Start, Stop, LoadAssemblyJobs`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/BackgroundServiceNewV2.cs`：符号 `BackgroundServiceNewV2, SyncPlatformJob, DownloadJobV2, Start, Stop, SyncPlatformJobs, ScheduleSyncJob, Execute`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/Debug.cs`：符号 `Debug`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/GameLog.csproj`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/Games/Config.cs`：符号 `Config, Run, RunV2, NewRun, SportFbLog, Dispose`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/NLog.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/packages.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/Program.cs`：符号 `Program, Main`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/GameLog/Properties/AssemblyInfo.cs`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, gateway, mq, retry`。
+- `Services/MqServer/App.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/Consumer/DataProviderNewsConsumer.cs`：符号 `DataProviderNewsConsumer`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/MessageQueue/ConsumerBase.cs`：符号 `ConsumerBase, SaveFaildMessage`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/MessageQueue/DataProviderNewsQueue.cs`：符号 `DataProviderNewsQueue`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/MessageQueue/ExchangeName.cs`：符号 `ExchangeName`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/MessageQueue/Producer.cs`：符号 `Producer, Send`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/Model/NewModel.cs`：符号 `NewModel, NewsType`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/MqServer.csproj`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/packages.config`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/Program.cs`：符号 `Program, StartServer, SendMessage`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/Properties/AssemblyInfo.cs`：符号 `未提取到公开符号`；风险 `async, elasticsearch, funds, mq, retry`。
+- `Services/MqServer/Startup.cs`：符号 `Startup, ConfigureServices`；风险 `async, elasticsearch, funds, mq, retry`。
+
+## 跳过项
+
+- `Services/JobSchedule/bin/Debug/AWSSDK.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Caching.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Caching.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Caching.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Common.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Common.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Common.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Common.Pusher.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Common.Pusher.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Authorization.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Authorization.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Authorization.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Event.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Event.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Event.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Game.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Game.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Game.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Payment.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Payment.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.SMS.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.SMS.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.VIP.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.VIP.dll.config`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.VIP.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Withdraw.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.Gateway.Withdraw.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BetWin.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BouncyCastle.Crypto.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BouncyCastle.Cryptography.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/BouncyCastle.Cryptography.xml`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/ChnCharInfo.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/DocumentFormat.OpenXml.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/DocumentFormat.OpenXml.Framework.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/DocumentFormat.OpenXml.Framework.xml`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/DocumentFormat.OpenXml.xml`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/EasyNetQ.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/EasyNetQ.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/EasyNetQ.xml`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Elasticsearch.Net.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Elasticsearch.Net.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Elasticsearch.Net.xml`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Enums.NET.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Enums.NET.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/ExtendedNumerics.BigDecimal.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Gma.QrCodeNet.Encoding.dll`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/Gma.QrCodeNet.Encoding.pdb`：forbidden_directory
+- `Services/JobSchedule/bin/Debug/ICSharpCode.SharpZipLib.dll`：forbidden_directory

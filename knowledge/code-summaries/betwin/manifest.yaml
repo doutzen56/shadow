@@ -1,6 +1,37 @@
 schema_version: v1
 project_id: betwin
-status: pending
+status: active
 source_profile: projects/examples/betwin/profile.yaml
-summary_groups: []
-last_ingestion_run:
+last_ingestion_run: 20261018T064704Z-baseline-betwin
+generated_at: 2026-10-18T06:47:04Z
+summary_groups:
+  - id: core-agents
+    title: 业务 Agent
+    host_or_layer: business-agent
+    file_count: 178
+    summary_file: knowledge/code-summaries/betwin/core-agents.md
+  - id: common-models
+    title: 公共模型
+    host_or_layer: domain-model
+    file_count: 427
+    summary_file: knowledge/code-summaries/betwin/common-models.md
+  - id: caching
+    title: 业务缓存
+    host_or_layer: cache
+    file_count: 53
+    summary_file: knowledge/code-summaries/betwin/caching.md
+  - id: handlers
+    title: 请求 Handler
+    host_or_layer: http-handler
+    file_count: 285
+    summary_file: knowledge/code-summaries/betwin/handlers.md
+  - id: gateways
+    title: 第三方网关
+    host_or_layer: external-gateway
+    file_count: 530
+    summary_file: knowledge/code-summaries/betwin/gateways.md
+  - id: background-services
+    title: 后台服务
+    host_or_layer: background-service
+    file_count: 72
+    summary_file: knowledge/code-summaries/betwin/background-services.md

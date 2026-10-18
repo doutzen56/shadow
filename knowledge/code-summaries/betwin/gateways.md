@@ -1,0 +1,148 @@
+# 第三方网关
+
+- project_id: `betwin`
+- host_or_layer: `external-gateway`
+- roots: `Library/GateWay/BetWin.Gateway.Game`, `Library/GateWay/BetWin.Gateway.Payment`, `Library/GateWay/BetWin.Gateway.Withdraw`, `Library/GateWay/BetWin.Gateway.Payment.Special`, `Library/GateWay/BetWin.Gateway.Withdraw.Special`
+- file_count: 530
+- generated_at: 2026-10-18T06:47:04Z
+
+## 风险标签
+
+`callback`, `funds`, `gateway`, `idempotency`, `login`, `mq`, `order-state`, `permission`, `user-data`
+
+## 代表文件
+
+- `Library/GateWay/BetWin.Gateway.Game/AE.cs`：符号 `AE, toCurrency, ToLiveLog, GetSubCategory, GetTip, ToRewardLog, GetBetLimit, toACELang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AG.cs`：符号 `AG, IsValidXml, toSystem, ToLiveLog2, GetSubCategory, GetGameResult, ToSlotLog2, ToFishLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AllBet.cs`：符号 `AllBet, GetAgent, GetPropertyId, GetKey, GetSuffix, getCurrencyList, getCurrency, GetSubCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Antplay.cs`：符号 `Antplay, getCurrencyAntplay, POST, ToSlotLog, HmacMd5, CreateOrderId, ToAntplayLang, ToLocalCurrency`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AP.cs`：符号 `AP, GetAgentCode, GetAgentKey, GetSecretKey, GetCurrencyAPList, GetCurrencyAP, ProcessWagersData, POST`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/app.config`：符号 `未提取到公开符号`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AT.cs`：符号 `AT, POST, AesGcmEncrypt, StringToByteArray, BytesToHex, ToSlotLog, CreateOrderId, ToATLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/ATG.cs`：符号 `ATG, getCurrencyATGList, getCurrencyATG, toCurrency, ToLanguage, GetPlayGameKey, GetAgent, GetAgentKey`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AVIA.cs`：符号 `AVIA, GetSingleOrder, GetComboOrder, GetSmartOrder, GetSlotLog, GetESportStatus, Push, PushMoney`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/AVIA2.cs`：符号 `AVIA2, GetVisualSport, GetAnchorOrder, GetSingleOrder, GetComboOrder, GetSmartOrder, GetESportStatus, GetSlotLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BAE.cs`：符号 `BAE, ToSlotLog, ToSportLog, ToFishLog, GetLiveGame, ToLiveLog, GetSubCategory, GetPlay`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BBIN.cs`：符号 `BBIN, CreateSession, ToBBinLang, ToBBinCurrency, GetLoginUrl, GetLoginUrl2, GetKey, GetGameLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BBIN2.cs`：符号 `BBIN2, CreateSession, ToBBinLang, ToBBinCurrency, GetLoginUrl, GetLoginUrl2, GetKey, GetGameLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Bet188.cs`：符号 `Bet188, GetSportOddsType, GetSign`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BetWin.Gateway.Game.csproj`：符号 `未提取到公开符号`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BetWinLottery.cs`：符号 `BetWinLottery, Push`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BG.cs`：符号 `BG, GetSecretKey, GetAgentId, GetAgentLoginPassword, GetSN, getCurrencyBGList, getCurrencyBG, GetLiveLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BitGame.cs`：符号 `BitGame, ToSlotLog, GetSign, GetTimestamp, Push`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BL.cs`：符号 `BL, getCurrencyBL, ToChessLog, GetSubCategory, ToBLLang, GetAccessKeyId, GetKeySecret, SHA1`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BNG.cs`：符号 `BNG, ToSlotLog, GET, ToEngCurrency, ToSysCurrency, ToBNGLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BS.cs`：符号 `BS, ToChessLog, GetSubCategory, GameName, toBSLang, CreateOrderId, MD5Encrypt, AesEncrypt`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BTG.cs`：符号 `BTG, getCurrencyList, getCurrencyBTG, POST, ProcessTimeRange, ToSlotLog, ToFishLog, GetSubCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/BTI.cs`：符号 `BTI, BTIResponse, GetSettledBets, GetUnsettledBets, GetBets, GetAuthToken, ToSportLog, GetOddsType`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CB.cs`：符号 `CB, ToLotteryLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CG.cs`：符号 `CG, getCurrencyList, getCurrencyCG, POST, POSTGameRecord, ToSlotLog, CreateOrderId, ToCGLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CMD.cs`：符号 `CMD, GetMatch, GetTeamName, GetOddsType, GetStatus, Push, getPushOrder`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/COG.cs`：符号 `COG, TransferModel, LoginModel, GetGateway, GetPlatformId, GetKey, ToLiveLog, GetSubCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/ConsoleResult.cs`：符号 `ConsoleResult, Show`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/CurrencyHelper.cs`：符号 `CurrencyHelper, GetCurreny, Usdt2Usd, Usd2UsdtByBet`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/FtpHelper.cs`：符号 `FtpHelper, Upload, Download, Delete, RemoveDirectory, GetFilesDetailList, GetFileList, GetDirectoryList`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/IGameDelegate.cs`：符号 `IGameDelegate`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/IpHelper.cs`：符号 `IpHelper, GetClientIP, IsIP`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/ITGP.cs`：符号 `ITGP, Credit, Debit`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/LanguageHelper.cs`：符号 `LanguageHelper, GetISO3166, GetISO639, ToLanguage`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/RPHelper.cs`：符号 `RPHelper, ToRPLanguage`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/Security/EncryptHelper.cs`：符号 `EncryptHelper, Encrypt, Decrypt, EncodeBase64, DESEncrypt, AESEncryptForQ761, AESDecryptForQ761, DESEncryptForGm`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/StringHelper.cs`：符号 `StringHelper, LimitStringLength, IsJObject, IsJArray`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Common/XmlHelper.cs`：符号 `XmlHelper, Deserialize, Serializer, GetXMLValue`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CQ9.cs`：符号 `CQ9, GetCurrencyList, getCurrencyCQ9, toCqCurrency, ToLiveLog, GetSubCategory, GetResult, LivePlay`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CR.cs`：符号 `CR, GetAGID, GetAgent, GetAGPassword, GetSecretKey, getCurrencyCRList, getCurrencyCR, ToSportLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/CS.cs`：符号 `CS, Random, GetGameList, GetUserInfoByUserName, GetUserId, GetTimeStamps`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DB.cs`：符号 `DB, GetOB2Currency, GetCurrency2OB, ToSportLog, GetSportOddsType, ToDBLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DBChess.cs`：符号 `DBChess, ToChessLog, GetSubCategory, Int2Decimal, GetCategory, CreateOrderId, RandString, Encrypt`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DBESport.cs`：符号 `DBESport, GetESport, GetSmallESport, ToSmallESportLog, toDBCurrency, toSysCurrency, ToESportLog, GetCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DBLive.cs`：符号 `DBLive, GetOB2Currency, GetTimeStamps, ToLiveLog, GetSubCategory, GetPlatform, GetSportOddsType, ToDBLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DBLottery.cs`：符号 `DBLottery, GetCurrencyDBEsport, GetCurrencyList, ToLotteryLog, toSysCurrency, toDBCurrency, getPlat, toDBLanguage`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DBSlot.cs`：符号 `DBSlot, GetCurrencyDBSlotList, GetCurrencyDBSlot, POST, ToSlotLog, CreatePlayerName, CreateOrderId, ToDBSlotLanguage`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Debug.cs`：符号 `Debug, WriteLine`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DG.cs`：符号 `DG, DGBase, DGBaseData, DGRegister, DGLogin, DGLimit, DGTran, DGBalance`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Dongsen.cs`：符号 `Dongsen, DateTimeToStamp, Get, AESEncrypt, ToSportLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/DT.cs`：符号 `DT, GetSubCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/eBET.cs`：符号 `eBET, GetSubCategory, Sign`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/EEAI.cs`：符号 `EEAI, POST, GET, ToLiveLog, GetSubCategory, GetCardResult, GetPlayler, ConvertCard`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/EEAIINN.cs`：符号 `EEAIINN, POST, GET, ToLiveLog, GetSubCategory, GetCardResult, GetPlayler, ConvertCard`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/EVO.cs`：符号 `EVO, EovLogin, Player, Session, Channel, Brand, Config, ToLiveLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/Fantasy.cs`：符号 `Fantasy, getCurrencyFantasy, getCurrencyFantasyList, GetCategory, ToFanstasyLog, ToSportLogByCombine, ToSportLogByGame, ToSportLogByGuess`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FantasyBattle.cs`：符号 `FantasyBattle, getCurrencyFantasy, getCurrencyFantasyList, GetCategory, ToFanstasyLog, ToSportLogByCombine, ToSportLogByGame, ToSportLogByGuess`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FB.cs`：符号 `FB, toFbCurrency, toSysCurrency, toSysLanguage, ToSportLog, ToPlatform, GetSportOddsType, CreateSign`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FBLive.cs`：符号 `FBLive, getCurrencyFBLive, getCurrencyList, ToLiveLog, GetCardResult, GetPoker, AnalysisPoker, GetSubCategory`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FC.cs`：符号 `FC, GetGame, ToSlotLog, ToFishLog, GetSubCategory, ToLanguage, GetParams, GetReParams`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FG.cs`：符号 `FG, getCurrency, getCurrencyList, ToFishLog, ToChessLog, GetSubCategory, ToSlotLog, GetGateway`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/FGaming.cs`：符号 `FGaming, ToLotteryLog, POST, GetISO, GetCurrency, CreateOrderId`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/GameFactory.cs`：符号 `GameFactory, CreateGameSetting, CreatePushGameSetting, IsGame, SetSaveLogMethod`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/GB.cs`：符号 `GB, getCurrency, getCurrencyList, ToFishLog, GetSubCategory, ToChessLog, ToSlotLog, GetAppId`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/GLC.cs`：符号 `GLC, ToSlotLog, getRadom, GetKeyG, ToGLCLang`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/GM.cs`：符号 `GM, GetSubCategory, NotBetMoney, CreateOrderId, KickOut, DisableUser, GetGameList, ToSplitStrings`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/GR.cs`：符号 `GR, GameMarkType, getCurrency, getCurrencyList, ToSlotLog, ToMiniLog, ToFishLog, ToChessLog`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/HCH.cs`：符号 `HCH, getCurrencyHCH, getCurrencyHCHList, ToSportLog, GetSign, GetAgentToken, GetSecretKey`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/HL.cs`：符号 `HL, PUT, ToChessLog, GetSubCategory, CreateOrderId, EncryDES3, GetMd5`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/HOCA.cs`：符号 `HOCA, HOCABetLimit, GET, GetCurrencyHOCA, GetCurrencyListHOCA, ToLiveLog, GetSubCategory, GetCardResult`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/HYRA.cs`：符号 `HYRA, GetCurrencyHYRA, GetCurrencyList, ToLotteryLog, Test, CheckValue, GetUrl, GetKey`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/HYRA2.cs`：符号 `HYRA2, GetCurrencyHYRA, GetCurrencyList, ToLotteryLog, Test, CheckValue, GetUrl, GetKey`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IA.cs`：符号 `IA, ToESportLog2, Req, IntToIp, GetTimeStamps, ToTimeStamps, MD5Encrypt, GetKey`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IG.cs`：符号 `IG, GET_LOTTERY_RECORD_BY_GAMENO_SEQUENCENO, GET_LOTTERY_NOT_SETTLED_RECORD, GET_LOTTERY_RECORD_BY_GAMENO_LIST_SEQUENCENO, GET_LOTTERY_ADJUSTED_RECORD_BY_GAMENO, toIGLanguage, GetPostJson, GetTimeStamps`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IGame.cs`：符号 `IGame, GetLogResult, GetCurrency, GetInviteId2, Success, Fail`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IGamePush.cs`：符号 `IGamePush`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IGHK.cs`：符号 `IGHK, GET_LOTTO_RECORD_BY_GAMENO_SEQUENCENO, GET_LOTTO_NOT_SETTLED_RECORD, GET_LOTTO_RECORD_BY_GAMENO_LIST_SEQUENCENO, GET_LOTTERY_ADJUSTED_RECORD_BY_GAMENO, toIGLanguage, GetPostJson, GetTimeStamps`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IGOS.cs`：符号 `IGOS, GET_GFC_RECORD_BY_SEQUENCENO, GET_GFC_NOT_SETTLED_RECORD, GET_LOTTERY_RECORD_BY_GAMENO_LIST_SEQUENCENO, GET_GFC_ADJUSTED_RECORD_BY_GAMENO, toIGLanguage, GetPostJson, GetTimeStamps`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IM.cs`：符号 `IM, GetCurrency, toImCurrency, toIMLang, POSTKeyAuth, GetSportStatus, GetSportOddsType, Sha256`；风险 `callback, funds, gateway, idempotency`。
+- `Library/GateWay/BetWin.Gateway.Game/IMOne.cs`：符号 `IMOne, GetCurrency, toImCurrency, toIMLang, GetSportStatus, GetSportOddsType, Sha256, POSTKeyAuth`；风险 `callback, funds, gateway, idempotency`。
+- 还有 450 个文件仅写入 SQLite 控制面，未在 Markdown 摘要里展开。
+
+## 跳过项
+
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.G.247D244D.Up2Date`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.Gateway.Game.csproj.AssemblyReference.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.Gateway.Game.csproj.CoreCompileInputs.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.Gateway.Game.csproj.FileListAbsolute.txt`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.Gateway.Game.dll`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/BetWin.Gateway.Game.pdb`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Game/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/BetWin.Gateway.Payment.csproj.nuget.dgspec.json`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/BetWin.Gateway.Payment.csproj.nuget.g.props`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/BetWin.Gateway.Payment.csproj.nuget.g.targets`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/BetWin.Gateway.Payment.csproj.AssemblyReference.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/BetWin.Gateway.Payment.csproj.CoreCompileInputs.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/BetWin.Gateway.Payment.csproj.FileListAbsolute.txt`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/BetWin.Gateway.Payment.dll`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/BetWin.Gateway.Payment.pdb`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/project.assets.json`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment/obj/project.nuget.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/BetWin.Gateway.Withdraw.csproj.nuget.dgspec.json`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/BetWin.Gateway.Withdraw.csproj.nuget.g.props`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/BetWin.Gateway.Withdraw.csproj.nuget.g.targets`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.G.F4553A48.Up2Date`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.Gateway.Withdraw.csproj.AssemblyReference.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.Gateway.Withdraw.csproj.CoreCompileInputs.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.Gateway.Withdraw.csproj.FileListAbsolute.txt`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.Gateway.Withdraw.dll`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/BetWin.Gateway.Withdraw.pdb`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/project.assets.json`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw/obj/project.nuget.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.G.14543755.Up2Date`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.csproj.AssemblyReference.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.csproj.CoreCompileInputs.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.csproj.FileListAbsolute.txt`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.csproj.GenerateResource.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.dll`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BetWin.Gateway.Payment.Special.pdb`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/BW.Gateway.Payment.Special.Resources.Res.resources`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Payment.Special/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.G.FD19BB2F.Up2Date`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.Gateway.Withdraw.Special.csproj.AssemblyReference.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.Gateway.Withdraw.Special.csproj.CoreCompileInputs.cache`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.Gateway.Withdraw.Special.csproj.FileListAbsolute.txt`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.Gateway.Withdraw.Special.dll`：forbidden_directory
+- `Library/GateWay/BetWin.Gateway.Withdraw.Special/obj/Debug/BetWin.Gateway.Withdraw.Special.pdb`：forbidden_directory
