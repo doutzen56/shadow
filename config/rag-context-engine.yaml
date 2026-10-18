@@ -28,7 +28,8 @@ assembly_steps:
     source: workflows
   - name: load_roles
     deterministic: true
-    source: agents/*/system.md
+    source: agents/<resolved-role>/system.md
+    rule: 按召唤标签、@@X 路由结果和当前角色阶段读取，不全量加载所有角色。
   - name: apply_role_matrix
     deterministic: true
     source: config/rag-role-matrix.yaml

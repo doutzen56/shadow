@@ -14,7 +14,10 @@
   - patterns:
     - pattern-cache-redis-bloom-dual-write-v1
     - pattern-reliability-azure-sql-dba-daily-inspect-v1
+  - decisions:
+    - knowledge/decisions/2026/ADR-2026-10-07-hx-matching-encoding-comments.md
 - betwin:
   - simpx_path: `projects/examples/betwin`
   - summary_manifest: `knowledge/code-summaries/betwin/manifest.yaml`
   - patterns: []
+  - decisions: []

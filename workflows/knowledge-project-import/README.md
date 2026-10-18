@@ -14,7 +14,7 @@
 
 ## 标准步骤
 
-1. `@@X` 确认任务类型为项目接入或知识库/RAG 运维。
+1. `@@X` 确认任务类型为项目接入或知识库/RAG运维。
 2. 按 `.sln` 和 `workspace-hosting.mdc` 识别 project；不确定时询问用户。
 3. 读取项目档案并校验必需文件。
 4. 按 `rag-importer.yaml` 扫描允许的文档和代码根目录。
@@ -30,6 +30,8 @@
 - 代码摘要待生成清单。
 - 跳过文件清单。
 - ingestion_run id。
+- manifest hash。
+- 导入前后 source/chunk/symbol 数量。
 - 是否需要进入 `knowledge-index-maintenance`。
 
 ## 收口检查
@@ -37,3 +39,4 @@
 - 未识别 project 时不得继续导入。
 - 未明确禁止索引范围时不得扫描代码。
 - 发现密钥或生产配置时必须跳过并报告。
+- 缺少 ingestion_run、manifest hash 或导入前后数量时，不得宣称导入完成。

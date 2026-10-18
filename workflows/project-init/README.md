@@ -21,8 +21,11 @@
 3. 校验环境来源：项目内置配置优先；只有用户或项目档案明确要求时才检查本地 secrets 配置。
 4. 确认 RAG 语料范围：项目档案、架构图、边界文档、允许生成摘要的业务代码根目录、禁止索引目录。
 5. 更新或生成项目索引入口：`knowledge/indexes/project-index.md`、`knowledge/indexes/rag-manifest.yaml`、`knowledge/code-summaries/<project-id>/manifest.yaml`。
-6. 如需初始化或重建索引，转入 `workflows/knowledge-index-maintenance/README.md`；空库首次接入转入 `workflows/knowledge-rag-bootstrap/README.md`。
-7. `@@TL` 确认初始化结果与后续任务入口。
+6. 进入 `workflows/knowledge-project-import/README.md` 生成 project/source/chunk/summary 输入和 ingestion_run。
+7. 空库首次接入或重建 baseline 时，转入 `workflows/knowledge-rag-bootstrap/README.md`。
+8. 已有 baseline 的项目变更，转入 `workflows/knowledge-index-maintenance/README.md`。
+9. 导入或维护后，按需转入 `workflows/knowledge-rag-evaluation/README.md` 验证召回质量。
+10. `@@TL` 确认初始化结果与后续任务入口。
 
 ## 输出
 

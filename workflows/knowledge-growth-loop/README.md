@@ -15,12 +15,13 @@
 ## 标准步骤
 
 1. 任务结束时，`@@X` 判断是否有高价值经验。
-2. 有价值但未确认时，写入 `knowledge/raw/` 或 `knowledge/candidates/`。
-3. 每周由 `agent-governance` 汇总候选。
-4. `@@BA` / `@@BE` / `@@DEVOPS` 按职责补齐抽象、证据和验证提示。
-5. `@@TL` 给出 promote、merge、reject、archive 建议。
-6. 只有用户明确确认后，才写入正式 `knowledge/`。
-7. 入正式库后触发 `knowledge-index-maintenance`。
+2. 有价值但未确认时，先进入 `workflows/knowledge-candidate-intake/README.md`，生成候选卡。
+3. 写入 `knowledge/raw/` 或 `knowledge/candidates/`。
+4. 每周由 `agent-governance` 汇总候选。
+5. `@@BA` / `@@BE` / `@@DEVOPS` 按职责补齐抽象、证据和验证提示。
+6. `@@TL` 给出 promote、merge、reject、archive 建议。
+7. 只有用户明确确认后，才写入正式 `knowledge/`。
+8. 入正式库后触发 `knowledge-index-maintenance`。
 
 ## 输出
 

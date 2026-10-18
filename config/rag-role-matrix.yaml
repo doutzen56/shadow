@@ -9,6 +9,21 @@ defaults:
   current_source_over_summary: true
 
 roles:
+  X-01:
+    tag: "@@X"
+    focus:
+      - 任务类型判断
+      - 权限等级
+      - 工作流路由
+      - 角色链路
+      - 风险标签
+      - 检索范围裁剪
+    preferred_doc_types:
+      - routing_rule
+      - workflow_index
+      - project_profile
+      - governance_rule
+      - retrieval_policy
   TL-01:
     tag: "@@TL"
     focus:

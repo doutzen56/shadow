@@ -30,9 +30,18 @@ task_routing:
   项目接入: project-init
   知识库/RAG运维:
     - knowledge-rag-bootstrap
+    - knowledge-project-import
     - knowledge-index-maintenance
     - knowledge-auto-repair
     - knowledge-rag-evaluation
+
+rag_ops_decision_tree:
+  first_setup_or_rebuild: knowledge-rag-bootstrap
+  new_project_or_new_repo: knowledge-project-import
+  docs_or_summary_changed: knowledge-index-maintenance
+  health_check_failed: knowledge-auto-repair
+  quality_or_recall_check: knowledge-rag-evaluation
+  unclear_action: ask_user
 
 risk_tags:
   high_risk:

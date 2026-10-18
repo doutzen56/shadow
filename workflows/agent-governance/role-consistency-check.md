@@ -13,7 +13,8 @@
 - `.cursor/rules/simpx-core.mdc`
 - `agents/<role>/agent.yaml`
 - `agents/<role>/system.md`
-- `core/roles/<role>/README.md`（如果存在）
+
+角色定义只以 `agents/<role>/agent.yaml` 和 `agents/<role>/system.md` 为准，不再维护 `core/roles/*` 副本。
 
 ## 必须满足
 

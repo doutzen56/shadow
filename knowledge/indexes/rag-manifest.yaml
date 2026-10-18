@@ -15,6 +15,8 @@ baseline:
 sources:
   configs:
     - config/rag-data-model.yaml
+    - config/knowledge-structure.yaml
+    - config/rag-corpus.yaml
     - config/rag-importer.yaml
     - config/rag-summarizer.yaml
     - config/rag-retrieval.yaml
@@ -24,6 +26,9 @@ sources:
     - config/rag-repair.yaml
     - config/rag-evaluation.yaml
     - config/rag-init.yaml
+    - config/rag-iteration.yaml
+    - config/rag-role-matrix.yaml
+    - config/rag-x-routing.yaml
   rules:
     - .cursor/rules/knowledge-retrieval.mdc
   workflows:
@@ -32,6 +37,8 @@ sources:
     - workflows/knowledge-auto-repair
     - workflows/knowledge-rag-evaluation
     - workflows/knowledge-rag-bootstrap
+    - workflows/knowledge-index-maintenance
+    - workflows/knowledge-candidate-intake
 seed_projects:
   hx-matching:
     status: pending
