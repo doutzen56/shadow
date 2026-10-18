@@ -1,0 +1,33 @@
+---
+id: glossary-hx-matching-domain
+title: HX.Matching 领域术语
+lifecycle_status: confirmed
+confirmed_by: "@@TL"
+user_reviewed: false
+projects:
+  - hx-matching
+last_verified_at: 2026-10-18
+---
+
+# HX.Matching 领域术语
+
+| 术语 | 含义 | 易混点 |
+| --- | --- | --- |
+| 代收 / Payin / 充值单 | 商户侧收款订单，用户付款进商户 | 与租户钱包入金不是同一账本 |
+| 代付 / Payout / 提款单 | 商户侧出款订单，需撮合或推供应商 | 下单时常先扣商户余额 |
+| 撮合单 / Matching | 代收与代付候选匹配产生的撮合关系 | 不等于渠道供应商单 |
+| 出码 | 给收银台返回收款账户/二维码等信息 | Partner 可同步取码；Merchant 常靠轮询 |
+| 审单 / Review | 对代收凭证等的人工/AI 审核 | 归属由 `ReviewOwner` 决定 |
+| ReviewOwner | 公共库字段：`Platform` 或 `Tenant` | 新租户默认 Platform |
+| 渠道 / Supplier | 外部支付供应商适配器 | `SupplierCode` 常等于适配器类名 |
+| 查单 | 主动向渠道查询订单终态 | 渠道回调后的权威确认手段 |
+| Notify / 商户回调 | 平台把终态 POST 到商户 NotifyUrl | 与渠道回调方向相反 |
+| 准入闸门 | 进程内快速失败限流 | 不是网关全局限流 |
+| 撮合池 Pond | Redis 中按规则分组的候选集合 | 多实例共享 |
+| 租户 Init | 开户步进直至 Ready | 未 Ready 可能拒绝解析 |
+| 撮合服务费 MatchingFee | 租户钱包侧费用 | 不同于商户手续费 |
+| 商户手续费 | 代收付费率账变 | 走商户资金明细 |
+| CAP 回填 | 事务消息驱动的 ES 同步/回填 | 消费在 Quartz Worker |
+| Bloom 订单过滤器 | Redis Bloom 预判订单是否可能存在 | 假阳性可接受，假阴性需避免业务假设错误 |
+
+权威状态枚举见业务仓 `OrderStateEnum` 注释。

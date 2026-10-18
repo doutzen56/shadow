@@ -1,9 +1,9 @@
 {
   "collection": "rag_code_summaries",
   "project_id": "hx-matching",
-  "run_id": "20261018T090035Z-project-hx-matching",
+  "run_id": "20261018T093230Z-project-hx-matching",
   "embedding_model": "not-configured-local-placeholder",
   "summary_manifest": "knowledge/code-summaries/hx-matching/manifest.yaml",
-  "summarized_files": 1829,
+  "summarized_files": 1782,
   "note": "本地 point 占位，没有真实向量；接入 embedding 后按 source/chunk 重建。"
 }

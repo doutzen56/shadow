@@ -9,6 +9,7 @@
 
 - redis:
   - pattern-cache-redis-bloom-dual-write-v1
+  - pattern-data-consistency-redis-shared-matching-pool-v1
 - cache:
   - pattern-cache-redis-bloom-dual-write-v1
 - bloom-filter:
@@ -30,6 +31,12 @@
 - hx-matching:
   - pattern-cache-redis-bloom-dual-write-v1
   - pattern-reliability-azure-sql-dba-daily-inspect-v1
+  - pattern-reliability-hotpath-admission-gate-v1
+  - pattern-reliability-callback-ack-then-async-query-v1
+  - pattern-messaging-webhook-mq-local-fallback-v1
+  - pattern-data-consistency-redis-shared-matching-pool-v1
+  - pattern-reliability-channel-adapter-registry-v1
+  - pattern-reliability-saas-tenant-init-steps-v1
 - funds:
   - pattern-money-agent-addmoneylog-v1
   - pattern-payment-callback-idempotency-checklist-v1
@@ -38,14 +45,35 @@
 - idempotency:
   - pattern-money-agent-addmoneylog-v1
   - pattern-payment-callback-idempotency-checklist-v1
+  - pattern-reliability-callback-ack-then-async-query-v1
 - redis-wallet:
   - pattern-money-agent-addmoneylog-v1
 - callback:
   - pattern-payment-callback-idempotency-checklist-v1
+  - pattern-reliability-callback-ack-then-async-query-v1
+  - pattern-messaging-webhook-mq-local-fallback-v1
 - gateway:
   - pattern-payment-callback-idempotency-checklist-v1
+  - pattern-reliability-channel-adapter-registry-v1
 - order-state:
   - pattern-payment-callback-idempotency-checklist-v1
+  - pattern-data-consistency-redis-shared-matching-pool-v1
+- admission-control:
+  - pattern-reliability-hotpath-admission-gate-v1
+- backpressure:
+  - pattern-reliability-hotpath-admission-gate-v1
+- webhook:
+  - pattern-messaging-webhook-mq-local-fallback-v1
+- rabbitmq:
+  - pattern-messaging-webhook-mq-local-fallback-v1
+- matching-pool:
+  - pattern-data-consistency-redis-shared-matching-pool-v1
+- adapter:
+  - pattern-reliability-channel-adapter-registry-v1
+- multi-tenant:
+  - pattern-reliability-saas-tenant-init-steps-v1
+- provisioning:
+  - pattern-reliability-saas-tenant-init-steps-v1
 - betwin:
   - pattern-money-agent-addmoneylog-v1
   - pattern-payment-callback-idempotency-checklist-v1

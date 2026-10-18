@@ -11,9 +11,22 @@
 - hx-matching:
   - simpx_path: `projects/examples/hx-matching`
   - summary_manifest: `knowledge/code-summaries/hx-matching/manifest.yaml`
+  - deep_cards: `knowledge/code-summaries/hx-matching/cards/`
+  - profile_docs_extra:
+    - business-domains.md
+    - flows-order-and-matching.md
+    - flows-async-jobs.md
+    - flows-multitenant-and-review.md
+  - glossary: `knowledge/glossary/hx-matching-domain.md`
   - patterns:
     - pattern-cache-redis-bloom-dual-write-v1
     - pattern-reliability-azure-sql-dba-daily-inspect-v1
+    - pattern-reliability-hotpath-admission-gate-v1
+    - pattern-reliability-callback-ack-then-async-query-v1
+    - pattern-messaging-webhook-mq-local-fallback-v1
+    - pattern-data-consistency-redis-shared-matching-pool-v1
+    - pattern-reliability-channel-adapter-registry-v1
+    - pattern-reliability-saas-tenant-init-steps-v1
   - decisions:
     - knowledge/decisions/2026/ADR-2026-10-07-hx-matching-encoding-comments.md
 - betwin:

@@ -86,7 +86,15 @@ DOC_SOURCES = [
     ("formal_knowledge", "knowledge/incidents", ["**/*.md"]),
     ("formal_knowledge", "knowledge/glossary", ["**/*.md"]),
     ("candidates", "knowledge/candidates", ["*.md"]),
-    ("project_profiles", "projects/examples", ["*/README.md", "*/profile.yaml", "*/boundaries.md", "*/architecture-map.md", "*/envs.yaml"]),
+    ("project_profiles", "projects/examples", [
+        "*/README.md",
+        "*/profile.yaml",
+        "*/boundaries.md",
+        "*/architecture-map.md",
+        "*/envs.yaml",
+        "*/business-*.md",
+        "*/flows-*.md",
+    ]),
 ]
 KNOWLEDGE_DOC_TYPES = {
     "knowledge/patterns": "pattern",

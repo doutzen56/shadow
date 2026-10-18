@@ -6,8 +6,8 @@
 - summary_group: `tests`
 - host_or_layer: `test`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T090035Z-project-hx-matching`
-- file_count: 151
+- last_ingestion_run: `20261018T093230Z-project-hx-matching`
+- file_count: 143
 - project_count: 3
 - risk_tags: `cache-consistency`, `callback`, `funds`, `gateway`, `login`, `order-state`, `permission`, `user-data`
 
@@ -81,11 +81,11 @@
 - `src/TestIntegration/Es/SysLogininforEsTests.cs`：符号 `SysLogininforEsTests, IndexThenGetLoginLog_FiltersByUserName`；风险 `login`
 - `src/TestIntegration/Es/TelegramOrderFlowEsTests.cs`：符号 `TelegramOrderFlowEsTests, IndexThenSearchByOrderIdAndMessageId, SearchByStatusList_SameAsBot`；风险 `order-state`
 - `src/TestIntegration/FixedMoneyPlanTests.cs`：符号 `FixedMoneyPlanTests, Segment`；风险 `funds`
-- 还有 101 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 93 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 6 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
+- pruned_directory 6 项；明细只写入 `rag/init-reports/20261018T093230Z-project-hx-matching.json`。
 
 ## 使用约束
 

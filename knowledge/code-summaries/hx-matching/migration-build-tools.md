@@ -6,7 +6,7 @@
 - summary_group: `migration-build-tools`
 - host_or_layer: `tooling`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T090035Z-project-hx-matching`
+- last_ingestion_run: `20261018T093230Z-project-hx-matching`
 - file_count: 9
 - project_count: 2
 - risk_tags: `elasticsearch`, `production-config`
@@ -41,7 +41,7 @@ ES 迁移、构建辅助和工程工具入口。
 
 ## 跳过项
 
-- pruned_directory 4 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
+- pruned_directory 4 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T093230Z-project-hx-matching.json`。
 
 ## 使用约束
 

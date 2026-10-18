@@ -1,0 +1,35 @@
+{
+  "run_id": "20261018T093147Z-baseline",
+  "run_type": "baseline",
+  "baseline_version": "rag-baseline-20261018T093147Z",
+  "generated_at": "2026-10-18T09:31:47Z",
+  "generator": "tools/rag_index.py bootstrap",
+  "manifest_hash": "1aeb55a698949f1db99a4de67079f7ba35b0583fe8f0421df5197eb8a28c7d49",
+  "manifest_hash_meaning": "本次导入的全部来源（路径 + 内容哈希）拼起来的哈希；来源不变，哈希就不变。",
+  "sqlite": "rag/index/core.db",
+  "sqlite_size_kb": 888,
+  "sqlite_schema_version": "rag-data-model-v3",
+  "qdrant_collection_version": "local-file-collection-v1",
+  "embedding_model": "not-configured-local-placeholder",
+  "chunk_strategy": "markdown-heading-yaml-top-key-code-summary",
+  "doc_sources": 135,
+  "knowledge_items": 15,
+  "counts_before": {
+    "project": 0,
+    "source": 0,
+    "chunk": 0,
+    "knowledge_item": 0,
+    "ingestion_run": 0
+  },
+  "counts_after": {
+    "project": 2,
+    "source": 135,
+    "chunk": 947,
+    "knowledge_item": 15,
+    "ingestion_run": 1
+  },
+  "legacy_db_removed": false,
+  "skipped": [],
+  "global_manifest_updated": false,
+  "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 baseline 段。"
+}

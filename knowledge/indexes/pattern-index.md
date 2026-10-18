@@ -11,9 +11,16 @@
   - pattern-cache-redis-bloom-dual-write-v1
 - data-consistency:
   - pattern-money-agent-addmoneylog-v1
+  - pattern-data-consistency-redis-shared-matching-pool-v1
+- messaging:
+  - pattern-messaging-webhook-mq-local-fallback-v1
 - reliability:
   - pattern-reliability-azure-sql-dba-daily-inspect-v1
   - pattern-payment-callback-idempotency-checklist-v1
+  - pattern-reliability-hotpath-admission-gate-v1
+  - pattern-reliability-callback-ack-then-async-query-v1
+  - pattern-reliability-channel-adapter-registry-v1
+  - pattern-reliability-saas-tenant-init-steps-v1
 
 ## 维护规则
 

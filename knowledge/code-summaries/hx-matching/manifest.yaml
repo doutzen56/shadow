@@ -3,10 +3,10 @@ project_id: hx-matching
 status: active
 source_profile: projects/examples/hx-matching/profile.yaml
 solution_file: HX.Matching.sln
-last_ingestion_run: 20261018T090035Z-project-hx-matching
-generated_at: 2026-10-18T09:00:35Z
+last_ingestion_run: 20261018T093230Z-project-hx-matching
+generated_at: 2026-10-18T09:32:30Z
 generator: tools/rag_index.py project
-summarized_files: 1829
+summarized_files: 1782
 summary_groups:
   - group_id: platform-hosts
     title: 平台与商户后台宿主
@@ -15,7 +15,7 @@ summary_groups:
       - HX.Matching.Admin.WebApi
       - HX.Matching.AdminV2.WebApi
       - HX.Matching.MerchantAdmin.WebApi
-    file_count: 334
+    file_count: 333
     project_count: 3
     skipped: {"pruned_directory": 6, "sensitive_file": 6}
     summary_file: knowledge/code-summaries/hx-matching/platform-hosts.md
@@ -26,11 +26,11 @@ summary_groups:
     roots:
       - HX.Matching.MerchantApi
       - HX.Matching.PartnerApi
-    file_count: 14
+    file_count: 13
     project_count: 2
     skipped: {"pruned_directory": 4, "sensitive_file": 4}
     summary_file: knowledge/code-summaries/hx-matching/open-apis.md
-    risk_tags: ["callback", "funds", "gateway", "order-state", "public-contract"]
+    risk_tags: ["funds", "gateway", "order-state", "public-contract"]
   - group_id: background-jobs
     title: 后台任务与异步处理
     host_or_layer: background-job
@@ -48,7 +48,7 @@ summary_groups:
     roots:
       - HX.Matching.ServiceCore
       - HX.Matching.Service
-    file_count: 466
+    file_count: 461
     project_count: 2
     skipped: {"pruned_directory": 4}
     summary_file: knowledge/code-summaries/hx-matching/service-core.md
@@ -59,7 +59,7 @@ summary_groups:
     roots:
       - HX.Matching.Model
       - HX.Matching.Repository
-    file_count: 391
+    file_count: 374
     project_count: 2
     skipped: {"pruned_directory": 4}
     summary_file: knowledge/code-summaries/hx-matching/data-model-repository.md
@@ -70,7 +70,7 @@ summary_groups:
     roots:
       - HX.Matching.Infrastructure
       - HX.Matching.Common
-    file_count: 212
+    file_count: 203
     project_count: 2
     skipped: {"pruned_directory": 4}
     summary_file: knowledge/code-summaries/hx-matching/infrastructure-common.md
@@ -80,7 +80,7 @@ summary_groups:
     host_or_layer: external-gateway
     roots:
       - HX.Matching.Channels
-    file_count: 178
+    file_count: 172
     project_count: 1
     skipped: {"pruned_directory": 2}
     summary_file: knowledge/code-summaries/hx-matching/channels-integrations.md
@@ -103,7 +103,7 @@ summary_groups:
       - HX.Matching.Channels.Tests
       - HX.Matching.V2.Tests
       - src/TestIntegration
-    file_count: 151
+    file_count: 143
     project_count: 3
     skipped: {"pruned_directory": 6}
     summary_file: knowledge/code-summaries/hx-matching/tests.md

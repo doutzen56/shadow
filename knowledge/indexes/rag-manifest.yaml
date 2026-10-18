@@ -6,13 +6,13 @@ path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务�
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261018T090946Z
-  run_id: 20261018T090946Z-baseline
-  manifest_hash: e4b00599147b6ae1e6651c42b59a9ac994b22593de8a79a9a550ac21e690bdaf
+  version: rag-baseline-20261018T093147Z
+  run_id: 20261018T093147Z-baseline
+  manifest_hash: 1aeb55a698949f1db99a4de67079f7ba35b0583fe8f0421df5197eb8a28c7d49
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
-  doc_sources: 123
-  knowledge_items: 8
+  doc_sources: 135
+  knowledge_items: 15
   sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
@@ -21,10 +21,10 @@ baseline:
   role_matrix_version: rag-role-matrix-v1
 
 latest_run:
-  run_id: 20261018T091023Z-project-betwin
+  run_id: 20261018T093230Z-project-hx-matching
   run_type: project_import
-  project_id: betwin
-  manifest_hash: 7996b9f67daeb521786b27afe538aa37d6e74b0e0b8f3ba3f96b80a9fbaf47fd
+  project_id: hx-matching
+  manifest_hash: f737462b258c44b08eb6e0de271680769eed4f5452b088613ffb03e43eb0ce58
 
 artifact_policy:
   mode: rebuildable_index
@@ -81,7 +81,14 @@ sources:
     retrieve_default: false
   project_profiles:
     path: projects/examples
-    include: ["*/README.md", "*/profile.yaml", "*/boundaries.md", "*/architecture-map.md", "*/envs.yaml"]
+    include:
+      - "*/README.md"
+      - "*/profile.yaml"
+      - "*/boundaries.md"
+      - "*/architecture-map.md"
+      - "*/envs.yaml"
+      - "*/business-*.md"
+      - "*/flows-*.md"
   code_summaries:
     path: knowledge/code-summaries
     include: ["*/manifest.yaml", "*/*.md", "*/cards/*.md"]
@@ -117,11 +124,12 @@ seed_projects:
     profile: projects/examples/hx-matching/profile.yaml
     summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
     solution_file: HX.Matching.sln
-    profile_docs: 5
-    summarized_files: 1829
+    profile_docs: 9
+    summarized_files: 1782
     summary_groups: 9
-    last_ingestion_run: 20261018T090035Z-project-hx-matching
-    manifest_hash: ecb3dcfc46e0b65a52e9d24a2e3b03ca9738e8af186524c410e52b367b3081b9
+    deep_cards: 7
+    last_ingestion_run: 20261018T093230Z-project-hx-matching
+    manifest_hash: f737462b258c44b08eb6e0de271680769eed4f5452b088613ffb03e43eb0ce58
   betwin:
     status: active
     profile: projects/examples/betwin/profile.yaml

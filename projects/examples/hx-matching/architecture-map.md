@@ -62,3 +62,12 @@ flowchart TB
 - 热路径与管理路径已经在进程层面分开。
 - 异步链路集中在任务进程，单实例风险需要被持续关注。
 - ServiceCore 是当前演进的主要治理对象。
+
+## 业务深挖入口
+
+板块与链路细节不重复写在本图，见：
+
+- `business-domains.md`
+- `flows-order-and-matching.md`
+- `flows-async-jobs.md`
+- `flows-multitenant-and-review.md`

@@ -6,8 +6,8 @@
 - summary_group: `channels-integrations`
 - host_or_layer: `external-gateway`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T090035Z-project-hx-matching`
-- file_count: 178
+- last_ingestion_run: `20261018T093230Z-project-hx-matching`
+- file_count: 172
 - project_count: 1
 - risk_tags: `callback`, `funds`, `gateway`, `order-state`, `retry`
 
@@ -52,7 +52,6 @@
 - `HX.Matching.Channels/ChannelModels/Recharge/MaYiFuRechargeModels.cs`：符号 `MaYiFuPayInOrderResponse, MaYiFuPayParams, MaYiFuPayInQueryResponse`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/MingXinRechargeModels.cs`：符号 `MingXinResponseBase, MingXinPayInCreateData, MingXinOrderQueryData, MingXinBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/NeoPayRechargeModels.cs`：符号 `NeoPayRechargeModels, NeoPayApiResponse, NeoPayOrderData, NeoPayReceivingCode, NeoPayQueryData, NeoPayBalanceData, NeoPayCashierSession, NeoPayCashierOrder`；风险 `callback, funds, gateway, retry`
-- `HX.Matching.Channels/ChannelModels/Recharge/NoRechargeOrderResponse.cs`：符号 `NoRechargeOrderResponse, NoRechargeSubmitOrderResponse, NoRechargeSubmitOrderResponseV1, NoRechargeQueryOrderResponse`；风险 `callback, funds, gateway, order-state, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/OrionRechargeModels.cs`：符号 `OrionOrderResponse, OrionOrderData, OrionQueryResponse, OrionBalanceResponse`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/RiShengRechargeModels.cs`：符号 `RiShengApiResponse, RiShengOrderData, RiShengQueryData, RiShengBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/SiHaiRechargeModels.cs`：符号 `SiHaiResponse, SiHaiOrderData, SiHaiQueryData, SiHaiPayOrderData, SiHaiPageSetting, SiHaiMoney, SiHaiPayOrderExtend, SiHaiAccountItem`；风险 `callback, funds, gateway, retry`
@@ -62,7 +61,6 @@
 - `HX.Matching.Channels/ChannelModels/Recharge/WanHeRechargeModels.cs`：符号 `WanHeApiResponse, WanHeOrderData, WanHeQueryData, WanHeBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/WangCaiRechargeModels.cs`：符号 `WangCaiApiResponse, WangCaiOrderData, WangCaiQueryData, WangCaiBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/XiaoMaoRechargeModels.cs`：符号 `XiaoMaoOrderResponse, XiaoMaoQueryResponse, XiaoMaoBalanceResponse`；风险 `callback, funds, gateway, retry`
-- `HX.Matching.Channels/ChannelModels/Recharge/XinFuXingRechargeModels.cs`：符号 `XinFuXingApiResponse, XinFuXingPayOrderData, XinFuXingPayeeInfo, XinFuXingPayQueryData, XinFuXingBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/XinJuXianRechargeModels.cs`：符号 `XinJuXianResponseBase, XinJuXianPayInCreateData, XinJuXianOrderQueryData, XinJuXianBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/XingShengRechargeModels.cs`：符号 `XingShengPayInRechargeOrderResponse, XingShengeeInfo, XingShengPayInRechargeQueryOrderResponse`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Recharge/YiMaRechargeModels.cs`：符号 `YiMaPayInRechargeOrderResponse, YiMaPayInRechargeQueryResponse`；风险 `callback, funds, gateway, retry`
@@ -73,15 +71,17 @@
 - `HX.Matching.Channels/ChannelModels/Withdraw/HeHuaWithdrawModels.cs`：符号 `HeHuaWithdrawResponse`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Withdraw/HeXingWithdrawModels.cs`：符号 `HeXingWithdrawResponse, HeXingWithdrawOrderRequest, HeXingWithdrawOrderData, HeXingWithdrawQueryRequest, HeXingWithdrawQueryData, HeXingWithdrawBalanceRequest, HeXingWithdrawBalanceData`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/ChannelModels/Withdraw/HongNiuWithdrawModels.cs`：符号 `HongNiuWithdrawApiResponse, HongNiuTransferData, HongNiuTransferQueryData, HongNiuWithdrawAccountBalance`；风险 `callback, funds, gateway, retry`
+- `HX.Matching.Channels/ChannelModels/Withdraw/JuXianWithdrawModels.cs`：符号 `JuXianWithdrawResponseBase, JuXianWithdrawOrderSubmitResponse, JuXianWithdrawOrderQueryResponse, JuXianWithdrawBalanceQueryResponse`；风险 `callback, funds, gateway, retry`
+- `HX.Matching.Channels/ChannelModels/Withdraw/KuaiMaWithdrawModels.cs`：符号 `KuaiMaWithdrawResponse`；风险 `callback, funds, gateway, retry`
 - `HX.Matching.Channels/Contracts/Recharge/ChannelRechargeOrderResponse.cs`：符号 `ChannelRechargeOrderResponse`；风险 `callback, funds, gateway, order-state, retry`
 - `HX.Matching.Channels/Contracts/RechargeOrderQueryResult.cs`：符号 `RechargeOrderQueryResult`；风险 `callback, funds, gateway, order-state, retry`
 - `HX.Matching.Channels/Contracts/Withdraw/ChannelWithdrawOrderResponse.cs`：符号 `ChannelWithdrawOrderResponse`；风险 `callback, funds, gateway, order-state, retry`
 - `HX.Matching.Channels/Contracts/WithdrawOrderQueryResult.cs`：符号 `WithdrawOrderQueryResult`；风险 `callback, funds, gateway, order-state, retry`
-- 还有 128 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 122 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 2 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
+- pruned_directory 2 项；明细只写入 `rag/init-reports/20261018T093230Z-project-hx-matching.json`。
 
 ## 使用约束
 

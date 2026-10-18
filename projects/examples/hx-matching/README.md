@@ -62,6 +62,17 @@ HX.Matching 是一个支付撮合平台，覆盖商户代收、商户代付、�
 - 提交前由人审。
 - 任务结束按 SimpX `knowledge-growth-loop` 沉淀：用户说「记住：」或「记一条 ADR」直接入库，其余由 `@@TL` 判断；知识只写 SimpX，不写业务仓和外部知识库。
 
+## 业务知识导航（深度）
+
+- 板块总览：`business-domains.md`
+- 订单与撮合链路：`flows-order-and-matching.md`
+- 异步 MQ/任务：`flows-async-jobs.md`
+- 多租户与审单：`flows-multitenant-and-review.md`
+- 架构地图：`architecture-map.md`
+- 边界：`boundaries.md`
+- 深挖卡：`knowledge/code-summaries/hx-matching/cards/`
+- 领域术语：`knowledge/glossary/hx-matching-domain.md`
+
 ## 对 SimpX 的价值
 
 - 可以校验企业稳定型项目风格是否真实可用。

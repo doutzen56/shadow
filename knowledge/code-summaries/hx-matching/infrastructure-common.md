@@ -6,8 +6,8 @@
 - summary_group: `infrastructure-common`
 - host_or_layer: `infrastructure`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T090035Z-project-hx-matching`
-- file_count: 212
+- last_ingestion_run: `20261018T093230Z-project-hx-matching`
+- file_count: 203
 - project_count: 2
 - risk_tags: `cache-consistency`, `callback`, `funds`, `gateway`, `login`, `mq`, `order-state`, `permission`, `user-data`
 
@@ -79,11 +79,11 @@
 - `HX.Matching.Infrastructure/Security/IUserSessionKickService.cs`：符号 `IUserSessionKickService`；风险 `cache-consistency, login, mq, permission, user-data`
 - `HX.Matching.Infrastructure/Security/SessionKickStore.cs`：符号 `SessionKickStore, SessionKickInfo, RememberAsync, TryGetAsync, Key`；风险 `cache-consistency, login, mq, permission`
 - `HX.Matching.Infrastructure/Services/IPermissionResolver.cs`：符号 `IPermissionResolver`；风险 `cache-consistency, login, mq, permission`
-- 还有 162 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 153 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 4 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
+- pruned_directory 4 项；明细只写入 `rag/init-reports/20261018T093230Z-project-hx-matching.json`。
 
 ## 使用约束
 
