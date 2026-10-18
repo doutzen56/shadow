@@ -1,0 +1,323 @@
+{
+  "run_id": "20261018T083109Z-project-hx-matching",
+  "run_type": "project_import",
+  "project_id": "hx-matching",
+  "solution_file": "HX.Matching.sln",
+  "generated_at": "2026-10-18T08:31:09Z",
+  "generator": "tools/rag_index.py project",
+  "manifest_hash": "b3b1b1fcce6109908d47118a027c6174e8db198290ab69c3fe12f86d8fe45027",
+  "manifest_hash_meaning": "本次导入的全部业务文件（路径 + 内容哈希）拼起来的哈希；源码不变，哈希就不变。",
+  "summarized_files": 1782,
+  "counts_before": {
+    "project": 2,
+    "source": 1642,
+    "chunk": 2298,
+    "symbol": 7256,
+    "knowledge_item": 3,
+    "ingestion_run": 2,
+    "retrieval_trace": 0
+  },
+  "counts_after": {
+    "project": 2,
+    "source": 3434,
+    "chunk": 4089,
+    "symbol": 15481,
+    "knowledge_item": 3,
+    "ingestion_run": 3,
+    "retrieval_trace": 0
+  },
+  "groups": [
+    {
+      "group_id": "platform-hosts",
+      "title": "平台与商户后台宿主",
+      "file_count": 333,
+      "project_count": 3,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "funds",
+        "gateway",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/platform-hosts.md",
+      "skip_counts": {
+        "pruned_directory": 6,
+        "sensitive_file": 6
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Admin.WebApi/bin",
+          "HX.Matching.Admin.WebApi/obj",
+          "HX.Matching.AdminV2.WebApi/bin",
+          "HX.Matching.AdminV2.WebApi/obj",
+          "HX.Matching.MerchantAdmin.WebApi/bin",
+          "HX.Matching.MerchantAdmin.WebApi/obj"
+        ],
+        "sensitive_file": [
+          "HX.Matching.Admin.WebApi/appsettings.json",
+          "HX.Matching.Admin.WebApi/NLog.config",
+          "HX.Matching.AdminV2.WebApi/appsettings.json",
+          "HX.Matching.AdminV2.WebApi/NLog.config",
+          "HX.Matching.MerchantAdmin.WebApi/appsettings.json",
+          "HX.Matching.MerchantAdmin.WebApi/NLog.config"
+        ]
+      }
+    },
+    {
+      "group_id": "open-apis",
+      "title": "商户与合作方开放接口",
+      "file_count": 13,
+      "project_count": 2,
+      "risk_tags": [
+        "funds",
+        "gateway",
+        "order-state",
+        "public-contract"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/open-apis.md",
+      "skip_counts": {
+        "pruned_directory": 4,
+        "sensitive_file": 4
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.MerchantApi/bin",
+          "HX.Matching.MerchantApi/obj",
+          "HX.Matching.PartnerApi/bin",
+          "HX.Matching.PartnerApi/obj"
+        ],
+        "sensitive_file": [
+          "HX.Matching.MerchantApi/appsettings.json",
+          "HX.Matching.MerchantApi/NLog.config",
+          "HX.Matching.PartnerApi/appsettings.json",
+          "HX.Matching.PartnerApi/NLog.config"
+        ]
+      }
+    },
+    {
+      "group_id": "background-jobs",
+      "title": "后台任务与异步处理",
+      "file_count": 74,
+      "project_count": 2,
+      "risk_tags": [
+        "async",
+        "callback",
+        "funds",
+        "mq",
+        "order-state",
+        "permission",
+        "retry",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/background-jobs.md",
+      "skip_counts": {
+        "pruned_directory": 4,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Quartz.Job/bin",
+          "HX.Matching.Quartz.Job/obj",
+          "HX.Matching.Tasks/bin",
+          "HX.Matching.Tasks/obj"
+        ],
+        "sensitive_file": [
+          "HX.Matching.Quartz.Job/appsettings.json",
+          "HX.Matching.Quartz.Job/NLog.config"
+        ]
+      }
+    },
+    {
+      "group_id": "service-core",
+      "title": "业务核心服务",
+      "file_count": 461,
+      "project_count": 2,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "elasticsearch",
+        "funds",
+        "gateway",
+        "idempotency",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/service-core.md",
+      "skip_counts": {
+        "pruned_directory": 4
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.ServiceCore/bin",
+          "HX.Matching.ServiceCore/obj",
+          "HX.Matching.Service/bin",
+          "HX.Matching.Service/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "data-model-repository",
+      "title": "模型与仓储",
+      "file_count": 374,
+      "project_count": 2,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "database-schema",
+        "funds",
+        "gateway",
+        "idempotency",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/data-model-repository.md",
+      "skip_counts": {
+        "pruned_directory": 4
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Model/bin",
+          "HX.Matching.Model/obj",
+          "HX.Matching.Repository/bin",
+          "HX.Matching.Repository/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "infrastructure-common",
+      "title": "基础设施与公共能力",
+      "file_count": 203,
+      "project_count": 2,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "funds",
+        "gateway",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/infrastructure-common.md",
+      "skip_counts": {
+        "pruned_directory": 4
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Infrastructure/bin",
+          "HX.Matching.Infrastructure/obj",
+          "HX.Matching.Common/bin",
+          "HX.Matching.Common/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "channels-integrations",
+      "title": "渠道与第三方集成",
+      "file_count": 172,
+      "project_count": 1,
+      "risk_tags": [
+        "callback",
+        "funds",
+        "gateway",
+        "order-state",
+        "retry"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/channels-integrations.md",
+      "skip_counts": {
+        "pruned_directory": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Channels/bin",
+          "HX.Matching.Channels/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "migration-build-tools",
+      "title": "迁移与构建工具",
+      "file_count": 9,
+      "project_count": 2,
+      "risk_tags": [
+        "elasticsearch",
+        "production-config"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/migration-build-tools.md",
+      "skip_counts": {
+        "pruned_directory": 4,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "src/EsMigrate.Console/bin",
+          "src/EsMigrate.Console/obj",
+          "HX.BuildService/bin",
+          "HX.BuildService/obj"
+        ],
+        "sensitive_file": [
+          "HX.BuildService/appsettings.Development.json",
+          "HX.BuildService/appsettings.json"
+        ]
+      }
+    },
+    {
+      "group_id": "tests",
+      "title": "测试项目",
+      "file_count": 143,
+      "project_count": 3,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "funds",
+        "gateway",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/hx-matching/tests.md",
+      "skip_counts": {
+        "pruned_directory": 6
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "HX.Matching.Channels.Tests/bin",
+          "HX.Matching.Channels.Tests/obj",
+          "HX.Matching.V2.Tests/bin",
+          "HX.Matching.V2.Tests/obj",
+          "src/TestIntegration/bin",
+          "src/TestIntegration/obj"
+        ]
+      }
+    }
+  ],
+  "forbidden_scope": [
+    ".config",
+    ".git",
+    ".key",
+    ".pem",
+    ".pfx",
+    ".vs",
+    "appsettings*.json",
+    "bin",
+    "dist",
+    "envs.secrets.example.yaml",
+    "envs.secrets.yaml",
+    "node_modules",
+    "obj",
+    "packages"
+  ],
+  "global_manifest_updated": false,
+  "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 latest_run 和 seed_projects.hx-matching。"
+}

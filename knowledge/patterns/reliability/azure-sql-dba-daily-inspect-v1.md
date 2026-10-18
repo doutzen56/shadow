@@ -15,7 +15,9 @@ reuse_score: 90
 last_verified_at: 2026-09-25
 owner: "@@X"
 status: active
-lifecycle_status: active
+lifecycle_status: confirmed
+confirmed_by: 未记录（确认人规则生效前入库）
+user_reviewed: false
 ---
 
 # Azure SQL DBA 日巡检（模式卡）

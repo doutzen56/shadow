@@ -85,8 +85,18 @@ budgets:
   snippet_max_lines: 40
   exceeded_action: escalate_to_TL_or_user
 
+runtime_status:
+  note: 上面是目标流程，下面是现在真正能跑的部分；没实现的步骤不能写“已执行”。
+  deterministic_context: Agent 按规则直接读文件
+  exact_match: Agent 用 grep / 读文件，或对 rag/index.db 写 SQL
+  sqlite_fts: python tools/rag_index.py search <关键词> [--project] [--role] [--task]
+  qdrant_vector: 未实现（vector_status.semantic_recall_available 为 false）
+  rerank: 未实现；search 只按 FTS rank 排序，并按 --role 过滤 role_scope
+  evidence_pack: Agent 在会话里整理
+
 trace:
   write_to: retrieval_trace
+  written_by: tools/rag_index.py search；手工读文件或 grep 不写 trace，交接块里要写清用了哪种方式检索。
   required_fields:
     - query
     - filters

@@ -29,6 +29,8 @@
 - 修复与复测结果
 - 放行建议（通过/阻塞/回滚）
 
+要落文件时用 `templates/review-report/README.md`。示例：`workflows/code-review/examples/hx-matching-funds-change.md`。
+
 ## 收口检查
 
 - 高风险问题未闭合不得通过。

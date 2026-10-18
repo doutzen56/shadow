@@ -21,8 +21,9 @@
 - `config/simpx.yaml` 里的正式成员，在 `agents/` 下必须有目录。
 - 每个正式角色必须有 `agent.yaml` 和 `system.md`。
 - 召唤标签必须在 `README.md`、`simpx.yaml`、`simpx-core.mdc` 中一致。
-- `simpx-core.mdc` 的角色加载路径必须真实存在。
+- `simpx-core.mdc` 的角色加载路径必须真实存在，正式成员和辅助成员（`reviewer`、`researcher`）都要列出。
 - 辅助角色也要说明启用方式和调用边界。
+- `config/rag-x-routing.yaml` 的 `role_chain` 和 `config/rag-role-matrix.yaml` 的 `roles` 里出现的每个角色，都要能在 `simpx-core.mdc` 找到加载路径。
 
 ## 发现不一致时
 

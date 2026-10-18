@@ -14,7 +14,7 @@
 ## 标准步骤
 
 1. `@@TL` 已在 `knowledge-growth-loop` 判断要写 candidate；`@@X` 整理任务结论和证据。
-2. 按 `templates/knowledge-pattern-card` 或 ADR/incident 模板提炼候选。
+2. 模式按 `templates/knowledge-pattern-card/README.md`，决策按 `templates/adr/README.md` 提炼候选；事故复盘暂无单独模板，按 `knowledge/incidents/README.md` 的要求写。文件开头都要有 frontmatter（id、title、lifecycle_status 等），否则导入时进不了 `knowledge_item`。
 3. 标注 project_scope、role_scope、task_scope、risk_tags 和 evidence_refs。
 4. 写入 `knowledge/candidates/`。
 5. 登记到周审清单。

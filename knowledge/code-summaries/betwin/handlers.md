@@ -1,99 +1,96 @@
 # 请求 Handler
 
+<!-- 由 tools/rag_index.py 生成，下次导入会覆盖；要改职责说明，改脚本里 PROJECTS 的分组定义。 -->
+
 - project_id: `betwin`
+- summary_group: `handlers`
 - host_or_layer: `http-handler`
-- roots: `Library/BetWin.Handler.Request`, `Library/BetWin.Handler.Admin`, `Library/BetWin.Handler.System`, `Library/Handler/BetWin.Handler.Api`
-- file_count: 285
-- generated_at: 2026-10-18T06:47:04Z
+- solution_file: `BetWin5.0.sln`
+- last_ingestion_run: `20261018T083037Z-project-betwin`
+- file_count: 277
+- project_count: 4
+- risk_tags: `cache-consistency`, `callback`, `funds`, `login`, `order-state`, `permission`, `user-data`
 
-## 风险标签
+## 职责摘要
 
-`cache-consistency`, `callback`, `funds`, `gateway`, `login`, `order-state`, `permission`, `user-data`
+四个请求面：会员与代理前台、站点管理端、平台系统端、游戏回调与运维接口。
 
-## 代表文件
+## 扫描根目录
 
-- `Library/BetWin.Handler.Request/agent/bill.cs`：符号 `bill, recharge, profit`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/chart.cs`：符号 `chart, finace, finacesingle, gamedetail, gamerate, commissionlog, commissionlogdetail, inviteurl`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/game.cs`：符号 `game, reward, rewardinfo, reward2excel, list, list2excel`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/invite.cs`：符号 `invite, list, delete, save, open, joinsetting, join`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/money.cs`：符号 `money, transfer`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/report.cs`：符号 `report, livelog, esportlog, sportlog, chesslog, chessinfo, lotterylog, lotteryinfo`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/team.cs`：符号 `team, membercount, moneytotal, userlist, list2excel, list, moremoney, GetUserBalanceList`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/agent/user.cs`：符号 `user, list, userlist, agentlist, info, getuserid, add, updatenotes`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/admin.cs`：符号 `admin, token`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/app.cs`：符号 `app`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/auth.cs`：符号 `auth, login, gettype`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/cmd.cs`：符号 `cmd, token`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/data.cs`：符号 `data, GetAPIKey, ShowError, AccessLimit, userlist, banklist, withdrawlist, rechargelist`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/ebet.cs`：符号 `ebet, token`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/ivi.cs`：符号 `ivi, GetAPIKey, ShowError, token, withdraw, approve, customer, CheckCallbackIP`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/mail.cs`：符号 `mail, register, sendcode, code`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/payment.cs`：符号 `payment, bank, usdt, wechat, alipay, qrcode, savebankorder`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/sa.cs`：符号 `sa, token, ReturnData`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/sms.cs`：符号 `sms, register, code`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/sports.cs`：符号 `sports, yabo`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/TFGaming.cs`：符号 `tfgaming, token`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/api/user.cs`：符号 `user, GetAPIKey, register, token, login, gameresult, money`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/BetWin.Handler.Request.csproj`：符号 `未提取到公开符号`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/config.cs`：符号 `config, register, withdraw, banklist, enumtype, ping, header, login`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/content/events.cs`：符号 `events, column, list, getStats, info, recharge, nonopen, open`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/content/help.cs`：符号 `help, footercolumn, column, info`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/content/news.cs`：符号 `news, list, column, info, tip`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/content/notice.cs`：符号 `notice, list, info`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/content/region.cs`：符号 `region, get`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/binddata.cs`：符号 `binddata, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/competition.cs`：符号 `competition, info, infodetal, myrank, open, allrank, allrankhistory, test`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/dailytasks.cs`：符号 `dailytasks, info, getpoint, open, opensingle, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/delottery.cs`：符号 `delottery, info, getcount, bet, winner`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/firstrecharge.cs`：符号 `firstrecharge, info, getpoint, open, getOrderid, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/fullweek.cs`：符号 `fullweek, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/invitetask.cs`：符号 `invitetask, info, getpoint, getLastSourceID, getLastValue, detail, inviterecord, open`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/longcheckin.cs`：符号 `longcheckin, info, getday, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/newdailytasks.cs`：符号 `newdailytasks, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/newweektasks.cs`：符号 `newweektasks, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/order.cs`：符号 `order, list, types, status`；风险 `callback, funds, login, order-state, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/redenvelope.cs`：符号 `redenvelope, info, getpoint, getredpoint, open, openred, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/rescue.cs`：符号 `rescue, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/survery.cs`：符号 `survery, list, surveryinfo, saveanswer`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/washing.cs`：符号 `washing, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/events/weektasks.cs`：符号 `weektasks, info, getpoint, open, record`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/external.cs`：符号 `external, updatepushid`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/api.cs`：符号 `api, login, login2, register, transfer, transfertocenter, transferalltogame, getbalance`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/info.cs`：符号 `info, gamelist, maintain, gameuser, account, gametype, gamecategory, entrance`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/log.cs`：符号 `log, esportv1, esport, esportdetail, esportinfov1, esportinfo, lotteryv1, lottery`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/order.cs`：符号 `order, transferorderlist`；风险 `callback, funds, gateway, login, order-state, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/rebate.cs`：符号 `rebate, info, returntype, list`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/recommend.cs`：符号 `recommend, list, news, favorites, saveFavorite`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/remote/avia.cs`：符号 `avia, result, category, matchinfo, match`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/setting.cs`：符号 `setting, gamelist`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/slot.cs`：符号 `slot, list`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/game/subassort.cs`：符号 `subassort, list, SiteGameSubAssort, SiteGameList`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/member/forget.cs`：符号 `forget, info, mobile, email, question`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/member/message.cs`：符号 `message, list, unreadmsgqty, info, read, delete`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/member/report.cs`：符号 `report, profit`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/member/signin.cs`：符号 `signin, list, signresult`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/member/vip.cs`：符号 `vip, getlevels, GetUpgradeLogCondition, upgradelog, exportupgrade`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/money.cs`：符号 `money, moneylog, gamemoneylog, gettype, moneytype, locked, rechargeorderlist, rechargeorderinfo`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/packages.config`：符号 `未提取到公开符号`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/payment.cs`：符号 `payment, recharge, getsettings, rechargelist, getValue, withdraw, specialaccessories, rechargenumber`；风险 `callback, funds, gateway, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/Properties/AssemblyInfo.cs`：符号 `未提取到公开符号`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/proxy.cs`：符号 `proxy, login, GetTimeSpan, logout, register, info, islogin, channel`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/report.cs`：符号 `report, getuserdatemoney, getusermoneytotal, getusermoneycategorytotal, getusermoneyprofit, agentindexgamewin, agentindexcommission, getfundinfo`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/Resources/Res.Designer.cs`：符号 `Res`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/Resources/web.config`：符号 `未提取到公开符号`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/ResultHandler.cs`：符号 `ResultHandler`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/shop/product.cs`：符号 `product, list, catedict, order`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/app.cs`：符号 `app, update, install, apk, savecount`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/domain.cs`：符号 `domain, info, domaininfo, list, nodelist, seo`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/info.cs`：符号 `info, get, getip, getagentip, getadress, getareacode, logo, app`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/page.cs`：符号 `page, info`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/region.cs`：符号 `region, content, list`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/style.cs`：符号 `style, mobile`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/site/vip.cs`：符号 `vip, index, pointrule`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/SlideCaptcha/Captcha.cs`：符号 `Captcha, GenerateBase64, Generate, GetGraphics, GetSliderPath, CaptureSlider, CaptureImage, RandomNext`；风险 `callback, funds, login, permission, user-data`。
-- `Library/BetWin.Handler.Request/SlideCaptcha/CaptchaModel.cs`：符号 `CaptchaModel, Captcha64Model`；风险 `callback, funds, login, permission, user-data`。
-- 还有 205 个文件仅写入 SQLite 控制面，未在 Markdown 摘要里展开。
+- `Library/BetWin.Handler.Request`
+- `Library/BetWin.Handler.Admin`
+- `Library/BetWin.Handler.System`
+- `Library/Handler/BetWin.Handler.Api`
+
+## 项目文件
+
+- `Library/BetWin.Handler.Request/BetWin.Handler.Request.csproj`
+- `Library/BetWin.Handler.Admin/BetWin.Handler.Admin.csproj`
+- `Library/BetWin.Handler.System/BetWin.Handler.System.csproj`
+- `Library/Handler/BetWin.Handler.Api/BetWin.Handler.Api.csproj`
+
+## 定位样例
+
+按路径里的高风险关键词优先挑选，最多列 50 个。
+
+- `Library/BetWin.Handler.Admin/ResultHandler.cs`：符号 `ResultHandler, GetAssembly`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/account.cs`：符号 `account, login, systemlogin, logout`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/delottery.cs`：符号 `delottery, getproductcount, updateproductcount`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/delotterylog.cs`：符号 `delotterylog, pointlog`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/events.cs`：符号 `events, columninfo, columnlist, columnsave, savecolumnsort, columndelete, info, initplatform`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/log.cs`：符号 `log, list, info, savebet, savelotterycount, saveredenvelopecount, save, agree`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/redenvelope.cs`：符号 `redenvelope, getproductcount, updateproductcount`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/redenvelopelog.cs`：符号 `redenvelopelog, pointlog`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/award/survery.cs`：符号 `survery, list, savesurvery, surveryinfo, saveanswer, pay, log, answerinfo`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/chart.cs`：符号 `chart, rechargeandwitdrawtotal, profitpayoff, productcollect, userstatistics`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/config.cs`：符号 `config, moneytype`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/exchange/rate.cs`：符号 `rate, list, getcurrency, getcurrencyinfo, savebasecurrency, GetSysExchange, getbasecurrency, getmode`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/exchange/review.cs`：符号 `review, log, list, check, summary`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/game/user.cs`：符号 `user, userlist, updatelock, updatetest, updateLimit, getbalance, register, GetUserBalanceList`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/commission.cs`：符号 `commission, create, loglist, logagree, logreject, logdetail`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/moneyreview.cs`：符号 `moneyreview, list, check, batchsuccess, batchfail`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/operate.cs`：符号 `operate, addmoney, addmoneybatch, addmoneybatchbyexcel, submoneybatchbyexcel, redeductmoney, filtergame, initplatform`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/rebate.cs`：符号 `rebate, BlockWhenAutoReturnV2Enabled, create, grouplist, execute, executev2, executeagent, updateenabled`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/recharge.cs`：符号 `recharge, checklist, checkinfo, checkagree, checkreject, checkprocessing, create, settinglist`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/rescue.cs`：符号 `rescue, loglist, query, post`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/returnplan.cs`：符号 `returnplan, execute, loglist, logagree, logreject`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/washflow.cs`：符号 `washflow, list, log, updatewashflow, updatewashflowsingle`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/money/withdraw.cs`：符号 `withdraw, orderlist, dealString, exportwithdraworder, orderinfo, checkorder, execorder, openchannelist`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/payment.cs`：符号 `payment, getpaymentsetting, getsyspaymentgroup`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/recharge.cs`：符号 `recharge, orderlist, orderlistfail, exportrechargeorder, orderinfo, checkorder, deleteorder, settinglist`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/report/money.cs`：符号 `money, log, exportlog, locked`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/report/user.cs`：符号 `user, loginlog, signinlog, signinlogreport, pointlog, addpointlog, subpointlog, addsignlog`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/risk/user.cs`：符号 `user, list, ip, info, ipdifuser, userdifip, login, amount`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/shop/order.cs`：符号 `order, info, update, list`；风险 `callback, funds, login, order-state, permission, user-data`
+- `Library/BetWin.Handler.Admin/site/notify.cs`：符号 `notify, get, update, withdraw, events`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/site/ticket.cs`：符号 `ticket, list, addnew, category, info, addcomplement, saverank`；风险 `callback, funds, login, order-state, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/commission.cs`：符号 `commission, list, list0, save, info, commissionlist, allagentcommissionlist, delete`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/domain.cs`：符号 `domain, list, save, delete, info, background`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/grade.cs`：符号 `grade, list, info, check, save, add`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/info.cs`：符号 `info, add, agentlist, permission, applylist, execapply, updatecommission, updatereturn`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/invite.cs`：符号 `invite, list, save, delete, info, updateinviteopen`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/returnplan.cs`：符号 `returnplan, list, list0, info, save, delete, loglist, logdetail`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/agent/usragent.cs`：符号 `usragent, list, info, check, save, saveblockgame, getblockgame`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/customer/feedback.cs`：符号 `feedback, list, delete`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/customer/mail.cs`：符号 `mail, list, send, delete, info, update`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/customer/message.cs`：符号 `message, list, send, delete, info, update`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/customer/mobile.cs`：符号 `mobile, list, getusercondition, send`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/customer/sms.cs`：符号 `sms, list`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/member/bank.cs`：符号 `bank, list, info, updateinfo, delete, reset, verifyuser, createbank`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/member/group.cs`：符号 `group, list, delete, save, batchedit, updatemember, info, updategroupisdefault`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/member/idcard.cs`：符号 `idcard, list, info, updateinfo, delete, reset, verifyuser, createidcard`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/member/info.cs`：符号 `info, getusercondition, orderUsername, query, ArgIsEmpty, LimitUserSearch, UserSearch, list`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/user/member/rebate.cs`：符号 `rebate, info, returntype, list, save, updateauto, delete`；风险 `callback, funds, login, permission, user-data`
+- `Library/BetWin.Handler.Admin/voucher/order.cs`：符号 `order, info, update, list, detail`；风险 `callback, funds, login, order-state, permission, user-data`
+- `Library/BetWin.Handler.Admin/withdraw.cs`：符号 `withdraw, settinglist, getsettinginfo, getsystemsetting, getsystemwithdrawlist, savesetting, savewithdrawsort, deletewithdraw`；风险 `callback, funds, login, permission, user-data`
+- 还有 227 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- 共跳过 44 个文件，原因：forbidden_directory, forbidden_sensitive_suffix。明细只写入 `rag/init-reports/20261018T064704Z-baseline-betwin.json`，不进入可召回摘要。
+- pruned_directory 4 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+
+## 使用约束
+
+- 本摘要只用于定位和初筛，不替代当前源码。
+- 判断真实行为、接口契约、状态变更或兼容逻辑时，必须回读业务仓当前源码。
+- 风险标签按路径关键词自动打，可能多打或漏打；高风险判断以源码和项目档案为准。

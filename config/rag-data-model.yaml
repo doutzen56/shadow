@@ -1,5 +1,7 @@
 schema_version: v1
 purpose: RAG SQLite 控制面数据模型。向量数据存 Qdrant，SQLite 只保存目录、状态、索引、审计和检索轨迹。
+model_version: rag-data-model-v2
+implemented_by: tools/rag_index.py
 
 principles:
   - SQLite 不保存完整业务源码和大日志。
@@ -30,8 +32,8 @@ entities:
       - { name: source_id, type: text, required: true, unique: true }
       - { name: project_id, type: text, required: false }
       - { name: path, type: text, required: true }
-      - { name: source_type, type: text, required: true }
-      - { name: layer, type: text, required: true }
+      - { name: source_type, type: text, required: true, note: "doc（SimpX 文档，bootstrap 负责）、code_file（业务源码文件，project 导入负责）、code_summary（代码摘要 Markdown 和摘要 manifest，project 导入负责）" }
+      - { name: layer, type: text, required: true, note: 文档取 rag-manifest.yaml 的 sources 键名；业务源码取摘要分组 group_id }
       - { name: content_hash, type: text, required: true }
       - { name: lifecycle_status, type: text, required: true }
       - { name: updated_at, type: datetime, required: true }
@@ -85,7 +87,10 @@ entities:
       - { name: source_id, type: text, required: true }
       - { name: title, type: text, required: true }
       - { name: doc_type, type: text, required: true }
-      - { name: maturity, type: text, required: true }
+      - { name: maturity, type: text, required: true, note: 取 frontmatter 的 maturity，没有写 n/a }
+      - { name: lifecycle_status, type: text, required: true, note: 知识生命周期，取值见 knowledge-structure.yaml 的 knowledge_metadata }
+      - { name: confirmed_by, type: text, required: false }
+      - { name: user_reviewed, type: boolean, required: false, note: 周审查 false 的条目 }
       - { name: project_scope, type: json, required: false }
       - { name: role_scope, type: json, required: false }
       - { name: task_scope, type: json, required: false }

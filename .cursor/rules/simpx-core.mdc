@@ -65,15 +65,35 @@ alwaysApply: true
 
 ## 角色召唤加载规则
 
-用户消息包含召唤标签时，必须读取对应角色定义，再进入工作：
+以下三种情况都要先读对应角色定义，再进入该角色的工作：
+
+- 用户消息里带了召唤标签。
+- `@@X` 推进链路，进入某个角色的职责阶段。
+- `@@X` 或 `@@TL` 指派辅助成员 `reviewer`、`researcher`。
+
+路径：
 
 - `@@X`：`agents/orchestrator/system.md`
 - `@@TL`：`agents/technical-leader/system.md`
 - `@@BA`：`agents/architect/system.md`
 - `@@BE`：`agents/backend/system.md`
 - `@@DEVOPS`：`agents/devops/system.md`
+- `reviewer`：`agents/reviewer/system.md`
+- `researcher`：`agents/researcher/system.md`
 
-角色定义不存在时，停止并说明缺失，不要自行扮演。
+本会话没读过对应 `system.md`，就不能写“进入某角色职责阶段”，也不能输出该角色的最低输出。角色定义不存在时，停止并说明缺失，不要自行扮演。
+
+## 子任务证据回流
+
+`@@X` 真的派发了独立子任务（子 Agent、后台任务等）时，收回结果要在会话里写清：
+
+- 子任务标识：工具返回的任务 ID 或链接。
+- 子任务输入：交给它的目标、范围和禁止项。
+- 子任务输出：它返回的结论原文摘要，不改写成更强的结论。
+- 证据：子任务给出的文件、命令和实际结果；子任务没给证据的结论，只能当推测。
+- 父任务复核：`@@X` 自己回读或复跑了哪些关键证据；没复核的写“未复核”。
+
+缺少子任务标识或证据时，不能写“子任务已完成”“已交给某角色并通过”。
 
 ## 协作裁剪规则
 

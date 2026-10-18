@@ -1,11 +1,21 @@
-# 代码摘要卡模板
+# 代码摘要深挖卡模板
 
-## Frontmatter
+## 什么时候用
+
+分组摘要（`knowledge/code-summaries/<project-id>/<group>.md`）由 `tools/rag_index.py` 自动生成，只有路径、符号和风险标签。
+
+碰到资金、订单状态、权限、登录、回调、幂等这类高风险文件，分组摘要不够用时，才手写一张深挖卡，放在 `knowledge/code-summaries/<project-id>/cards/<summary_id>.md`。
+
+- 导入脚本只登记卡片，不覆盖。
+- 卡片里的 `file_hash` 和当前源码对不上时，下次导入会把卡片标成 stale，要回读源码后更新卡片和哈希。
+- `file_hash` 是源码文件内容（UTF-8 读出）的 sha256，可以从 `rag/index.db` 的 `source` 表按 `path` 查 `content_hash`。
+
+## 文件开头（frontmatter，原样写在文件最前面）
 
 ```yaml
+---
 summary_id:
 project_id:
-source_repo:
 file_path:
 file_hash:
 symbol:
@@ -13,8 +23,8 @@ symbol_kind:
 role_scope: []
 task_scope: []
 risk_tags: []
-lifecycle_status: active
 last_seen:
+---
 ```
 
 ## 职责
@@ -49,4 +59,4 @@ last_seen:
 
 ## 源码回读要求
 
-涉及行为判断时，必须回读当前源码；本摘要只做定位和初筛。
+涉及行为判断时，必须回读当前源码；本卡片只做定位和初筛。

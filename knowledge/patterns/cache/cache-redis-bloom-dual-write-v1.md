@@ -15,7 +15,9 @@ reuse_score: 88
 last_verified_at: 2026-09-20
 owner: "@@BE"
 status: validating
-lifecycle_status: validating
+lifecycle_status: confirmed
+confirmed_by: 未记录（确认人规则生效前入库）
+user_reviewed: false
 ---
 
 # Redis Bloom 双写生命周期组件（模式卡）

@@ -1,99 +1,90 @@
 # 业务 Agent
 
+<!-- 由 tools/rag_index.py 生成，下次导入会覆盖；要改职责说明，改脚本里 PROJECTS 的分组定义。 -->
+
 - project_id: `betwin`
+- summary_group: `core-agents`
 - host_or_layer: `business-agent`
-- roots: `Library/BetWin`
-- file_count: 178
-- generated_at: 2026-10-18T06:47:04Z
+- solution_file: `BetWin5.0.sln`
+- last_ingestion_run: `20261018T083037Z-project-betwin`
+- file_count: 177
+- project_count: 1
+- risk_tags: `cache-consistency`, `callback`, `elasticsearch`, `funds`, `gateway`, `order-state`, `permission`, `user-data`
 
-## 风险标签
+## 职责摘要
 
-`cache-consistency`, `callback`, `elasticsearch`, `funds`, `gateway`, `order-state`, `permission`, `user-data`
+站点、用户、资金、游戏、代理、风控的业务 Agent 和定时作业实现，资金和状态规则主要在这里。
 
-## 代表文件
+## 扫描根目录
 
-- `Library/BetWin/Agent/AgentBase.cs`：符号 `AgentBase, Instance`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Cache/GameSettingRateCache.cs`：符号 `GameSettingRateCache, DeleteGameSettingRates`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Cache/SiteExchangeRateCache.cs`：符号 `SiteExchangeRateCache, GetSiteExchangeRate, DeleteSiteExchangeRate`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Cache/TelegramSettingCache.cs`：符号 `TelegramSettingCache, GetTelegramConfig, DeleteTelegramConfigCache`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Exchange/ExchangeRateAgent.cs`：符号 `ExchangeRateAgent, SetSiteBaseCurrency, UpdateSiteRate, SaveSiteExchangeRate, GetExchangeRate, GetbaseCurrency, GetExchangeRateByBaseCurrency, GetSiteExchangeRateBase`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Exchange/ExchangeReviewAgent.cs`：符号 `ExchangeReviewAgent, Save, GetExchangeRate, ExchangeCurrency, Check`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Exper/ExperAgent.cs`：符号 `ExperAgent, AddExper, WriteLog, IsExistsLog, ExceAdd, ExceManualAdd, UpdateUserExper`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Game/GameAgent-User.cs`：符号 `GameAgent, GetGameUser, AddGameUser, GetGameUserList, CheckPlayerName, GetUserID, GetFlowRate, GetPlayerName`；风险 `cache-consistency, funds, gateway, order-state, user-data`。
-- `Library/BetWin/Agent/Games/GameDelegate.cs`：符号 `GameDelegate, SetGetAll, GetDictionary, GetGameUser, GetMarkTime, GetTransferOrder, SaveDictionary, SaveMarkTime`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Games/GameEnteranceAgent.cs`：符号 `GameEnteranceAgent, SiteGameEnteranceSync, SynchronousCloseData`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Games/GameLogAgent.cs`：符号 `GameLogAgent, PreProcessing, GetStatus, Save, ImportLog, UpdateStatusV1, UpdateStatus, GetOrderQueryV1`；风险 `cache-consistency, elasticsearch, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Games/GameSettingAgent.cs`：符号 `GameSettingAgent, GetSiteIDByGameIsSelf, GetGameSetting, GetGameName, GetGameSettingInfo, SaveGameSettingSort, GetGameSettingList, UpdateGameSettingSort`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Games/GameTagAgent.cs`：符号 `GameTagAgent, GetGameTagInfo, SaveTagInfo, DeleteGameTag, SaveGameTagCaching, GetGameTags, GetTagName`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Games/PlayerAgent.cs`：符号 `PlayerAgent, GetUserID, GetGameUserList`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/HttpAgentConfig.cs`：符号 `HttpAgentConfig, GetUrl`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Points/PointsAgent.cs`：符号 `PointsAgent, AddPoint, WriteLog, PointReduce, IsExistsLog, ExceAdd, LockPoint, UnLockPoint`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/PROC.cs`：符号 `PROC, usr, rpt, game, site, data`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Proxy/AgentUserAgent.cs`：符号 `AgentUserAgent, GetInfo, UpdateAgentUserInfo, UpdateAgentUserCommission, UpdateAgentUserReturn, UpdateToAgent, AddAgentUser`；风险 `cache-consistency, funds, gateway, order-state, user-data`。
-- `Library/BetWin/Agent/Proxy/AssignAgent.cs`：符号 `AssignAgent`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Proxy/CommissionAgent.cs`：符号 `CommissionAgent, GetCommissionInfo, GetAgentCommissions, GetAllAgentCommissions, UpdateComissionsAgentCount, SaveCommissionInfo, DeleteCommission`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Proxy/ProxyRateAgent.cs`：符号 `ProxyRateAgent, GetProxyRateInfo, GetProxyRateLast, AddProxyRate, UpdateProxyRate, GetWashingRatios`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Proxy/ReturnAgent.cs`：符号 `ReturnAgent, SaveReturnPlan, GetReturnPlan, GetAgentReturn, ExecuteAgentReturn, CheckReturnLog, ReExecute, DeleteAgentReturn`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Proxy/SportsAgent.cs`：符号 `SportsAgent, GetYaboResult, GetYaboContentResult`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Pusher/SocketAgent.cs`：符号 `SocketAgent, SocketType, Socket, SendMessage`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Pusher/TelegramAgent.cs`：符号 `TelegramAgent, SendAsync, SendAsyncByInterval, SendAsyncByRecharge, SendAsyncByWithdrawal, SendAsyncByFRecharge, SendAsyncByBet, SendAsyncByVip`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Report/ReportAgent-User.cs`：符号 `ReportAgent, GetUserDateMoney, GetUserMoneyType, SaveUserBetAmount, SaveUserRechargeAmount, GetUserDayBetAmount, GetUserWeekBetAmount, GetUserMonthBetAmount`；风险 `cache-consistency, funds, gateway, order-state, user-data`。
-- `Library/BetWin/Agent/Reports/ChartAgent.cs`：符号 `ChartSettingAgent, GetDataTable, GetDbParameters, SaveChartSetting`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Reports/GameReportAgent.cs`：符号 `GameReportAgent, CurrencyAgg, EsUserTypeCurrencyAggRow, SaveUserDateGame, SaveUserDateGameFromES, ParseCompositeAggregationResult, SaveUserDateGameBattleFromES, ParseCompositeAggregationBattleResult`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Reports/ProxyReportAgent.cs`：符号 `ProxyReportAgent, SaveProxyMoneySts`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Reports/SiteGameReportAgent.cs`：符号 `SiteGameReportAgent, GetBetAmount`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Reports/SiteReportAgent.cs`：符号 `SiteReportAgent, GetSiteProfit, GetSiteMoneyCategory, GetSiteSystemDataReport, IsExistDataByRptStatis`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Reports/TeamReportAgent.cs`：符号 `TeamReportAgent, GetValidUserCount, GetNewUserCount, AgentCommissionData, GetTeamReport, GetTeamBetAmountStatistic, SaveTeamRecharge, SaveTeamRechargeDue`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Risk/IpRiskDetector.cs`：符号 `IpRiskDetector, IpCompareResult, AnalyzeIpRisk`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Risk/RiskAgent.cs`：符号 `RiskAgent, RiskUserDangerContextExtensions, DayModifyAmountPassword, DayModifyLoinPassword, NoBindPhoneOrEmall, IpLoginDifUser, UserLoginDifIp, UserLoginIpRisk`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Risk/UserDeviceAgent.cs`：符号 `UserDeviceAgent, SaveUserDevice`；风险 `cache-consistency, funds, gateway, order-state, user-data`。
-- `Library/BetWin/Agent/Risk/UserIPAgent.cs`：符号 `UserIPAgent, SaveUserIP`；风险 `cache-consistency, funds, gateway, order-state, user-data`。
-- `Library/BetWin/Agent/Shop/ShopAgent.cs`：符号 `ShopAgent, GetCategoryInfo, GetCategories, SaveCateInfo, DeleteCate, SaveProductInfo, GetProductInfo, GetShopProduct`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/AdminAgent.cs`：符号 `AdminAgent, GetAdminInfo, GetAdminID, GetAdminName, GetRealName, Login, CheckGoogleSecret, Logout`；风险 `cache-consistency, funds, gateway, order-state, permission`。
-- `Library/BetWin/Agent/Sites/APPAgent.cs`：符号 `SiteAPPAgent, UploadAPPFile, SaveAPPInfo, GetSiteAPPInfo, SaveQRCode, GetAPPUrl, UpdateWgtVersion, SaveSiteAPP`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/AuthAgent.cs`：符号 `AuthAgent, GetAuth, GetAuthSetting, SaveSiteAuthorization`；风险 `cache-consistency, funds, gateway, order-state, permission`。
-- `Library/BetWin/Agent/Sites/AwardAgent.cs`：符号 `AwardAgent`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/CertAgent.cs`：符号 `CertAgent, GetCertInfo, SaveCertInfo, DeleteCertInfo`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/CommisionAgent.cs`：符号 `CommissionAgent, CreateCommissionLogNew, CreateCommissionLogNewSingle, CreateCommissionLog, AddCommissionLog, CheckCommissionLog, GetCommissionLogInfo, GetTeamCommission`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/ConfigAgent.cs`：符号 `ConfigAgent, GetBankList, GetVirtualCoinList, GetBlackRegion, SaveBlackRegion, CheckIPLimit, SaveBlackIP, GetBlackIP`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/DomainAgent.cs`：符号 `DomainAgent, SaveSiteDomain, GetSiteDomainInfo, DeleteDomain, GetSiteDomainList, GetSiteDomain, GetTopSiteDomain, GetAppSiteDomain`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/EventAgent.cs`：符号 `EventAgent, SaveColumn, GetColumnInfo, SaveColumnSort, DeleteColumn, GetColumnList, GetEventValidCount, GetEventValidTotal`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/FeedbackAgent.cs`：符号 `FeedbackAgent, AddFeedback, GetFeedbackInfo, DeleteFeedback`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/HelpAgent.cs`：符号 `HelpAgent, GetHelpColumnInfo, SaveHelpColumn, DeleteHelpColumn, UpdateHelpColumnSort, GetSiteHelp, SaveSiteHelp, DeleteSiteHelp`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/NewsAgent.cs`：符号 `NewsAgent, UpdateNewsColumnSort, SaveNewsColumn, SaveNewsColumnCode, GetNewsColumnList, GetNewsColumnInfo, DeleteNewsColumn, SaveNewsInfo`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/NotifyAgent.cs`：符号 `NotifyAgent, RefrsehAdminNotify, Push`；风险 `cache-consistency, callback, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/OnlineAgent.cs`：符号 `OnlineAgent, SaveUserOnline, GetSiteOnline`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/PageAgent.cs`：符号 `PageAgent, GetPageSetting, GetPageSettingInfo, SavePageItemInfo, GetSitePageSetting, SavePageItemSort, GetPageItemList, SaveCache`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/PaymentAgent.cs`：符号 `PaymentAgent, GetGatewaySetting, GetSystemPayment, GetCallbackIP, GoGateway, GetIP, ShowCallback, AccountCheck`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/PusherAgent.cs`：符号 `PusherAgent, GetSiteAdminChannel, GetSystemAdminChannel, GetUserChannel, GetUserName`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/RebateAgent.cs`：符号 `RebateAgent, SaveRebateSetting, GetRebateSettingInfo, UpdateRebateSettingIsAuto, UpdateRebateSettingEnabled, DeleteRebateSetting, GetRebateSettingList, GetRebateLog`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/RebateAgent.V2.cs`：符号 `RebateAgent, RebateV2UserPendingSnapshot, RebateV2CurrencyPending, RebateV2UserPrefetch, RebateV2CalcItem, RebateV2PreviewResult, RebateV2PreviewCurrencyItem, ResolveEsVisibleLag`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/RegionAgent.cs`：符号 `RegionAgent, GetSiteRegion, SaveSiteRegion, DeleteSiteRegion, GetSiteRegionContent, GetSiteRegionContentList, GetUrlTitle, GetNewsTitle`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteAgent.cs`：符号 `SiteAgent, GetSiteInfo, GetAllSiteList, GetSiteInfoAndCache, RemoveSiteInfoCache, SaveSiteMaintainDescription, GetSiteMaintainDescription, SaveSiteInfo`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteAPPAgent.cs`：符号 `SiteAPPAgent, UploadAPPFile, SaveAPPInfo, GetSiteAPPInfo, GetSiteAPPList, SaveQRCode, SaveCustomQRCode, GetAPPUrl`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteCurrencyAgent.cs`：符号 `SiteCurrencyAgent, Save, GetSiteCurrency, SaveCurrencySettingSort, SaveSiteCurrencys, GetCurrencys, GetSiteFristCurrency, SetSiteCurrency`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteFileAgent.cs`：符号 `SiteFileAgent, SaveReportInfo, SaveReportFile, UpdateStatus, DeleteFile`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteGameCateAgent.cs`：符号 `SiteGameCateAgent, GetGameCateList, SaveSiteGameCate, UpdateSiteGameCate, DelSiteGameCate, GetSiteGameCate, GetSysCate`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteGameCreditLogAgent.cs`：符号 `SiteGameCreditLogAgent, AddLog`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteGameListAgent.cs`：符号 `SiteGameListAgent, GetGameCateList, GetSiteGameLists, SaveSiteGameCate, UpdateSiteGameCate, DelSiteGameList, UpdateSiteGameList, UpdateSiteGameRecommends`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteHostAgent.cs`：符号 `SiteHostAgent, AddSiteHost, GetSiteHostInfo, GetSiteID, DeleteSiteHost, UpdatePaymentIsEnable, GetSiteHostList`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteLanguageAgent.cs`：符号 `SiteLanguageAgent, SaveSiteLanguage, GetSiteLanguage, GetSiteLangContent, DeleteSiteLanguage`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteSupportLanguageAgent.cs`：符号 `SiteSupportLanguageAgent, Save, GetSiteLanguage, GetSiteLanguages`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SiteVipConfigAgent.cs`：符号 `SiteVipConfigAgent, GetSiteVipConfigInfo, GetSiteVipConfigInfoAndCache, GetSiteVipLevelName, InitSiteVIPRightSetting, SaveSiteVipConfigRuleClause, SaveSiteVipConfigPointRule, SaveSiteVipConfigReturnRule`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SpecialOperationAgent.cs`：符号 `SpecialOperationAgent, GetOrderID, GetUserID, GetSubBankName, GetSubBankNameByUserID, GetSubBankCode, GetSubBankCodeByUserID, GetLevel`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/StoreAgent.cs`：符号 `StoreAgent, GetStoreInfo, GetStoreAdress, DeleteStoreInfo`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/SurveryAgent.cs`：符号 `SurveryAgent, SaveSurvery, GetSurvery, SaveAnswer, SavePay, GetSurveryUser`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/ValidCodeAgent.cs`：符号 `ValidCodeAgent, CheckMobileCode, CheckEmailCode, SendSMSCode, SendMailCode, AddValidCode, AddSMSLog`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/WithdrawAgent.cs`：符号 `WithdrawAgent, SaveChannel, SaveWithdrawSort, GetWithdrawCount, GetChannel, RemoveChannelInfo, GetChannelName, DeleteChannel`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/Sites/WithdrawSpecialOperationAgent.cs`：符号 `WithdrawSpecialOperationAgent, GetUserName, GetUserId, GetSubBankName, GetSubBankCode, GetMobile, GetIdCard, GetEmail`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/System/AdminAgent.cs`：符号 `AdminAgent, Login, Create, SaveAdminFace, UpdateAdminInfo, Logout, GetAdminInfo, GetAdminToken`；风险 `cache-consistency, funds, gateway, order-state, permission`。
-- `Library/BetWin/Agent/System/BankAccountBlackListAgent.cs`：符号 `BankAccountBlackListAgent, SaveBankAccountBlackList, GetBankAccountBlackListInfo, IsExists`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/System/BillAgent.cs`：符号 `BillAgent, GetSystemBillInfo`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/System/ChartAgent.cs`：符号 `ChartAgent, GetChartInfo, GetReportData, CheckPermission, ResultHandle, ResultHandleStatistics, ExceQuery, DataColumnHandle`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/System/ConfigAgent.cs`：符号 `ConfigAgent, GetEnumValue, UpdateGameDictionaryCache, CreateMoneyTypeCategory, CreateMoneyTypeProfit, UpdateUserMoney, GetSystemConfig, SaveSystemConfig`；风险 `cache-consistency, funds, gateway, order-state`。
-- `Library/BetWin/Agent/System/ExchangeAgent.cs`：符号 `ExchangeAgent, GetSystemExchange, UpdateExchengeMarketPrice, SaveExchenge`；风险 `cache-consistency, funds, gateway, order-state`。
-- 还有 98 个文件仅写入 SQLite 控制面，未在 Markdown 摘要里展开。
+- `Library/BetWin`
+
+## 项目文件
+
+- `Library/BetWin/BetWin.csproj`
+
+## 定位样例
+
+按路径里的高风险关键词优先挑选，最多列 50 个。
+
+- `Library/BetWin/Agent/Game/GameAgent-User.cs`：符号 `GameAgent, GetGameUser, AddGameUser, GetGameUserList, CheckPlayerName, GetUserID, GetFlowRate, GetPlayerName`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Proxy/AgentUserAgent.cs`：符号 `AgentUserAgent, GetInfo, UpdateAgentUserInfo, UpdateAgentUserCommission, UpdateAgentUserReturn, UpdateToAgent, AddAgentUser`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Report/ReportAgent-User.cs`：符号 `ReportAgent, GetUserDateMoney, GetUserMoneyType, SaveUserBetAmount, SaveUserRechargeAmount, GetUserDayBetAmount, GetUserWeekBetAmount, GetUserMonthBetAmount`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Risk/UserDeviceAgent.cs`：符号 `UserDeviceAgent, SaveUserDevice`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Risk/UserIPAgent.cs`：符号 `UserIPAgent, SaveUserIP`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Sites/AdminAgent.cs`：符号 `AdminAgent, GetAdminInfo, GetAdminID, GetAdminName, GetRealName, Login, CheckGoogleSecret, Logout`；风险 `cache-consistency, funds, gateway, order-state, permission`
+- `Library/BetWin/Agent/Sites/AuthAgent.cs`：符号 `AuthAgent, GetAuth, GetAuthSetting, SaveSiteAuthorization`；风险 `cache-consistency, funds, gateway, order-state, permission`
+- `Library/BetWin/Agent/Sites/NotifyAgent.cs`：符号 `NotifyAgent, RefrsehAdminNotify, Push`；风险 `cache-consistency, callback, funds, gateway, order-state`
+- `Library/BetWin/Agent/Sites/PaymentAgent.cs`：符号 `PaymentAgent, GetGatewaySetting, GetSystemPayment, GetCallbackIP, GoGateway, GetIP, ShowCallback, AccountCheck`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/Sites/WithdrawAgent.cs`：符号 `WithdrawAgent, SaveChannel, SaveWithdrawSort, GetWithdrawCount, GetChannel, RemoveChannelInfo, GetChannelName, DeleteChannel`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/Sites/WithdrawSpecialOperationAgent.cs`：符号 `WithdrawSpecialOperationAgent, GetUserName, GetUserId, GetSubBankName, GetSubBankCode, GetMobile, GetIdCard, GetEmail`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/System/AdminAgent.cs`：符号 `AdminAgent, Login, Create, SaveAdminFace, UpdateAdminInfo, Logout, GetAdminInfo, GetAdminToken`；风险 `cache-consistency, funds, gateway, order-state, permission`
+- `Library/BetWin/Agent/System/PaymentConfigAgent.cs`：符号 `PaymentConfigAgent, GetSystemPayment, SaveSystemPayment, DeleteSystemPayment, CopySystemPayment, UpdatePaymentName, UpdatePaymentIsOpen, SavePaymentGroup`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/System/WithdrawConfigAgent.cs`：符号 `WithdrawConfigAgent, GetSystemWithdraw, SaveSystemWithdraw, DeleteSystemWithdraw, CopySystemWithdraw, UpdateWithdrawName, UpdateWithdrawIsOpen, SaveSystemWithdrawBank`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/Tickets/TicketAgent.cs`：符号 `TicketAgent, AddTicket, GetTicketInfo, AddComplement, AddFollow, SaveRank, SaveCategory, DeleteCategory`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Agent/User/UserAgent-Exchange.cs`：符号 `UserAgent, GetCurrencyExchangeOrderInfo`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent-Game.cs`：符号 `UserAgent, GetGameConfig`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent-Group.cs`：符号 `UserAgent, SaveGroup, UpdateGroupDefault, GetGroupInfo, GetGroupNotID, UpdateGroupMember, UpdateGroupPayment, GetPayment`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent-Import.cs`：符号 `UserAgent, SaveImportUser, GetImportUser, DeleteImportUser, SaveImportMobile, DeleteImportMobile, SaveImportBlackMobile, UpdateImportBlackMobile`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent-Money.cs`：符号 `UserAgent, AddGameMoneyLog, AddRechargeOrderWithAccount, AddRechargeOrder, CreateRechargeOrder, GetGatewaySetting, CheckRechargeOrder, ErrorOrderAddEvent`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent-Setting.cs`：符号 `UserAgent, GetUserWithdrawSetting`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/User/UserAgent.cs`：符号 `UserAgent, GetSiteID, GetUserName, GetAgentID, GetCurrency, GetAgentName, AddUser, AddAgent`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/AgentApplyAgent.cs`：符号 `AgentApplyAgent, AddAgentApply, GetApplyInfo, UpdateApply`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/LogAgent.cs`：符号 `LogAgent, AddLoginLog`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/MessageAgent.cs`：符号 `MessageAgent, SendMessage, SendMail, RefreshUnReadMessageQty, GetUnReadMessageQty, GetUserMessage, DeleteMessage, UpdateMessage`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/MoneyAgent.cs`：符号 `MoneyAgent, GetUserWallet, GetUserWallets, GetUserWalletByDb, GetUserMoney, CreateLogID, AddMoneyLog, GetUserTotalMoney`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/MoneyReviewAgent.cs`：符号 `MoneyReviewAgent, SaveMoneyReview, CheckMoneyReview`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserAgentUpdateLogAgent.cs`：符号 `UserAgentUpdateLogAgent, AddLog, UpdateLog, RunUpdateTask, UpdateAgentSts`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserEventAgent.cs`：符号 `UserEventAgent, SaveEventLog, GetEventLog, CheckEventLog, GetEventLogCount`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserEventDelegate.cs`：符号 `UserEventDelegate, SaveDelotteryProductCount, ExecDelotteryProdcut, GetDelotteryCount, GetDelotteryItemCount, SaveDelotteryRecharge, WriteCountLog, WriteRedEnvelopeCountLog`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserExternalAgent.cs`：符号 `UserExternalAgent, SendContext, SendInfoType, AddUserExternal, SendUserExternal, RequestReturnMesssage`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserGameFavoriteAgent.cs`：符号 `UserGameFavoriteAgent, SaveFavorite, CancelFavorite`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserIdCardAgent.cs`：符号 `UserIdCardAgent, UpdateStatus, DeleteCard, DeleteCardByUserId, CreateCard, SaveCardImg, GetIdCard, Notify`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserInfoAgent.cs`：符号 `UserInfoAgent, UpdateUserInfo, ResetUserInfo, UpdateUserStatus, UpdateUserLockStatus, UpdateAllUserLockStatus, UpdateUserLockStatusByProxy, IsLock`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserMarkAgent.cs`：符号 `MarkAgent, AddUserMark, GetMark, DeleteMark, DeleteMarkCache, UpdateUserMark`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserRelationAgent.cs`：符号 `UserRelationAgent, UpdateUserAgentAndTop`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserSignAgent.cs`：符号 `UserSignAgent, AddSign, AddSignAndOpen, sign, OpenLongCheckIn, GetLoginDay, IsSigned`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserVipConfigAgent.cs`：符号 `UserVipConfigAgent, GetTotalBetAmount, GetTotalRecharge, GetThreeMonthTotalBetAmount, GetVIPConditionItem, GetNextVIPConditionItem, GetPreVIPConditionItem, GetUpgradePercent`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/UserVipGiftLogAgent.cs`：符号 `UserVipGiftLogAgent, CreateSourceID, SaveSiteVipUserSourceID, IsExistSiteVipUserSourceID, GetLastUpgradeDateTime`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/VipConfigSettingAgent.cs`：符号 `VipConfigSettingAgent, TempUserList, GetPrivilegeItem, GetLevelItem, GetLevelItems, SaveLevelItem, SavePrivilegeItem, SavePrivilegeItemStatus`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/WashFlowAgent.cs`：符号 `WashFlowAgent, CreateWashFlow, SaveWashFlow, GetWashFlowList, UpdateWashFlow, AddWashFlowLog, AddWashFlowByID, AddGameWashFlowLog`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/WithdrawCreditAgent.cs`：符号 `WithdrawCreditAgent`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Agent/Users/WithdrawOrderAgent.cs`：符号 `WithdrawOrderAgent, GetOrderInfo, HasRisk, Check, Exec, WithDrawReward, Query, WithdrawCheckforService`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Jobs/AutoCheck/CheckWithdrawJob.cs`：符号 `CheckWithdrawJob, ExecuteJobAsync`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Jobs/AutoCheck/TicketNotifyJob.cs`：符号 `TicketNotifyJob, ExecuteJobAsync`；风险 `cache-consistency, callback, funds, gateway, order-state`
+- `Library/BetWin/Jobs/AutoCheck/UpdateUserAgentJob.cs`：符号 `UpdateUserAgentJob, UpdateUserAgentRunner, ExecuteJobAsync, Run`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Jobs/AutoCheck/UserMoneyCacheJob.cs`：符号 `UserMoneyCacheJob, UserMoneyCache, ExecuteDelayJobAsync, Run`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- `Library/BetWin/Jobs/CleanUp/AdminLogClearJob.cs`：符号 `AdminLogClearJob`；风险 `cache-consistency, funds, gateway, order-state, permission`
+- `Library/BetWin/Jobs/Rebate/RebateOrderV2SyncJob.cs`：符号 `RebateOrderV2SyncJob, ExecuteJobAsync`；风险 `cache-consistency, funds, gateway, order-state`
+- `Library/BetWin/Jobs/ReportStatistics/UpdateUserMoneyJob.cs`：符号 `UpdateUserMoneyJob, ExecuteJobAsync`；风险 `cache-consistency, funds, gateway, order-state, user-data`
+- 还有 127 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- 共跳过 9 个文件，原因：forbidden_directory。明细只写入 `rag/init-reports/20261018T064704Z-baseline-betwin.json`，不进入可召回摘要。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+
+## 使用约束
+
+- 本摘要只用于定位和初筛，不替代当前源码。
+- 判断真实行为、接口契约、状态变更或兼容逻辑时，必须回读业务仓当前源码。
+- 风险标签按路径关键词自动打，可能多打或漏打；高风险判断以源码和项目档案为准。

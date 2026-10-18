@@ -60,7 +60,7 @@ Agent 开始工作前，按以下顺序读取和判断：
 3. `config/simpx.yaml`：成员、召唤标签和默认协作顺序。
 4. `workflows/_shared/`：任务入口、权限、证据和完成检查。
 5. 当前任务对应的 `workflows/<name>/README.md`。
-6. 召唤标签对应的 `agents/<role>/system.md`。
+6. 本次要用到的每个角色的 `agents/<role>/system.md`：用户召唤的、`@@X` 链路里要进入职责阶段的、被指派的 `reviewer` / `researcher`。
 7. 当前业务仓映射到的项目档案。
 
 规则冲突时，以用户当前消息和 `config/active-rules.yaml` 登记的生效规则为准。

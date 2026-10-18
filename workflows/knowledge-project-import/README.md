@@ -12,16 +12,19 @@
 - 项目档案：`README.md`、`profile.yaml`、`boundaries.md`、可选 `architecture-map.md`。
 - `config/rag-importer.yaml`。
 
+## 执行工具
+
+`python tools/rag_index.py project <project_id> <业务仓根目录>`。新项目要先在脚本的 `PROJECTS` 里登记摘要分组（扫描根目录、层次、默认风险标签、职责说明），再按 `project-init` 接入。
+
 ## 标准步骤
 
 1. `@@X` 确认任务类型为项目接入或知识库/RAG运维。
 2. 按 `.sln` 和 `workspace-hosting.mdc` 识别 project；不确定时询问用户。
 3. 读取项目档案并校验必需文件。
-4. 按 `rag-importer.yaml` 扫描允许的文档和代码根目录。
-5. 跳过禁止文件和敏感内容，记录 skip reason。
-6. 为文档生成 source/chunk，为代码生成摘要输入，不复制完整源码。
-7. 写入 ingestion_run 结果和缺口清单。
-8. 更新 `knowledge/indexes/rag-manifest.yaml` 的 `latest_run` 和 `seed_projects.<project-id>`；不改 `baseline`。
+4. 运行导入命令：脚本按 `rag-importer.yaml` 只扫 `.cs` 和 `.csproj`，跳过构建产物目录、密钥、证书和配置文件，跳过原因写进初始化报告。
+5. 脚本为代码生成 source/chunk/symbol 和代码摘要 Markdown，不复制源码；项目档案文档由 `bootstrap` 负责。
+6. 脚本写入 ingestion_run 和 `rag/init-reports/<run_id>.json`。
+7. 把命令输出回填到 `knowledge/indexes/rag-manifest.yaml` 的 `latest_run` 和 `seed_projects.<project-id>`；不改 `baseline`。
 
 ## 输出
 

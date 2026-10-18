@@ -15,6 +15,12 @@ corpus_layers:
     embed_allowed: false
     deterministic_load: true
     priority_ceiling: active_rules
+  configs:
+    paths: [config]
+    embed_allowed: false
+    deterministic_load: true
+    priority_ceiling: active_rules
+    notes: active-rules.yaml、simpx.yaml 和对应 rag-*.yaml 按规则确定性读取；进 SQLite 只为关键词定位。
   agents:
     paths: [agents]
     embed_allowed: true
@@ -69,18 +75,37 @@ corpus_layers:
     embed_allowed: false
     retrieve_allowed: false
 
+excluded_paths:
+  - path: core
+    reason: 原则参考，按需确定性读取，不进检索。
+  - path: .cursor/skills
+    reason: 技能说明，按角色触发时确定性读取。
+  - path: rag
+    reason: 运行时产物和初始化报告。
+  - path: tools
+    reason: 导入脚本。
+  - path: projects/profiles
+    reason: 项目风格说明，按 profile.yaml 确定性读取。
+
 forbidden_globs:
   - "**/envs.secrets.yaml"
   - "**/envs.secrets.example.yaml"
   - "**/*.pfx"
   - "**/*.key"
   - "**/*.pem"
+  - "**/*.config"
+  - "**/appsettings*.json"
   - "**/bin/**"
   - "**/obj/**"
   - "**/node_modules/**"
   - "**/.git/**"
   - "**/dist/**"
-  - "**/logs/**"
+  - "**/packages/**"
+  - "**/*.log"
+
+forbidden_notes:
+  - 日志按文件后缀排除（*.log），不按目录名排除；业务代码里叫 Logs 的目录是源码。
+  - 以上路径规则要和 knowledge/indexes/rag-manifest.yaml 的 excluded、config/rag-importer.yaml 的 security 保持一致，改一处要同步另外两处。
 
 chunking:
   markdown: heading_sections

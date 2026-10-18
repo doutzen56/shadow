@@ -49,23 +49,42 @@ scan_order:
   - update_manifest
 
 allowed_sources:
+  note: 具体导入哪些文件、哪些层能召回，以 knowledge/indexes/rag-manifest.yaml 的 sources 和 config/rag-corpus.yaml 的 corpus_layers 为准；这里只列目录。
   simpx_docs:
     - .cursor/rules
+    - config
     - agents
     - workflows
     - templates
-    - knowledge
+    - knowledge/patterns
+    - knowledge/decisions
+    - knowledge/incidents
+    - knowledge/glossary
+    - knowledge/indexes
+    - knowledge/candidates
+    - knowledge/code-summaries
     - projects/examples
+  simpx_never_import:
+    - knowledge/raw
+    - knowledge/archive
+    - core
+    - .cursor/skills
+    - rag
+    - tools
   business_code:
     policy: summary_only
+    include_suffixes:
+      - .cs
+      - .csproj
     default_exclude:
       - bin
       - obj
       - node_modules
       - .git
       - dist
-      - logs
       - packages
+    logs_note: 日志产物（.log、.txt 等）不在 include_suffixes 里，本来就不会导入；业务代码里叫 Logs 的目录（如 LogAgent.cs）是源码，要正常摘要。
+    config_note: .config、appsettings*.json 可能带连接串，不导入。
 
 security:
   forbidden_files:
@@ -74,6 +93,8 @@ security:
     - "*.pfx"
     - "*.key"
     - "*.pem"
+    - "*.config"
+    - "appsettings*.json"
   forbidden_content:
     - password
     - token

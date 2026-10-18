@@ -31,6 +31,8 @@
 - 初版实现与验证路径
 - 阶段决策结论
 
+要落文件时用 `templates/technical-design/README.md`；架构取舍要长期留存时用 `templates/adr/README.md`。
+
 ## 收口检查
 
 - 边界不清或关键约束不明，不进入下一阶段。

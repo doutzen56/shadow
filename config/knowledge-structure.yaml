@@ -5,14 +5,19 @@ storage_layers:
   - name: raw
     description: 任务原始信息层（实现、验证、问题、修复）
     path: knowledge/raw
-    write_policy: 自动收集
+    write_policy: "@@TL 判断要留原始记录时写入，见 config/rag-growth.yaml 的 write_policy.raw"
   - name: candidate
     description: 候选模式层（结构化提炼，待 @@TL 判断入库）
     path: knowledge/candidates
     write_policy: 任务结束由 @@TL 按价值判断是否产出
   - name: knowledge
     description: 正式知识层（@@TL 按证据确认后入库，用户周审修正）
-    path: knowledge
+    paths:
+      - knowledge/patterns
+      - knowledge/decisions
+      - knowledge/incidents
+      - knowledge/glossary
+    note: 只有这四个目录算正式知识；knowledge/ 下其他目录各有自己的层，不能整个 knowledge/ 当正式知识。
     write_policy: "@@TL 按证据确认后直接写入；用户说「记住：」或「记一条 ADR」时直接写入"
   - name: code_summaries
     description: 业务代码摘要层（路径、符号、契约、依赖和风险标签）
@@ -51,6 +56,23 @@ pattern_card_required_fields:
   - task_scope
   - risk_tags
   - lifecycle_status
+  - maturity
+  - confirmed_by
+  - user_reviewed
+
+knowledge_metadata:
+  lifecycle_status:
+    meaning: 知识条目走到了哪一步
+    values: [raw, candidate, confirmed, deprecated, rejected]
+    source: config/rag-growth.yaml 的 states
+  maturity:
+    meaning: 模式本身被验证到什么程度，和 lifecycle_status 是两回事
+    values: [draft, validating, validated]
+  confirmed_by:
+    meaning: 谁按证据确认入库；"@@TL" 或 user；规则生效前入库、来源不明的写“未记录”
+  user_reviewed:
+    meaning: 用户周审是否看过；@@TL 直接入库的先写 false
+  index_status_note: rag/index.db 里 source、chunk、symbol 的 lifecycle_status 是索引状态（active、stale、missing 等，见 rag-data-model.yaml 的 status_values），不是知识生命周期。
 
 pattern_domains:
   - search

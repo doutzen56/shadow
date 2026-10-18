@@ -1,6 +1,12 @@
 schema_version: v1
 purpose: 代码摘要生成策略。摘要用于定位和初筛，不替代当前源码。
 
+implemented:
+  note: 现在由 tools/rag_index.py project 自动生成的是 group 级 Markdown 和 file 级定位记录（路径、哈希、符号、风险标签）；下面 file 的 responsibility/dependencies 和 symbol、flow 级字段不自动生成。
+  group_markdown: knowledge/code-summaries/<project-id>/<group_id>.md（脚本生成，下次导入覆盖）
+  file_locator: rag/index.db 的 source、chunk、symbol 表
+  deep_dive_card: knowledge/code-summaries/<project-id>/cards/<summary_id>.md（高风险文件按模板手写，脚本只登记，哈希对不上标 stale）
+
 levels:
   file:
     description: 文件级职责、宿主、主要依赖和风险标签。
@@ -63,8 +69,11 @@ risk_tags:
   - user-data
   - production-config
   - database-schema
+  - public-contract
   - callback
   - idempotency
+  - retry
+  - async
   - cache-consistency
   - mq
   - elasticsearch
@@ -90,3 +99,4 @@ output:
   root: knowledge/code-summaries
   manifest_name: manifest.yaml
   card_template: templates/code-summary-card/README.md
+  card_template_scope: 只用于 cards/ 下手写的高风险深挖卡，不是分组摘要的格式。

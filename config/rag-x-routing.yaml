@@ -17,25 +17,50 @@ project_routing:
     - profile_identify_by
   unknown_action: ask_user
 
+# 值是单个工作流时直接用；值是 *_decision_tree 时按下面对应的决策树选，判断不了就问用户。
 task_routing:
-  只读分析: requirement-to-design
+  只读分析: readonly_decision_tree
   方案设计: requirement-to-design
   缺陷定位: bug-fix
-  代码实现: feature-development
+  代码实现: implementation_decision_tree
   代码审查: code-review
-  测试验证: release
+  测试验证: testing_decision_tree
   发布交付: release
   事故处理: incident-response
   规则或文档沉淀: agent-governance
   项目接入: project-init
-  知识库/RAG运维:
+  知识库/RAG运维: rag_ops_decision_tree
+
+readonly_decision_tree:
+  pure_analysis_or_question: none
+  need_design_conclusion: requirement-to-design
+  unclear_action: ask_user
+  note: none 表示不套工作流，走 role_chain.readonly_simple，按 completion-definition.mdc 的“只读分析”收口。
+
+implementation_decision_tree:
+  design_confirmed_need_task_breakdown: design-to-code
+  end_to_end_feature: feature-development
+  unclear_action: ask_user
+  note: design-to-code 只产出编码任务清单和断言，进入实现后仍回到 feature-development 的步骤 3 起收口。
+
+testing_decision_tree:
+  implementation_in_progress: feature-development
+  implementation_done_need_retest_or_env_delivery: release
+  unclear_action: ask_user
+  note: 实现还没完成断言和 BE 自验证的，不能走 release，见 workflows/release/README.md。
+
+task_end_hooks:
+  knowledge_sediment: knowledge-growth-loop
+  write_candidate: knowledge-candidate-intake
+  note: 任务收口后由 @@TL 按 knowledge-growth-loop 判断；要写 candidate 时再进 knowledge-candidate-intake。
+
+rag_ops_decision_tree:
+  default_workflows:
     - knowledge-rag-bootstrap
     - knowledge-project-import
     - knowledge-index-maintenance
     - knowledge-auto-repair
     - knowledge-rag-evaluation
-
-rag_ops_decision_tree:
   first_setup_or_rebuild: knowledge-rag-bootstrap
   new_project_or_new_repo: knowledge-project-import
   docs_or_summary_changed: knowledge-index-maintenance

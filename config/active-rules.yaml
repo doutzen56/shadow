@@ -96,7 +96,8 @@ reference_layers:
 
 checks:
   - 新增 alwaysApply 规则后，必须登记到 rule_layers。
-  - 修改角色召唤标签后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc 和 agents/。
+  - 修改角色召唤标签或增删角色后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc、agents/、config/rag-x-routing.yaml 和 config/rag-role-matrix.yaml。
+  - 新增或改名 workflows/ 下的工作流后，必须同步 config/rag-x-routing.yaml 的 task_routing。
   - 规划目录不能当作已启用规则引用。
   - RAG 命中不能覆盖 active_rules、当前源码、项目档案和用户当前要求。
   - 当前源码与代码摘要、知识库或项目档案冲突时，以当前源码为准，并记录冲突。

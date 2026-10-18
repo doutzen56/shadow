@@ -23,7 +23,27 @@
 10. 代码摘要健康度（是否存在过期摘要、孤儿符号、缺失风险标签或跨项目误召回）。
 11. 自动修复边界（低风险修复是否自动处理，高风险修复是否进入候选队列）。
 
+12. 路由完整性（`workflows/` 下每个工作流都能从 `config/rag-x-routing.yaml` 的 `task_routing`、决策树或 `task_end_hooks` 走到）。
+13. 三处排除规则同步（`rag-manifest.yaml` 的 `excluded`、`rag-corpus.yaml` 的 `excluded_paths` / `forbidden_globs`、`rag-importer.yaml` 的 `simpx_never_import` / `security`，以及 `tools/rag_index.py` 的 `DOC_SOURCES` 和敏感文件判断）。
+14. 运行时产物一致（`rag-manifest.yaml` 的 run_id、manifest_hash、数量，和 `rag/init-reports/` 最新报告、`rag/index.db` 的 `ingestion_run` 对得上；不一致就重跑 `tools/rag_index.py`）。
+15. 引用健康（`templates/`、`workflows/*/examples/`、`knowledge/indexes/` 下每个文件至少被一个工作流、角色或规则引用；没人引用的要么补引用，要么标规划或归档）。
+16. `core/` 与 `.cursor/rules/` 同主题内容是否漂移；冲突时以 `.cursor/rules/` 为准，并把 `core/` 对应段落改成引用。
+
 角色一致性巡检必须使用 `role-consistency-check.md`。
+
+### 可以直接跑的检查
+
+```text
+python tools/rag_index.py search <关键词>     # 抽查检索能否命中，会写 retrieval_trace
+```
+
+```sql
+-- 对 rag/index.db 执行
+select run_id, run_type, project_id, manifest_hash from ingestion_run order by started_at;
+select count(*) from project where repo_root is not null;            -- 应为 0
+select knowledge_id from knowledge_item where user_reviewed = 0;     -- 周审要看的条目
+select path from source where lifecycle_status = 'stale';            -- 过期的深挖卡片
+```
 
 所有工作流巡检前，先按 `workflows/_shared/` 完成任务入口、权限、证据、验证、角色交接和完成检查。
 

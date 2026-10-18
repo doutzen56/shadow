@@ -15,7 +15,12 @@
 - role_scope:
 - task_scope:
 - risk_tags:
-- lifecycle_status:
+- lifecycle_status: raw / candidate / confirmed / deprecated / rejected
+- maturity: draft / validating / validated
+- confirmed_by: "@@TL" / user（candidate 阶段留空）
+- user_reviewed: false / true
+
+取值含义见 `config/knowledge-structure.yaml` 的 `knowledge_metadata`。正式入库的卡片，上面几项要写进文件开头的 frontmatter，导入脚本按 frontmatter 生成 `knowledge_item`。
 
 ## 抽象问题定义（先回答为什么做）
 

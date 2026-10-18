@@ -37,6 +37,8 @@
 - 交付结论和回滚建议。
 - 问题收口记录（失败项 -> 修复动作 -> 复测结果）。
 
+示例：`workflows/feature-development/examples/hx-matching-add-channel.md`。
+
 ## 收口检查
 
 - 角色链路有会话内交接块。

@@ -1,3 +1,14 @@
+---
+id: adr-2026-10-07-hx-matching-encoding-comments
+title: HX.Matching 编码与注释约定
+doc_type: decision
+projects:
+  - hx-matching
+lifecycle_status: confirmed
+confirmed_by: user
+user_reviewed: true
+---
+
 # ADR-2026-10-07：HX.Matching 编码与注释约定（记住）
 
 - 日期：2026-10-07

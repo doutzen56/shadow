@@ -17,11 +17,11 @@
 ## 标准步骤
 
 1. `@@X` 触发 `simpx-project-bootstrap` 进行基础检查。
-2. 校验项目档案：`README.md`、`profile.yaml`、`boundaries.md`。
+2. 校验项目档案：`README.md`、`profile.yaml`、`boundaries.md`；按 `profile.yaml` 的风格名，从 `projects/profiles/README.md` 找到并读取对应风格说明，风格名不在表里时先补表。
 3. 校验环境来源：项目内置配置优先；只有用户或项目档案明确要求时才检查本地 secrets 配置。
 4. 确认 RAG 语料范围：项目档案、架构图、边界文档、允许生成摘要的业务代码根目录、禁止索引目录。
-5. 更新或生成项目索引入口：`knowledge/indexes/project-index.md`、`knowledge/indexes/rag-manifest.yaml`、`knowledge/code-summaries/<project-id>/manifest.yaml`。
-6. 进入 `workflows/knowledge-project-import/README.md` 生成 project/source/chunk/summary 输入和 ingestion_run。
+5. 登记项目映射和索引入口：`.cursor/rules/workspace-hosting.mdc` 的映射表、`knowledge/indexes/project-index.md`、`knowledge/indexes/rag-manifest.yaml` 的 `seed_projects`、`config/rag-init.yaml` 的 `seed_projects`，以及 `tools/rag_index.py` 的 `PROJECTS`（摘要分组）。改 `workspace-hosting.mdc` 属于规则修改，要用户确认。
+6. 进入 `workflows/knowledge-project-import/README.md` 运行导入，生成 project/source/chunk/symbol、代码摘要和 ingestion_run；`knowledge/code-summaries/<project-id>/manifest.yaml` 由脚本生成，不手写。
 7. 空库首次接入或重建 baseline 时，转入 `workflows/knowledge-rag-bootstrap/README.md`。
 8. 已有 baseline 的项目变更，转入 `workflows/knowledge-index-maintenance/README.md`。
 9. 导入或维护后，按需转入 `workflows/knowledge-rag-evaluation/README.md` 验证召回质量。

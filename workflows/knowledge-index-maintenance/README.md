@@ -12,15 +12,21 @@
 - 代码摘要生成或过期。
 - `config/rag-*.yaml` 变更。
 
+## 执行工具
+
+- SimpX 文档、正式知识、项目档案或配置变了：`python tools/rag_index.py bootstrap`（只刷新文档层和 `knowledge_item`，不动业务代码层）。
+- 业务代码变了：`python tools/rag_index.py project <project_id> <业务仓根目录>`。
+- 人工索引（`project-index.md`、`pattern-index.md`、`tag-index.md`）脚本不改，按下面步骤手工维护。
+
 ## 标准步骤
 
 1. 读取变更路径和影响 project。
-2. 更新 `knowledge/indexes/rag-manifest.yaml`：新来源必须落在 `sources` 已登记的路径内，否则先补登记；单项目导入只改 `latest_run` 和 `seed_projects.<id>`，不改 `baseline`。
-3. 更新 SQLite source/chunk/knowledge_item/symbol。
-4. 更新 FTS。
-5. 增量更新 Qdrant points；`vector_status.semantic_recall_available` 为 false 时跳过本步，并在报告里写“向量同步跳过（占位模式）”。
-6. 标记 stale 或 deprecated。
-7. 输出维护报告。
+2. 新增或修改正式知识时，同步 `knowledge/indexes/pattern-index.md`、`tag-index.md` 和 `project-index.md`。
+3. 新来源必须落在 `rag-manifest.yaml` 的 `sources` 已登记路径内，否则先补登记，并同步脚本里的 `DOC_SOURCES`。
+4. 跑对应的脚本命令：它整层替换 SQLite 的 source/chunk/knowledge_item/symbol 并重建 FTS，删掉的文件下次运行后就不在库里。
+5. Qdrant：`vector_status.semantic_recall_available` 为 false 时只刷新占位文件，报告里写“向量同步跳过（占位模式）”。
+6. 知识降级或作废，改条目 frontmatter 的 `lifecycle_status`（deprecated / rejected），重跑 `bootstrap` 后检索会按 `rag-retrieval.yaml` 的 reject_when 排除。
+7. 把命令输出回填到 `rag-manifest.yaml`：`bootstrap` 改 `baseline`，`project` 只改 `latest_run` 和 `seed_projects.<id>`；输出维护报告。
 
 ## 输出
 

@@ -38,6 +38,8 @@
 - 交付结论（通过/失败/阻塞）。
 - 收口结果（失败断言的处理结论）。
 
+要落文件时，测试计划用 `templates/test-plan/README.md`，放行判断用 `templates/release-gate/README.md`。
+
 ## 回滚条件
 
 - 核心主链路失败且短期无法修复。

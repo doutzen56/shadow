@@ -1,99 +1,90 @@
 # 公共模型
 
+<!-- 由 tools/rag_index.py 生成，下次导入会覆盖；要改职责说明，改脚本里 PROJECTS 的分组定义。 -->
+
 - project_id: `betwin`
+- summary_group: `common-models`
 - host_or_layer: `domain-model`
-- roots: `Library/BetWin.Common`
-- file_count: 427
-- generated_at: 2026-10-18T06:47:04Z
+- solution_file: `BetWin5.0.sln`
+- last_ingestion_run: `20261018T083037Z-project-betwin`
+- file_count: 428
+- project_count: 1
+- risk_tags: `cache-consistency`, `callback`, `database-schema`, `elasticsearch`, `funds`, `gateway`, `login`, `mq`, `order-state`, `permission`, `user-data`
 
-## 风险标签
+## 职责摘要
 
-`cache-consistency`, `callback`, `database-schema`, `elasticsearch`, `funds`, `gateway`, `login`, `mq`, `order-state`, `permission`, `user-data`
+实体、枚举、报表模型和 Elasticsearch 索引注册，读写作业和查询共用。
 
-## 代表文件
+## 扫描根目录
 
-- `Library/BetWin.Common/Agents/Agent.cs`：符号 `Agent`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentCommission.cs`：符号 `AgentCommission`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentContract.cs`：符号 `AgentContract`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentReturn.cs`：符号 `AgentReturn`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentReturnLog.cs`：符号 `AgentReturnLog`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentReturnSetting.cs`：符号 `AgentReturn, AgentReturnSetting, RankItem, GameItem, RankItemShow, IsMatch`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/AgentUser.desinger.cs`：符号 `AgentUser`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/Agent-enum.cs`：符号 `Agent, AgentStatus`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/AgentCommission-Setting.cs`：符号 `AgentCommission`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/AgentReturnCollect.cs`：符号 `AgentReturnCollect, GameKeyConverter`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/AgentReturnLog-enum.cs`：符号 `AgentReturnLog, LogStatus, DetailView`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/AgentUser-enum.cs`：符号 `AgentUser, AgentStatus, PermissionFlag`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/CommissionSetting.cs`：符号 `CommissionSetting, ToJson, GetCommission, GetMaxRate, ToXElement`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/parts/WashRatio.cs`：符号 `WashRatio`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Agents/ProxyRate.cs`：符号 `ProxyRate`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/app.config`：符号 `未提取到公开符号`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Attributes/CheckStatus.cs`：符号 `CheckStatus`；风险 `database-schema, elasticsearch, order-state, user-data`。
-- `Library/BetWin.Common/Attributes/DirectionType.cs`：符号 `DirectionType`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Attributes/OpenStatus.cs`：符号 `OpenStatus`；风险 `database-schema, elasticsearch, order-state, user-data`。
-- `Library/BetWin.Common/Attributes/SportOddsType.cs`：符号 `SportOddsType`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/BetWin.Common.csproj`：符号 `未提取到公开符号`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Config.cs`：符号 `Config, GetAPIName`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Agent.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Game.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Report.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Risk.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Shop.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Site.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-System.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-Ticket.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, order-state, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext-User.cs`：符号 `BetDataContext, Refresh`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/DataContext/BetDataContext.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/ElasticSearch/EsHelper.cs`：符号 `EsHelper, InconsistentRangeResult, InitAllIndex, EnsureLastDownloadTimePipelineAsync, GetIndexSuffix, TryDecimal, TryInt, GetEsID`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/ElasticSearch/EsIndexManager.cs`：符号 `EsIndexManager, IsMonthlyManaged, RunMonthlyMaintenanceAsync, EnsureTypeReadyAsync, GetRetentionMonths, RunMonthlyRolloverAsync, EnsureIlmPolicyAsync, EnsureIndexTemplateAsync`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/ElasticSearch/EsQueryResult.cs`：符号 `EsQueryAgg, EsQueryByGroupAgg, EsQueryReuslt, EsQueryResultByAgg, EsQueryResultByGroupAgg`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/ElasticSearch/ExpressionExtension.cs`：符号 `ExpressionExtension`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/ErrorType.cs`：符号 `ErrorType`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Excel/BattleLogExcel.cs`：符号 `BattleLogExcel`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Excel/GameDataLogExcel.cs`：符号 `GameDataLogExcel`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Excel/GameRecordExcel.cs`：符号 `GameRecordExcel`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Excel/MoneyLogExcel.cs`：符号 `MoneyLogExcel`；风险 `database-schema, elasticsearch, funds, user-data`。
-- `Library/BetWin.Common/Excel/RechargeChannelExcel.cs`：符号 `RechargeChannelExcel, RechargeChannel`；风险 `database-schema, elasticsearch, funds, user-data`。
-- `Library/BetWin.Common/Excel/RewardLogExcel.cs`：符号 `RewardLogExcel`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Excel/TeamExcel.cs`：符号 `TeamExcel, TeamRptExcel`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Excel/UserStatExcel.cs`：符号 `UserStatExcel, UserStat`；风险 `database-schema, elasticsearch, user-data`。
-- `Library/BetWin.Common/Games/AnimalLog.desinger.cs`：符号 `AnimalLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/BattleLog.desinger.cs`：符号 `BattleLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/ChessLog.desinger.cs`：符号 `ChessLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/EsModel.cs`：符号 `EsModel, EsModelLog, EsModelBase`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/ESportLog.desinger.cs`：符号 `ESportLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/FishLog.desinger.cs`：符号 `FishLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameCategory.desinger.cs`：符号 `GameEntrance`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameDictionary.cs`：符号 `GameDictionary`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameEntrance.desinger.cs`：符号 `GameEntrance`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameEntranceCategory.desinger.cs`：符号 `GameEntranceCategory`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameEntranceTag.desinger.cs`：符号 `GameEntranceTag`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameFlowRate.desinger.cs`：符号 `GameFlowRate`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameKey.cs`：符号 `未提取到公开符号`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameLog.cs`：符号 `未提取到公开符号`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameLog.desinger.cs`：符号 `GameLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameLogRawDataV2.cs`：符号 `GameLogRawDataV2`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameLogStatistic.designer.cs`：符号 `GameLogStatistic`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameLogV2.cs`：符号 `GameLogV2`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameMark.desinger.cs`：符号 `GameMark`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameSetting.desinger.cs`：符号 `GameSetting`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameSubCategory.cs`：符号 `GameSubCategory`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameSubCategoryEnum.cs`：符号 `GameSubCategoryEnumAttribute, GameSubCategoryEnum`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameTag.desinger.cs`：符号 `GameTag`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameTransferOrder.desinger.cs`：符号 `GameTransferOrder`；风险 `database-schema, elasticsearch, gateway, order-state, user-data`。
-- `Library/BetWin.Common/Games/GameType.cs`：符号 `GameType, GameCategory, GameTypeAttribute`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameUETimeZone.cs`：符号 `GameUETimeZone`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/GameUser.desinger.cs`：符号 `GameUser`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/LiveLog.cs`：符号 `LiveLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/LotteryLog.desinger.cs`：符号 `LotteryLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/MiniLog.desinger.cs`：符号 `MiniGameLog`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/part/Animal-part.cs`：符号 `AnimalLog, LogStatus`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/part/ChessLog-part.cs`：符号 `ChessLog, LogStatus`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/part/ESportLog-enum.cs`：符号 `ESportLog, LogStatus, IsFinish`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/part/FantasyLog-enum.cs`：符号 `BattleLog, LogStatus`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- `Library/BetWin.Common/Games/part/FantasyLog-sum.cs`：符号 `AgentFantasySum`；风险 `database-schema, elasticsearch, gateway, user-data`。
-- 还有 347 个文件仅写入 SQLite 控制面，未在 Markdown 摘要里展开。
+- `Library/BetWin.Common`
+
+## 项目文件
+
+- `Library/BetWin.Common/BetWin.Common.csproj`
+
+## 定位样例
+
+按路径里的高风险关键词优先挑选，最多列 50 个。
+
+- `Library/BetWin.Common/Agents/AgentUser.desinger.cs`：符号 `AgentUser`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Agents/parts/AgentUser-enum.cs`：符号 `AgentUser, AgentStatus, PermissionFlag`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Attributes/CheckStatus.cs`：符号 `CheckStatus`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Attributes/OpenStatus.cs`：符号 `OpenStatus`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/DataContext/BetDataContext-Ticket.cs`：符号 `BetDataContext`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/DataContext/BetDataContext-User.cs`：符号 `BetDataContext, Refresh`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Excel/MoneyLogExcel.cs`：符号 `MoneyLogExcel`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Excel/RechargeChannelExcel.cs`：符号 `RechargeChannelExcel, RechargeChannel`；风险 `database-schema, elasticsearch, funds, gateway, user-data`
+- `Library/BetWin.Common/Excel/UserStatExcel.cs`：符号 `UserStatExcel, UserStat`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Games/GameTransferOrder.desinger.cs`：符号 `GameTransferOrder`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Games/GameUser.desinger.cs`：符号 `GameUser`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Games/RebateOrderV2.cs`：符号 `RebateOrderV2`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Games/SportLogStatus.desinger.cs`：符号 `SportLogStatus`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Games/UserDateGame.cs`：符号 `UserDateGameLog, GameRate`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Games/part/GameTransferOrder-enum.cs`：符号 `GameTransferOrder`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Games/part/GameUser-part.cs`：符号 `GameUser, GameUserLock`；风险 `database-schema, elasticsearch, user-data`
+- `Library/BetWin.Common/Games/part/LiveLog-status.cs`：符号 `LiveLog, LogStatus`；风险 `database-schema, elasticsearch, order-state, user-data`
+- `Library/BetWin.Common/Permission/Menu.cs`：符号 `Menu, ToString`；风险 `database-schema, elasticsearch, permission, user-data`
+- `Library/BetWin.Common/Permission/Param.cs`：符号 `ParamAttribute`；风险 `database-schema, elasticsearch, permission, user-data`
+- `Library/BetWin.Common/Reports/UserDateMoney.desinger.cs`：符号 `UserDateMoney`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Reports/UserDateMoneyCategory.desinger.cs`：符号 `UserDateMoneyCategory`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Reports/UserDateMoneyProfit.views.cs`：符号 `UserDateMoneyProfit`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Sites/AdminNotify.cs`：符号 `AdminNotify`；风险 `callback, database-schema, elasticsearch, permission, user-data`
+- `Library/BetWin.Common/Sites/SitePaymentCallbackLog.cs`：符号 `SitePaymentCallbackLog`；风险 `callback, database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Sites/SiteWithdrawCallbackLog.desinger.cs`：符号 `SiteWithdrawCallbackLog`；风险 `callback, database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Systems/SystemAdminToken.cs`：符号 `SystemAdminToken`；风险 `database-schema, elasticsearch, login, permission, user-data`
+- `Library/BetWin.Common/Users/BankRechargeOrder.desinger.cs`：符号 `BankRechargeOrder`；风险 `database-schema, elasticsearch, funds, order-state, user-data`
+- `Library/BetWin.Common/Users/Events/FirstRechargeModel.cs`：符号 `FirstRechargeModel, FirstRechargeType, FirstRechargeItem, FirstRechargeRuleItem, ToString`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/GameMoneyLog.desinger.cs`：符号 `GameMoneyLog`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/MoneyLock.desinger.cs`：符号 `MoneyLock`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/MoneyLog.cs`：符号 `MoneyLog`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/MoneyReview.desinger.cs`：符号 `MoneyReview`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/RechargeOrder.desinger.cs`：符号 `RechargeOrder`；风险 `database-schema, elasticsearch, funds, order-state, user-data`
+- `Library/BetWin.Common/Users/UserAuthorization.cs`：符号 `UserAuthorization`；风险 `database-schema, elasticsearch, permission, user-data`
+- `Library/BetWin.Common/Users/UserFund.desinger.cs`：符号 `UserFund`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/UserLoginLog.cs`：符号 `LoginLog`；风险 `database-schema, elasticsearch, login, user-data`
+- `Library/BetWin.Common/Users/UserMoney.desinger.cs`：符号 `UserMoney`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/UserToken.desinger.cs`：符号 `UserToken`；风险 `database-schema, elasticsearch, login, user-data`
+- `Library/BetWin.Common/Users/UserWithdrawInfo.cs`：符号 `UserWithdrawInfo, ToString, GetFee`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/Withdraw/WithdrawOrder-enum.cs`：符号 `WithdrawOrder, WithdrawStatus, ToString, GetBankInfo`；风险 `database-schema, elasticsearch, funds, order-state, user-data`
+- `Library/BetWin.Common/Users/Withdraw/WithdrawOrder.desinger.cs`：符号 `WithdrawOrder`；风险 `database-schema, elasticsearch, funds, order-state, user-data`
+- `Library/BetWin.Common/Users/Withdraw/WitndrawOrderLog.cs`：符号 `WithdrawOrderLog`；风险 `database-schema, elasticsearch, funds, order-state, user-data`
+- `Library/BetWin.Common/Users/WithdrawCreditLog.cs`：符号 `WithdrawCreditLog`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/GameMoneyLog-enum.cs`：符号 `GameMoneyLog, GameMoneyType`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/MoneyLock-enum.cs`：符号 `MoneyLock, LockType`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/MoneyLog-enum.cs`：符号 `MoneyLog, MoneyType, MoneyType1002, CategoryType, ActionType, MoneyTypeAttribute`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/MoneyReview-enum.cs`：符号 `MoneyReview, ReviewStatus, ActionType`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/UserFund-part.cs`：符号 `UserFund`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/UserMoney-part.cs`：符号 `UserMoney, FillHashEntry, ToHashEntry`；风险 `database-schema, elasticsearch, funds, user-data`
+- `Library/BetWin.Common/Users/part/UserToken-enum.cs`：符号 `User, TokenType`；风险 `database-schema, elasticsearch, login, user-data`
+- 还有 378 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- 共跳过 13 个文件，原因：forbidden_directory。明细只写入 `rag/init-reports/20261018T064704Z-baseline-betwin.json`，不进入可召回摘要。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+
+## 使用约束
+
+- 本摘要只用于定位和初筛，不替代当前源码。
+- 判断真实行为、接口契约、状态变更或兼容逻辑时，必须回读业务仓当前源码。
+- 风险标签按路径关键词自动打，可能多打或漏打；高风险判断以源码和项目档案为准。

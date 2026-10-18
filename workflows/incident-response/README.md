@@ -31,6 +31,8 @@
 - 未验证项
 - 后续治理建议
 
+示例：`workflows/incident-response/examples/hx-matching-threadpool-starvation.md`。
+
 ## 收口检查
 
 - 未止血前不得扩散改动范围。

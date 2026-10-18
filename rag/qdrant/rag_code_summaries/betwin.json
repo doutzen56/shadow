@@ -1,0 +1,9 @@
+{
+  "collection": "rag_code_summaries",
+  "project_id": "betwin",
+  "run_id": "20261018T083037Z-project-betwin",
+  "embedding_model": "not-configured-local-placeholder",
+  "summary_manifest": "knowledge/code-summaries/betwin/manifest.yaml",
+  "summarized_files": 1518,
+  "note": "本地 point 占位，没有真实向量；接入 embedding 后按 source/chunk 重建。"
+}
