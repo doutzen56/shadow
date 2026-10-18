@@ -1,6 +1,148 @@
 schema_version: v1
 project_id: hx-matching
-status: pending
+status: active
 source_profile: projects/examples/hx-matching/profile.yaml
-summary_groups: []
-last_ingestion_run:
+repo_root: F:/HX.MatchingApi
+solution_file: HX.Matching.sln
+last_ingestion_run: 20261018T070046Z-project-hx-matching
+summarized_files: 1763
+summary_groups:
+  - group_id: platform-hosts
+    title: 平台与商户后台宿主
+    host_or_layer: web-host
+    roots:
+      - HX.Matching.Admin.WebApi
+      - HX.Matching.AdminV2.WebApi
+      - HX.Matching.MerchantAdmin.WebApi
+    file_count: 330
+    project_count: 3
+    summary_file: knowledge/code-summaries/hx-matching/platform-hosts.md
+    risk_tags:
+      - permission
+      - login
+      - user-data
+  - group_id: open-apis
+    title: 商户与合作方开放接口
+    host_or_layer: public-api
+    roots:
+      - HX.Matching.MerchantApi
+      - HX.Matching.PartnerApi
+    file_count: 11
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/open-apis.md
+    risk_tags:
+      - public-contract
+      - funds
+      - order-state
+      - gateway
+  - group_id: background-jobs
+    title: 后台任务与异步处理
+    host_or_layer: background-job
+    roots:
+      - HX.Matching.Quartz.Job
+      - HX.Matching.Tasks
+    file_count: 72
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/background-jobs.md
+    risk_tags:
+      - mq
+      - callback
+      - async
+      - retry
+      - order-state
+  - group_id: service-core
+    title: 业务核心服务
+    host_or_layer: domain-service
+    roots:
+      - HX.Matching.ServiceCore
+      - HX.Matching.Service
+    file_count: 459
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/service-core.md
+    risk_tags:
+      - funds
+      - order-state
+      - idempotency
+      - cache-consistency
+      - elasticsearch
+  - group_id: data-model-repository
+    title: 模型与仓储
+    host_or_layer: data-access
+    roots:
+      - HX.Matching.Model
+      - HX.Matching.Repository
+    file_count: 372
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/data-model-repository.md
+    risk_tags:
+      - database-schema
+      - order-state
+      - user-data
+  - group_id: infrastructure-common
+    title: 基础设施与公共能力
+    host_or_layer: infrastructure
+    roots:
+      - HX.Matching.Infrastructure
+      - HX.Matching.Common
+    file_count: 201
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/infrastructure-common.md
+    risk_tags:
+      - cache-consistency
+      - mq
+      - permission
+      - login
+  - group_id: channels-integrations
+    title: 渠道与第三方集成
+    host_or_layer: external-gateway
+    roots:
+      - HX.Matching.Channels
+    file_count: 171
+    project_count: 1
+    summary_file: knowledge/code-summaries/hx-matching/channels-integrations.md
+    risk_tags:
+      - gateway
+      - funds
+      - callback
+      - retry
+  - group_id: migration-build-tools
+    title: 迁移与构建工具
+    host_or_layer: tooling
+    roots:
+      - src/EsMigrate.Console
+      - HX.BuildService
+    file_count: 7
+    project_count: 2
+    summary_file: knowledge/code-summaries/hx-matching/migration-build-tools.md
+    risk_tags:
+      - elasticsearch
+      - production-config
+  - group_id: tests
+    title: 测试项目
+    host_or_layer: test
+    roots:
+      - HX.Matching.Channels.Tests
+      - HX.Matching.V2.Tests
+      - src/TestIntegration
+    file_count: 140
+    project_count: 3
+    summary_file: knowledge/code-summaries/hx-matching/tests.md
+    risk_tags:
+      - verification
+forbidden_scope:
+  - .git
+  - .key
+  - .pem
+  - .pfx
+  - bin
+  - dist
+  - envs.secrets.example.yaml
+  - envs.secrets.yaml
+  - logs
+  - node_modules
+  - obj
+  - packages
+notes:
+  - 未读取 envs.secrets.yaml。
+  - 业务源码没有复制进 SimpX，只记录摘要、路径、项目入口、哈希和风险标签。
+  - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。

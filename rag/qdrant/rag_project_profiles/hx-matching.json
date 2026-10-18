@@ -1,0 +1,9 @@
+{
+    "collection":  "rag_project_profiles",
+    "project_id":  "hx-matching",
+    "run_id":  "20261018T070046Z-project-hx-matching",
+    "source":  "projects/examples/hx-matching/profile.yaml",
+    "status":  "active",
+    "embedding_model":  "not-configured-local-placeholder",
+    "note":  "本地 point 占位；接入真实 embedding 后按 source/chunk 重建。"
+}

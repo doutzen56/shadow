@@ -3,9 +3,9 @@ purpose: RAG ingestion 的机器可读清单。
 manifest_version: 0.2.0
 status: active
 baseline:
-  version: rag-baseline-betwin-0.1.0
-  run_id: 20261018T064704Z-baseline-betwin
-  manifest_hash: c99a9a65937bbad33d53052dd12c54ba10ce41fb9298ae692e2a96cfd98621c8
+  version: rag-baseline-hx-matching-0.1.0
+  run_id: 20261018T070046Z-project-hx-matching
+  manifest_hash: bcf0291a9ef4a14f9a3dd7d80d6fe3362158e256c297d976439747f2896edddb
   sqlite_schema_version: rag-data-model-v1
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
@@ -41,9 +41,14 @@ sources:
     - workflows/knowledge-candidate-intake
 seed_projects:
   hx-matching:
-    status: pending
+    status: active
     profile: projects/examples/hx-matching/profile.yaml
     summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
+    repo_root: F:/HX.MatchingApi
+    imported_docs: 4
+    summarized_files: 1763
+    summary_groups: 9
+    last_ingestion_run: 20261018T070046Z-project-hx-matching
   betwin:
     status: active
     profile: projects/examples/betwin/profile.yaml

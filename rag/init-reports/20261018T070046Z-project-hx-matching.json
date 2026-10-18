@@ -1,0 +1,997 @@
+{
+    "baseline_version":  "rag-baseline-hx-matching-0.1.0",
+    "run_id":  "20261018T070046Z-project-hx-matching",
+    "generated_at":  "2026-10-18T07:00:53.6874090Z",
+    "manifest_hash":  "bcf0291a9ef4a14f9a3dd7d80d6fe3362158e256c297d976439747f2896edddb",
+    "sqlite":  "F:\\shadow\\rag\\index.db",
+    "sqlite_schema_version":  "rag-data-model-v1",
+    "qdrant_root":  "F:\\shadow\\rag\\qdrant",
+    "qdrant_collection_version":  "local-file-collection-v1",
+    "project_id":  "hx-matching",
+    "repo_root":  "F:/HX.MatchingApi",
+    "solution_file":  "HX.Matching.sln",
+    "imported_docs":  4,
+    "summarized_files":  1763,
+    "groups":  [
+                   {
+                       "group_id":  "platform-hosts",
+                       "title":  "平台与商户后台宿主",
+                       "host_or_layer":  "web-host",
+                       "roots":  [
+                                     "HX.Matching.Admin.WebApi",
+                                     "HX.Matching.AdminV2.WebApi",
+                                     "HX.Matching.MerchantAdmin.WebApi"
+                                 ],
+                       "file_count":  330,
+                       "project_count":  3,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/platform-hosts.md",
+                       "risk_tags":  [
+                                         "permission",
+                                         "login",
+                                         "user-data"
+                                     ]
+                   },
+                   {
+                       "group_id":  "open-apis",
+                       "title":  "商户与合作方开放接口",
+                       "host_or_layer":  "public-api",
+                       "roots":  [
+                                     "HX.Matching.MerchantApi",
+                                     "HX.Matching.PartnerApi"
+                                 ],
+                       "file_count":  11,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/open-apis.md",
+                       "risk_tags":  [
+                                         "public-contract",
+                                         "funds",
+                                         "order-state",
+                                         "gateway"
+                                     ]
+                   },
+                   {
+                       "group_id":  "background-jobs",
+                       "title":  "后台任务与异步处理",
+                       "host_or_layer":  "background-job",
+                       "roots":  [
+                                     "HX.Matching.Quartz.Job",
+                                     "HX.Matching.Tasks"
+                                 ],
+                       "file_count":  72,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/background-jobs.md",
+                       "risk_tags":  [
+                                         "mq",
+                                         "callback",
+                                         "async",
+                                         "retry",
+                                         "order-state"
+                                     ]
+                   },
+                   {
+                       "group_id":  "service-core",
+                       "title":  "业务核心服务",
+                       "host_or_layer":  "domain-service",
+                       "roots":  [
+                                     "HX.Matching.ServiceCore",
+                                     "HX.Matching.Service"
+                                 ],
+                       "file_count":  459,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/service-core.md",
+                       "risk_tags":  [
+                                         "funds",
+                                         "order-state",
+                                         "idempotency",
+                                         "cache-consistency",
+                                         "elasticsearch"
+                                     ]
+                   },
+                   {
+                       "group_id":  "data-model-repository",
+                       "title":  "模型与仓储",
+                       "host_or_layer":  "data-access",
+                       "roots":  [
+                                     "HX.Matching.Model",
+                                     "HX.Matching.Repository"
+                                 ],
+                       "file_count":  372,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/data-model-repository.md",
+                       "risk_tags":  [
+                                         "database-schema",
+                                         "order-state",
+                                         "user-data"
+                                     ]
+                   },
+                   {
+                       "group_id":  "infrastructure-common",
+                       "title":  "基础设施与公共能力",
+                       "host_or_layer":  "infrastructure",
+                       "roots":  [
+                                     "HX.Matching.Infrastructure",
+                                     "HX.Matching.Common"
+                                 ],
+                       "file_count":  201,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/infrastructure-common.md",
+                       "risk_tags":  [
+                                         "cache-consistency",
+                                         "mq",
+                                         "permission",
+                                         "login"
+                                     ]
+                   },
+                   {
+                       "group_id":  "channels-integrations",
+                       "title":  "渠道与第三方集成",
+                       "host_or_layer":  "external-gateway",
+                       "roots":  [
+                                     "HX.Matching.Channels"
+                                 ],
+                       "file_count":  171,
+                       "project_count":  1,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/channels-integrations.md",
+                       "risk_tags":  [
+                                         "gateway",
+                                         "funds",
+                                         "callback",
+                                         "retry"
+                                     ]
+                   },
+                   {
+                       "group_id":  "migration-build-tools",
+                       "title":  "迁移与构建工具",
+                       "host_or_layer":  "tooling",
+                       "roots":  [
+                                     "src/EsMigrate.Console",
+                                     "HX.BuildService"
+                                 ],
+                       "file_count":  7,
+                       "project_count":  2,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/migration-build-tools.md",
+                       "risk_tags":  [
+                                         "elasticsearch",
+                                         "production-config"
+                                     ]
+                   },
+                   {
+                       "group_id":  "tests",
+                       "title":  "测试项目",
+                       "host_or_layer":  "test",
+                       "roots":  [
+                                     "HX.Matching.Channels.Tests",
+                                     "HX.Matching.V2.Tests",
+                                     "src/TestIntegration"
+                                 ],
+                       "file_count":  140,
+                       "project_count":  3,
+                       "summary_file":  "knowledge/code-summaries/hx-matching/tests.md",
+                       "risk_tags":  [
+                                         "verification"
+                                     ]
+                   }
+               ],
+    "skipped":  [
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AgileConfig.Client.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.EndpointUtil.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.GatewaySpi.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.OpenApiClient.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.OpenApiUtil.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.SDK.Cloudauth20190307.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.SDK.TeaFileform.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.TeaUtil.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AlibabaCloud.TeaXML.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Aliyun.Credentials.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/appsettings.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AspectCore.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AspNetCoreRateLimit.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AWSSDK.Core.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AWSSDK.S3.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/AWSSDK.SecurityToken.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/BouncyCastle.Cryptography.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ClickHouse.Client.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/CSRedisCore.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/DnsClient.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/DotNetCore.CAP.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/DotNetCore.CAP.RabbitMQ.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/DotNetCore.CAP.SqlServer.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Elastic.Clients.Elasticsearch.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Elastic.Esql.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Elastic.Transport.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/FreeSql.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HtmlAgilityPack.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.deps.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.exe",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.runtimeconfig.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.staticwebassets.endpoints.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.staticwebassets.runtime.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Admin.WebApi.xml",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Channels.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Channels.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Channels.xml",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Common.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Common.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Infrastructure.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Infrastructure.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Model.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Model.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Model.xml",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Repository.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Repository.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Service.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Service.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Service.xml",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.ServiceCore.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.ServiceCore.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.ServiceCore.xml",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Tasks.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/HX.Matching.Tasks.pdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/IP2Region.Net.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ip2region.xdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/iprate.json",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/JinianNet.JNTemplate.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Lazy.Captcha.Core.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Lazy.SlideCaptcha.Core.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MailKit.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Mapster.Core.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Mapster.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MessagePack.Annotations.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MessagePack.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.AspNetCore.DataProtection.StackExchangeRedis.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.AspNetCore.JsonPatch.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.AspNetCore.SignalR.StackExchangeRedis.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Bcl.Cryptography.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Data.SqlClient.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Data.SqlClient.Extensions.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Data.SqlClient.Internal.Logging.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Binder.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Configuration.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.DependencyModel.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Diagnostics.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Diagnostics.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Hosting.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Http.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Options.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.IO.RecyclableMemoryStream.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.NET.StringTools.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.OpenApi.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Microsoft.SqlServer.Server.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MimeKit.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MiniExcel.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MongoDB.Bson.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MongoDB.Driver.Core.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MongoDB.Driver.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MongoDB.Libmongocrypt.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/MySqlConnector.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NETCore.Encrypt.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Newtonsoft.Json.Bson.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Newtonsoft.Json.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NLog.config",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NLog.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NLog.Extensions.Logging.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NLog.Web.AspNetCore.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/NodaTime.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Otp.NET.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Pipelines.Sockets.Unofficial.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/QRCoder.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Quartz.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Quartz.Serialization.Json.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/RabbitMQ.Client.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Scrutor.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SharpCompress.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SixLabors.ImageSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SkiaSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Snappier.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SqlSugar.ClickHouseCore.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SqlSugar.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/SqlSugar.IOC.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/StackExchange.Redis.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.Filters.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Configuration.ConfigurationManager.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Diagnostics.DiagnosticSource.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Diagnostics.EventLog.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.IO.Hashing.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.IO.Pipelines.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Security.Cryptography.Pkcs.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Security.Cryptography.ProtectedData.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Text.Encodings.Web.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/System.Text.Json.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Tea.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/Telegram.Bot.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/UAParser.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/world.xdb",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ZstdSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/cs/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/de/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/en/HX.Matching.ServiceCore.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/es/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/fr/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/it/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ja/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ko/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/pl/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/pt-BR/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/ru/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/linux/native/libmongocrypt.so",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/linux-arm/native/libSkiaSharp.so",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/linux-arm64/native/libSkiaSharp.so",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/linux-musl-x64/native/libSkiaSharp.so",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/linux-x64/native/libSkiaSharp.so",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/osx/native/libmongocrypt.dylib",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/osx/native/libSkiaSharp.dylib",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/unix/lib/net9.0/Microsoft.Data.SqlClient.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win/lib/net9.0/Microsoft.Data.SqlClient.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win/lib/net9.0/System.Security.Cryptography.Pkcs.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win/lib/net9.0/System.Text.Encodings.Web.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win/native/mongocrypt.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-arm64/native/libSkiaSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-x64/native/libSkiaSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-x86/native/libSkiaSharp.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/tr/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/wwwroot/ImportTemplate/blacklistPay.xlsx",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/wwwroot/ImportTemplate/merchantUser.xlsx",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/wwwroot/ImportTemplate/骗单登记模板.xlsx",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/zh-CN/HX.Matching.ServiceCore.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/zh-Hans/FreeSql.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/zh-Hans/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/zh-Hant/HX.Matching.ServiceCore.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Debug/net9.0/zh-Hant/Microsoft.Data.SqlClient.resources.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Release/net9.0/AgileConfig.Client.dll",
+                        "reason":  "forbidden_directory"
+                    },
+                    {
+                        "path":  "HX.Matching.Admin.WebApi/bin/Release/net9.0/AlibabaCloud.EndpointUtil.dll",
+                        "reason":  "forbidden_directory"
+                    }
+                ],
+    "skipped_total":  6093,
+    "forbidden_scope":  [
+                            ".git",
+                            ".key",
+                            ".pem",
+                            ".pfx",
+                            "bin",
+                            "dist",
+                            "envs.secrets.example.yaml",
+                            "envs.secrets.yaml",
+                            "logs",
+                            "node_modules",
+                            "obj",
+                            "packages"
+                        ],
+    "notes":  [
+                  "未读取 envs.secrets.yaml。",
+                  "业务源码没有复制进 SimpX，只记录摘要、路径、项目入口、哈希和风险标签。",
+                  "本地 Qdrant 目录为集合占位；真实向量需要接入 embedding 后重建 point。"
+              ]
+}
