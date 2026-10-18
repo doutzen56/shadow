@@ -15,7 +15,7 @@ alwaysApply: true
 ## 运行时门控
 
 - `knowledge/indexes/rag-manifest.yaml` 的 `vector_status.semantic_recall_available` 为 false 时，不能声称做过语义向量召回，只能写“按路径、关键词、人工索引和摘要检索”。
-- 本会话没有实际查询 `rag/index.db` 时，不能声称检索过 SQLite；摘要里写着“只写入 SQLite 控制面”的文件，只能当作未读取。要查 SQLite，用 `python tools/rag_index.py search`，它会写 `retrieval_trace`，把 trace_id 写进交接块当证据。
+- 本会话没有实际跑过 `python tools/rag_index.py search`（或等价查询 `rag/index/core.db` / `rag/index/projects/<id>.db`）时，不能声称检索过 SQLite；摘要里写着“只写入 SQLite 控制面”的文件，只能当作未读取。search 会写 `retrieval_trace` 到当月 traces 库，把 trace_id 写进交接块当证据。
 - 重排序还没实现（见 `config/rag-retrieval.yaml` 的 `runtime_status`），不能写“已按角色/成熟度重排”。
 - 没有对应运行时动作证据时，不能写“已同步 Qdrant”“已更新 SQLite”“已重建索引”。
 

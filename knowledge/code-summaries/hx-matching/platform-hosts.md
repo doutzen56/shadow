@@ -6,8 +6,8 @@
 - summary_group: `platform-hosts`
 - host_or_layer: `web-host`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T083109Z-project-hx-matching`
-- file_count: 333
+- last_ingestion_run: `20261018T090035Z-project-hx-matching`
+- file_count: 334
 - project_count: 3
 - risk_tags: `cache-consistency`, `callback`, `funds`, `gateway`, `login`, `order-state`, `permission`, `user-data`
 
@@ -31,7 +31,7 @@
 
 按路径里的高风险关键词优先挑选，最多列 50 个。
 
-- `HX.Matching.Admin.WebApi/Controllers/System/CallBack/ChannelCallback.cs`：符号 `ChannelCallback, Notify, NotifyForTenant, VerifySessionRecharge, VerifySessionRechargeForTenant, VerifySessionRechargeGet, VerifySessionRechargeGetForTenant, RunAsCallbackTenantAsync`；风险 `callback, gateway, login, permission, user-data`
+- `HX.Matching.Admin.WebApi/Controllers/System/CallBack/ChannelCallback.cs`：符号 `ChannelCallback, Notify, NotifyForTenant, VerifySessionRecharge, VerifySessionRechargeForTenant, VerifySessionRechargeGet, VerifySessionRechargeGetForTenant, NotifyCoreAsync`；风险 `callback, gateway, login, permission, user-data`
 - `HX.Matching.Admin.WebApi/Controllers/System/ChannelOrderController.cs`：符号 `HxChannelOrderController, ChannelOrderRechargeList, ChannelOrderRechargeBatchQuery, RechargeInfo, ChannelOrderWithdrawalList, ChannelOrderWithdrawalBatchQuery, WithdrawalInfo, ChannelOrderRechargeExport`；风险 `gateway, login, order-state, permission, user-data`
 - `HX.Matching.Admin.WebApi/Controllers/System/HxBlacklistPayController.cs`：符号 `HxBlacklistPayController, List, AddUser, Info, ChangeEnable, Remove, GetBlacklistTypeEnum, ImportData`；风险 `funds, login, permission, user-data`
 - `HX.Matching.Admin.WebApi/Controllers/System/HxChannelMoneyController.cs`：符号 `HxChannelMoneyController, ListR, ListW, Info, ChannelAddR, ChannelAddW, ChannelEditR, ChannelEditW`；风险 `funds, gateway, login, permission, user-data`
@@ -81,11 +81,11 @@
 - `HX.Matching.AdminV2.WebApi/Controllers/Hx/HxMerchantUserWithdrawalController.cs`：符号 `HxMerchantUserWithdrawalController, List, Export, QueryExport, Download`；风险 `funds, login, permission, user-data`
 - `HX.Matching.AdminV2.WebApi/Controllers/Hx/HxOrderRechargeController.cs`：符号 `HxOrderRechargeController, List, Labels, Info, Log, Payment, Certificate, Callback`；风险 `funds, login, order-state, permission, user-data`
 - `HX.Matching.AdminV2.WebApi/Controllers/Hx/HxOrderWithdrawalController.cs`：符号 `HxOrderWithdrawalController, List, PriorityList, TgPostList, Info, Log, Payment, Callback`；风险 `funds, login, order-state, permission, user-data`
-- 还有 283 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 284 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 6 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261018T083109Z-project-hx-matching.json`。
+- pruned_directory 6 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
 
 ## 使用约束
 

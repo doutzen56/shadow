@@ -21,12 +21,12 @@
 
 1. `@@X` 确认初始化范围、权限和禁止索引范围。
 2. `@@TL` 确认语料边界、候选知识是否参与索引、是否需要用户拍板。
-3. 全量重建时删掉 `rag/index.db`；只刷新文档层时保留。
+3. 全量重建时删掉整个 `rag/index/`（含 core.db 与 projects/*.db）；只刷新文档层时跑 bootstrap 即可，它会整层重写 core.db，不动项目库。
 4. 运行 `python tools/rag_index.py bootstrap`：建表、导入 SimpX 文档、生成 `knowledge_item`、登记种子项目、写 Qdrant 集合占位。
 5. 对每个种子项目运行 `python tools/rag_index.py project <project_id> <业务仓根目录>`，见 `knowledge-project-import`。
 6. 把命令输出里的 run_id、manifest_hash、数量回填到 `rag-manifest.yaml` 的 `baseline` 段：只有本流程能改这一段；没有真实 embedding 时 `vector_status.semantic_recall_available` 必须写 false。
 7. 用 `python tools/rag_index.py search <关键词>` 抽查一次，确认能查到新内容。
-8. 按 `artifact_policy`，把 `rag/`、`knowledge/code-summaries/` 和 `rag-manifest.yaml` 放进同一次提交，由用户审后提交。
+8. 按 `artifact_policy`，把 `knowledge/code-summaries/`、`rag/init-reports/`（及需要时的 `rag/qdrant/`）和 `rag-manifest.yaml` 放进同一次提交；`rag/index/` 与 `rag/traces/` 不进 git，由用户审后提交。
 
 ## 输出
 

@@ -23,7 +23,7 @@
 1. 读取变更路径和影响 project。
 2. 新增或修改正式知识时，同步 `knowledge/indexes/pattern-index.md`、`tag-index.md` 和 `project-index.md`。
 3. 新来源必须落在 `rag-manifest.yaml` 的 `sources` 已登记路径内，否则先补登记，并同步脚本里的 `DOC_SOURCES`。
-4. 跑对应的脚本命令：它整层替换 SQLite 的 source/chunk/knowledge_item/symbol 并重建 FTS，删掉的文件下次运行后就不在库里。
+4. 跑对应的脚本命令：`bootstrap` 整层重写 `rag/index/core.db`；`project` 整库重建对应的 `rag/index/projects/<id>.db`；删掉的文件下次运行后就不在库里。
 5. Qdrant：`vector_status.semantic_recall_available` 为 false 时只刷新占位文件，报告里写“向量同步跳过（占位模式）”。
 6. 知识降级或作废，改条目 frontmatter 的 `lifecycle_status`（deprecated / rejected），重跑 `bootstrap` 后检索会按 `rag-retrieval.yaml` 的 reject_when 排除。
 7. 把命令输出回填到 `rag-manifest.yaml`：`bootstrap` 改 `baseline`，`project` 只改 `latest_run` 和 `seed_projects.<id>`；输出维护报告。

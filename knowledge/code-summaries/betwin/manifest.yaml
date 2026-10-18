@@ -3,8 +3,8 @@ project_id: betwin
 status: active
 source_profile: projects/examples/betwin/profile.yaml
 solution_file: BetWin5.0.sln
-last_ingestion_run: 20261018T083037Z-project-betwin
-generated_at: 2026-10-18T08:30:37Z
+last_ingestion_run: 20261018T090036Z-project-betwin
+generated_at: 2026-10-18T09:00:36Z
 generator: tools/rag_index.py project
 summarized_files: 1518
 summary_groups:

@@ -8,7 +8,7 @@
 
 - 导入脚本只登记卡片，不覆盖。
 - 卡片里的 `file_hash` 和当前源码对不上时，下次导入会把卡片标成 stale，要回读源码后更新卡片和哈希。
-- `file_hash` 是源码文件内容（UTF-8 读出）的 sha256，可以从 `rag/index.db` 的 `source` 表按 `path` 查 `content_hash`。
+- `file_hash` 是源码文件内容（UTF-8 读出）的 sha256，可以从对应项目的 `rag/index/projects/<project-id>.db` 的 `source` 表按 `path` 查 `content_hash`。
 
 ## 文件开头（frontmatter，原样写在文件最前面）
 

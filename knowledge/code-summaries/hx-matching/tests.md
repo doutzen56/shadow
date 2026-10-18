@@ -6,8 +6,8 @@
 - summary_group: `tests`
 - host_or_layer: `test`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T083109Z-project-hx-matching`
-- file_count: 143
+- last_ingestion_run: `20261018T090035Z-project-hx-matching`
+- file_count: 151
 - project_count: 3
 - risk_tags: `cache-consistency`, `callback`, `funds`, `gateway`, `login`, `order-state`, `permission`, `user-data`
 
@@ -58,7 +58,7 @@
 - `HX.Matching.V2.Tests/MultiTenant/AuthzP0ContractTests.cs`：符号 `AuthzP0ContractTests, Messenger_Send_Requires_InternalJobKey_Header, SeedData_Requires_Platform_And_AllowSeedFlag, OfflineDownload_Checks_CreateBy_Against_GetName, Locate`；风险 `permission`
 - `HX.Matching.V2.Tests/MultiTenant/AuthzP1ContractTests.cs`：符号 `AuthzP1ContractTests, Write_Actions_Must_Declare_Permit_LoginOnly_Or_Anonymous, OrderMatching_Options_Requires_Login, Dict_Batch_Dicts_Requires_Login_Type_May_Stay_Anonymous, MqRequireTenantHeader_Documented_As_Consume_Legacy_Fallback, LocateDir, LocateFile`；风险 `permission`
 - `HX.Matching.V2.Tests/MultiTenant/Cap/Async005BCapFundsEsContractTests.cs`：符号 `Async005BCapFundsEsContractTests, FakeCapPublisher, RecordingFundsEsRepo, IndexAsync, BulkIndexAsync, DeleteByQueryAsync, IntegrationEvent_DefaultTopic_Is005BContract, FundsDetail_EsIndex_IsMonthlyManaged_Hot2Close4`；风险 `funds`
-- `HX.Matching.V2.Tests/MultiTenant/Cap/OrderEsCapBackfillContractTests.cs`：符号 `OrderEsCapBackfillContractTests, OrderEsBackfill_Topic_Is_Dedicated_Temporary_Name, CapWorker_Registers_OrderEsBackfillCapHandler, CapPublishHost_DoesNot_Register_OrderEsBackfillCapHandler`；风险 `order-state`
+- `HX.Matching.V2.Tests/MultiTenant/Cap/OrderEsCapBackfillContractTests.cs`：符号 `OrderEsCapBackfillContractTests, OrderEsBackfill_Topic_Is_Dedicated_Temporary_Name, CapWorker_Registers_OrderEsBackfillCapHandler, OrderEsCapBackfillService_HasNo_AppServiceAttribute, CapPublishHost_DoesNot_Register_OrderEsBackfillCapHandler`；风险 `order-state`
 - `HX.Matching.V2.Tests/MultiTenant/Es/OrderEsCapBackfillCountLiveTests.cs`：符号 `OrderEsCapBackfillCountLiveTests, Count_LastMonth_Orders_Matching_Funds`；风险 `order-state`
 - `HX.Matching.V2.Tests/MultiTenant/Es/OrderEsCapBackfillLiveTests.cs`：符号 `OrderEsCapBackfillLiveTests, Backfill_LastMonth_Via_Cap_Then_Reconcile, DrainSameAsCapHandlersAsync, WaitCapPublishedSucceededAsync`；风险 `order-state`
 - `HX.Matching.V2.Tests/MultiTenant/Es/OrderQueryEsLiveTests.cs`：符号 `OrderQueryEsLiveTests, ClassInit, Cleanup, Recharge_Sync_QueryDoc_Then_ListApi_Finds_Order, FundsDetail_Insert_CapPublish_Handler_Then_ListApi_Finds_Row, Export_Mark_Is_Applied_When_Switch_Es, RewindRechargeWatermarkAsync, GetJsonAsync`；风险 `order-state`
@@ -81,11 +81,11 @@
 - `src/TestIntegration/Es/SysLogininforEsTests.cs`：符号 `SysLogininforEsTests, IndexThenGetLoginLog_FiltersByUserName`；风险 `login`
 - `src/TestIntegration/Es/TelegramOrderFlowEsTests.cs`：符号 `TelegramOrderFlowEsTests, IndexThenSearchByOrderIdAndMessageId, SearchByStatusList_SameAsBot`；风险 `order-state`
 - `src/TestIntegration/FixedMoneyPlanTests.cs`：符号 `FixedMoneyPlanTests, Segment`；风险 `funds`
-- 还有 93 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 101 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 6 项；明细只写入 `rag/init-reports/20261018T083109Z-project-hx-matching.json`。
+- pruned_directory 6 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
 
 ## 使用约束
 

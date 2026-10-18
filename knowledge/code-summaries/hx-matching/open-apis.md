@@ -6,10 +6,10 @@
 - summary_group: `open-apis`
 - host_or_layer: `public-api`
 - solution_file: `HX.Matching.sln`
-- last_ingestion_run: `20261018T083109Z-project-hx-matching`
-- file_count: 13
+- last_ingestion_run: `20261018T090035Z-project-hx-matching`
+- file_count: 14
 - project_count: 2
-- risk_tags: `funds`, `gateway`, `order-state`, `public-contract`
+- risk_tags: `callback`, `funds`, `gateway`, `order-state`, `public-contract`
 
 ## 职责摘要
 
@@ -31,6 +31,7 @@
 
 - `HX.Matching.MerchantApi/Cashier/CashierPageRenderer.cs`：符号 `CashierPageRenderer, LoadAntiFraudImageBase64, Render, RenderLoading, RenderError, IsTerminalState, ShouldStopStatusPolling, GetStateSubText`；风险 `funds, gateway, order-state, public-contract`
 - `HX.Matching.MerchantApi/Cashier/CashierPayQrCodeHelper.cs`：符号 `CashierPayQrCodeHelper, HasValue, IsH5PayMode, TryGetH5Url, EnrichDisplaySrc, EnrichDisplaySrcAsync, IsImageSource, ResolveImgSrc`；风险 `funds, gateway, order-state, public-contract`
+- `HX.Matching.MerchantApi/ChannelCallbackEndpoints.cs`：符号 `ChannelCallbackEndpoints, MapChannelCallbackEndpoints`；风险 `callback, funds, gateway, order-state, public-contract`
 - `HX.Matching.MerchantApi/HX.Matching.MerchantApi.csproj`：符号 `未提取到符号`；风险 `funds, gateway, order-state, public-contract`
 - `HX.Matching.MerchantApi/MerchantApiRequestDiagnosticsMiddleware.cs`：符号 `MerchantApiRequestDiagnosticsMiddleware, InvokeAsync`；风险 `funds, gateway, order-state, public-contract`
 - `HX.Matching.MerchantApi/MerchantApiTimeoutPolicies.cs`：符号 `MerchantApiTimeoutPolicies`；风险 `funds, gateway, order-state, public-contract`
@@ -45,7 +46,7 @@
 
 ## 跳过项
 
-- pruned_directory 4 项、sensitive_file 4 项；明细只写入 `rag/init-reports/20261018T083109Z-project-hx-matching.json`。
+- pruned_directory 4 项、sensitive_file 4 项；明细只写入 `rag/init-reports/20261018T090035Z-project-hx-matching.json`。
 
 ## 使用约束
 

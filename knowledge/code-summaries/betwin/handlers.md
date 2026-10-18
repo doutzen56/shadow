@@ -6,7 +6,7 @@
 - summary_group: `handlers`
 - host_or_layer: `http-handler`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T083037Z-project-betwin`
+- last_ingestion_run: `20261018T090036Z-project-betwin`
 - file_count: 277
 - project_count: 4
 - risk_tags: `cache-consistency`, `callback`, `funds`, `login`, `order-state`, `permission`, `user-data`
@@ -87,7 +87,7 @@
 
 ## 跳过项
 
-- pruned_directory 4 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+- pruned_directory 4 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T090036Z-project-betwin.json`。
 
 ## 使用约束
 

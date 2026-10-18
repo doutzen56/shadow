@@ -6,7 +6,7 @@
 - summary_group: `core-agents`
 - host_or_layer: `business-agent`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T083037Z-project-betwin`
+- last_ingestion_run: `20261018T090036Z-project-betwin`
 - file_count: 177
 - project_count: 1
 - risk_tags: `cache-consistency`, `callback`, `elasticsearch`, `funds`, `gateway`, `order-state`, `permission`, `user-data`
@@ -81,7 +81,7 @@
 
 ## 跳过项
 
-- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T090036Z-project-betwin.json`。
 
 ## 使用约束
 

@@ -6,7 +6,7 @@
 - summary_group: `background-services`
 - host_or_layer: `background-service`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T083037Z-project-betwin`
+- last_ingestion_run: `20261018T090036Z-project-betwin`
 - file_count: 61
 - project_count: 4
 - risk_tags: `async`, `cache-consistency`, `callback`, `elasticsearch`, `funds`, `mq`, `order-state`, `retry`, `user-data`
@@ -87,7 +87,7 @@ Quartz 调度、数据分析与对账、注单采集、RabbitMQ 消费等后台�
 
 ## 跳过项
 
-- pruned_directory 6 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T083037Z-project-betwin.json`。
+- pruned_directory 6 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T090036Z-project-betwin.json`。
 
 ## 使用约束
 

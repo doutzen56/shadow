@@ -24,8 +24,17 @@ baseline:
     - role_matrix_version
 
 sqlite:
-  path: rag/index.db
+  layout:
+    core: rag/index/core.db
+    projects: rag/index/projects/<project-id>.db
+    traces: rag/traces/<YYYY-MM>.db
   schema_source: config/rag-data-model.yaml
+  schema_version: rag-data-model-v3
+  not_in_git: true
+  retention:
+    traces_days: 30
+    reports_per_kind: 10
+    ingestion_runs: 50
 
 qdrant:
   root: rag/qdrant

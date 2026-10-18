@@ -6,14 +6,14 @@ path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务�
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261018T083746Z
-  run_id: 20261018T083746Z-baseline
+  version: rag-baseline-20261018T085951Z
+  run_id: 20261018T085951Z-baseline
   manifest_hash: 6814612077a36219bce0e45bddbba226564207de967a2234cb7b419a07d8d241
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
   doc_sources: 117
   knowledge_items: 3
-  sqlite_schema_version: rag-data-model-v2
+  sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
   chunk_strategy: markdown-heading-yaml-top-key-code-summary
@@ -21,19 +21,27 @@ baseline:
   role_matrix_version: rag-role-matrix-v1
 
 latest_run:
-  run_id: 20261018T083109Z-project-hx-matching
+  run_id: 20261018T090036Z-project-betwin
   run_type: project_import
-  project_id: hx-matching
-  manifest_hash: b3b1b1fcce6109908d47118a027c6174e8db198290ab69c3fe12f86d8fe45027
+  project_id: betwin
+  manifest_hash: 047ad31659d34465df7d753ff416a644c83a2817f1204b9b000e7991a6abdec5
 
 artifact_policy:
-  mode: pinned_baseline
+  mode: rebuildable_index
+  principle: 知识本体是 SimpX 里的 Markdown/YAML 文件，跟 git 走、日积月累；SQLite 只是这些文件的检索目录，随时能重建，不进 git。
+  index_files:
+    core: rag/index/core.db（规则、配置、角色、工作流、模板、知识、项目档案、导入记录；bootstrap 每次整层重写）
+    projects: rag/index/projects/<project_id>.db（一个项目的代码层；project 每次整库重建，删掉的代码不残留）
+    traces: rag/traces/<年-月>.db（检索轨迹和修复记录；保留 30 天，过期自动删除）
   tracked_in_git:
-    - rag/index.db
-    - rag/init-reports/
+    - rag/init-reports/（每类只留最近 10 份，更早的自动删除）
     - rag/qdrant/
-  rule: rag/ 产物跟版本库一起提交，作为可复现的 baseline 快照。每次重跑 tools/rag_index.py 后，rag/、knowledge/code-summaries/ 和本文件要放在同一次提交里；只提交其中一部分会让 manifest、摘要和 SQLite 对不上。
-  rebuild: 按 tools/rag_index.py 文件开头的用法重建；重建后按 workflows/knowledge-index-maintenance 更新本文件。
+  not_tracked_in_git:
+    - rag/index/
+    - rag/traces/
+  self_heal: search 发现 core.db 缺失会先自动 bootstrap；指定项目的库缺失且带 --repo 会先自动导入。换电脑后不用手工重建。
+  rule: 重跑 tools/rag_index.py 后，knowledge/code-summaries/、rag/init-reports/ 和本文件放在同一次提交里。
+  rebuild: 删掉 rag/index/，按 tools/rag_index.py 文件开头的用法重建；重建后按 workflows/knowledge-index-maintenance 更新本文件。
 
 vector_status:
   mode: placeholder
@@ -110,10 +118,10 @@ seed_projects:
     summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
     solution_file: HX.Matching.sln
     profile_docs: 5
-    summarized_files: 1782
+    summarized_files: 1829
     summary_groups: 9
-    last_ingestion_run: 20261018T083109Z-project-hx-matching
-    manifest_hash: b3b1b1fcce6109908d47118a027c6174e8db198290ab69c3fe12f86d8fe45027
+    last_ingestion_run: 20261018T090035Z-project-hx-matching
+    manifest_hash: ecb3dcfc46e0b65a52e9d24a2e3b03ca9738e8af186524c410e52b367b3081b9
   betwin:
     status: active
     profile: projects/examples/betwin/profile.yaml
@@ -122,5 +130,5 @@ seed_projects:
     profile_docs: 5
     summarized_files: 1518
     summary_groups: 6
-    last_ingestion_run: 20261018T083037Z-project-betwin
+    last_ingestion_run: 20261018T090036Z-project-betwin
     manifest_hash: 047ad31659d34465df7d753ff416a644c83a2817f1204b9b000e7991a6abdec5

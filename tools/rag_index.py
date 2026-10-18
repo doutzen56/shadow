@@ -13,10 +13,15 @@ SimpX RAG 索引工具：重建文档层、导入业务项目代码摘要、按�
   python tools/rag_index.py project <project_id> <业务仓根目录>
       扫一个业务仓，刷新该项目的 source/chunk/symbol、代码摘要 Markdown 和摘要 manifest；
       knowledge/code-summaries/<project_id>/cards/ 下手写的深挖卡片只登记不覆盖，源码哈希变了标 stale。
-  python tools/rag_index.py search <关键词> [--project <project_id>] [--role <角色>] [--task <任务说明>]
-      用 SQLite FTS 查 chunk，结果写入 retrieval_trace，作为“查过 SQLite”的证据。
+  python tools/rag_index.py search <关键词> [--project <project_id>] [--repo <业务仓根目录>] [--role <角色>] [--task <任务说明>]
+      用 SQLite FTS 查规则知识库和项目库，结果写入当月检索轨迹，作为“查过 SQLite”的证据。
+      规则知识库缺失会先自动 bootstrap；项目库缺失且给了 --repo 会先自动导入该项目。
 
-全量重建：删掉 rag/index.db，先跑 bootstrap，再对每个种子项目各跑一次 project。
+索引分三类文件，都能按 SimpX 文件和业务仓重建，不进 git：
+  rag/index/core.db              规则、配置、角色、工作流、知识、项目档案、导入记录
+  rag/index/projects/<id>.db     一个业务项目的代码层；每次 project 整库重建，删掉的代码不会残留
+  rag/traces/<年-月>.db          检索轨迹和修复记录；超过保留天数自动删除
+全量重建：删掉 rag/index/，先跑 bootstrap，再对每个种子项目各跑一次 project。
 """
 
 from __future__ import annotations
@@ -27,24 +32,34 @@ import os
 import re
 import sqlite3
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 SIMPX_ROOT = Path(__file__).resolve().parents[1]
 RAG_ROOT = SIMPX_ROOT / "rag"
-DB_PATH = RAG_ROOT / "index.db"
+INDEX_ROOT = RAG_ROOT / "index"
+CORE_DB = INDEX_ROOT / "core.db"
+PROJECT_DB_DIR = INDEX_ROOT / "projects"
+TRACE_DIR = RAG_ROOT / "traces"
+LEGACY_DB = RAG_ROOT / "index.db"
 QDRANT_ROOT = RAG_ROOT / "qdrant"
 REPORT_DIR = RAG_ROOT / "init-reports"
 SUMMARY_ROOT = SIMPX_ROOT / "knowledge" / "code-summaries"
 
-SQLITE_SCHEMA_VERSION = "rag-data-model-v2"
+SQLITE_SCHEMA_VERSION = "rag-data-model-v3"
 QDRANT_COLLECTION_VERSION = "local-file-collection-v1"
 EMBEDDING_MODEL = "not-configured-local-placeholder"
 CHUNK_STRATEGY = "markdown-heading-yaml-top-key-code-summary"
 QDRANT_COLLECTIONS = ["rag_formal_knowledge", "rag_project_profiles", "rag_code_summaries", "rag_candidates"]
 
-NOW = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-STAMP = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+# 检索轨迹只服务当次任务的证据和周审的召回复盘，周审结论会沉淀成文件，原始轨迹过期即删。
+TRACE_RETENTION_DAYS = 30
+KEEP_REPORTS_PER_KIND = 10
+KEEP_INGESTION_RUNS = 50
+
+NOW_DT = datetime.now(timezone.utc)
+NOW = NOW_DT.strftime("%Y-%m-%dT%H:%M:%SZ")
+STAMP = NOW_DT.strftime("%Y%m%dT%H%M%SZ")
 
 ALL_ROLES = ["@@X", "@@TL", "@@BA", "@@BE", "@@DEVOPS", "reviewer", "researcher"]
 CODE_ROLES = ["@@BA", "@@BE", "@@DEVOPS", "reviewer"]
@@ -231,80 +246,207 @@ def to_json(value: object) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def connect() -> sqlite3.Connection:
-    """打开 rag/index.db，没有表就按数据模型建表。"""
-    RAG_ROOT.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    create_schema(conn)
+SOURCE_CHUNK_SCHEMA = """
+    create table if not exists source (
+      source_id text primary key, project_id text, path text not null,
+      source_type text not null, layer text not null, content_hash text not null,
+      lifecycle_status text not null, updated_at text not null
+    );
+    create index if not exists ix_source_project on source(project_id, source_type);
+    create table if not exists chunk (
+      chunk_id text primary key, source_id text not null, project_id text,
+      chunk_type text not null, heading text, summary text not null, text_ref text not null,
+      role_scope text, task_scope text, risk_tags text,
+      qdrant_point_id text, lifecycle_status text not null
+    );
+    create index if not exists ix_chunk_source on chunk(source_id);
+    create virtual table if not exists chunk_fts using fts5(heading, summary, text_ref, content='chunk', content_rowid='rowid');
+"""
+
+CORE_SCHEMA = SOURCE_CHUNK_SCHEMA + """
+    create table if not exists project (
+      project_id text primary key, display_name text not null, identify_by text not null,
+      simpx_path text, repo_root text, primary_language text,
+      status text not null, created_at text not null, updated_at text not null
+    );
+    create table if not exists knowledge_item (
+      knowledge_id text primary key, source_id text not null, title text not null,
+      doc_type text not null, maturity text not null, lifecycle_status text not null,
+      confirmed_by text, user_reviewed integer,
+      project_scope text, role_scope text, task_scope text, risk_tags text,
+      evidence_refs text, superseded_by text
+    );
+    create table if not exists ingestion_run (
+      run_id text primary key, run_type text not null, project_id text,
+      manifest_hash text not null, started_at text not null, finished_at text,
+      status text not null, error_summary text
+    );
+    create virtual table if not exists knowledge_item_fts using fts5(title, content='knowledge_item', content_rowid='rowid');
+"""
+
+PROJECT_SCHEMA = SOURCE_CHUNK_SCHEMA + """
+    create table if not exists symbol (
+      symbol_id text primary key, project_id text not null, source_id text not null,
+      file_path text not null, symbol text not null, symbol_kind text not null,
+      signature_hash text, file_hash text not null, lifecycle_status text not null
+    );
+    create index if not exists ix_symbol_project on symbol(project_id, symbol);
+"""
+
+TRACE_SCHEMA = """
+    create table if not exists retrieval_trace (
+      trace_id text primary key, task_id text, project_id text,
+      role_id text, query text not null, filters text, hits text not null,
+      selected_hits text, rejected_hits text, created_at text not null
+    );
+    create table if not exists repair_log (
+      repair_id text primary key, repair_type text not null, risk_level text not null,
+      target_ref text not null, before_state text, after_state text,
+      status text not null, needs_confirmation integer not null, created_at text not null
+    );
+"""
+
+CORE_TABLES = ["project", "source", "chunk", "knowledge_item", "ingestion_run"]
+PROJECT_TABLES = ["source", "chunk", "symbol"]
+
+
+def open_db(path: Path, schema: str) -> sqlite3.Connection:
+    """打开一个索引库文件，没有表就按对应结构建表；向量内容不进 SQLite。
+
+    Args:
+        path: 库文件路径。
+        schema: 建表语句，CORE_SCHEMA、PROJECT_SCHEMA 或 TRACE_SCHEMA。
+
+    Returns:
+        打开的连接。
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    conn.executescript(schema)
     return conn
 
 
-def create_schema(conn: sqlite3.Connection) -> None:
-    """按 config/rag-data-model.yaml 建控制面表；向量内容不进 SQLite。"""
-    conn.executescript(
-        """
-        create table if not exists project (
-          project_id text primary key, display_name text not null, identify_by text not null,
-          simpx_path text, repo_root text, primary_language text,
-          status text not null, created_at text not null, updated_at text not null
-        );
-        create table if not exists source (
-          source_id text primary key, project_id text, path text not null,
-          source_type text not null, layer text not null, content_hash text not null,
-          lifecycle_status text not null, updated_at text not null
-        );
-        create index if not exists ix_source_project on source(project_id, source_type);
-        create table if not exists chunk (
-          chunk_id text primary key, source_id text not null, project_id text,
-          chunk_type text not null, heading text, summary text not null, text_ref text not null,
-          role_scope text, task_scope text, risk_tags text,
-          qdrant_point_id text, lifecycle_status text not null
-        );
-        create index if not exists ix_chunk_source on chunk(source_id);
-        create table if not exists symbol (
-          symbol_id text primary key, project_id text not null, source_id text not null,
-          file_path text not null, symbol text not null, symbol_kind text not null,
-          signature_hash text, file_hash text not null, lifecycle_status text not null
-        );
-        create index if not exists ix_symbol_project on symbol(project_id, symbol);
-        create table if not exists knowledge_item (
-          knowledge_id text primary key, source_id text not null, title text not null,
-          doc_type text not null, maturity text not null, lifecycle_status text not null,
-          confirmed_by text, user_reviewed integer,
-          project_scope text, role_scope text, task_scope text, risk_tags text,
-          evidence_refs text, superseded_by text
-        );
-        create table if not exists ingestion_run (
-          run_id text primary key, run_type text not null, project_id text,
-          manifest_hash text not null, started_at text not null, finished_at text,
-          status text not null, error_summary text
-        );
-        create table if not exists retrieval_trace (
-          trace_id text primary key, task_id text, project_id text,
-          role_id text, query text not null, filters text, hits text not null,
-          selected_hits text, rejected_hits text, created_at text not null
-        );
-        create table if not exists repair_log (
-          repair_id text primary key, repair_type text not null, risk_level text not null,
-          target_ref text not null, before_state text, after_state text,
-          status text not null, needs_confirmation integer not null, created_at text not null
-        );
-        create virtual table if not exists chunk_fts using fts5(heading, summary, text_ref, content='chunk', content_rowid='rowid');
-        create virtual table if not exists knowledge_item_fts using fts5(title, content='knowledge_item', content_rowid='rowid');
-        """
-    )
+def project_db_path(project_id: str) -> Path:
+    """返回某个项目代码层库的路径。
+
+    Args:
+        project_id: 项目标识。
+
+    Returns:
+        rag/index/projects/<project_id>.db。
+    """
+    return PROJECT_DB_DIR / f"{project_id}.db"
 
 
-def table_counts(conn: sqlite3.Connection) -> dict:
-    """统计主要表的行数，导入前后各拍一次，写进报告当证据。"""
-    tables = ["project", "source", "chunk", "symbol", "knowledge_item", "ingestion_run", "retrieval_trace"]
+def table_counts(conn: sqlite3.Connection, tables: list[str]) -> dict:
+    """统计给定表的行数，导入前后各拍一次，写进报告当证据。
+
+    Args:
+        conn: 库连接。
+        tables: 要统计的表名。
+
+    Returns:
+        表名到行数的字典。
+    """
     return {name: conn.execute(f"select count(*) from {name}").fetchone()[0] for name in tables}
 
 
-def refresh_fts(conn: sqlite3.Connection) -> None:
-    """按 chunk 和 knowledge_item 重建全文索引，导入后关键词检索才能查到新内容。"""
-    conn.execute("insert into chunk_fts(chunk_fts) values ('rebuild')")
-    conn.execute("insert into knowledge_item_fts(knowledge_item_fts) values ('rebuild')")
+def file_counts(path: Path, tables: list[str]) -> dict:
+    """统计一个库文件里给定表的行数；文件还不存在时返回空字典。
+
+    Args:
+        path: 库文件路径。
+        tables: 要统计的表名。
+
+    Returns:
+        表名到行数的字典。
+    """
+    if not path.exists():
+        return {}
+    conn = sqlite3.connect(path)
+    try:
+        return table_counts(conn, tables)
+    finally:
+        conn.close()
+
+
+def refresh_fts(conn: sqlite3.Connection, fts_tables: list[str]) -> None:
+    """重建全文索引，导入后关键词检索才能查到新内容。
+
+    Args:
+        conn: 库连接。
+        fts_tables: 要重建的 FTS 表名。
+    """
+    for name in fts_tables:
+        conn.execute(f"insert into {name}({name}) values ('rebuild')")
+
+
+def trim_ingestion_runs(conn: sqlite3.Connection) -> int:
+    """导入记录只留最近几条，更早的已经被后面的导入取代。
+
+    Args:
+        conn: 规则知识库连接。
+
+    Returns:
+        删掉的行数。
+    """
+    return conn.execute(
+        "delete from ingestion_run where run_id not in (select run_id from ingestion_run order by started_at desc limit ?)",
+        (KEEP_INGESTION_RUNS,),
+    ).rowcount
+
+
+def prune_traces() -> dict:
+    """删掉超过保留天数的检索轨迹和修复记录。
+
+    整个月都过期的文件直接删；跨过期日的月份只删过期行，删了行就压缩文件，把空间还给磁盘。
+
+    Returns:
+        删掉的文件名和行数。
+    """
+    cutoff_dt = NOW_DT - timedelta(days=TRACE_RETENTION_DAYS)
+    cutoff = cutoff_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    removed_files: list[str] = []
+    removed_rows = 0
+    for path in sorted(TRACE_DIR.glob("*.db")) if TRACE_DIR.exists() else []:
+        try:
+            month_start = datetime.strptime(path.stem, "%Y-%m").replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        next_month = (month_start.replace(day=28) + timedelta(days=4)).replace(day=1)
+        if next_month <= cutoff_dt:
+            path.unlink()
+            removed_files.append(path.name)
+            continue
+        conn = open_db(path, TRACE_SCHEMA)
+        try:
+            rows = conn.execute("delete from retrieval_trace where created_at < ?", (cutoff,)).rowcount
+            rows += conn.execute("delete from repair_log where created_at < ?", (cutoff,)).rowcount
+            conn.commit()
+            if rows:
+                conn.execute("vacuum")
+            removed_rows += rows
+        finally:
+            conn.close()
+    return {"retention_days": TRACE_RETENTION_DAYS, "removed_files": removed_files, "removed_rows": removed_rows}
+
+
+def prune_reports() -> list[str]:
+    """每类导入报告只留最近几份；更早的运行结果已被后面的导入取代。
+
+    Returns:
+        删掉的报告文件名。
+    """
+    kinds: dict[str, list[Path]] = {}
+    for path in REPORT_DIR.glob("*.json") if REPORT_DIR.exists() else []:
+        kind = path.stem.split("-", 1)[1] if "-" in path.stem else path.stem
+        kinds.setdefault(kind, []).append(path)
+    removed = []
+    for paths in kinds.values():
+        for path in sorted(paths)[:-KEEP_REPORTS_PER_KIND]:
+            path.unlink()
+            removed.append(path.name)
+    return removed
 
 
 def parse_frontmatter(text: str) -> dict:
@@ -425,13 +567,24 @@ def is_sensitive(name: str) -> bool:
     return any(pattern.match(name) for pattern in SENSITIVE_PATTERNS)
 
 
-def run_bootstrap() -> None:
-    """重建 SimpX 文档层、knowledge_item 和种子项目登记；业务代码层不动。"""
-    conn = connect()
+def run_bootstrap(quiet: bool = False) -> None:
+    """重建规则知识库 core.db：文档层、knowledge_item 和种子项目登记；项目代码库不动。
+
+    每次都按 SimpX 现有文件整层重写，删掉或归档的知识会自动从索引里消失。
+
+    Args:
+        quiet: 为 True 时不打印结果，供检索时自动重建调用。
+    """
+    legacy_removed = False
+    if LEGACY_DB.exists():
+        # 旧版把所有内容放在一个库里，现在拆成 core / projects / traces，旧库没有保留价值。
+        LEGACY_DB.unlink()
+        legacy_removed = True
+    conn = open_db(CORE_DB, CORE_SCHEMA)
     try:
-        before = table_counts(conn)
-        conn.execute("delete from chunk where source_id in (select source_id from source where source_type = 'doc')")
-        conn.execute("delete from source where source_type = 'doc'")
+        before = table_counts(conn, CORE_TABLES)
+        conn.execute("delete from chunk")
+        conn.execute("delete from source")
         conn.execute("delete from knowledge_item")
 
         imported: list[tuple[str, str]] = []
@@ -468,15 +621,17 @@ def run_bootstrap() -> None:
                  None, project["primary_language"], exists[0] if exists else NOW, NOW),
             )
 
-        refresh_fts(conn)
+        refresh_fts(conn, ["chunk_fts", "knowledge_item_fts"])
         source_set_hash = digest("\n".join(f"{path}:{content_hash}" for path, content_hash in imported))
         run_id = f"{STAMP}-baseline"
         conn.execute(
             "insert or replace into ingestion_run values (?, 'baseline', null, ?, ?, ?, 'completed', '')",
             (run_id, source_set_hash, NOW, NOW),
         )
+        trim_ingestion_runs(conn)
         conn.commit()
-        after = table_counts(conn)
+        conn.execute("vacuum")
+        after = table_counts(conn, CORE_TABLES)
     finally:
         conn.close()
 
@@ -498,7 +653,8 @@ def run_bootstrap() -> None:
         "generator": "tools/rag_index.py bootstrap",
         "manifest_hash": source_set_hash,
         "manifest_hash_meaning": "本次导入的全部来源（路径 + 内容哈希）拼起来的哈希；来源不变，哈希就不变。",
-        "sqlite": rel(DB_PATH, SIMPX_ROOT),
+        "sqlite": rel(CORE_DB, SIMPX_ROOT),
+        "sqlite_size_kb": round(CORE_DB.stat().st_size / 1024),
         "sqlite_schema_version": SQLITE_SCHEMA_VERSION,
         "qdrant_collection_version": QDRANT_COLLECTION_VERSION,
         "embedding_model": EMBEDDING_MODEL,
@@ -507,14 +663,18 @@ def run_bootstrap() -> None:
         "knowledge_items": knowledge_items,
         "counts_before": before,
         "counts_after": after,
+        "legacy_db_removed": legacy_removed,
         "skipped": skipped,
         "global_manifest_updated": False,
         "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 baseline 段。",
     }
     write_text(REPORT_DIR / f"{run_id}.json", json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({key: report[key] for key in [
-        "run_id", "baseline_version", "manifest_hash", "doc_sources", "knowledge_items", "counts_before", "counts_after", "next_step",
-    ]}, ensure_ascii=False, indent=2))
+    housekeeping = {"removed_reports": prune_reports(), "traces": prune_traces()}
+    if not quiet:
+        print(json.dumps({key: report[key] for key in [
+            "run_id", "baseline_version", "manifest_hash", "sqlite", "sqlite_size_kb", "doc_sources", "knowledge_items",
+            "counts_before", "counts_after", "legacy_db_removed", "next_step",
+        ]} | {"housekeeping": housekeeping}, ensure_ascii=False, indent=2))
 
 
 def risk_tags_for(path: str, defaults: list[str]) -> tuple[list[str], int]:
@@ -617,8 +777,16 @@ def render_group_markdown(project_id: str, project: dict, group: dict, run_id: s
     return "\n".join(lines)
 
 
-def run_project(project_id: str, repo_arg: str) -> None:
-    """扫一个业务仓，替换该项目的代码层索引，并重写它的代码摘要和摘要 manifest。"""
+def run_project(project_id: str, repo_arg: str, quiet: bool = False) -> None:
+    """扫一个业务仓，整库重建该项目的代码层索引，并重写它的代码摘要和摘要 manifest。
+
+    先写临时文件，成功后再替换正式库；中途失败时旧库保持不变。
+
+    Args:
+        project_id: 项目标识，要先在 PROJECTS 登记。
+        repo_arg: 业务仓根目录。
+        quiet: 为 True 时不打印结果，供检索时自动重建调用。
+    """
     if project_id not in PROJECTS:
         raise SystemExit(f"未登记的项目：{project_id}。先在 PROJECTS 里登记摘要分组，再按 workflows/project-init 接入。")
     project = PROJECTS[project_id]
@@ -628,15 +796,20 @@ def run_project(project_id: str, repo_arg: str) -> None:
     run_id = f"{STAMP}-project-{project_id}"
     out_dir = SUMMARY_ROOT / project_id
 
-    conn = connect()
+    core = open_db(CORE_DB, CORE_SCHEMA)
     try:
-        if not conn.execute("select 1 from project where project_id = ?", (project_id,)).fetchone():
-            raise SystemExit("rag/index.db 里没有这个项目，先跑 bootstrap。")
-        before = table_counts(conn)
-        conn.execute("delete from chunk where source_id in (select source_id from source where project_id = ? and source_type in ('code_file', 'code_summary'))", (project_id,))
-        conn.execute("delete from source where project_id = ? and source_type in ('code_file', 'code_summary')", (project_id,))
-        conn.execute("delete from symbol where project_id = ?", (project_id,))
+        if not core.execute("select 1 from project where project_id = ?", (project_id,)).fetchone():
+            raise SystemExit("rag/index/core.db 里没有这个项目，先跑 bootstrap。")
+    finally:
+        core.close()
 
+    final_db = project_db_path(project_id)
+    before = file_counts(final_db, PROJECT_TABLES)
+    tmp_db = final_db.with_name(final_db.name + ".tmp")
+    if tmp_db.exists():
+        tmp_db.unlink()
+    conn = open_db(tmp_db, PROJECT_SCHEMA)
+    try:
         imported: list[tuple[str, str]] = []
         groups: list[dict] = []
         for group_id, title, roots, host, defaults, responsibility in project["groups"]:
@@ -747,16 +920,24 @@ def run_project(project_id: str, repo_arg: str) -> None:
         write_text(manifest_path, manifest_text)
         insert_source(conn, project_id, rel(manifest_path, SIMPX_ROOT), "code_summary", "code_summaries", digest(manifest_text))
 
-        refresh_fts(conn)
+        refresh_fts(conn, ["chunk_fts"])
         source_set_hash = digest("\n".join(f"{path}:{content_hash}" for path, content_hash in imported))
-        conn.execute(
+        conn.commit()
+        after = table_counts(conn, PROJECT_TABLES)
+    finally:
+        conn.close()
+    os.replace(tmp_db, final_db)
+
+    core = open_db(CORE_DB, CORE_SCHEMA)
+    try:
+        core.execute(
             "insert or replace into ingestion_run values (?, 'project_import', ?, ?, ?, ?, 'completed', '')",
             (run_id, project_id, source_set_hash, NOW, NOW),
         )
-        conn.commit()
-        after = table_counts(conn)
+        trim_ingestion_runs(core)
+        core.commit()
     finally:
-        conn.close()
+        core.close()
 
     point = {
         "collection": "rag_code_summaries",
@@ -783,6 +964,8 @@ def run_project(project_id: str, repo_arg: str) -> None:
         "manifest_hash": source_set_hash,
         "manifest_hash_meaning": "本次导入的全部业务文件（路径 + 内容哈希）拼起来的哈希；源码不变，哈希就不变。",
         "summarized_files": total,
+        "sqlite": rel(final_db, SIMPX_ROOT),
+        "sqlite_size_kb": round(final_db.stat().st_size / 1024),
         "counts_before": before,
         "counts_after": after,
         "groups": [{key: group[key] for key in [
@@ -795,14 +978,51 @@ def run_project(project_id: str, repo_arg: str) -> None:
         "next_step": f"按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 latest_run 和 seed_projects.{project_id}。",
     }
     write_text(REPORT_DIR / f"{run_id}.json", json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({key: report[key] for key in [
-        "run_id", "project_id", "manifest_hash", "summarized_files", "counts_before", "counts_after", "stale_cards", "next_step",
-    ]} | {"summary_groups": len(groups), "cards": len(cards)}, ensure_ascii=False, indent=2))
+    housekeeping = {"removed_reports": prune_reports(), "traces": prune_traces()}
+    if not quiet:
+        print(json.dumps({key: report[key] for key in [
+            "run_id", "project_id", "manifest_hash", "sqlite", "sqlite_size_kb", "summarized_files",
+            "counts_before", "counts_after", "stale_cards", "next_step",
+        ]} | {"summary_groups": len(groups), "cards": len(cards), "housekeeping": housekeeping}, ensure_ascii=False, indent=2))
+
+
+def search_db(path: Path, schema: str, fts_query: str, project_id: str | None) -> list[tuple]:
+    """在一个库文件里按 FTS 查 chunk，返回带 rank 的命中行。
+
+    Args:
+        path: 库文件路径。
+        schema: 该库的建表语句。
+        fts_query: FTS5 查询串。
+        project_id: 只看这个项目和公共文档；为空时不过滤。
+
+    Returns:
+        (rank, chunk_id, project_id, chunk_type, heading, text_ref, summary, role_scope) 列表。
+    """
+    sql = (
+        "select f.rank, c.chunk_id, c.project_id, c.chunk_type, c.heading, c.text_ref, c.summary, c.role_scope "
+        "from chunk_fts f join chunk c on c.rowid = f.rowid where chunk_fts match ?"
+    )
+    params: list = [fts_query]
+    if project_id:
+        sql += " and (c.project_id = ? or c.project_id is null)"
+        params.append(project_id)
+    sql += " order by f.rank limit 20"
+    conn = open_db(path, schema)
+    try:
+        return conn.execute(sql, params).fetchall()
+    finally:
+        conn.close()
 
 
 def run_search(args: list[str]) -> None:
-    """用 FTS 查 chunk，打印命中并写一条 retrieval_trace，作为检索过 SQLite 的证据。"""
-    options = {"--project": None, "--role": None, "--task": None}
+    """按 FTS 查规则知识库和项目库，打印命中并写一条检索轨迹，作为检索过 SQLite 的证据。
+
+    规则知识库缺失时先自动 bootstrap；指定项目的库缺失且给了 --repo 时先自动导入，换电脑后不用手工重建。
+
+    Args:
+        args: 命令行里 search 后面的参数。
+    """
+    options = {"--project": None, "--repo": None, "--role": None, "--task": None}
     words: list[str] = []
     index = 0
     while index < len(args):
@@ -813,49 +1033,68 @@ def run_search(args: list[str]) -> None:
             words.append(args[index])
             index += 1
     if not words:
-        raise SystemExit("用法：python tools/rag_index.py search <关键词> [--project <id>] [--role <角色>] [--task <任务说明>]")
+        raise SystemExit("用法：python tools/rag_index.py search <关键词> [--project <id>] [--repo <业务仓根目录>] [--role <角色>] [--task <任务说明>]")
     query = " ".join(words)
     fts_query = " OR ".join('"' + word.replace('"', "") + '"' for word in words)
-    sql = (
-        "select c.chunk_id, c.project_id, c.chunk_type, c.heading, c.text_ref, c.summary, c.role_scope "
-        "from chunk_fts f join chunk c on c.rowid = f.rowid where chunk_fts match ?"
-    )
-    params: list = [fts_query]
-    if options["--project"]:
-        sql += " and (c.project_id = ? or c.project_id is null)"
-        params.append(options["--project"])
-    sql += " order by rank limit 20"
+    project = options["--project"]
 
-    conn = connect()
+    auto_rebuilt: list[str] = []
+    if not CORE_DB.exists():
+        run_bootstrap(quiet=True)
+        auto_rebuilt.append(rel(CORE_DB, SIMPX_ROOT))
+    if project and not project_db_path(project).exists() and options["--repo"]:
+        run_project(project, options["--repo"], quiet=True)
+        auto_rebuilt.append(rel(project_db_path(project), SIMPX_ROOT))
+
+    if project:
+        project_dbs = [project_db_path(project)] if project_db_path(project).exists() else []
+        missing = [] if project_dbs else [project]
+    else:
+        project_dbs = sorted(PROJECT_DB_DIR.glob("*.db")) if PROJECT_DB_DIR.exists() else []
+        missing = [name for name in PROJECTS if not project_db_path(name).exists()]
+
+    rows = search_db(CORE_DB, CORE_SCHEMA, fts_query, project)
+    for path in project_dbs:
+        rows.extend(search_db(path, PROJECT_SCHEMA, fts_query, None))
+    # 各库的 rank 都是 bm25 分数，越小越相关，合并后统一排序。
+    rows = sorted(rows, key=lambda row: row[0])[:20]
+
+    role = options["--role"]
+    hits = []
+    rejected = []
+    for _, chunk_id, project_id, chunk_type, heading, text_ref, summary, role_scope in rows:
+        hit = {"chunk_id": chunk_id, "project_id": project_id, "chunk_type": chunk_type, "text_ref": text_ref, "summary": summary[:160]}
+        if role and role not in json.loads(role_scope or "[]"):
+            rejected.append(dict(hit, reason=f"role_scope 不含 {role}"))
+        else:
+            hits.append(hit)
+    selected = hits[:3]
+    trace_id = digest(f"{NOW}:{query}:{options}")[:32]
+    trace_db = TRACE_DIR / f"{NOW_DT:%Y-%m}.db"
+    conn = open_db(trace_db, TRACE_SCHEMA)
     try:
-        rows = conn.execute(sql, params).fetchall()
-        role = options["--role"]
-        hits = []
-        rejected = []
-        for chunk_id, project_id, chunk_type, heading, text_ref, summary, role_scope in rows:
-            hit = {"chunk_id": chunk_id, "project_id": project_id, "chunk_type": chunk_type, "text_ref": text_ref, "summary": summary[:160]}
-            if role and role not in json.loads(role_scope or "[]"):
-                rejected.append(dict(hit, reason=f"role_scope 不含 {role}"))
-            else:
-                hits.append(hit)
-        selected = hits[:3]
-        trace_id = digest(f"{NOW}:{query}:{options}")[:32]
         conn.execute(
             "insert into retrieval_trace values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (trace_id, options["--task"], options["--project"], role, query,
-             to_json({"project": options["--project"], "role": role}), to_json(hits),
+            (trace_id, options["--task"], project, role, query,
+             to_json({"project": project, "role": role}), to_json(hits),
              to_json(selected), to_json(rejected), NOW),
         )
         conn.commit()
     finally:
         conn.close()
+    traces = prune_traces()
     print(json.dumps({
         "trace_id": trace_id,
+        "trace_file": rel(trace_db, SIMPX_ROOT),
         "query": query,
+        "searched": [rel(CORE_DB, SIMPX_ROOT)] + [rel(path, SIMPX_ROOT) for path in project_dbs],
+        "missing_project_index": missing,
+        "auto_rebuilt": auto_rebuilt,
         "hit_count": len(hits),
         "selected_top3": selected,
         "rejected_count": len(rejected),
-        "note": "这是关键词检索，不是语义向量召回；命中只做定位，行为结论要回读源码。",
+        "trace_housekeeping": traces,
+        "note": "这是关键词检索，不是语义向量召回；命中只做定位，行为结论要回读源码。missing_project_index 不为空时，这些项目的代码层没查到，要带 --repo 重跑或先跑 project。",
     }, ensure_ascii=False, indent=2))
 
 

@@ -1,7 +1,20 @@
 schema_version: v1
 purpose: RAG SQLite 控制面数据模型。向量数据存 Qdrant，SQLite 只保存目录、状态、索引、审计和检索轨迹。
-model_version: rag-data-model-v2
+model_version: rag-data-model-v3
 implemented_by: tools/rag_index.py
+
+storage_layout:
+  note: 按用途拆库，避免单文件膨胀；索引可再生，不进 git。
+  core: rag/index/core.db
+  core_tables: [project, source, chunk, knowledge_item, ingestion_run]
+  projects: rag/index/projects/<project-id>.db
+  project_tables: [source, chunk, symbol]
+  traces: rag/traces/<YYYY-MM>.db
+  trace_tables: [retrieval_trace, repair_log]
+  retention:
+    traces_days: 30
+    reports_per_kind: 10
+    ingestion_runs: 50
 
 principles:
   - SQLite 不保存完整业务源码和大日志。

@@ -72,7 +72,7 @@ knowledge_metadata:
     meaning: 谁按证据确认入库；"@@TL" 或 user；规则生效前入库、来源不明的写“未记录”
   user_reviewed:
     meaning: 用户周审是否看过；@@TL 直接入库的先写 false
-  index_status_note: rag/index.db 里 source、chunk、symbol 的 lifecycle_status 是索引状态（active、stale、missing 等，见 rag-data-model.yaml 的 status_values），不是知识生命周期。
+  index_status_note: rag/index/core.db 与 rag/index/projects/<id>.db 里 source、chunk、symbol 的 lifecycle_status 是索引状态（active、stale、missing 等，见 rag-data-model.yaml 的 status_values），不是知识生命周期。
 
 pattern_domains:
   - search

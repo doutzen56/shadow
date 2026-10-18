@@ -115,5 +115,7 @@ chunking:
 
 index_outputs:
   manifest: knowledge/indexes/rag-manifest.yaml
-  sqlite_catalog: rag/index.db
+  sqlite_core: rag/index/core.db
+  sqlite_projects: rag/index/projects/<project-id>.db
+  sqlite_traces: rag/traces/<YYYY-MM>.db
   qdrant_root: rag/qdrant

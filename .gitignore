@@ -1,2 +1,8 @@
 # 本地测试环境密钥文件，不允许提交
 **/*.secrets.yaml
+
+# RAG 索引是可再生的检索目录，按 tools/rag_index.py 从 SimpX 文件和业务仓重建，不进 git
+rag/index/
+rag/traces/
+rag/index.db
+*.db.tmp

@@ -1,7 +1,7 @@
 {
   "collection": "rag_project_profiles",
   "project_id": "hx-matching",
-  "run_id": "20261018T083109Z-project-hx-matching",
+  "run_id": "20261018T090035Z-project-hx-matching",
   "embedding_model": "not-configured-local-placeholder",
   "note": "本地 point 占位，没有真实向量；接入 embedding 后按 source/chunk 重建。",
   "source": "projects/examples/hx-matching/profile.yaml"
