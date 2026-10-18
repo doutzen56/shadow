@@ -2,36 +2,145 @@ schema_version: v1
 project_id: betwin
 status: active
 source_profile: projects/examples/betwin/profile.yaml
+solution_file: BetWin5.0.sln
 last_ingestion_run: 20261018T064704Z-baseline-betwin
 generated_at: 2026-10-18T06:47:04Z
+imported_docs: 73
+summarized_files: 1545
 summary_groups:
-  - id: core-agents
+  - group_id: core-agents
     title: 业务 Agent
     host_or_layer: business-agent
+    roots:
+      - Library/BetWin
     file_count: 178
+    skipped_count: 9
     summary_file: knowledge/code-summaries/betwin/core-agents.md
-  - id: common-models
+    risk_tags:
+      - cache-consistency
+      - callback
+      - elasticsearch
+      - funds
+      - gateway
+      - order-state
+      - permission
+      - user-data
+  - group_id: common-models
     title: 公共模型
     host_or_layer: domain-model
+    roots:
+      - Library/BetWin.Common
     file_count: 427
+    skipped_count: 13
     summary_file: knowledge/code-summaries/betwin/common-models.md
-  - id: caching
+    risk_tags:
+      - cache-consistency
+      - callback
+      - database-schema
+      - elasticsearch
+      - funds
+      - gateway
+      - login
+      - mq
+      - order-state
+      - permission
+      - user-data
+  - group_id: caching
     title: 业务缓存
     host_or_layer: cache
+    roots:
+      - Library/BetWin.Caching
     file_count: 53
+    skipped_count: 8
     summary_file: knowledge/code-summaries/betwin/caching.md
-  - id: handlers
+    risk_tags:
+      - cache-consistency
+      - funds
+      - gateway
+      - idempotency
+      - order-state
+      - permission
+      - user-data
+  - group_id: handlers
     title: 请求 Handler
     host_or_layer: http-handler
+    roots:
+      - Library/BetWin.Handler.Request
+      - Library/BetWin.Handler.Admin
+      - Library/BetWin.Handler.System
+      - Library/Handler/BetWin.Handler.Api
     file_count: 285
+    skipped_count: 44
     summary_file: knowledge/code-summaries/betwin/handlers.md
-  - id: gateways
+    risk_tags:
+      - cache-consistency
+      - callback
+      - funds
+      - gateway
+      - login
+      - order-state
+      - permission
+      - user-data
+  - group_id: gateways
     title: 第三方网关
     host_or_layer: external-gateway
+    roots:
+      - Library/GateWay/BetWin.Gateway.Game
+      - Library/GateWay/BetWin.Gateway.Payment
+      - Library/GateWay/BetWin.Gateway.Withdraw
+      - Library/GateWay/BetWin.Gateway.Payment.Special
+      - Library/GateWay/BetWin.Gateway.Withdraw.Special
     file_count: 530
+    skipped_count: 51
     summary_file: knowledge/code-summaries/betwin/gateways.md
-  - id: background-services
+    risk_tags:
+      - callback
+      - funds
+      - gateway
+      - idempotency
+      - login
+      - mq
+      - order-state
+      - permission
+      - user-data
+  - group_id: background-services
     title: 后台服务
     host_or_layer: background-service
+    roots:
+      - Services/JobSchedule
+      - Services/DataAnalysis
+      - Services/GameLog
+      - Services/MqServer
     file_count: 72
+    skipped_count: 265
     summary_file: knowledge/code-summaries/betwin/background-services.md
+    risk_tags:
+      - async
+      - cache-consistency
+      - callback
+      - elasticsearch
+      - funds
+      - gateway
+      - mq
+      - order-state
+      - retry
+      - user-data
+forbidden_scope:
+  - .git
+  - .key
+  - .pem
+  - .pfx
+  - bin
+  - dist
+  - envs.secrets.example.yaml
+  - envs.secrets.yaml
+  - logs
+  - node_modules
+  - obj
+  - packages
+notes:
+  - 未读取 envs.secrets.yaml。
+  - 业务源码没有复制进 SimpX，只记录摘要、路径、符号、哈希和风险标签。
+  - 跳过文件明细只在 rag/init-reports/20261018T064704Z-baseline-betwin.json，摘要不列路径。
+  - 每组 Markdown 只展开前 80 个文件，其余文件只在 SQLite 控制面；本会话没查过 SQLite 时不能当作已读取。
+  - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。

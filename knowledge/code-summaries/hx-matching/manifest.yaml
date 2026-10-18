@@ -2,7 +2,6 @@ schema_version: v1
 project_id: hx-matching
 status: active
 source_profile: projects/examples/hx-matching/profile.yaml
-repo_root: F:/HX.MatchingApi
 solution_file: HX.Matching.sln
 last_ingestion_run: 20261018T070046Z-project-hx-matching
 summarized_files: 1763

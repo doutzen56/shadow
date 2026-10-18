@@ -65,7 +65,7 @@ BetWin 是一个多站点游戏平台，覆盖会员与代理前台、站点管�
 - 只做本地修改，不 git push、不提 PR。
 - 提交前由人审。
 - 不把说明、规则、档案写进业务仓；不改业务仓自带文件来做 SimpX 托管。Agent 全部委托 SimpX。
-- 任务结束只提本仓 / SimpX / ADR 沉淀候选，不擅自写外部知识库。明确说「记住：」或「记一条 ADR」才算确认。
+- 任务结束按 SimpX `knowledge-growth-loop` 沉淀：用户说「记住：」或「记一条 ADR」直接入库，其余由 `@@TL` 判断；知识只写 SimpX，不写业务仓和外部知识库。
 - 不在本仓根目录写 `AGENTS.md`、`.cursor/agents`、`.cursor/rules`、`.cursor/skills`。
 
 ## 对 SimpX 的价值

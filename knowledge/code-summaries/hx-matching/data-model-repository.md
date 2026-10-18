@@ -3,7 +3,7 @@
 project_id: hx-matching
 summary_group: data-model-repository
 host_or_layer: data-access
-source_repo: F:/HX.MatchingApi
+source_repo: HX.Matching.sln
 last_ingestion_run: 20261018T070046Z-project-hx-matching
 file_count: 372
 project_count: 2

@@ -13,7 +13,7 @@
 
 ## 标准步骤
 
-1. `@@X` 判断是否有沉淀价值。
+1. `@@TL` 已在 `knowledge-growth-loop` 判断要写 candidate；`@@X` 整理任务结论和证据。
 2. 按 `templates/knowledge-pattern-card` 或 ADR/incident 模板提炼候选。
 3. 标注 project_scope、role_scope、task_scope、risk_tags 和 evidence_refs。
 4. 写入 `knowledge/candidates/`。
@@ -23,4 +23,4 @@
 
 - 没有证据来源不得进入候选。
 - 仅项目局部经验不得伪装成跨项目模式。
-- 正式入库仍需用户明确确认。
+- 转正式知识由 `@@TL` 按证据确认，用户周审修正。

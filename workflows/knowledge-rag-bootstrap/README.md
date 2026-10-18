@@ -19,7 +19,7 @@
 2. `@@TL` 确认语料边界、候选知识是否参与索引、是否需要用户拍板。
 3. 创建或校验 SQLite schema。
 4. 创建或校验 Qdrant collections。
-5. 生成 baseline manifest。
+5. 生成 baseline manifest：只有本流程能改 `rag-manifest.yaml` 的 `baseline` 段；没有真实 embedding 时 `vector_status.semantic_recall_available` 必须写 false。
 6. 导入 SimpX 文档。
 7. 导入首批项目档案和代码摘要输入。
 8. 记录 baseline 版本和初始化报告。

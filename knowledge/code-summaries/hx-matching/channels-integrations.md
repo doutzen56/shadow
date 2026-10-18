@@ -3,7 +3,7 @@
 project_id: hx-matching
 summary_group: channels-integrations
 host_or_layer: external-gateway
-source_repo: F:/HX.MatchingApi
+source_repo: HX.Matching.sln
 last_ingestion_run: 20261018T070046Z-project-hx-matching
 file_count: 171
 project_count: 1

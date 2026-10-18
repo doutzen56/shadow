@@ -3,6 +3,9 @@
 初始化 BetWin 的 SimpX RAG baseline。
 
 脚本只写 SimpX 目录；业务仓只读，且只生成代码摘要，不复制完整业务源码。
+全局 knowledge/indexes/rag-manifest.yaml 不由本脚本改写，重跑后按 knowledge-index-maintenance 更新。
+
+用法：python tools/rag_bootstrap_betwin.py <BetWin 仓库根目录>
 """
 
 from __future__ import annotations
@@ -11,12 +14,32 @@ import hashlib
 import json
 import re
 import sqlite3
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 
-SIMPX_ROOT = Path(r"F:\shadow")
-REPO_ROOT = Path(r"F:\20260926")
+SOLUTION_FILE = "BetWin5.0.sln"
+
+
+def resolve_repo_root() -> Path:
+    """从命令行拿业务仓根目录，并用解决方案文件确认没传错仓库。
+
+    不写死盘符，换电脑后只要传新的仓库路径。
+
+    Returns:
+        BetWin 仓库根目录。
+    """
+    if len(sys.argv) < 2:
+        raise SystemExit(f"用法：python tools/rag_bootstrap_betwin.py <包含 {SOLUTION_FILE} 的仓库根目录>")
+    root = Path(sys.argv[1]).resolve()
+    if not (root / SOLUTION_FILE).is_file():
+        raise SystemExit(f"{root} 下没有 {SOLUTION_FILE}，不是 BetWin 仓库根目录。")
+    return root
+
+
+SIMPX_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = resolve_repo_root()
 PROJECT_ID = "betwin"
 BASELINE_VERSION = "rag-baseline-betwin-0.1.0"
 SQLITE_SCHEMA_VERSION = "rag-data-model-v1"
@@ -35,7 +58,6 @@ DB_PATH = RAG_ROOT / "index.db"
 QDRANT_ROOT = RAG_ROOT / "qdrant"
 REPORT_DIR = RAG_ROOT / "init-reports"
 SUMMARY_ROOT = SIMPX_ROOT / "knowledge" / "code-summaries" / PROJECT_ID
-MANIFEST_PATH = SIMPX_ROOT / "knowledge" / "indexes" / "rag-manifest.yaml"
 
 FORBIDDEN_PARTS = {".git", "bin", "obj", "node_modules", "dist", "logs", "packages"}
 FORBIDDEN_NAMES = {"envs.secrets.yaml", "envs.secrets.example.yaml"}
@@ -321,6 +343,7 @@ def scan_group(conn: sqlite3.Connection, group_id: str, title: str, roots: list[
                     (symbol_id, PROJECT_ID, source_id, relative, symbol, digest(symbol)[:16], file_hash),
                 )
     group_file = SUMMARY_ROOT / f"{group_id}.md"
+    group_tags = sorted({tag for item in files for tag in item["risk_tags"]} | set(defaults))
     lines = [
         f"# {title}",
         "",
@@ -332,7 +355,7 @@ def scan_group(conn: sqlite3.Connection, group_id: str, title: str, roots: list[
         "",
         "## 风险标签",
         "",
-        ", ".join(f"`{tag}`" for tag in sorted({tag for item in files for tag in item['risk_tags']} | set(defaults))) or "无",
+        ", ".join(f"`{tag}`" for tag in group_tags) or "无",
         "",
         "## 代表文件",
         "",
@@ -344,9 +367,14 @@ def scan_group(conn: sqlite3.Connection, group_id: str, title: str, roots: list[
     if len(files) > 80:
         lines.append(f"- 还有 {len(files) - 80} 个文件仅写入 SQLite 控制面，未在 Markdown 摘要里展开。")
     if skipped:
-        lines.extend(["", "## 跳过项", ""])
-        for item in skipped[:50]:
-            lines.append(f"- `{item['path']}`：{item['reason']}")
+        # 跳过明细可能带证书、密钥这类敏感路径，只进初始化报告，不进可召回的摘要。
+        reasons = sorted({item["reason"] for item in skipped})
+        lines.extend([
+            "",
+            "## 跳过项",
+            "",
+            f"- 共跳过 {len(skipped)} 个文件，原因：{', '.join(reasons)}。明细只写入 `rag/init-reports/{RUN_ID}.json`，不进入可召回摘要。",
+        ])
     write_text(group_file, "\n".join(lines) + "\n")
     return {
         "group_id": group_id,
@@ -355,6 +383,7 @@ def scan_group(conn: sqlite3.Connection, group_id: str, title: str, roots: list[
         "roots": roots,
         "file_count": len(files),
         "summary_file": rel(group_file, SIMPX_ROOT),
+        "risk_tags": group_tags,
         "skipped": skipped,
     }
 
@@ -380,90 +409,64 @@ def refresh_fts(conn: sqlite3.Connection) -> None:
 
 
 def write_manifests(groups: list[dict], doc_count: int, manifest_hash: str) -> None:
-    """写入 BetWin 摘要 manifest、全局 RAG manifest 和初始化报告。"""
+    """写入 BetWin 摘要 manifest 和初始化报告。
+
+    全局 rag-manifest.yaml 不在这里改：重跑后要按 knowledge-index-maintenance
+    只更新 latest_run 和 seed_projects.betwin，避免把已登记的来源覆盖回旧结构。
+    """
     total_files = sum(group["file_count"] for group in groups)
+    forbidden_scope = sorted(FORBIDDEN_PARTS | FORBIDDEN_NAMES | FORBIDDEN_SUFFIXES)
     summary = [
         "schema_version: v1",
         f"project_id: {PROJECT_ID}",
         "status: active",
         "source_profile: projects/examples/betwin/profile.yaml",
+        f"solution_file: {SOLUTION_FILE}",
         f"last_ingestion_run: {RUN_ID}",
         f"generated_at: {NOW}",
+        f"imported_docs: {doc_count}",
+        f"summarized_files: {total_files}",
         "summary_groups:",
     ]
     for group in groups:
         summary.extend([
-            f"  - id: {group['group_id']}",
+            f"  - group_id: {group['group_id']}",
             f"    title: {group['title']}",
             f"    host_or_layer: {group['host_or_layer']}",
+            "    roots:",
+            *[f"      - {root}" for root in group["roots"]],
             f"    file_count: {group['file_count']}",
+            f"    skipped_count: {len(group['skipped'])}",
             f"    summary_file: {group['summary_file']}",
+            "    risk_tags:",
+            *[f"      - {tag}" for tag in group["risk_tags"]],
         ])
+    summary.append("forbidden_scope:")
+    summary.extend(f"  - {item}" for item in forbidden_scope)
+    summary.extend([
+        "notes:",
+        "  - 未读取 envs.secrets.yaml。",
+        "  - 业务源码没有复制进 SimpX，只记录摘要、路径、符号、哈希和风险标签。",
+        "  - 跳过文件明细只在初始化报告里，摘要不列路径。",
+        "  - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。",
+    ])
     write_text(SUMMARY_ROOT / "manifest.yaml", "\n".join(summary) + "\n")
-
-    manifest = f"""schema_version: v1
-purpose: RAG ingestion 的机器可读清单。
-manifest_version: 0.2.0
-status: active
-baseline:
-  version: {BASELINE_VERSION}
-  run_id: {RUN_ID}
-  manifest_hash: {manifest_hash}
-  sqlite_schema_version: {SQLITE_SCHEMA_VERSION}
-  qdrant_collection_version: {QDRANT_COLLECTION_VERSION}
-  embedding_model: {EMBEDDING_MODEL}
-  chunk_strategy: {CHUNK_STRATEGY}
-  routing_table_version: {ROUTING_TABLE_VERSION}
-  role_matrix_version: {ROLE_MATRIX_VERSION}
-sources:
-  configs:
-    - config/rag-data-model.yaml
-    - config/rag-importer.yaml
-    - config/rag-summarizer.yaml
-    - config/rag-retrieval.yaml
-    - config/rag-context-engine.yaml
-    - config/rag-growth.yaml
-    - config/rag-governance.yaml
-    - config/rag-repair.yaml
-    - config/rag-evaluation.yaml
-    - config/rag-init.yaml
-  rules:
-    - .cursor/rules/knowledge-retrieval.mdc
-  workflows:
-    - workflows/knowledge-project-import
-    - workflows/knowledge-growth-loop
-    - workflows/knowledge-auto-repair
-    - workflows/knowledge-rag-evaluation
-    - workflows/knowledge-rag-bootstrap
-seed_projects:
-  hx-matching:
-    status: pending
-    profile: projects/examples/hx-matching/profile.yaml
-    summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
-  betwin:
-    status: active
-    profile: projects/examples/betwin/profile.yaml
-    summary_manifest: knowledge/code-summaries/betwin/manifest.yaml
-    repo_root: F:/20260926
-    imported_docs: {doc_count}
-    summarized_files: {total_files}
-    last_ingestion_run: {RUN_ID}
-"""
-    write_text(MANIFEST_PATH, manifest)
 
     report = {
         "baseline_version": BASELINE_VERSION,
         "run_id": RUN_ID,
         "generated_at": NOW,
         "manifest_hash": manifest_hash,
-        "sqlite": str(DB_PATH),
+        "sqlite": rel(DB_PATH, SIMPX_ROOT),
         "sqlite_schema_version": SQLITE_SCHEMA_VERSION,
-        "qdrant_root": str(QDRANT_ROOT),
+        "qdrant_root": rel(QDRANT_ROOT, SIMPX_ROOT),
         "qdrant_collection_version": QDRANT_COLLECTION_VERSION,
         "doc_sources": doc_count,
         "summarized_files": total_files,
         "groups": groups,
-        "forbidden_scope": sorted(FORBIDDEN_PARTS | FORBIDDEN_NAMES | FORBIDDEN_SUFFIXES),
+        "forbidden_scope": forbidden_scope,
+        "global_manifest_updated": False,
+        "next_step": "按 workflows/knowledge-index-maintenance 更新 rag-manifest.yaml 的 latest_run 和 seed_projects.betwin。",
         "notes": [
             "未读取 envs.secrets.yaml。",
             "业务源码没有复制进 SimpX，只记录摘要、路径、符号、哈希和风险标签。",
@@ -488,7 +491,8 @@ def main() -> None:
             (project_id, display_name, identify_by, simpx_path, repo_root, primary_language, status, created_at, updated_at)
             values (?, 'BetWin', 'BetWin5.0.sln', 'projects/examples/betwin', ?, 'C#/.NET Framework 4.8', 'active', ?, ?)
             """,
-            (PROJECT_ID, str(REPO_ROOT), NOW, NOW),
+            # 仓库位置换电脑就会变，不落库；运行时按 identify_by 里的 .sln 重新定位。
+            (PROJECT_ID, None, NOW, NOW),
         )
         doc_count = collect_docs(conn)
         groups = [scan_group(conn, *group) for group in GROUPS]
@@ -513,9 +517,10 @@ def main() -> None:
         "status": "completed",
         "run_id": RUN_ID,
         "baseline_version": BASELINE_VERSION,
-        "sqlite": str(DB_PATH),
-        "report_dir": str(REPORT_DIR),
-        "summary_manifest": str(SUMMARY_ROOT / "manifest.yaml"),
+        "sqlite": rel(DB_PATH, SIMPX_ROOT),
+        "report_dir": rel(REPORT_DIR, SIMPX_ROOT),
+        "summary_manifest": rel(SUMMARY_ROOT / "manifest.yaml", SIMPX_ROOT),
+        "global_manifest": "未修改，按 knowledge-index-maintenance 更新 latest_run 和 seed_projects.betwin",
     }, ensure_ascii=False, indent=2))
 
 

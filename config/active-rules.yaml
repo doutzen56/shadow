@@ -84,7 +84,7 @@ reference_layers:
   knowledge:
     path: knowledge/
     status: reference
-    note: 长期经验库。正式知识必须经用户或 @@TL 确认。
+    note: 长期经验库。是否沉淀由 @@TL 判断；正式知识由 @@TL 按证据确认后直接入库，用户周审修正；用户说「记住：」或「记一条 ADR」时直接入库。
   rag_specs:
     path: config/rag-*.yaml
     status: reference

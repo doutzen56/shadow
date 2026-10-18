@@ -96,16 +96,4 @@
 
 ## 跳过项
 
-- `Library/BetWin.Common/Logs/HandlerLog.cs`：forbidden_directory
-- `Library/BetWin.Common/Logs/LogGameAPI.desinger.cs`：forbidden_directory
-- `Library/BetWin.Common/Logs/LogHelper.cs`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.C.2BCD3591.Up2Date`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.csproj.AssemblyReference.cache`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.csproj.CoreCompileInputs.cache`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.csproj.FileListAbsolute.txt`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.csproj.GenerateResource.cache`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.dll`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BetWin.Common.pdb`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/BW.Common.Resources.Res.resources`：forbidden_directory
-- `Library/BetWin.Common/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- 共跳过 13 个文件，原因：forbidden_directory。明细只写入 `rag/init-reports/20261018T064704Z-baseline-betwin.json`，不进入可召回摘要。

@@ -70,6 +70,22 @@ risk_tags:
   - elasticsearch
   - gateway
 
+skipped_policy:
+  in_summary: 只写跳过数量和原因分类，不列路径
+  details: 只写入 rag/init-reports/<run_id>.json
+  sensitive_paths_in_summary: false
+
+summary_manifest_required_fields:
+  - project_id
+  - status
+  - source_profile
+  - solution_file
+  - last_ingestion_run
+  - summarized_files
+  - summary_groups
+  - forbidden_scope
+  - notes
+
 output:
   root: knowledge/code-summaries
   manifest_name: manifest.yaml

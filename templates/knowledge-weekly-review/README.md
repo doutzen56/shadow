@@ -32,6 +32,12 @@
 - reject_list:
 - hold_for_refactor_to_abstraction:
 
+## @@TL 本周已入库（待用户复核）
+
+- entries_with_user_reviewed_false:
+- high_risk_entries_first:
+- user_decision: keep / revise / merge / reject / archive
+
 ## RAG 召回质量
 
 - false_positive_hits:

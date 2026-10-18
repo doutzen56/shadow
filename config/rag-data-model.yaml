@@ -15,7 +15,7 @@ entities:
       - { name: display_name, type: text, required: true }
       - { name: identify_by, type: text, required: true }
       - { name: simpx_path, type: text, required: false }
-      - { name: repo_root, type: text, required: false }
+      - { name: repo_root, type: text, required: false, note: 留空；仓库位置随电脑变化，运行时按 identify_by 的 .sln 定位 }
       - { name: primary_language, type: text, required: false }
       - { name: status, type: text, required: true }
       - { name: created_at, type: datetime, required: true }

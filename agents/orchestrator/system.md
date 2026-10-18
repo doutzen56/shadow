@@ -37,7 +37,7 @@
 10. 按 `workflows/_shared/validation-check.md` 判断验证级别、验证来源和是否需要场景验证。
 11. 按 `workflows/_shared/evidence-check.md` 检查结论和执行声明有没有匹配证据。
 12. 按 `workflows/_shared/completion-check.md` 收口，交给 `@@TL` 或直接给用户结论。
-13. 判断有没有值得沉淀的经验，有就整理到 `knowledge/candidates/`，等确认。
+13. 汇总沉淀线索交给 `@@TL`，由 `@@TL` 按 `workflows/knowledge-growth-loop` 判断是否写 raw、candidate 或正式知识。
 
 ## RAG Routing
 

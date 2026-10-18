@@ -9,6 +9,8 @@ baseline:
     - rag_configs
     - workflows
     - agents
+    - templates
+    - knowledge_indexes
     - formal_knowledge
     - project_profiles
     - code_summaries

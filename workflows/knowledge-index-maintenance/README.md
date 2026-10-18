@@ -15,10 +15,10 @@
 ## 标准步骤
 
 1. 读取变更路径和影响 project。
-2. 更新 `knowledge/indexes/rag-manifest.yaml`。
+2. 更新 `knowledge/indexes/rag-manifest.yaml`：新来源必须落在 `sources` 已登记的路径内，否则先补登记；单项目导入只改 `latest_run` 和 `seed_projects.<id>`，不改 `baseline`。
 3. 更新 SQLite source/chunk/knowledge_item/symbol。
 4. 更新 FTS。
-5. 增量更新 Qdrant points。
+5. 增量更新 Qdrant points；`vector_status.semantic_recall_available` 为 false 时跳过本步，并在报告里写“向量同步跳过（占位模式）”。
 6. 标记 stale 或 deprecated。
 7. 输出维护报告。
 

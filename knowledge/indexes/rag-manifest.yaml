@@ -1,50 +1,94 @@
 schema_version: v1
-purpose: RAG ingestion 的机器可读清单。
-manifest_version: 0.2.0
+purpose: RAG ingestion 的机器可读清单。索引维护、自动修复和评估都以本文件登记的来源为准。
+manifest_version: 0.3.0
 status: active
+path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务仓用 solution_file 标识，运行时按 workspace-hosting.mdc 和 .sln 定位。
+
 baseline:
-  version: rag-baseline-hx-matching-0.1.0
-  run_id: 20261018T070046Z-project-hx-matching
-  manifest_hash: bcf0291a9ef4a14f9a3dd7d80d6fe3362158e256c297d976439747f2896edddb
+  description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
+  version: rag-baseline-betwin-0.1.0
+  run_id: 20261018T064704Z-baseline-betwin
+  manifest_hash: c99a9a65937bbad33d53052dd12c54ba10ce41fb9298ae692e2a96cfd98621c8
   sqlite_schema_version: rag-data-model-v1
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
   chunk_strategy: markdown-heading-yaml-top-key-code-summary
   routing_table_version: rag-x-routing-v1
   role_matrix_version: rag-role-matrix-v1
+
+latest_run:
+  run_id: 20261018T070046Z-project-hx-matching
+  run_type: project_import
+  project_id: hx-matching
+  manifest_hash: bcf0291a9ef4a14f9a3dd7d80d6fe3362158e256c297d976439747f2896edddb
+
+vector_status:
+  mode: placeholder
+  semantic_recall_available: false
+  note: rag/qdrant 只有集合占位，没有真实 embedding。接入真实向量前，只能用路径、关键词、人工索引和 Markdown 摘要检索，不能声称做过语义向量召回。
+
 sources:
+  hard_rules:
+    path: .cursor/rules
+    include: ["*.mdc"]
+    embed: false
   configs:
-    - config/rag-data-model.yaml
-    - config/knowledge-structure.yaml
-    - config/rag-corpus.yaml
-    - config/rag-importer.yaml
-    - config/rag-summarizer.yaml
-    - config/rag-retrieval.yaml
-    - config/rag-context-engine.yaml
-    - config/rag-growth.yaml
-    - config/rag-governance.yaml
-    - config/rag-repair.yaml
-    - config/rag-evaluation.yaml
-    - config/rag-init.yaml
-    - config/rag-iteration.yaml
-    - config/rag-role-matrix.yaml
-    - config/rag-x-routing.yaml
-  rules:
-    - .cursor/rules/knowledge-retrieval.mdc
+    path: config
+    include: ["*.yaml", "README.md"]
+  agents:
+    path: agents
+    include: ["*/agent.yaml", "*/system.md", "*/workflows/README.md"]
   workflows:
-    - workflows/knowledge-project-import
-    - workflows/knowledge-growth-loop
-    - workflows/knowledge-auto-repair
-    - workflows/knowledge-rag-evaluation
-    - workflows/knowledge-rag-bootstrap
-    - workflows/knowledge-index-maintenance
-    - workflows/knowledge-candidate-intake
+    path: workflows
+    include: ["**/*.md"]
+  templates:
+    path: templates
+    include: ["**/*.md"]
+  formal_knowledge:
+    paths:
+      - knowledge/patterns
+      - knowledge/decisions
+      - knowledge/incidents
+      - knowledge/glossary
+    include: ["**/*.md"]
+  knowledge_indexes:
+    path: knowledge/indexes
+    include: ["*.md"]
+  candidates:
+    path: knowledge/candidates
+    include: ["*.md"]
+    retrieve_default: false
+  project_profiles:
+    path: projects/examples
+    include: ["*/README.md", "*/profile.yaml", "*/boundaries.md", "*/architecture-map.md", "*/envs.yaml"]
+  code_summaries:
+    path: knowledge/code-summaries
+    include: ["*/manifest.yaml", "*/*.md"]
+
+excluded:
+  - path: core
+    reason: 原则参考，按需确定性读取，不进检索。
+  - path: .cursor/skills
+    reason: 技能说明，按角色触发时确定性读取。
+  - path: knowledge/raw
+    reason: 原始层，不参与召回。
+  - path: knowledge/archive
+    reason: 归档层，不参与召回。
+  - path: rag
+    reason: 运行时产物和初始化报告，不作为知识来源。
+  - path: tools
+    reason: 导入脚本，不作为知识来源。
+  - glob: "**/envs.secrets.yaml"
+    reason: 真实密钥。
+  - glob: "**/envs.secrets.example.yaml"
+    reason: 密钥模板，统一保守排除。
+
 seed_projects:
   hx-matching:
     status: active
     profile: projects/examples/hx-matching/profile.yaml
     summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
-    repo_root: F:/HX.MatchingApi
+    solution_file: HX.Matching.sln
     imported_docs: 4
     summarized_files: 1763
     summary_groups: 9
@@ -53,7 +97,8 @@ seed_projects:
     status: active
     profile: projects/examples/betwin/profile.yaml
     summary_manifest: knowledge/code-summaries/betwin/manifest.yaml
-    repo_root: F:/20260926
+    solution_file: BetWin5.0.sln
     imported_docs: 73
     summarized_files: 1545
+    summary_groups: 6
     last_ingestion_run: 20261018T064704Z-baseline-betwin

@@ -68,11 +68,4 @@
 
 ## 跳过项
 
-- `Library/BetWin.Caching/obj/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.C.54E0C57B.Up2Date`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.Caching.csproj.AssemblyReference.cache`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.Caching.csproj.CoreCompileInputs.cache`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.Caching.csproj.FileListAbsolute.txt`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.Caching.dll`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/BetWin.Caching.pdb`：forbidden_directory
-- `Library/BetWin.Caching/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache`：forbidden_directory
+- 共跳过 8 个文件，原因：forbidden_directory。明细只写入 `rag/init-reports/20261018T064704Z-baseline-betwin.json`，不进入可召回摘要。

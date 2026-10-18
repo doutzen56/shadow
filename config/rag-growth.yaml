@@ -1,5 +1,5 @@
 schema_version: v1
-purpose: 知识自动增长和人工确认规则。
+purpose: 知识自动增长和确认规则。是否沉淀由 @@TL 判断，正式知识由 @@TL 按证据入库，用户周审修正。
 
 states:
   - raw
@@ -8,10 +8,17 @@ states:
   - deprecated
   - rejected
 
+write_decision:
+  decided_by: "@@TL"
+  criteria: knowledge/candidates/README.md 的“使用时机”
+  pre_authorized: true
+  note: 用户已预先授权，@@TL 判断要写就直接写 SimpX knowledge/，不再询问；不写 .cursor/rules/ 和业务仓。
+
 write_policy:
-  raw: automatic_allowed
-  candidate: automatic_allowed_with_evidence
-  confirmed: user_confirmation_required
+  raw: TL_decided
+  candidate: TL_decided_with_evidence
+  confirmed: TL_confirmed_with_evidence
+  user_command: 用户说「记住：」或「记一条 ADR」时直接写 confirmed
   deprecated: TL_or_user_review
   rejected: TL_or_user_review
 
@@ -21,13 +28,19 @@ promotion_requirements:
   - role_scope
   - reusable_abstraction
   - non_reuse_reason_when_created_from_gap
+  - confirmed_by
+  - user_reviewed: false
 
 weekly_review:
   owner: "@@X"
   approver: "@@TL"
-  final_confirmation: user
+  final_review: user
+  focus:
+    - "@@TL 本周直接入库、user_reviewed 为 false 的条目"
+    - 涉及资金、订单状态、权限、登录、用户数据的条目优先复核
   outputs:
-    - promote
+    - keep
+    - revise
     - merge
     - reject
     - archive

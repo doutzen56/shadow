@@ -70,6 +70,7 @@ allowed_sources:
 security:
   forbidden_files:
     - envs.secrets.yaml
+    - envs.secrets.example.yaml
     - "*.pfx"
     - "*.key"
     - "*.pem"

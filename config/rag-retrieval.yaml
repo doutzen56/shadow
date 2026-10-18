@@ -46,6 +46,8 @@ qdrant_vector:
     code_summaries: rag_code_summaries
     candidates: rag_candidates
   candidates_default_enabled: false
+  enabled_when: rag-manifest.yaml 的 vector_status.semantic_recall_available 为 true
+  when_disabled: 跳过本步，在 retrieval_trace 和回复里写明“未做语义向量召回”
 
 metadata_filters:
   required_first:

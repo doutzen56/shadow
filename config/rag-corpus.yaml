@@ -6,6 +6,7 @@ defaults:
   require_manifest: true
   source_of_truth: local_files
   formal_knowledge_requires_confirmation: true
+  formal_knowledge_confirmed_by: "@@TL 或用户"
   business_code_policy: summary_only
 
 corpus_layers:
@@ -24,6 +25,16 @@ corpus_layers:
     embed_allowed: true
     deterministic_load_by_task_type: true
     priority_ceiling: workflow
+  templates:
+    paths: [templates]
+    embed_allowed: true
+    deterministic_load_when_referenced: true
+    priority_ceiling: templates
+  knowledge_indexes:
+    paths: [knowledge/indexes]
+    embed_allowed: false
+    deterministic_load: true
+    notes: 人工索引先于向量检索读取。
   formal_knowledge:
     paths:
       - knowledge/patterns
@@ -60,6 +71,7 @@ corpus_layers:
 
 forbidden_globs:
   - "**/envs.secrets.yaml"
+  - "**/envs.secrets.example.yaml"
   - "**/*.pfx"
   - "**/*.key"
   - "**/*.pem"

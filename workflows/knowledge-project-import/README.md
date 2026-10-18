@@ -21,7 +21,7 @@
 5. 跳过禁止文件和敏感内容，记录 skip reason。
 6. 为文档生成 source/chunk，为代码生成摘要输入，不复制完整源码。
 7. 写入 ingestion_run 结果和缺口清单。
-8. 更新 `knowledge/indexes/rag-manifest.yaml`。
+8. 更新 `knowledge/indexes/rag-manifest.yaml` 的 `latest_run` 和 `seed_projects.<project-id>`；不改 `baseline`。
 
 ## 输出
 

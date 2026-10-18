@@ -3,7 +3,7 @@
 project_id: hx-matching
 summary_group: migration-build-tools
 host_or_layer: tooling
-source_repo: F:/HX.MatchingApi
+source_repo: HX.Matching.sln
 last_ingestion_run: 20261018T070046Z-project-hx-matching
 file_count: 7
 project_count: 2

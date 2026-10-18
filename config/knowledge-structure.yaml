@@ -7,13 +7,13 @@ storage_layers:
     path: knowledge/raw
     write_policy: 自动收集
   - name: candidate
-    description: 候选模式层（结构化提炼，待TL确认）
+    description: 候选模式层（结构化提炼，待 @@TL 判断入库）
     path: knowledge/candidates
-    write_policy: 每次任务结束按价值判断是否产出
+    write_policy: 任务结束由 @@TL 按价值判断是否产出
   - name: knowledge
-    description: 正式知识层（仅TL确认后入库）
+    description: 正式知识层（@@TL 按证据确认后入库，用户周审修正）
     path: knowledge
-    write_policy: 仅在用户明确确认后写入
+    write_policy: "@@TL 按证据确认后直接写入；用户说「记住：」或「记一条 ADR」时直接写入"
   - name: code_summaries
     description: 业务代码摘要层（路径、符号、契约、依赖和风险标签）
     path: knowledge/code-summaries
@@ -64,6 +64,7 @@ candidate_review_cycle:
   cadence: weekly
   owner: "@@X"
   approver: "@@TL"
+  final_review: 用户周审，可回退或修正 @@TL 已入库的条目
   outcomes:
     - promote_to_knowledge
     - merge_existing_pattern

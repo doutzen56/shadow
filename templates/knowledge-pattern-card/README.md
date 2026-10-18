@@ -92,7 +92,9 @@
 - coupling_to_project:
 - required_replacements:
 
-## 评审结论（由 TL 决策）
+## 评审结论（由 TL 决策，用户周审）
 
 - decision: promote / merge / reject
+- confirmed_by: "@@TL" / user
+- user_reviewed: false / true
 - comments:
