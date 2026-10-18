@@ -19,5 +19,12 @@
 - betwin:
   - simpx_path: `projects/examples/betwin`
   - summary_manifest: `knowledge/code-summaries/betwin/manifest.yaml`
-  - patterns: []
+  - deep_cards: `knowledge/code-summaries/betwin/cards/`
+  - patterns:
+    - pattern-money-agent-addmoneylog-v1
+    - pattern-payment-callback-idempotency-checklist-v1
+  - incidents:
+    - INC-2026-10-18-betwin-recharge-callback-swallow
+    - INC-2026-10-18-betwin-withdraw-fail-back-to-wait
+    - INC-2026-10-18-betwin-api-cert-unauth
   - decisions: []

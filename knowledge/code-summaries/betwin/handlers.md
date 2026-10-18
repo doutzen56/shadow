@@ -6,17 +6,18 @@
 - summary_group: `handlers`
 - host_or_layer: `http-handler`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T090036Z-project-betwin`
-- file_count: 277
-- project_count: 4
+- last_ingestion_run: `20261018T091023Z-project-betwin`
+- file_count: 290
+- project_count: 5
 - risk_tags: `cache-consistency`, `callback`, `funds`, `login`, `order-state`, `permission`, `user-data`
 
 ## 职责摘要
 
-四个请求面：会员与代理前台、站点管理端、平台系统端、游戏回调与运维接口。
+请求分发基座与四个请求面：会员与代理前台、站点管理端、平台系统端、游戏回调与运维接口。
 
 ## 扫描根目录
 
+- `Library/BetWin.Handler`
 - `Library/BetWin.Handler.Request`
 - `Library/BetWin.Handler.Admin`
 - `Library/BetWin.Handler.System`
@@ -24,6 +25,7 @@
 
 ## 项目文件
 
+- `Library/BetWin.Handler/BetWin.Handler.csproj`
 - `Library/BetWin.Handler.Request/BetWin.Handler.Request.csproj`
 - `Library/BetWin.Handler.Admin/BetWin.Handler.Admin.csproj`
 - `Library/BetWin.Handler.System/BetWin.Handler.System.csproj`
@@ -83,11 +85,11 @@
 - `Library/BetWin.Handler.Admin/user/member/rebate.cs`：符号 `rebate, info, returntype, list, save, updateauto, delete`；风险 `callback, funds, login, permission, user-data`
 - `Library/BetWin.Handler.Admin/voucher/order.cs`：符号 `order, info, update, list, detail`；风险 `callback, funds, login, order-state, permission, user-data`
 - `Library/BetWin.Handler.Admin/withdraw.cs`：符号 `withdraw, settinglist, getsettinginfo, getsystemsetting, getsystemwithdrawlist, savesetting, savewithdrawsort, deletewithdraw`；风险 `callback, funds, login, permission, user-data`
-- 还有 227 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 240 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 4 项、sensitive_file 12 项；明细只写入 `rag/init-reports/20261018T090036Z-project-betwin.json`。
+- pruned_directory 5 项、sensitive_file 13 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
 
 ## 使用约束
 

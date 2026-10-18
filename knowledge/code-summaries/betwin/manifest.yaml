@@ -3,10 +3,10 @@ project_id: betwin
 status: active
 source_profile: projects/examples/betwin/profile.yaml
 solution_file: BetWin5.0.sln
-last_ingestion_run: 20261018T090036Z-project-betwin
-generated_at: 2026-10-18T09:00:36Z
+last_ingestion_run: 20261018T091023Z-project-betwin
+generated_at: 2026-10-18T09:10:23Z
 generator: tools/rag_index.py project
-summarized_files: 1518
+summarized_files: 1531
 summary_groups:
   - group_id: core-agents
     title: 业务 Agent
@@ -42,13 +42,14 @@ summary_groups:
     title: 请求 Handler
     host_or_layer: http-handler
     roots:
+      - Library/BetWin.Handler
       - Library/BetWin.Handler.Request
       - Library/BetWin.Handler.Admin
       - Library/BetWin.Handler.System
       - Library/Handler/BetWin.Handler.Api
-    file_count: 277
-    project_count: 4
-    skipped: {"pruned_directory": 4, "sensitive_file": 12}
+    file_count: 290
+    project_count: 5
+    skipped: {"pruned_directory": 5, "sensitive_file": 13}
     summary_file: knowledge/code-summaries/betwin/handlers.md
     risk_tags: ["cache-consistency", "callback", "funds", "login", "order-state", "permission", "user-data"]
   - group_id: gateways

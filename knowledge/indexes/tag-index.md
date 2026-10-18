@@ -30,3 +30,22 @@
 - hx-matching:
   - pattern-cache-redis-bloom-dual-write-v1
   - pattern-reliability-azure-sql-dba-daily-inspect-v1
+- funds:
+  - pattern-money-agent-addmoneylog-v1
+  - pattern-payment-callback-idempotency-checklist-v1
+- money-log:
+  - pattern-money-agent-addmoneylog-v1
+- idempotency:
+  - pattern-money-agent-addmoneylog-v1
+  - pattern-payment-callback-idempotency-checklist-v1
+- redis-wallet:
+  - pattern-money-agent-addmoneylog-v1
+- callback:
+  - pattern-payment-callback-idempotency-checklist-v1
+- gateway:
+  - pattern-payment-callback-idempotency-checklist-v1
+- order-state:
+  - pattern-payment-callback-idempotency-checklist-v1
+- betwin:
+  - pattern-money-agent-addmoneylog-v1
+  - pattern-payment-callback-idempotency-checklist-v1

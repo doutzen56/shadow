@@ -136,12 +136,13 @@ PROJECTS = {
              ["cache-consistency", "user-data"],
              "Redis 业务缓存：用户态、资金点位、活动次数、站点配置等热点数据。"),
             ("handlers", "请求 Handler", [
+                "Library/BetWin.Handler",
                 "Library/BetWin.Handler.Request",
                 "Library/BetWin.Handler.Admin",
                 "Library/BetWin.Handler.System",
                 "Library/Handler/BetWin.Handler.Api",
             ], "http-handler", ["funds", "permission", "login", "callback", "user-data"],
-             "四个请求面：会员与代理前台、站点管理端、平台系统端、游戏回调与运维接口。"),
+             "请求分发基座与四个请求面：会员与代理前台、站点管理端、平台系统端、游戏回调与运维接口。"),
             ("gateways", "第三方网关", [
                 "Library/GateWay/BetWin.Gateway.Game",
                 "Library/GateWay/BetWin.Gateway.Payment",

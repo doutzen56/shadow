@@ -1,0 +1,297 @@
+{
+  "run_id": "20261018T091023Z-project-betwin",
+  "run_type": "project_import",
+  "project_id": "betwin",
+  "solution_file": "BetWin5.0.sln",
+  "generated_at": "2026-10-18T09:10:23Z",
+  "generator": "tools/rag_index.py project",
+  "manifest_hash": "7996b9f67daeb521786b27afe538aa37d6e74b0e0b8f3ba3f96b80a9fbaf47fd",
+  "manifest_hash_meaning": "本次导入的全部业务文件（路径 + 内容哈希）拼起来的哈希；源码不变，哈希就不变。",
+  "summarized_files": 1531,
+  "sqlite": "rag/index/projects/betwin.db",
+  "sqlite_size_kb": 3768,
+  "counts_before": {
+    "source": 1531,
+    "chunk": 1572,
+    "symbol": 7256
+  },
+  "counts_after": {
+    "source": 1544,
+    "chunk": 1585,
+    "symbol": 7283
+  },
+  "groups": [
+    {
+      "group_id": "core-agents",
+      "title": "业务 Agent",
+      "file_count": 177,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "elasticsearch",
+        "funds",
+        "gateway",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/core-agents.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin/app.config",
+          "Library/BetWin/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "common-models",
+      "title": "公共模型",
+      "file_count": 428,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "database-schema",
+        "elasticsearch",
+        "funds",
+        "gateway",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/common-models.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Common/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Common/app.config",
+          "Library/BetWin.Common/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "caching",
+      "title": "业务缓存",
+      "file_count": 51,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "funds",
+        "gateway",
+        "idempotency",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/caching.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Caching/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Caching/app.config",
+          "Library/BetWin.Caching/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "handlers",
+      "title": "请求 Handler",
+      "file_count": 290,
+      "project_count": 5,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "funds",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/handlers.md",
+      "skip_counts": {
+        "pruned_directory": 5,
+        "sensitive_file": 13
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Handler/obj",
+          "Library/BetWin.Handler.Request/obj",
+          "Library/BetWin.Handler.Admin/obj",
+          "Library/BetWin.Handler.System/obj",
+          "Library/Handler/BetWin.Handler.Api/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Handler/packages.config",
+          "Library/BetWin.Handler.Request/packages.config",
+          "Library/BetWin.Handler.Request/Resources/web.config",
+          "Library/BetWin.Handler.Admin/app.config",
+          "Library/BetWin.Handler.Admin/packages.config",
+          "Library/BetWin.Handler.System/app.config",
+          "Library/BetWin.Handler.System/packages.config",
+          "Library/BetWin.Handler.System/Resources/web.config",
+          "Library/Handler/BetWin.Handler.Api/app.config",
+          "Library/Handler/BetWin.Handler.Api/packages.config",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/cdn_hhweb_top.key",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/_avia2018_com.key",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/_sys_avia01_com.key"
+        ]
+      }
+    },
+    {
+      "group_id": "gateways",
+      "title": "第三方网关",
+      "file_count": 524,
+      "project_count": 5,
+      "risk_tags": [
+        "callback",
+        "funds",
+        "gateway",
+        "idempotency",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/gateways.md",
+      "skip_counts": {
+        "pruned_directory": 5,
+        "sensitive_file": 6
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/GateWay/BetWin.Gateway.Game/obj",
+          "Library/GateWay/BetWin.Gateway.Payment/obj",
+          "Library/GateWay/BetWin.Gateway.Withdraw/obj",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/obj",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/obj"
+        ],
+        "sensitive_file": [
+          "Library/GateWay/BetWin.Gateway.Game/app.config",
+          "Library/GateWay/BetWin.Gateway.Game/packages.config",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/app.config",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/packages.config",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/app.config",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "background-services",
+      "title": "后台服务",
+      "file_count": 61,
+      "project_count": 4,
+      "risk_tags": [
+        "async",
+        "cache-consistency",
+        "callback",
+        "elasticsearch",
+        "funds",
+        "mq",
+        "order-state",
+        "retry",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/background-services.md",
+      "skip_counts": {
+        "pruned_directory": 6,
+        "sensitive_file": 12
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Services/JobSchedule/bin",
+          "Services/JobSchedule/obj",
+          "Services/DataAnalysis/obj",
+          "Services/GameLog/obj",
+          "Services/MqServer/bin",
+          "Services/MqServer/obj"
+        ],
+        "sensitive_file": [
+          "Services/JobSchedule/App.config",
+          "Services/JobSchedule/NLog.config",
+          "Services/JobSchedule/packages.config",
+          "Services/DataAnalysis/App.config",
+          "Services/DataAnalysis/NLog.config",
+          "Services/DataAnalysis/packages.config",
+          "Services/GameLog/App.config",
+          "Services/GameLog/NLog.config",
+          "Services/GameLog/packages.config",
+          "Services/MqServer/App.config",
+          "Services/MqServer/appsettings.json",
+          "Services/MqServer/packages.config"
+        ]
+      }
+    }
+  ],
+  "cards": [
+    {
+      "card": "knowledge/code-summaries/betwin/cards/admin-token-site-binding.md",
+      "file_path": "Library/BetWin/Agent/Sites/AdminAgent.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/api-cert-down.md",
+      "file_path": "Library/Handler/BetWin.Handler.Api/server/cert.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/check-recharge-order.md",
+      "file_path": "Library/BetWin/Agent/User/UserAgent-Money.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/money-agent-addmoneylog.md",
+      "file_path": "Library/BetWin/Agent/Users/MoneyAgent.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/result-interface-api-auth.md",
+      "file_path": "Library/BetWin.Handler/HandlerBase/ResultInterface.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/withdraw-fail-order.md",
+      "file_path": "Library/BetWin/Agent/Users/WithdrawOrderAgent.cs",
+      "status": "active"
+    }
+  ],
+  "stale_cards": [],
+  "forbidden_scope": [
+    ".config",
+    ".git",
+    ".key",
+    ".pem",
+    ".pfx",
+    ".vs",
+    "appsettings*.json",
+    "bin",
+    "dist",
+    "envs.secrets.example.yaml",
+    "envs.secrets.yaml",
+    "node_modules",
+    "obj",
+    "packages"
+  ],
+  "global_manifest_updated": false,
+  "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 latest_run 和 seed_projects.betwin。"
+}

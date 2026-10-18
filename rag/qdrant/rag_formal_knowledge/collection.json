@@ -2,6 +2,6 @@
   "collection": "rag_formal_knowledge",
   "version": "local-file-collection-v1",
   "embedding_model": "not-configured-local-placeholder",
-  "updated_at": "2026-10-18T08:59:51Z",
+  "updated_at": "2026-10-18T09:09:46Z",
   "note": "本地集合占位，没有真实向量；接入 embedding 后按 source/chunk 重建 point。"
 }

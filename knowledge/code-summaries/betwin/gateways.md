@@ -6,7 +6,7 @@
 - summary_group: `gateways`
 - host_or_layer: `external-gateway`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T090036Z-project-betwin`
+- last_ingestion_run: `20261018T091023Z-project-betwin`
 - file_count: 524
 - project_count: 5
 - risk_tags: `callback`, `funds`, `gateway`, `idempotency`, `login`, `mq`, `order-state`, `permission`, `user-data`
@@ -89,7 +89,7 @@
 
 ## 跳过项
 
-- pruned_directory 5 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261018T090036Z-project-betwin.json`。
+- pruned_directory 5 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
 
 ## 使用约束
 

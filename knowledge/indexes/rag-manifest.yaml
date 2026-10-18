@@ -6,13 +6,13 @@ path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务�
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261018T085951Z
-  run_id: 20261018T085951Z-baseline
-  manifest_hash: 6814612077a36219bce0e45bddbba226564207de967a2234cb7b419a07d8d241
+  version: rag-baseline-20261018T090946Z
+  run_id: 20261018T090946Z-baseline
+  manifest_hash: e4b00599147b6ae1e6651c42b59a9ac994b22593de8a79a9a550ac21e690bdaf
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
-  doc_sources: 117
-  knowledge_items: 3
+  doc_sources: 123
+  knowledge_items: 8
   sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
@@ -21,10 +21,10 @@ baseline:
   role_matrix_version: rag-role-matrix-v1
 
 latest_run:
-  run_id: 20261018T090036Z-project-betwin
+  run_id: 20261018T091023Z-project-betwin
   run_type: project_import
   project_id: betwin
-  manifest_hash: 047ad31659d34465df7d753ff416a644c83a2817f1204b9b000e7991a6abdec5
+  manifest_hash: 7996b9f67daeb521786b27afe538aa37d6e74b0e0b8f3ba3f96b80a9fbaf47fd
 
 artifact_policy:
   mode: rebuildable_index
@@ -128,7 +128,8 @@ seed_projects:
     summary_manifest: knowledge/code-summaries/betwin/manifest.yaml
     solution_file: BetWin5.0.sln
     profile_docs: 5
-    summarized_files: 1518
+    summarized_files: 1531
     summary_groups: 6
-    last_ingestion_run: 20261018T090036Z-project-betwin
-    manifest_hash: 047ad31659d34465df7d753ff416a644c83a2817f1204b9b000e7991a6abdec5
+    deep_cards: 6
+    last_ingestion_run: 20261018T091023Z-project-betwin
+    manifest_hash: 7996b9f67daeb521786b27afe538aa37d6e74b0e0b8f3ba3f96b80a9fbaf47fd

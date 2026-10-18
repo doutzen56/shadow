@@ -9,8 +9,11 @@
 
 - cache:
   - pattern-cache-redis-bloom-dual-write-v1
+- data-consistency:
+  - pattern-money-agent-addmoneylog-v1
 - reliability:
   - pattern-reliability-azure-sql-dba-daily-inspect-v1
+  - pattern-payment-callback-idempotency-checklist-v1
 
 ## 维护规则
 

@@ -69,12 +69,45 @@ flowchart TB
 | 任务调度 | JobSchedule 与 BetWin Jobs | 任务定义在业务层，宿主负责运行 |
 | 外部对接 | Gateway.* | 游戏、代收、代付、短信、认证插件 |
 
+## 资金热路径（2026-10-18 深入阅读）
+
+```mermaid
+flowchart LR
+  payCb[PaymentCallback] --> payGw[Gateway.Payment]
+  payGw --> checkRecharge[UserAgent.CheckRechargeOrder]
+  checkRecharge --> moneyAdd[MoneyAgent.AddMoneyLog]
+  moneyAdd --> sp[(usr_AddMoneyLog)]
+  moneyAdd --> redis[(MoneyCaching)]
+
+  wdCb[WithdrawCallback] --> wdGw[Gateway.Withdraw]
+  wdGw --> failOrd[WithdrawOrderAgent.CheckFailOrder]
+  wdGw --> okOrd[WithdrawOrderAgent.CheckWithdrawOrder]
+  failOrd -->|Status=Wait unlock commented| wdOrder[(WithdrawOrder)]
+  okOrd --> unlock[MoneyAgent.UnlockMoney]
+  okOrd --> moneyAdd
+```
+
+| 链路 | 入口 | 核心 Agent | 关键不变量 |
+| --- | --- | --- | --- |
+| 充值到账 | Gateway Payment 回调 → Handler | `UserAgent.CheckRechargeOrder` | 订单只入账一次；金额与订单一致；失败不得给第三方成功 |
+| 统一动钱 | 各业务调用 | `MoneyAgent.AddMoneyLog` | 先查流水再写 SP；DB 余额为真值 |
+| 提现失败 | Gateway Withdraw 回调 | `CheckFailOrder` | 失败验签；状态不得无条件倒退；锁定释放规则要明确 |
+| 提现成功 | 回调/查单/后台核对 | `CheckWithdrawOrder` | 仅从付款中进入完成；解锁与扣款同事务 |
+
+相关正式知识：
+
+- `pattern-money-agent-addmoneylog-v1`
+- `pattern-payment-callback-idempotency-checklist-v1`
+- 事故卡 `INC-2026-10-18-betwin-*`
+- 深挖卡 `knowledge/code-summaries/betwin/cards/`
+
 ## 架构判断
 
 这是业务交付驱动的分层单体，用 Handler 程序集和 Windows 服务做运行时隔离，而不是用 ASP.NET Core 多宿主。`Library/BetWin` 承载大部分业务复杂度，Gateway 用插件消化第三方差异。
 
-一阶段分析时不建议立即要求它变成严格分层或升级运行时，而应先沉淀三个事实：
+一阶段分析时不建议立即要求它变成严格分层或升级运行时，而应先沉淀这些事实：
 
 - 请求面已经按会员、站点后台、平台系统、回调分开。
 - 异步链路集中在 JobSchedule、DataAnalysis、GameLog、MqServer。
 - `Library/BetWin` 是当前演进的主要治理对象；Gateway 变更要按供应商契约逐个处理。
+- 资金正确性依赖 `MoneyAgent` + 存储过程 + 订单状态机三者一致；回调应答不能早于资金动作成功。
