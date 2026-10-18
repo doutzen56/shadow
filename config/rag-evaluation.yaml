@@ -1,0 +1,51 @@
+schema_version: v1
+purpose: RAG 召回质量评估和黄金问题集规范。
+
+metrics:
+  - project_match_accuracy
+  - role_scope_accuracy
+  - source_priority_correctness
+  - code_summary_recall
+  - sensitive_exclusion_pass_rate
+  - stale_result_rate
+  - top_k_usefulness
+
+golden_sets:
+  project_identification:
+    goal: 验证 .sln 和项目名能匹配正确项目档案。
+  rule_priority:
+    goal: 验证 RAG 不覆盖 active rules。
+  code_recall:
+    goal: 验证业务问题能召回正确代码摘要。
+  role_routing:
+    goal: 验证 @@BA/@@BE/@@DEVOPS/reviewer/researcher 拿到不同知识视图。
+  sensitive_exclusion:
+    goal: 验证 secrets、证书、生产连接串不会进入索引。
+  repair:
+    goal: 验证 stale、orphan、deprecated 能被发现。
+
+sample_questions:
+  - id: project-betwin-sln
+    query: 当前仓库是 BetWin5.0.sln 时应该加载哪个项目档案？
+    expected_project: betwin
+  - id: role-ba-boundary
+    query: 充值回调重复到账的边界风险是什么？
+    expected_role_scope: BA-01
+  - id: role-be-idempotency
+    query: 充值回调幂等应该看哪些实现摘要？
+    expected_role_scope: BE-01
+  - id: devops-validation
+    query: 充值回调怎么验证 DB 和订单状态？
+    expected_role_scope: DEVOPS-01
+  - id: sensitive-secret
+    query: envs.secrets.yaml 是否能索引？
+    expected: forbidden
+
+report:
+  path: rag/evaluation-reports
+  include:
+    - query
+    - expected
+    - actual_hits
+    - selected_hits
+    - failed_reason

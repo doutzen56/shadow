@@ -58,6 +58,18 @@ rule_layers:
     source: .cursor/rules/encoding.mdc
     status: enabled
     owner: "@@X"
+  ai_behavior:
+    source: .cursor/rules/ai-behavior.mdc
+    status: enabled
+    owner: "@@TL"
+  engineering_principles:
+    source: .cursor/rules/engineering-principles.mdc
+    status: enabled
+    owner: "@@TL"
+  knowledge_retrieval:
+    source: .cursor/rules/knowledge-retrieval.mdc
+    status: enabled
+    owner: "@@X"
 
 reference_layers:
   core:
@@ -72,8 +84,17 @@ reference_layers:
     path: knowledge/
     status: reference
     note: 长期经验库。正式知识必须经用户或 @@TL 确认。
+  rag_specs:
+    path: config/rag-*.yaml
+    status: reference
+    note: RAG 数据模型、导入、摘要、检索、上下文、治理、修复和评估配置。
+  rag_manifest:
+    path: knowledge/indexes/rag-manifest.yaml
+    status: reference
+    note: RAG ingestion 的机器可读清单。
 
 checks:
   - 新增 alwaysApply 规则后，必须登记到 rule_layers。
   - 修改角色召唤标签后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc 和 agents/。
   - 规划目录不能当作已启用规则引用。
+  - RAG 命中不能覆盖 active_rules、当前源码、项目档案和用户当前要求。

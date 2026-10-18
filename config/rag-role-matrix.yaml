@@ -1,0 +1,112 @@
+schema_version: v1
+purpose: 角色知识矩阵。@@X 用它把 RAG 命中按角色职责分发，避免所有角色共享同一批无差别知识。
+
+defaults:
+  max_items_per_role_stage: 3
+  max_rounds_per_role_stage: 2
+  require_project_filter_first: true
+  candidate_default_retrieve: false
+  current_source_over_summary: true
+
+roles:
+  TL-01:
+    tag: "@@TL"
+    focus:
+      - 目标与优先级
+      - 验收标准
+      - 风险裁决
+      - 放行判断
+      - 重大取舍
+    preferred_doc_types:
+      - decision
+      - release_gate
+      - risk_summary
+      - project_profile
+  BA-01:
+    tag: "@@BA"
+    focus:
+      - 模块边界
+      - 调用关系
+      - 数据流
+      - 状态流
+      - 外部依赖
+      - 兼容约束
+      - 演进方案
+      - 回滚影响
+    preferred_doc_types:
+      - architecture_boundary
+      - project_boundary
+      - pattern
+      - decision
+      - code_summary_boundary
+  BE-01:
+    tag: "@@BE"
+    focus:
+      - 实现步骤
+      - 代码摘要
+      - 失败路径
+      - 幂等
+      - 重试
+      - 兼容实现
+      - 断言草案
+    preferred_doc_types:
+      - code_summary
+      - implementation_pattern
+      - assertion_template
+      - pattern
+  DEVOPS-01:
+    tag: "@@DEVOPS"
+    focus:
+      - 环境来源
+      - 验证命令
+      - DB/Redis/ES/MQ 检查
+      - 场景验证
+      - 清理方式
+      - 回滚建议
+    preferred_doc_types:
+      - validation_template
+      - evidence_pack
+      - environment_profile
+      - code_summary_validation
+  reviewer:
+    focus:
+      - 高风险缺陷
+      - 安全
+      - 数据一致性
+      - 兼容性
+      - 稳定性
+      - 断言缺口
+      - 回滚缺口
+      - 过度设计
+    preferred_doc_types:
+      - review_checklist
+      - risk_pattern
+      - incident
+      - code_summary_risk
+  researcher:
+    focus:
+      - 方案对比
+      - 最小实验
+      - 技术调研
+      - 外部方案摘要
+      - 不确定性
+    preferred_doc_types:
+      - research_note
+      - decision
+      - experiment_result
+      - pattern
+
+handoff_rules:
+  - 每个角色阶段只接收本棒需要的知识，不把全量检索结果传给下一棒。
+  - 交接块要记录采用了哪些知识、丢弃了哪些知识，以及丢弃原因。
+  - 代码摘要只能作为定位锚点；涉及行为结论时必须回读当前源码。
+  - candidate 只在沉淀、复盘、治理和 RAG 运维任务中默认可见。
+
+metadata_required:
+  - role_scope
+  - task_scope
+  - project_scope
+  - risk_tags
+  - maturity
+  - source_type
+  - evidence_refs

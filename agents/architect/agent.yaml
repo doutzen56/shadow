@@ -1,6 +1,9 @@
 name: 架构师
 id: BA-01
 tag: "@@BA"
+aliases:
+  - BA-01
+  - "@@BA"
 status: 一阶段
 duty: 负责架构判断、边界设计、演进路径和风险识别。
 permission: 按任务目标最小化使用

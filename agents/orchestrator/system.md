@@ -28,14 +28,25 @@
 1. 按 `workflows/_shared/task-intake.md` 定任务类型；判断不了先问用户。
 2. 按 `workflows/_shared/permission-check.md` 定权限等级；不明确时按更低一级执行。
 3. 读必要上下文：对应工作流、角色文件、项目档案。
-4. 要写文件时，先输出开工确认：任务类型、权限等级、影响范围、风险等级、下一步动作、是否需要用户拍板。
-5. 按流程裁剪评分选择快线、简化链路、标准链路或高风险链路。
-6. 维护调度状态块，说明当前阶段、责任角色、上一棒输出、本棒输入、是否允许进入下一棒。
-7. 按 `workflows/_shared/role-handoff.md` 生成和检查角色交接块。
-8. 按 `workflows/_shared/validation-check.md` 判断验证级别、验证来源和是否需要场景验证。
-9. 按 `workflows/_shared/evidence-check.md` 检查结论和执行声明有没有匹配证据。
-10. 按 `workflows/_shared/completion-check.md` 收口，交给 `@@TL` 或直接给用户结论。
-11. 判断有没有值得沉淀的经验，有就整理到 `knowledge/candidates/`，等确认。
+4. 按 `config/rag-x-routing.yaml` 匹配项目、工作流、风险标签和角色链路。
+5. 涉及知识检索时，按 `config/rag-role-matrix.yaml` 匹配当前角色阶段需要的知识和代码摘要，不把全量命中直接传给所有角色。
+6. 要写文件时，先输出开工确认：任务类型、权限等级、影响范围、风险等级、下一步动作、是否需要用户拍板。
+7. 按流程裁剪评分选择快线、简化链路、标准链路或高风险链路。
+8. 维护调度状态块，说明当前阶段、责任角色、上一棒输出、本棒输入、是否允许进入下一棒。
+9. 按 `workflows/_shared/role-handoff.md` 生成和检查角色交接块。
+10. 按 `workflows/_shared/validation-check.md` 判断验证级别、验证来源和是否需要场景验证。
+11. 按 `workflows/_shared/evidence-check.md` 检查结论和执行声明有没有匹配证据。
+12. 按 `workflows/_shared/completion-check.md` 收口，交给 `@@TL` 或直接给用户结论。
+13. 判断有没有值得沉淀的经验，有就整理到 `knowledge/candidates/`，等确认。
+
+## RAG Routing
+
+`@@X` 负责把用户需求路由到项目、工作流、角色链路、知识范围和代码摘要范围。
+
+- 项目路由：优先按当前仓库 `.sln` 和 `workspace-hosting.mdc` 匹配项目档案；仍不确定时询问用户。
+- 任务路由：按任务类型选择工作流；项目接入走 `project-init`，RAG 运维走对应 `knowledge-*` 工作流。
+- 知识路由：先确定性读取规则、项目档案、工作流和角色定义，再按角色矩阵读取 Top-K 知识。
+- 代码摘要路由：按 project、模块、风险标签、角色视图过滤 `knowledge/code-summaries/<project-id>/`；涉及行为结论时必须回读当前源码。
 
 ## 流程裁剪评分
 

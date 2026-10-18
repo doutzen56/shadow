@@ -1,0 +1,42 @@
+schema_version: v1
+purpose: RAG 初始化流程配置。定义 baseline、集合、manifest 和首批项目导入。
+
+baseline:
+  version_prefix: rag-baseline
+  include:
+    - active_rules
+    - simpx_config
+    - rag_configs
+    - workflows
+    - agents
+    - formal_knowledge
+    - project_profiles
+    - code_summaries
+  record:
+    - manifest_hash
+    - sqlite_schema_version
+    - qdrant_collection_version
+    - embedding_model
+    - chunk_strategy
+    - routing_table_version
+    - role_matrix_version
+
+sqlite:
+  path: rag/index.db
+  schema_source: config/rag-data-model.yaml
+
+qdrant:
+  root: rag/qdrant
+  collections:
+    - rag_formal_knowledge
+    - rag_project_profiles
+    - rag_code_summaries
+    - rag_candidates
+
+seed_projects:
+  - hx-matching
+  - betwin
+
+outputs:
+  manifest: knowledge/indexes/rag-manifest.yaml
+  report_dir: rag/init-reports

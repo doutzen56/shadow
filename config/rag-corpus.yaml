@@ -1,0 +1,82 @@
+schema_version: v1
+purpose: RAG 语料分区与索引边界。用于限制哪些内容能进检索、能否向量化，以及召回优先级上限。
+
+defaults:
+  full_scan_allowed: false
+  require_manifest: true
+  source_of_truth: local_files
+  formal_knowledge_requires_confirmation: true
+  business_code_policy: summary_only
+
+corpus_layers:
+  hard_rules:
+    paths: [.cursor/rules]
+    embed_allowed: false
+    deterministic_load: true
+    priority_ceiling: active_rules
+  agents:
+    paths: [agents]
+    embed_allowed: true
+    deterministic_load_when_summoned: true
+    priority_ceiling: role_definition
+  workflows:
+    paths: [workflows]
+    embed_allowed: true
+    deterministic_load_by_task_type: true
+    priority_ceiling: workflow
+  formal_knowledge:
+    paths:
+      - knowledge/patterns
+      - knowledge/decisions
+      - knowledge/incidents
+      - knowledge/glossary
+    embed_allowed: true
+    retrieve_allowed: true
+  knowledge_candidate:
+    paths: [knowledge/candidates]
+    embed_allowed: true
+    retrieve_allowed: false
+    retrieve_allowed_for:
+      - 规则或文档沉淀
+      - 知识库/RAG运维
+      - 事故处理
+  project_profiles:
+    paths: [projects/examples]
+    embed_allowed: true
+    deterministic_load_by_workspace: true
+  business_code_summaries:
+    paths: [knowledge/code-summaries]
+    embed_allowed: true
+    retrieve_allowed: true
+    notes: 只保存摘要、路径、符号和风险标签。行为结论必须回读当前源码。
+  raw:
+    paths: [knowledge/raw]
+    embed_allowed: false
+    retrieve_allowed: false
+  archive:
+    paths: [knowledge/archive]
+    embed_allowed: false
+    retrieve_allowed: false
+
+forbidden_globs:
+  - "**/envs.secrets.yaml"
+  - "**/*.pfx"
+  - "**/*.key"
+  - "**/*.pem"
+  - "**/bin/**"
+  - "**/obj/**"
+  - "**/node_modules/**"
+  - "**/.git/**"
+  - "**/dist/**"
+  - "**/logs/**"
+
+chunking:
+  markdown: heading_sections
+  yaml: top_level_keys
+  mdc: frontmatter_plus_sections
+  code_summary: asset_records
+
+index_outputs:
+  manifest: knowledge/indexes/rag-manifest.yaml
+  sqlite_catalog: rag/index.db
+  qdrant_root: rag/qdrant

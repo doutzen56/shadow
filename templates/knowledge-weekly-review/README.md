@@ -32,6 +32,15 @@
 - reject_list:
 - hold_for_refactor_to_abstraction:
 
+## RAG 召回质量
+
+- false_positive_hits:
+- missed_expected_hits:
+- stale_code_summaries:
+- candidate_backlog:
+- broken_evidence_refs:
+- repair_actions:
+
 ## 下周行动
 
 - action_items:

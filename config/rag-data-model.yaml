@@ -1,0 +1,172 @@
+schema_version: v1
+purpose: RAG SQLite 控制面数据模型。向量数据存 Qdrant，SQLite 只保存目录、状态、索引、审计和检索轨迹。
+
+principles:
+  - SQLite 不保存完整业务源码和大日志。
+  - embedding 向量不存 SQLite。
+  - 当前源码优先于代码摘要。
+  - 所有可召回内容必须能追溯到 source 和 chunk。
+
+entities:
+  project:
+    description: 导入项目注册表。
+    fields:
+      - { name: project_id, type: text, required: true, unique: true }
+      - { name: display_name, type: text, required: true }
+      - { name: identify_by, type: text, required: true }
+      - { name: simpx_path, type: text, required: false }
+      - { name: repo_root, type: text, required: false }
+      - { name: primary_language, type: text, required: false }
+      - { name: status, type: text, required: true }
+      - { name: created_at, type: datetime, required: true }
+      - { name: updated_at, type: datetime, required: true }
+    indexes:
+      - project_id
+      - identify_by
+      - simpx_path
+  source:
+    description: 文档、项目档案、代码摘要或规则文件来源。
+    fields:
+      - { name: source_id, type: text, required: true, unique: true }
+      - { name: project_id, type: text, required: false }
+      - { name: path, type: text, required: true }
+      - { name: source_type, type: text, required: true }
+      - { name: layer, type: text, required: true }
+      - { name: content_hash, type: text, required: true }
+      - { name: lifecycle_status, type: text, required: true }
+      - { name: updated_at, type: datetime, required: true }
+    indexes:
+      - path
+      - project_id
+      - source_type
+      - layer
+      - lifecycle_status
+  chunk:
+    description: 可检索文本单元。
+    fields:
+      - { name: chunk_id, type: text, required: true, unique: true }
+      - { name: source_id, type: text, required: true }
+      - { name: project_id, type: text, required: false }
+      - { name: chunk_type, type: text, required: true }
+      - { name: heading, type: text, required: false }
+      - { name: summary, type: text, required: true }
+      - { name: text_ref, type: text, required: true }
+      - { name: role_scope, type: json, required: false }
+      - { name: task_scope, type: json, required: false }
+      - { name: risk_tags, type: json, required: false }
+      - { name: qdrant_point_id, type: text, required: false }
+      - { name: lifecycle_status, type: text, required: true }
+    indexes:
+      - source_id
+      - project_id
+      - chunk_type
+      - lifecycle_status
+  symbol:
+    description: 代码符号定位表。
+    fields:
+      - { name: symbol_id, type: text, required: true, unique: true }
+      - { name: project_id, type: text, required: true }
+      - { name: source_id, type: text, required: true }
+      - { name: file_path, type: text, required: true }
+      - { name: symbol, type: text, required: true }
+      - { name: symbol_kind, type: text, required: true }
+      - { name: signature_hash, type: text, required: false }
+      - { name: file_hash, type: text, required: true }
+      - { name: lifecycle_status, type: text, required: true }
+    indexes:
+      - project_id
+      - file_path
+      - symbol
+      - lifecycle_status
+  knowledge_item:
+    description: 正式知识、候选知识、ADR、事故和术语条目。
+    fields:
+      - { name: knowledge_id, type: text, required: true, unique: true }
+      - { name: source_id, type: text, required: true }
+      - { name: title, type: text, required: true }
+      - { name: doc_type, type: text, required: true }
+      - { name: maturity, type: text, required: true }
+      - { name: project_scope, type: json, required: false }
+      - { name: role_scope, type: json, required: false }
+      - { name: task_scope, type: json, required: false }
+      - { name: risk_tags, type: json, required: false }
+      - { name: evidence_refs, type: json, required: false }
+      - { name: superseded_by, type: text, required: false }
+    indexes:
+      - doc_type
+      - maturity
+  ingestion_run:
+    description: 导入或重建批次。
+    fields:
+      - { name: run_id, type: text, required: true, unique: true }
+      - { name: run_type, type: text, required: true }
+      - { name: project_id, type: text, required: false }
+      - { name: manifest_hash, type: text, required: true }
+      - { name: started_at, type: datetime, required: true }
+      - { name: finished_at, type: datetime, required: false }
+      - { name: status, type: text, required: true }
+      - { name: error_summary, type: text, required: false }
+    indexes:
+      - run_type
+      - project_id
+      - status
+  retrieval_trace:
+    description: 每次检索的输入、过滤、命中和采用结果。
+    fields:
+      - { name: trace_id, type: text, required: true, unique: true }
+      - { name: task_id, type: text, required: false }
+      - { name: project_id, type: text, required: false }
+      - { name: role_id, type: text, required: false }
+      - { name: query, type: text, required: true }
+      - { name: filters, type: json, required: false }
+      - { name: hits, type: json, required: true }
+      - { name: selected_hits, type: json, required: false }
+      - { name: rejected_hits, type: json, required: false }
+      - { name: created_at, type: datetime, required: true }
+    indexes:
+      - task_id
+      - project_id
+      - role_id
+  repair_log:
+    description: 自动修复和候选修复记录。
+    fields:
+      - { name: repair_id, type: text, required: true, unique: true }
+      - { name: repair_type, type: text, required: true }
+      - { name: risk_level, type: text, required: true }
+      - { name: target_ref, type: text, required: true }
+      - { name: before_state, type: json, required: false }
+      - { name: after_state, type: json, required: false }
+      - { name: status, type: text, required: true }
+      - { name: needs_confirmation, type: boolean, required: true }
+      - { name: created_at, type: datetime, required: true }
+
+fts_tables:
+  - name: chunk_fts
+    source_table: chunk
+    indexed_fields:
+      - heading
+      - summary
+      - text_ref
+  - name: knowledge_item_fts
+    source_table: knowledge_item
+    indexed_fields:
+      - title
+
+status_values:
+  source_and_chunk:
+    - imported
+    - active
+    - stale
+    - deprecated
+    - rejected
+    - missing
+  ingestion_run:
+    - running
+    - completed
+    - failed
+    - cancelled
+  repair_log:
+    - auto_fixed
+    - candidate_created
+    - blocked
+    - failed

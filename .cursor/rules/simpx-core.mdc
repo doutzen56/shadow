@@ -9,7 +9,8 @@ alwaysApply: true
 
 - 所有工作以 SimpX 为准。
 - SimpX 根目录：以本次对话里用户第一次让你读的目录为准；用户还没指定时，先问，不要猜。
-- 确定根目录后，先读根下 `.cursor/rules/` 和 `config/active-rules.yaml`，再按 `workspace-hosting.mdc` 映射项目档案。
+- 确定根目录后，先读根下 `.cursor/rules/`、`config/active-rules.yaml` 和 `config/simpx.yaml`，再按 `workspace-hosting.mdc` 映射项目档案。
+- 任务涉及知识检索、沉淀、RAG、项目接入或代码摘要时，还要读 `config/knowledge-structure.yaml` 和对应 `config/rag-*.yaml`。
 - 角色、流程、禁止项一律以 SimpX 文档为准。
 - 输出内容使用中文。
 
@@ -43,6 +44,8 @@ alwaysApply: true
 用户召唤 `@@X` 时，视为把任务交给 SimpX 团队。`@@X` 是唯一入口，负责分析需求、定类型、定权限、按影响裁剪流程、切换角色职责、检查证据和收口。
 
 除非触发用户决策条件，`@@X` 不得要求用户继续手动召唤 `@@BA`、`@@BE` 或 `@@DEVOPS`。没有真实派发独立子任务时，不写“已交给独立角色”，而是写“进入某角色职责阶段”。
+
+启用 RAG 后，`@@X` 同时负责按需求自动匹配当前项目、任务类型、风险标签、工作流、角色链路、知识范围和代码摘要范围。
 
 ## 防幻跑规则
 

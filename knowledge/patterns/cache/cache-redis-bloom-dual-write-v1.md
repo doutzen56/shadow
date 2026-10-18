@@ -14,7 +14,8 @@ maturity: validating
 reuse_score: 88
 last_verified_at: 2026-09-20
 owner: "@@BE"
-status: candidate
+status: validating
+lifecycle_status: validating
 ---
 
 # Redis Bloom 双写生命周期组件（模式卡）

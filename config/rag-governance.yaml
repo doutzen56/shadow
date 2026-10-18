@@ -1,0 +1,50 @@
+schema_version: v1
+purpose: RAG 治理规范汇总。覆盖项目导入、知识分层、代码摘要、敏感信息、检索、冲突处理和维护。
+
+project_import:
+  require_project_id: true
+  require_profile: true
+  require_forbidden_scope: true
+  unknown_project_action: ask_user
+
+knowledge_layers:
+  hard_rules: deterministic_only
+  project_profile: deterministic_by_workspace
+  formal_knowledge: retrievable
+  candidate: governance_only
+  raw: not_retrievable
+  archive: excluded
+  code_summary: retrievable_as_locator
+
+sensitive_policy:
+  never_index:
+    - secrets
+    - tokens
+    - certificates
+    - production_connection_strings
+    - unmasked_personal_data
+  action: skip_and_report
+
+conflict_policy:
+  precedence:
+    - user_message
+    - active_rules
+    - current_source_code
+    - project_profile
+    - workflow
+    - role_definition
+    - confirmed_knowledge
+    - candidate_knowledge
+    - generated_summary
+  unresolved_action: escalate_to_TL_or_user
+
+maintenance:
+  weekly:
+    - candidate_review
+    - stale_summary_scan
+    - manifest_consistency_check
+    - retrieval_quality_review
+  on_change:
+    - update_manifest
+    - update_sqlite_catalog
+    - update_qdrant_vectors

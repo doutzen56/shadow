@@ -7,10 +7,15 @@
 ## 基本信息
 
 - pattern_id:
+- rag_doc_id:
 - title:
 - domain: search / cache / messaging / data-consistency / reliability / rollout
 - owner: @@BA / @@BE / @@DEVOPS
 - created_at:
+- role_scope:
+- task_scope:
+- risk_tags:
+- lifecycle_status:
 
 ## 抽象问题定义（先回答为什么做）
 
@@ -72,6 +77,8 @@
 - source_projects:
 - evidence_refs:
 - reusable_assets:
+- related_code_assets:
+- chunkable_sections:
 
 ### 代码引用规范
 

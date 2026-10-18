@@ -1,0 +1,76 @@
+schema_version: v1
+purpose: 代码摘要生成策略。摘要用于定位和初筛，不替代当前源码。
+
+levels:
+  file:
+    description: 文件级职责、宿主、主要依赖和风险标签。
+    required_fields:
+      - project_id
+      - file_path
+      - file_hash
+      - responsibility
+      - host_or_layer
+      - dependencies
+      - risk_tags
+      - last_seen
+  symbol:
+    description: 类、方法、Handler、Job、Gateway 等符号级摘要。
+    required_fields:
+      - symbol_id
+      - symbol
+      - symbol_kind
+      - file_path
+      - input_contract
+      - output_contract
+      - failure_contract
+      - dependencies
+      - observability
+      - role_scope
+      - risk_tags
+  flow:
+    description: 入口到核心逻辑的业务流摘要。
+    required_fields:
+      - flow_id
+      - entry_symbol
+      - downstream_symbols
+      - state_changes
+      - external_dependencies
+      - verification_points
+
+chunk_policy:
+  large_file:
+    first_pass: file_summary
+    expand_when:
+      - matched_by_query
+      - high_risk_tag
+      - referenced_by_pattern
+  max_summary_chars: 1200
+  max_symbol_summary_chars: 800
+
+hash_policy:
+  file_hash: sha256_of_file_content
+  signature_hash: sha256_of_symbol_signature
+  stale_when:
+    - file_hash_changed
+    - symbol_missing
+    - project_profile_changed
+
+risk_tags:
+  - funds
+  - order-state
+  - permission
+  - login
+  - user-data
+  - production-config
+  - database-schema
+  - callback
+  - idempotency
+  - cache-consistency
+  - mq
+  - elasticsearch
+  - gateway
+
+output:
+  root: knowledge/code-summaries
+  manifest_name: manifest.yaml
+  card_template: templates/code-summary-card/README.md

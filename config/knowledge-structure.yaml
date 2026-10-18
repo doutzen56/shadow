@@ -4,6 +4,7 @@ purpose: 可复用技术模式库（超级个体记忆）
 storage_layers:
   - name: raw
     description: 任务原始信息层（实现、验证、问题、修复）
+    path: knowledge/raw
     write_policy: 自动收集
   - name: candidate
     description: 候选模式层（结构化提炼，待TL确认）
@@ -13,6 +14,14 @@ storage_layers:
     description: 正式知识层（仅TL确认后入库）
     path: knowledge
     write_policy: 仅在用户明确确认后写入
+  - name: code_summaries
+    description: 业务代码摘要层（路径、符号、契约、依赖和风险标签）
+    path: knowledge/code-summaries
+    write_policy: 项目导入或代码变更后增量生成
+  - name: archive
+    description: 过期、驳回、合并后的知识层
+    path: knowledge/archive
+    write_policy: 周审、自动修复或人工确认后归档
 
 pattern_card_required_fields:
   - pattern_id
@@ -38,6 +47,10 @@ pattern_card_required_fields:
   - source_projects
   - evidence_refs
   - reusable_assets
+  - role_scope
+  - task_scope
+  - risk_tags
+  - lifecycle_status
 
 pattern_domains:
   - search
@@ -63,6 +76,8 @@ execution_rules:
   - 知识主体必须先写抽象层（能力/契约/状态机/策略点）
   - 代码内容仅作为证据引用，禁止整文件复制
   - 必须明确核心功能不变量，确保可跨项目复写同等核心能力
+  - RAG 命中不得覆盖 active_rules、当前源码、项目档案和用户当前要求
+  - 代码摘要只能作为定位锚点，行为结论必须回读当前源码
 
 retrieval_policy:
   strategy: index_first_then_top_k
@@ -76,6 +91,10 @@ retrieval_policy:
     - domain
     - stack
     - scene
+    - project_scope
+    - role_scope
+    - task_scope
+    - risk_tags
   token_budget:
     max_chars_per_round: 12000
     prefer_summary_before_code: true
@@ -83,6 +102,8 @@ retrieval_policy:
   escalate_to_user_when:
     - top_k_results_insufficient_after_two_rounds
     - ambiguous_pattern_selection
+    - role_scope_conflict
+    - project_scope_uncertain
 
 code_asset_rules:
   required_fields:

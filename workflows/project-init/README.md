@@ -19,16 +19,23 @@
 1. `@@X` 触发 `simpx-project-bootstrap` 进行基础检查。
 2. 校验项目档案：`README.md`、`profile.yaml`、`boundaries.md`。
 3. 校验环境来源：项目内置配置优先；只有用户或项目档案明确要求时才检查本地 secrets 配置。
-4. `@@TL` 确认初始化结果与后续任务入口。
+4. 确认 RAG 语料范围：项目档案、架构图、边界文档、允许生成摘要的业务代码根目录、禁止索引目录。
+5. 更新或生成项目索引入口：`knowledge/indexes/project-index.md`、`knowledge/indexes/rag-manifest.yaml`、`knowledge/code-summaries/<project-id>/manifest.yaml`。
+6. 如需初始化或重建索引，转入 `workflows/knowledge-index-maintenance/README.md`；空库首次接入转入 `workflows/knowledge-rag-bootstrap/README.md`。
+7. `@@TL` 确认初始化结果与后续任务入口。
 
 ## 输出
 
 - 初始化检查结果
 - 缺口清单
+- RAG 语料范围和禁止索引范围
+- 项目 summary manifest 路径
+- 是否需要执行索引维护
 - 是否可进入功能开发
 
 ## 收口检查
 
 - 项目映射不清或关键档案缺失，不进入开发。
 - 环境配置不可用，不进入验证阶段。
+- 未明确可索引范围和禁止索引范围，不进入代码摘要导入。
 - 初始化争议超过 2 轮未收敛，交用户决策。

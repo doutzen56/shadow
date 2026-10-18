@@ -1,0 +1,6 @@
+schema_version: v1
+project_id: betwin
+status: pending
+source_profile: projects/examples/betwin/profile.yaml
+summary_groups: []
+last_ingestion_run:

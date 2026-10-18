@@ -1,0 +1,33 @@
+schema_version: v1
+purpose: 知识自动增长和人工确认规则。
+
+states:
+  - raw
+  - candidate
+  - confirmed
+  - deprecated
+  - rejected
+
+write_policy:
+  raw: automatic_allowed
+  candidate: automatic_allowed_with_evidence
+  confirmed: user_confirmation_required
+  deprecated: TL_or_user_review
+  rejected: TL_or_user_review
+
+promotion_requirements:
+  - evidence_refs
+  - project_scope
+  - role_scope
+  - reusable_abstraction
+  - non_reuse_reason_when_created_from_gap
+
+weekly_review:
+  owner: "@@X"
+  approver: "@@TL"
+  final_confirmation: user
+  outputs:
+    - promote
+    - merge
+    - reject
+    - archive

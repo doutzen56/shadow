@@ -1,0 +1,76 @@
+schema_version: v1
+purpose: Agent 上下文装配器规范。强规则和确定性上下文先加载，RAG 只做补充。
+
+inputs:
+  - user_message
+  - workspace_root
+  - open_files
+  - summoned_tags
+  - task_type
+  - permission_level
+  - project_id
+  - risk_tags
+
+assembly_steps:
+  - name: load_hard_rules
+    deterministic: true
+    sources:
+      - .cursor/rules
+      - config/active-rules.yaml
+      - config/simpx.yaml
+  - name: resolve_project
+    deterministic: true
+    sources:
+      - .cursor/rules/workspace-hosting.mdc
+      - projects/examples/*/profile.yaml
+  - name: load_workflow
+    deterministic: true
+    source: workflows
+  - name: load_roles
+    deterministic: true
+    source: agents/*/system.md
+  - name: apply_role_matrix
+    deterministic: true
+    source: config/rag-role-matrix.yaml
+  - name: retrieve_knowledge
+    deterministic: false
+    source: config/rag-retrieval.yaml
+  - name: build_context_pack
+    deterministic: true
+
+context_pack:
+  required_sections:
+    - task_type
+    - permission_level
+    - project_context
+    - workflow_context
+    - role_chain
+    - risk_tags
+    - deterministic_sources
+    - rag_hits
+    - code_summary_refs
+    - unresolved_questions
+  max_rag_items: 3
+  include_rejected_hits: true
+
+precedence:
+  - user_message
+  - active_rules
+  - current_source_code
+  - project_profile
+  - workflow
+  - role_definition
+  - confirmed_knowledge
+  - candidate_knowledge
+  - generated_summary
+
+forbidden:
+  - use_rag_to_skip_required_rule_read
+  - use_summary_as_behavior_fact_without_source_read
+  - expose_secret_values
+  - pass_all_hits_to_all_roles
+
+outputs:
+  - context_pack
+  - retrieval_trace
+  - role_handoff_inputs

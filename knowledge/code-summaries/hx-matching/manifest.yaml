@@ -1,0 +1,6 @@
+schema_version: v1
+project_id: hx-matching
+status: pending
+source_profile: projects/examples/hx-matching/profile.yaml
+summary_groups: []
+last_ingestion_run:

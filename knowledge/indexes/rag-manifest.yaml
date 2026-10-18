@@ -1,0 +1,35 @@
+schema_version: v1
+purpose: RAG ingestion 的机器可读清单。
+manifest_version: 0.1.0
+status: draft
+
+sources:
+  configs:
+    - config/rag-data-model.yaml
+    - config/rag-importer.yaml
+    - config/rag-summarizer.yaml
+    - config/rag-retrieval.yaml
+    - config/rag-context-engine.yaml
+    - config/rag-growth.yaml
+    - config/rag-governance.yaml
+    - config/rag-repair.yaml
+    - config/rag-evaluation.yaml
+    - config/rag-init.yaml
+  rules:
+    - .cursor/rules/knowledge-retrieval.mdc
+  workflows:
+    - workflows/knowledge-project-import
+    - workflows/knowledge-growth-loop
+    - workflows/knowledge-auto-repair
+    - workflows/knowledge-rag-evaluation
+    - workflows/knowledge-rag-bootstrap
+
+seed_projects:
+  hx-matching:
+    status: pending
+    profile: projects/examples/hx-matching/profile.yaml
+    summary_manifest: knowledge/code-summaries/hx-matching/manifest.yaml
+  betwin:
+    status: pending
+    profile: projects/examples/betwin/profile.yaml
+    summary_manifest: knowledge/code-summaries/betwin/manifest.yaml

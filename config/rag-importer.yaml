@@ -1,0 +1,92 @@
+schema_version: v1
+purpose: 项目与 SimpX 文档导入规范。定义导入源、扫描步骤、排除规则和产物。
+
+import_modes:
+  project:
+    description: 导入业务项目档案和代码摘要入口。
+    inputs:
+      - repo_root
+      - solution_file
+      - project_profile
+      - boundaries
+      - architecture_map
+    outputs:
+      - project row
+      - source rows
+      - code_summary manifest
+      - ingestion_run
+  simpx:
+    description: 导入 SimpX 规则、角色、工作流、模板和正式知识。
+    inputs:
+      - active-rules.yaml
+      - simpx.yaml
+      - knowledge-structure.yaml
+      - rag-corpus.yaml
+      - rag-role-matrix.yaml
+    outputs:
+      - source rows
+      - chunk rows
+      - knowledge_item rows
+      - rag-manifest update
+
+project_detection:
+  primary:
+    - solution_file_name
+    - workspace-hosting.mdc mapping
+  secondary:
+    - explicit_project_name
+    - profile.yaml identify_by
+  unknown_project_action: ask_user
+
+scan_order:
+  - read_active_rules
+  - read_simpx_config
+  - resolve_project_profile
+  - scan_project_docs
+  - scan_allowed_code_roots
+  - build_code_summary_inputs
+  - write_ingestion_run
+  - update_manifest
+
+allowed_sources:
+  simpx_docs:
+    - .cursor/rules
+    - agents
+    - workflows
+    - templates
+    - knowledge
+    - projects/examples
+  business_code:
+    policy: summary_only
+    default_exclude:
+      - bin
+      - obj
+      - node_modules
+      - .git
+      - dist
+      - logs
+      - packages
+
+security:
+  forbidden_files:
+    - envs.secrets.yaml
+    - "*.pfx"
+    - "*.key"
+    - "*.pem"
+  forbidden_content:
+    - password
+    - token
+    - secret
+    - certificate
+    - connection_string
+
+id_rules:
+  project_id: normalized_project_name
+  source_id: hash(path + content_hash)
+  ingestion_run_id: timestamp + mode + project_id
+
+failure_policy:
+  missing_profile: block
+  unknown_project: ask_user
+  forbidden_file_detected: skip_and_report
+  partial_scan: allowed_with_gap_report

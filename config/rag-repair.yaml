@@ -1,0 +1,44 @@
+schema_version: v1
+purpose: 知识库健康检查和自动修复策略。
+
+levels:
+  L0: report_only
+  L1: auto_fix_index
+  L2: auto_rebuild_summary
+  L3: create_candidate_fix
+  L4: block_for_user_confirmation
+
+health_checks:
+  - manifest_file_exists
+  - manifest_matches_files
+  - sqlite_catalog_consistent
+  - qdrant_points_have_sources
+  - fts_index_current
+  - code_summary_hash_current
+  - deprecated_not_retrieved
+  - required_metadata_present
+
+auto_fix_allowed:
+  - rebuild_fts
+  - remove_orphan_vectors
+  - fill_non_business_metadata
+  - mark_missing_source
+  - refresh_stale_code_summary
+
+candidate_fix_only:
+  - formal_knowledge_content_change
+  - project_boundary_change
+  - business_rule_interpretation
+  - high_risk_code_summary_change
+
+blocked_without_confirmation:
+  - production_secret_access
+  - funds_semantics
+  - order_state_semantics
+  - permission_or_login_semantics
+  - database_schema_change
+
+repair_log:
+  target_table: repair_log
+  require_before_after_state: true
+  require_rollback_note: true

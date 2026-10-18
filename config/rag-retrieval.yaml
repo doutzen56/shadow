@@ -1,0 +1,94 @@
+schema_version: v1
+purpose: 混合检索流程。定义精确匹配、SQLite FTS5、Qdrant 语义检索、metadata 过滤和重排。
+
+strategy: filtered_hybrid_search
+
+retrieval_order:
+  - deterministic_context
+  - exact_match
+  - sqlite_fts
+  - qdrant_vector
+  - rerank
+  - evidence_pack
+
+deterministic_context:
+  always_load:
+    - active_rules
+    - simpx_config
+    - current_project_profile
+    - current_workflow
+    - summoned_role_definition
+  never_replace_with_rag: true
+
+exact_match:
+  keys:
+    - project_id
+    - file_path
+    - symbol
+    - pattern_id
+    - workflow_name
+    - role_id
+    - risk_tag
+
+sqlite_fts:
+  tables:
+    - chunk_fts
+    - knowledge_item_fts
+  use_for:
+    - keywords
+    - path_like_terms
+    - symbol_like_terms
+
+qdrant_vector:
+  collections:
+    formal_knowledge: rag_formal_knowledge
+    project_profiles: rag_project_profiles
+    code_summaries: rag_code_summaries
+    candidates: rag_candidates
+  candidates_default_enabled: false
+
+metadata_filters:
+  required_first:
+    - project_scope
+    - role_scope
+    - task_scope
+    - risk_tags
+  optional:
+    - source_type
+    - maturity
+    - lifecycle_status
+    - stack
+    - scene
+
+rerank:
+  factors:
+    - exact_match_boost
+    - project_match_boost
+    - role_scope_match_boost
+    - confirmed_status_boost
+    - recent_source_boost
+    - stale_penalty
+    - candidate_penalty
+  reject_when:
+    - lifecycle_status: deprecated
+    - lifecycle_status: rejected
+    - source_missing: true
+    - forbidden_layer: true
+
+budgets:
+  max_items_per_query: 3
+  max_rounds: 2
+  max_code_refs_per_item: 5
+  max_snippets: 2
+  snippet_max_lines: 40
+  exceeded_action: escalate_to_TL_or_user
+
+trace:
+  write_to: retrieval_trace
+  required_fields:
+    - query
+    - filters
+    - hits
+    - selected_hits
+    - rejected_hits
+    - reason

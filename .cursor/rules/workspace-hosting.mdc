@@ -22,4 +22,6 @@ alwaysApply: true
 
 业务仓禁止写 `AGENTS.md` / `.cursor/agents` / `.cursor/rules` / `.cursor/skills`。禁止为了托管或说明去改业务仓自带文件。业务仓禁止 Agent git push / 开 PR。
 
+业务代码摘要写入 SimpX 的 `knowledge/code-summaries/<project-id>/`，不写回业务仓。新增或迁移项目时，要同步项目档案、`knowledge/indexes/project-index.md` 和 `knowledge/indexes/rag-manifest.yaml`。
+
 `记住：` 或 `记一条 ADR` 才写入 SimpX 知识目录；未确认不写。

@@ -1,0 +1,71 @@
+schema_version: v1
+purpose: @@X RAG Routing。根据需求自动匹配项目、任务类型、风险、工作流、角色链路、知识和代码摘要。
+
+inputs:
+  - user_message
+  - summoned_tags
+  - workspace_root
+  - solution_file
+  - explicit_project_name
+  - open_files
+  - recent_context
+
+project_routing:
+  order:
+    - solution_file_to_workspace_hosting
+    - explicit_project_name_to_profile
+    - profile_identify_by
+  unknown_action: ask_user
+
+task_routing:
+  只读分析: requirement-to-design
+  方案设计: requirement-to-design
+  缺陷定位: bug-fix
+  代码实现: feature-development
+  代码审查: code-review
+  测试验证: release
+  发布交付: release
+  事故处理: incident-response
+  规则或文档沉淀: agent-governance
+  项目接入: project-init
+  知识库/RAG运维:
+    - knowledge-rag-bootstrap
+    - knowledge-index-maintenance
+    - knowledge-auto-repair
+    - knowledge-rag-evaluation
+
+risk_tags:
+  high_risk:
+    - funds
+    - order-state
+    - permission
+    - login
+    - user-data
+    - production-config
+    - secret
+    - database-schema
+    - public-contract
+  extra_score:
+    - callback
+    - idempotency
+    - retry
+    - cache-consistency
+    - async
+    - mq
+    - elasticsearch
+
+role_chain:
+  fast: ["@@X", "@@BE", "@@X"]
+  readonly_simple: ["@@X", "@@BA", "@@X"]
+  standard: ["@@X", "@@TL", "@@BA", "@@BE", "@@DEVOPS", "@@TL"]
+  high_risk: ["@@X", "@@TL", "@@BA", "@@BE", "reviewer", "@@DEVOPS", "@@TL"]
+
+outputs:
+  - task_type
+  - permission_level
+  - project_id
+  - workflow
+  - role_chain
+  - risk_tags
+  - retrieval_scopes
+  - needs_user_decision

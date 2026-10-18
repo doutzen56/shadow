@@ -5,12 +5,19 @@
 - task_id:
 - project_id:
 - owner:
+- role_scope:
+- task_scope:
+- risk_tags:
 
 ## 检索结果
 
 - matched_patterns:
+- matched_code_summaries:
 - selected_pattern:
 - reason_for_selection:
+- rejected_matches:
+  - match:
+  - reason:
 - selected_abstractions:
   - capability_pattern:
   - state_machine:

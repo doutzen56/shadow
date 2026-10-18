@@ -1,0 +1,28 @@
+schema_version: v1
+purpose: RAG 后续迭代机制。覆盖增量索引、候选知识、治理、自动修复和召回评估。
+
+triggers:
+  task_end:
+    - write_retrieval_trace
+    - maybe_create_candidate
+  file_change:
+    - update_manifest
+    - update_sqlite
+    - update_qdrant
+  weekly:
+    - candidate_review
+    - evaluation_run
+    - repair_health_check
+  model_change:
+    - rebuild_baseline
+
+iteration_order:
+  - knowledge-index-maintenance
+  - knowledge-auto-repair
+  - knowledge-rag-evaluation
+  - agent-governance
+
+rollback:
+  keep_previous_baseline: true
+  keep_previous_manifest: true
+  stale_vectors_mark_before_delete: true
