@@ -6,3 +6,7 @@ rag/index/
 rag/traces/
 rag/index.db
 *.db.tmp
+
+# Python 运行时自动生成的字节码缓存，跟本机 Python 版本绑定，不进 git
+__pycache__/
+*.py[cod]
