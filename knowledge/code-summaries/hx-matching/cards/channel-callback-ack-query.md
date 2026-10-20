@@ -1,9 +1,9 @@
 ---
 summary_id: channel-callback-ack-query
 project_id: hx-matching
-file_path: HX.Matching.Admin.WebApi/Controllers/System/CallBack/ChannelCallback.cs
-file_hash: 57cb9c753fd6e4c3cb60378cd1e6809bf8e66461d59c0516d34bd7d343d49105
-symbol: ChannelCallback.NotifyCoreAsync / VerifySessionRechargeCoreAsync
+file_path: HX.Matching.ServiceCore/Services/ExternalChannels/ChannelCallbackService.cs
+file_hash: pending-manual-2026-10-20
+symbol: ChannelCallbackService.HandleWithdrawAsync / HandleRechargeAsync
 symbol_kind: method
 role_scope:
   - "@@BA"
@@ -20,28 +20,33 @@ risk_tags:
   - order-state
   - idempotency
   - mq
-last_seen: 2026-10-18
+last_seen: 2026-10-20
 related_pattern: pattern-reliability-callback-ack-then-async-query-v1
+related_decision: adr-2026-10-20-hx-matching-host-tenant-resolve
 ---
 
 # 渠道回调 ACK + 异步查单深挖卡
 
 ## 职责
 
-渠道 HTTP 回调只做 IP 校验与 ACK，把「以查单为准」的终态判定丢给异步队列，避免同步解析异构报文导致超时丢 ACK。
+渠道 HTTP 回调只做 IP 校验与 ACK，把「以查单为准」的终态判定丢给异步队列，避免同步解析异构报文导致超时丢 ACK。业务在 `ChannelCallbackService`；宿主入口为 MerchantApi（主）与 Admin V1（首库兼容）。
 
 ## 契约
 
-- 输入：渠道回调请求（各供应商字段不一）。
+- 路径：固定 `/channelcallback/Withdraw|Recharge/{SupplierId}/{OrderId}`（含 GET 代收）；**无** `/t/{TenantCode}`。
+- 多租户主路径：回调打到「商户下单」绑定域 → MerchantApi Host 定租户。
+- Admin V1 入口：默认库（首库），不承担新租户切库。
 - 输出：渠道要求的成功/失败 ACK 字符串（适配器 `GetCallbackSuccessValue/FailValue`）。
 - 失败契约：入队失败要有日志/降级；不得在未 ACK 时长时间阻塞。
 
 ## 依赖
 
+- `ChannelCallbackService`（Admin / MerchantApi 共用）
 - `ChannelOrderQueryQueueBackgroundService`（入队、短窗去重、本机降级）
 - MQ：`hx.queue.channel.order.query` + TTL 重试队列
 - 适配器查询：`RechargeOrderQuery` / `WithdrawOrderQuery`
 - 终态：`EnterPriseMatchingCallbackHandler`
+- 定租户：见 `cards/host-tenant-resolve.md`
 
 ## 状态与副作用
 

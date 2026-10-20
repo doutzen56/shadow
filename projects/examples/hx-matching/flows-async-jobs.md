@@ -53,8 +53,7 @@ Exchange：`hx.exchange.matching`；延迟交换机：`hx.delay.exchange.matchin
 | `MerchantUpdateConsumerHostedService` | 商户缓存失效 |
 | `TelegramBotHostedService` | Telegram 通知/指令 |
 | `DataTimeOutService` | 超时巡检辅助 |
-| CAP Worker（`AddMultiTenantCapWorkerHost`） | 多租户 CAP 事件消费 |
-| `OrderEsCapBackfillOnceHostedService` | 环境变量触发的一次性 ES 回填 |
+| CAP Worker（`AddMultiTenantCapWorkerHost`） | 多租户 CAP 事件消费（业务 Topic：账变 ES 同步） |
 
 ## 4. 定时任务（Tasks）
 
@@ -93,7 +92,7 @@ Exchange：`hx.exchange.matching`；延迟交换机：`hx.delay.exchange.matchin
 
 | 任务类 | 职责 |
 | --- | --- |
-| `Job_OrderEsSync` / `Job_OrderEsReconcile` / `Job_OrderEsCapBackfill` / `Job_EsIndexMaintenance` | 订单 ES 同步、对账、回填、索引维护 |
+| `Job_OrderEsSync` / `Job_OrderEsReconcile` / `Job_EsIndexMaintenance` | 订单 ES 同步、对账、索引维护 |
 | `Job_BloomWarmup` / `Job_BloomLifecycleRefresh` | Bloom 重建与主备生命周期 |
 | `Job_Stats` | 日统计 |
 | `Job_SupplierBalanceSync` | 供应商余额 |

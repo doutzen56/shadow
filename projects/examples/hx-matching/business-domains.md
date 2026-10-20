@@ -18,7 +18,7 @@
 | 资金账变 | `HxMerchantService`、`HxMerchantFundsDetailService`、租户钱包 | 余额/授信、费率、撮合服务费、佣金 | MQ 账变、CAP→ES |
 | 回调通知 | `EnterPriseMatchingCallbackHandler`、`HxCallbackService`、`OrderCallbackBackgroundService` | 渠道 ACK+查单；商户 Notify MQ+本机降级 | Quartz 消费者 |
 | 多租户 | `MultiTenant/*`、`Job_TenantInit` | 开户步进、Host/商户码定租户、审单归属 | 公共库 + 租户库 |
-| 搜索与对账 | `Es/*`、`Cap/OrderEsBackfill`、`Job_OrderEs*` | 订单/资金查询索引、对账、回填 | CAP Worker（Quartz） |
+| 搜索与对账 | `Es/*`、`Cap/FundsDetail`、`Job_OrderEsSync` / `Job_OrderEsReconcile` | 订单/资金查询索引、对账；账变 CAP→ES | CAP Worker（Quartz） |
 | 运营后台 | Admin / AdminV2 / MerchantAdmin | 配置、报表、离线导出、平台租户与钱包 | SignalR、导出 MQ |
 | 稳定性组件 | Bloom、准入闸门、限流、线程池调优 | 去重预判、热路径保护、就绪探针 | 各宿主 |
 

@@ -6,12 +6,12 @@ path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务�
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261018T093147Z
-  run_id: 20261018T093147Z-baseline
-  manifest_hash: 1aeb55a698949f1db99a4de67079f7ba35b0583fe8f0421df5197eb8a28c7d49
+  version: rag-baseline-20261019T161633Z
+  run_id: 20261019T161633Z-baseline
+  manifest_hash: 39c6e30836adcb11568f87205ddb4a06d73f133f1ae2468125a267efed22eadf
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
-  doc_sources: 135
+  doc_sources: 136
   knowledge_items: 15
   sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
@@ -19,12 +19,14 @@ baseline:
   chunk_strategy: markdown-heading-yaml-top-key-code-summary
   routing_table_version: rag-x-routing-v2
   role_matrix_version: rag-role-matrix-v1
+  note: 2026-10-20 为落盘 Host 定租户 ADR/档案后重建文档层；向量召回仍不可用。
 
 latest_run:
-  run_id: 20261018T093230Z-project-hx-matching
-  run_type: project_import
-  project_id: hx-matching
-  manifest_hash: f737462b258c44b08eb6e0de271680769eed4f5452b088613ffb03e43eb0ce58
+  run_id: 20261019T161633Z-baseline
+  run_type: bootstrap
+  project_id: null
+  manifest_hash: 39c6e30836adcb11568f87205ddb4a06d73f133f1ae2468125a267efed22eadf
+  prior_project_import: 20261018T093230Z-project-hx-matching
 
 artifact_policy:
   mode: rebuildable_index
@@ -127,9 +129,10 @@ seed_projects:
     profile_docs: 9
     summarized_files: 1782
     summary_groups: 9
-    deep_cards: 7
+    deep_cards: 8
     last_ingestion_run: 20261018T093230Z-project-hx-matching
     manifest_hash: f737462b258c44b08eb6e0de271680769eed4f5452b088613ffb03e43eb0ce58
+    note_2026_10_20: "新增手写卡 host-tenant-resolve；flows/ADR/glossary 已更新。分组摘要仍属旧 ingestion，下次 project 导入覆盖。未宣称语义向量召回。"
   betwin:
     status: active
     profile: projects/examples/betwin/profile.yaml
