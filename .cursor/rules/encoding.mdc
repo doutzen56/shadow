@@ -1,35 +1,55 @@
 ---
-description: 写文件、写数据、调任何脚本/外部工具时，读写编码统一 UTF-8（无 BOM）
+description: 写文件、写数据、调任何脚本/外部工具时，读写编码统一 UTF-8（无 BOM）；写完必自检
 alwaysApply: true
 ---
 
 # 读写编码硬规则
 
-来源：用户 2026-10-03「记住：」；2026-10-21「记住：写文件写数据写任何东西，调用任何脚本任何语言等外部工具，读写编码统一 utf-8」。
+来源：用户 2026-10-03「记住：」；2026-10-21「记住：写文件写数据写任何东西，调用任何脚本任何语言等外部工具，读写编码统一 utf-8」；2026-10-22「只改规则」加强禁止项与写完自检。
 
 适用范围：Agent 写文件、写数据、写种子/SQL/测试输出、调用 Python / PowerShell / .NET / Node / shell 等任何外部工具做读写时，一律按本规则，不只限于 Markdown 文档。
 
-## 统一要求
+## 统一标准
 
 - 读写编码统一 **UTF-8（不带 BOM）**。
 - 禁止依赖系统默认编码（Windows 上常见 ANSI / UTF-16 LE）。
 - 禁止用会写进 UTF-16 或空字节（NUL）的方式落盘。
-- 写完要自检：按 UTF-8 能正常读出中文，文件开头没有 `FF FE` / `FE FF`，正文没有异常 `?` 替换字或空字节。
+- **终端显示乱码 ≠ 文件编码错误**：未用文件头/字节证明异常前，禁止「为修乱码」重写文件。
 
-## 写
+## 写文件优先级（必须按序）
 
-- 优先用编辑器自带的写文件工具；必须用脚本写时，显式指定 UTF-8：
-  - Python：`open(path, "w", encoding="utf-8", newline="\n")`
-  - PowerShell：`[IO.File]::WriteAllText(path, text, [Text.UTF8Encoding]::new($false))`；不要用 Windows PowerShell 5 默认的 `Set-Content` / `Out-File` / `>`，它们常写成 ANSI 或 UTF-16。
-  - .NET：`File.WriteAllText(path, text, new UTF8Encoding(false))`
-  - Node：`fs.writeFileSync(path, text, "utf8")`
-- 往数据库写中文时，SQL 文本本身也要是 UTF-8 源文件；易被终端弄坏的中文，优先用 `NCHAR(0x....)` 或参数化写入，避免脚本编码把字变成 `?`。
-- 不要往文件里写进空字节（NUL）、乱码头或混合编码。
+1. **优先**用编辑器自带的写文件 / 补丁工具（Write、StrReplace 等），不要为了改几行去走 Shell 重定向。
+2. 必须用脚本写时，**显式**指定 UTF-8 无 BOM：
+   - Python：`open(path, "w", encoding="utf-8", newline="\n")`
+   - PowerShell：`[IO.File]::WriteAllText(path, text, [Text.UTF8Encoding]::new($false))`
+   - .NET：`File.WriteAllText(path, text, new UTF8Encoding(false))`
+   - Node：`fs.writeFileSync(path, text, "utf8")`
+3. 往数据库写中文时，SQL 文本本身也要是 UTF-8 源文件；易被终端弄坏的中文，优先用 `NCHAR(0x....)` 或参数化写入。
+
+## 禁止项（写源码 / 含中文内容时）
+
+- 禁止 Windows PowerShell 5 默认的 `Set-Content` / `Out-File` / `>` / `>>` 写含中文的源码、文档、SQL、测试（常变成 ANSI 或 UTF-16 LE）。
+- 禁止落盘 UTF-16（文件头 `FF FE` / `FE FF`，或 ASCII 字符后夹空字节 NUL）。
+- 禁止写入 UTF-8 BOM（文件头 `EF BB BF`）作为新文件或改写后的常规结果；读旧文件若带 BOM，用 `utf-8-sig` 读入后按无 BOM 写回。
+- 禁止不指定 encoding 就读写后「原样」再写回（系统默认解码会把中文弄坏）。
+- 禁止在未确认文件头异常时，仅因控制台打印难看就整文件重写。
 
 ## 读
 
 - 不管用 Python、PowerShell 还是别的脚本读，都要显式按 UTF-8，不靠系统默认：
   - Python：`open(path, encoding="utf-8")`（可能带 BOM 时用 `utf-8-sig`）
-  - PowerShell：先 `[Console]::OutputEncoding = [Text.Encoding]::UTF8`，再 `Get-Content -Encoding UTF8 path`
+  - PowerShell：需要看中文输出时先 `[Console]::OutputEncoding = [Text.Encoding]::UTF8`，再 `Get-Content -Encoding UTF8 path`
   - .NET：`File.ReadAllText(path, Encoding.UTF8)`
-- 读出来是乱码或被判成二进制时，先查编码和文件头，不要带着乱码继续改、继续跑。
+- 读出来是乱码或被判成二进制时，**先查编码和文件头**，不要带着乱码继续改、继续跑。
+
+## 写完必自检（每次落盘后）
+
+对本次新建或改写的文本文件（尤其含中文的 `.cs` / `.md` / `.sql` / `.yaml` / 测试），落盘后必须核对，不合格先修编码再继续业务：
+
+1. 文件头不是 `FF FE` / `FE FF`（UTF-16）。
+2. 文件头不是 `EF BB BF`（UTF-8 BOM）；若是，去掉 BOM 再写回。
+3. 正文（尤其前几百字节的 ASCII 区）没有异常空字节 `00`。
+4. 用 UTF-8 解码后，预期中文能读出（如注释里的「租户」「谷歌」），没有 `\uFFFD` 替换字，也没有大片 `?`。
+5. 自检可用（示例）：用 Python `open(path, "rb")` 看文件头，再用 `encoding="utf-8"` 读正文抽查中文；不要只看 PowerShell 控制台打印是否好看。
+
+缺自检或自检失败仍宣称「已写好 / 中文正常」，视为未完成。
