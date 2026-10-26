@@ -20,10 +20,20 @@ alwaysApply: true
 - 缺注释视为未完成，不能只把代码写通。
 - Cursor 默认的「别给显而易见的代码写注释」不得压过本条。
 
+## 命名
+
+来源：用户 2026-10-26「以后不要出现 Guard 这个定义，我不喜欢」。
+
+- 类、接口、方法、文件、配置项都不要用 `Guard` 命名（如 `XxxGuard`、`GuardXxx`）。按职责起名，比如检查用 `Checker`、校验用 `Validator`、拦截用请求处理链里的组件名。
+
 ## 新增/改动接口与 Swagger
 
-来源：用户 2026-10-19「新加的接口要注意 swagger 文档，并把这条规则记录下来」。
+来源：用户 2026-10-19「新加的接口要注意 swagger 文档，并把这条规则记录下来」；2026-10-26 改为「要有 swagger 文档」，因为不同类库、不同架构加 Swagger 的方式不一样。
 
-- 凡是新增或改动对外 HTTP 接口（Controller 动作、入参/出参 DTO），必须让 Swagger 能正确展示：动作与 DTO 写清 XML 注释；动作上补齐 `[ProducesResponseType(typeof(...), StatusCodes.Status200OK)]`（有其它固定状态码的一并写上）。
+- 凡是新增或改动对外 HTTP 接口（Controller 动作、动态 API、入参/出参 DTO），都要有 Swagger 文档：接口能在文档里看到，用途、入参、出参类型说得清楚。
+- 怎么加按所在项目的现有做法来，不强行套某一种写法：
+  - 先看同项目已有接口是怎么出文档的，照着写。
+  - 返回类型能直接写成具体类型的，就写具体类型，让文档自动带出出参结构。
+  - 只有在不会改变返回格式的前提下，才补 `[ProducesResponseType]` 这类特性。例如 Furion 动态 API 加了它会跳过统一结果包装，前端拿不到 `{code, result}`，这类项目不要加。
 - 项目已开 `GenerateDocumentationFile` 并 `IncludeXmlComments` 的，注释要写到会被打进 XML 的类型上（Controller、公开 DTO、枚举说明），不能只写私有实现细节指望出现在文档里。
-- 缺 Swagger 可见说明的新接口视为未完成，不能只把路由跑通。
+- 缺 Swagger 文档的新接口视为未完成，不能只把路由跑通。
