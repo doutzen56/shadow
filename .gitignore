@@ -7,6 +7,9 @@ rag/traces/
 rag/index.db
 *.db.tmp
 
+# 运行中的任务契约，收口后删除，超过 30 天由 orchestration/tools/prune_runs.py 清理，不进 git
+orchestration/runs/
+
 # Python 运行时自动生成的字节码缓存，跟本机 Python 版本绑定，不进 git
 __pycache__/
 *.py[cod]

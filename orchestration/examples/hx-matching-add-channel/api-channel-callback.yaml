@@ -1,0 +1,17 @@
+# 演练用接口契约：只写治理信息和关键约束，接口正文按渠道文档另行维护。
+schema_version: v1
+contract_type: api
+contract_id: API-CHANNEL-CALLBACK
+version: "1.0.0"
+status: approved
+owner_role: "@@BA"
+consumers:
+  - 渠道供应商
+  - TASK-CH-ADAPTER
+approved_by: "@@TL"
+superseded_by: null
+spec_ref: null
+constraints:
+  - 成功和失败回调都要验签，验签失败不改订单状态
+  - 幂等键是渠道订单号加回调状态，重复回调只记日志不重复推进
+  - 资金动作和订单终态都完成后才回渠道成功

@@ -1,0 +1,46 @@
+schema_version: v1
+contract_type: task
+task_id: TASK-CH-ENV
+title: 测试环境渠道配置
+status: approved
+state: Ready
+task_type: environment
+owner_role: "@@DEVOPS"
+project_id: hx-matching
+goal: 在 dev 环境配好新渠道的商户号、回调地址和 MQ 队列，给出连通证据
+depends_on: []
+contract_refs: []
+risk_tags: [production-config]
+parallel:
+  class: P0
+  rationale: 只动环境配置，不改代码，不依赖其他任务
+  group_id: null
+workspace:
+  mode: session
+  workspace_ref: null
+  allowed_paths: []
+  forbidden_paths: []
+  shared_resources:
+    - env:hx-matching-dev
+acceptance:
+  - id: AC-001
+    description: dev 环境能收到渠道沙箱回调，MQ 队列可读写
+    verification_method: 沙箱回调一次，查回调日志和队列
+    evidence_required: true
+verification:
+  required_checks: [回调连通, MQ 读写]
+  commands: []
+  not_run_reason: 演练样例，还没执行
+state_history:
+  - at: "2026-10-26T05:00:00Z"
+    actor: "@@X"
+    from: Draft
+    to: Planned
+    reason: 从渠道案例拆出
+  - at: "2026-10-26T05:05:00Z"
+    actor: "@@X"
+    from: Planned
+    to: Ready
+    reason: 没有依赖
+created_by: "@@X"
+approved_by: "@@TL"

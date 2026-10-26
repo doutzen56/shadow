@@ -6,6 +6,7 @@
 
 - 本目录里的规则，必须登记到 `config/active-rules.yaml` 才算生效。
 - 新增或删除规则文件后，要同步更新 `config/active-rules.yaml`。
+- 规则里引用的脚本和策略文件（如 `contract-and-parallelism.mdc` 引用的 `orchestration/`）要真实存在；规则改了行为口径，对应工具要同步改并跑测试。
 - 规则冲突时，按 `simpx-core.mdc` 里的优先级处理。
 - `core/` 下的原则只做参考，不能覆盖本目录的规则。
 

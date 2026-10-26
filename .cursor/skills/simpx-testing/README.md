@@ -1,4 +1,4 @@
-﻿# simpx-testing
+# simpx-testing
 
 ## 状态
 
@@ -15,5 +15,5 @@
 
 ## 关联角色与流程
 
-- 角色：`@@DEVOPS`、`@@BE`、`@@TL`
+- 角色：`@@QA`（主用）、`@@BE` / `@@FE`（自验证和断言）、`@@DEVOPS`（环境证据格式）、`@@TL`
 - 流程：`workflows/release`、`workflows/feature-development`

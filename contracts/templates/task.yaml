@@ -1,0 +1,52 @@
+# 标准任务契约模板。复制后改字段，跑 python orchestration/tools/contract_validate.py <文件> 校验。
+# parallel.class 初始一律写 P3，做完依赖分析再改；workspace.mode 现在没有隔离工作区，写 session。
+schema_version: v1
+contract_type: task
+task_id: "TASK-EXAMPLE-001"
+title: "示例任务"
+status: draft
+state: Draft
+task_type: implementation
+owner_role: "@@BE"
+project_id: null
+
+goal: "明确任务要完成的行为"
+non_goals:
+  - "明确不包含的工作"
+
+depends_on: []
+contract_refs: []
+risk_tags: []
+parallel:
+  class: P3
+  rationale: "尚未完成依赖分析"
+  group_id: null
+
+workspace:
+  mode: session
+  workspace_ref: null
+  allowed_paths: []
+  forbidden_paths: []
+  shared_resources: []
+
+inputs: []
+outputs: []
+acceptance:
+  - id: AC-001
+    description: "可客观验证的结果"
+    verification_method: "命令、测试或明确的人工确认"
+    evidence_required: true
+
+verification:
+  required_checks: []
+  commands: []
+  not_run_reason: null
+
+handoff:
+  next_role: null
+  required_evidence: []
+
+state_history: []
+
+created_by: "@@X"
+approved_by: null

@@ -33,13 +33,13 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 - 是会员侧热路径，优先保证正确性和可用性。
 - 不承担站点管理报表和平台级配置。
-- 对应前端主要在 `Web.H5`、`Web.T*`、`Web.Mobile`、`Web.Common`。
+- 对应前端源码不在本仓（见 `README.md` 前端说明）；本仓 `Web.H5`、`Web.T*`、`Web.Mobile`、`Web.Common` 忽略。
 
 ### 站点管理端
 
 路径：`Library/BetWin.Handler.Admin`
 
-前端：`WebSite/Web.Admin`
+前端：源码不在本仓（见 `README.md` 前端说明）；本仓 `WebSite/Web.Admin` 忽略。
 
 职责：
 
@@ -55,7 +55,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 路径：`Library/BetWin.Handler.System`
 
-前端：`WebSite/Web.System`
+前端：源码不在本仓（见 `README.md` 前端说明）；本仓 `WebSite/Web.System` 忽略。
 
 职责：
 
@@ -181,9 +181,9 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 ## 边界治理原则
 
 - 改会员热路径先看 `Handler.Request` 和对应 `BetWin` Agent。
-- 改站点运营先看 `Handler.Admin` 与 `Web.Admin`。
-- 改平台配置先看 `Handler.System` 与 `Web.System`。
+- 改站点运营先看 `Handler.Admin`；前端页面在别的文件夹，不看本仓 `Web.Admin`。
+- 改平台配置先看 `Handler.System`；前端页面在别的文件夹，不看本仓 `Web.System`。
 - 改第三方对接先看对应 `Gateway.*` 和 `Handler.Api` 回调。
 - 改异步、对账、注单先看 `JobSchedule`、`DataAnalysis`、`GameLog`、`MqServer`。
-- 涉及资金、余额、订单状态、回调时，`@@DEVOPS` 必须给出环境验证清单和回滚建议。
+- 涉及资金、余额、订单状态、回调时，`@@QA` 必须给出业务验证清单（含幂等、失败回调、重复回调场景），`@@DEVOPS` 必须给出环境可用证据和回滚建议。
 - 不把业务仓库的真实代码搬进 SimpX，只沉淀边界、方法和经验。

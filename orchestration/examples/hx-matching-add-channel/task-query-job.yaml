@@ -1,0 +1,39 @@
+schema_version: v1
+contract_type: task
+task_id: TASK-CH-QUERY-JOB
+title: 渠道查单补偿任务
+status: review
+state: Planned
+task_type: implementation
+owner_role: "@@BE"
+project_id: hx-matching
+goal: 对处理中和未知状态的订单定时查单并推进状态
+depends_on:
+  - TASK-CH-ADAPTER
+contract_refs:
+  - id: DATA-CHANNEL-STATUS
+    version: "1.0.0"
+    path: data-channel-status.yaml
+risk_tags: [funds, order-state, retry, async]
+parallel:
+  class: P3
+  rationale: 要调用 ADAPTER 新加的查单方法；查单方法由 ADAPTER 负责，本任务不改 Channels
+  group_id: null
+workspace:
+  mode: session
+  workspace_ref: null
+  allowed_paths:
+    - HX.Matching.Quartz.Job/**
+  forbidden_paths: []
+  shared_resources: []
+acceptance:
+  - id: AC-001
+    description: 处理中订单在查单返回成功后推进为已支付，且只推进一次
+    verification_method: 测试环境造处理中订单，跑一次任务后查状态
+    evidence_required: true
+verification:
+  required_checks: [构建, 单元测试]
+  commands: []
+  not_run_reason: 演练样例，还没进入实现
+created_by: "@@X"
+approved_by: null

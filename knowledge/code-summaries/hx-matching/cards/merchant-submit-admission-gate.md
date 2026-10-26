@@ -9,6 +9,7 @@ role_scope:
   - "@@BA"
   - "@@BE"
   - "@@DEVOPS"
+  - "@@QA"
 task_scope:
   - 代码实现
   - 缺陷定位

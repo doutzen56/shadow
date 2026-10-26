@@ -10,6 +10,14 @@
 - `environments.yaml`、`defaults.yaml`：通用环境和默认配置参考。
 - `rag-*.yaml`：RAG 数据模型、导入、摘要、检索、上下文、增长、治理、修复、评估、初始化、迭代、路由和角色矩阵。
 
+## 相关目录分工
+
+- `config/`：规则来源和路由配置，改了就改变 Agent 的行为。
+- `contracts/`：契约说明、Schema 和模板；Schema 是校验工具的规则来源。
+- `orchestration/policies/`：并行和任务状态规则，校验工具直接读。
+- `orchestration/examples/`、任务契约文件：任务的运行状态记录，不是全局规则。
+- `rag/index/`、`rag/traces/`：可重建的索引，不进 git；`rag/init-reports/` 是导入记录。
+
 ## 使用规则
 
 - Agent 开始工作前必须读取 `active-rules.yaml`。

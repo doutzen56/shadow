@@ -1,7 +1,7 @@
 # SimpX 全局配置
 schema_version: v1
 name: SimpX
-stage: 一阶段
+stage: 2.0 迁移中
 language: 中文
 file_naming: 保留通用英文
 content_language: 全部使用中文
@@ -15,29 +15,60 @@ core_modules:
   - 长期知识
   - 通用模板
   - 全局配置
+  - 契约与任务编排（2.0，校验工具已有，执行器未接）
 
 future_modules:
   - 工具连接层
   - 自研工具链
   - 质量评估体系
   - 自动化协作配置
+  - 隔离工作区与并行执行
 
+# 正式成员注册的唯一来源。domain / decision_scope / escalation_to 目前只给人和 Agent 读，
+# 没有脚本解析；tools/rag_index.py 的角色常量要手工同步（见 active-rules.yaml 的 checks）。
 members:
   - id: X-01
     tag: "@@X"
     role: 团队调度者
+    domain: orchestration
+    decision_scope: 任务类型、权限等级、参与角色、任务拆分和依赖、升级时机
+    escalation_to: "@@TL"
   - id: TL-01
     tag: "@@TL"
     role: 技术负责人
+    domain: system_architecture
+    decision_scope: 系统级架构、跨领域取舍、公共契约批准、最终技术放行
+    escalation_to: 用户
   - id: BA-01
     tag: "@@BA"
-    role: 后端架构工程师
+    role: 后端领域架构工程师
+    domain: backend_architecture
+    decision_scope: 后端边界、后端接口契约草案、后端风险分级
+    escalation_to: "@@TL"
+  - id: FE-01
+    tag: "@@FE"
+    role: 高级前端工程师
+    domain: frontend_architecture_and_delivery
+    decision_scope: 前端领域架构、前端实现细节、前端工程质量
+    escalation_to: "@@TL"
   - id: BE-01
     tag: "@@BE"
-    role: 后端实现工程师
+    role: 高级后端工程师
+    domain: backend_implementation
+    decision_scope: 后端实现细节、断言设计、修复策略
+    escalation_to: "@@BA"
+  - id: QA-01
+    tag: "@@QA"
+    role: 质量与测试工程师
+    domain: quality_assurance
+    decision_scope: 测试范围和方法、证据是否充分、质量结论建议
+    escalation_to: "@@TL"
   - id: DEVOPS-01
     tag: "@@DEVOPS"
     role: 环境与交付工程师
+    domain: environment_and_delivery
+    decision_scope: 环境准备、部署和回滚步骤、环境证据、交付阻塞建议
+    escalation_to: "@@TL"
 
 assistants:
   - id: reviewer
@@ -51,13 +82,17 @@ tag_map:
   "@@X": X-01
   "@@TL": TL-01
   "@@BA": BA-01
+  "@@FE": FE-01
   "@@BE": BE-01
+  "@@QA": QA-01
   "@@DEVOPS": DEVOPS-01
 
+# 只是参考顺序，不是每个任务都走全链路；实际链路按 config/rag-x-routing.yaml 的 role_chain 和流程评分裁剪。
 default_collaboration_order:
   - "@@X"
   - "@@TL"
-  - "@@BA"
-  - "@@BE"
+  - "@@BA / @@FE"
+  - "@@BE / @@FE"
   - "@@DEVOPS"
+  - "@@QA"
   - "@@TL"

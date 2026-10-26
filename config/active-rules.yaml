@@ -46,7 +46,7 @@ rule_layers:
   testing:
     source: .cursor/rules/testing.mdc
     status: enabled
-    owner: "@@DEVOPS"
+    owner: "@@QA"
   coding:
     source: .cursor/rules/coding.mdc
     status: enabled
@@ -71,6 +71,10 @@ rule_layers:
     source: .cursor/rules/knowledge-retrieval.mdc
     status: enabled
     owner: "@@X"
+  contract_and_parallelism:
+    source: .cursor/rules/contract-and-parallelism.mdc
+    status: enabled
+    owner: "@@X"
 
 reference_layers:
   core:
@@ -93,11 +97,20 @@ reference_layers:
     path: knowledge/indexes/rag-manifest.yaml
     status: reference
     note: RAG ingestion 的机器可读清单。
+  contracts:
+    path: contracts/
+    status: reference
+    note: 契约说明、Schema 和模板；落文件的契约用 orchestration/tools/contract_validate.py 校验。
+  orchestration:
+    path: orchestration/
+    status: reference
+    note: 并行和任务状态策略、校验工具；执行器和隔离工作区还没接，只能出任务图。
 
 checks:
   - 新增 alwaysApply 规则后，必须登记到 rule_layers。
-  - 修改角色召唤标签或增删角色后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc、agents/、config/rag-x-routing.yaml 和 config/rag-role-matrix.yaml。
+  - 修改角色召唤标签或增删角色后，必须同步 config/simpx.yaml、README.md、.cursor/rules/simpx-core.mdc、agents/<role>/（agent.yaml、system.md、workflows/README.md）、config/rag-x-routing.yaml、config/rag-role-matrix.yaml 和 tools/rag_index.py 的 ALL_ROLES / CODE_ROLES / AGENT_DIR_TO_ROLE，再按 workflows/agent-governance/role-consistency-check.md 出一致性表。
   - 新增或改名 workflows/ 下的工作流后，必须同步 config/rag-x-routing.yaml 的 task_routing。
   - 规划目录不能当作已启用规则引用。
   - RAG 命中不能覆盖 active_rules、当前源码、项目档案和用户当前要求。
   - 当前源码与代码摘要、知识库或项目档案冲突时，以当前源码为准，并记录冲突。
+  - 改契约 Schema、模板或 orchestration/policies/ 后，跑 contract_validate.py 和 orchestration/tests；改 tools/rag_index.py 后跑 tools/tests。

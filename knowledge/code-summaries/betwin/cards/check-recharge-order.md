@@ -9,6 +9,7 @@ role_scope:
   - "@@BA"
   - "@@BE"
   - "@@DEVOPS"
+  - "@@QA"
   - reviewer
 task_scope:
   - 缺陷定位

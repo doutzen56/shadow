@@ -1,5 +1,5 @@
 schema_version: v1
-purpose: @@X RAG Routing。根据需求自动匹配项目、任务类型、风险、工作流、角色链路、知识和代码摘要。
+purpose: "@@X RAG Routing。根据需求自动匹配项目、任务类型、风险、工作流、角色链路、知识和代码摘要。"
 
 inputs:
   - user_message
@@ -88,11 +88,61 @@ risk_tags:
     - mq
     - elasticsearch
 
+# 当前生效的主路由。@@X 按流程评分选一条，再按 domain_substitution 换领域角色。
 role_chain:
   fast: ["@@X", "@@BE", "@@X"]
   readonly_simple: ["@@X", "@@BA", "@@X"]
-  standard: ["@@X", "@@TL", "@@BA", "@@BE", "@@DEVOPS", "@@TL"]
-  high_risk: ["@@X", "@@TL", "@@BA", "@@BE", "reviewer", "@@DEVOPS", "@@TL"]
+  standard: ["@@X", "@@TL", "@@BA", "@@BE", "@@DEVOPS", "@@QA", "@@TL"]
+  high_risk: ["@@X", "@@TL", "@@BA", "@@BE", "reviewer", "@@DEVOPS", "@@QA", "@@TL"]
+
+domain_substitution:
+  backend_only: 按 role_chain 原样走
+  frontend_only: "@@BA 和 @@BE 都换成 @@FE"
+  full_stack: "@@BA 阶段同时进 @@FE 出前端方案；@@BE 阶段同时进 @@FE 做前端实现；跨领域契约交 @@TL 批准"
+  devops_skip: 不需要真实环境、部署或基础组件验证时跳过 @@DEVOPS，在调度状态块写明原因
+  note: 领域按任务实际改动的路径判断，不按需求描述猜；判断不了就问用户。
+
+# 2.0 按阶段 + 参与条件路由。status 为 reference 时只作参考，主路由仍是上面的 role_chain；
+# 演练验证通过后再决定要不要切主路由、删 role_chain。
+role_stages:
+  status: reference
+  stages:
+    - id: intake
+      roles: ["@@X"]
+      when: 所有任务
+    - id: system_design
+      roles: ["@@TL"]
+      when: 跨领域、跨模块、改公共契约或高风险
+    - id: domain_design
+      roles: ["@@BA", "@@FE"]
+      when: 按涉及的领域进对应角色；只读分析只进一个领域角色
+    - id: contract_review
+      roles: ["@@TL", "@@BA", "@@FE", "@@QA"]
+      when: 有接口、数据或共享组件契约要新建或变更；只拉受影响的领域
+    - id: task_planning
+      roles: ["@@X"]
+      when: 要拆成两个以上任务；产出任务图，按 orchestration/policies/parallelism.yaml 判并行类别
+    - id: implementation
+      roles: ["@@BE", "@@FE"]
+      when: 按任务的 owner_role 分派
+    - id: review
+      roles: ["reviewer"]
+      when: 高风险链路
+    - id: integration
+      roles: ["@@X"]
+      when: 两个以上任务合并；冲突回到具体任务的 owner 处理
+    - id: environment
+      roles: ["@@DEVOPS"]
+      when: 需要真实环境、部署或基础组件验证
+    - id: verification
+      roles: ["@@QA"]
+      when: 改了行为的任务；0 分快线只做最小检查
+    - id: release_decision
+      roles: ["@@TL"]
+      when: 标准链路和高风险链路
+    - id: knowledge_sediment
+      roles: ["@@TL"]
+      when: 任务收口后按 knowledge-growth-loop 判断
 
 outputs:
   - task_type
@@ -100,6 +150,7 @@ outputs:
   - project_id
   - workflow
   - role_chain
+  - domains
   - risk_tags
   - retrieval_scopes
   - needs_user_decision

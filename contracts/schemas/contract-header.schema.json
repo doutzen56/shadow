@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "simpx/contracts/contract-header/v1",
+  "title": "SimpX 契约通用头",
+  "description": "接口、数据、执行、验收契约共用的治理字段；正文字段不在这里校验。",
+  "type": "object",
+  "required": ["schema_version", "contract_type", "contract_id", "version", "status", "owner_role", "consumers", "approved_by"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v1"},
+    "contract_type": {"type": "string", "enum": ["api", "data", "execution", "acceptance"]},
+    "contract_id": {"type": "string", "pattern": "^(API|DATA|EXEC|ACC)-[A-Za-z0-9][A-Za-z0-9-]*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"type": "string", "enum": ["draft", "review", "approved", "superseded", "rejected"]},
+    "owner_role": {"type": "string", "pattern": "^(@@[A-Z]+|reviewer|researcher)$"},
+    "consumers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "approved_by": {"type": ["string", "null"]},
+    "superseded_by": {"type": ["string", "null"]},
+    "spec_ref": {"description": "接口正文（如 OpenAPI 文件）的位置", "type": ["string", "null"]}
+  }
+}

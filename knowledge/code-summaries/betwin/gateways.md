@@ -6,8 +6,8 @@
 - summary_group: `gateways`
 - host_or_layer: `external-gateway`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T091023Z-project-betwin`
-- file_count: 524
+- last_ingestion_run: `20261026T051855Z-project-betwin`
+- file_count: 525
 - project_count: 5
 - risk_tags: `callback`, `funds`, `gateway`, `idempotency`, `login`, `mq`, `order-state`, `permission`, `user-data`
 
@@ -85,11 +85,11 @@
 - `Library/GateWay/BetWin.Gateway.Withdraw/CallBackSign/SHA256Standard.cs`：符号 `SHA256Standard, Check`；风险 `callback, funds, gateway, idempotency`
 - `Library/GateWay/BetWin.Gateway.Withdraw/CallBackSign/UrlSHA256S.cs`：符号 `UrlSHA256, Check`；风险 `callback, funds, gateway, idempotency`
 - `Library/GateWay/BetWin.Gateway.Withdraw/Model/CallbackCheckSetting.cs`：符号 `CallbackCheckSetting`；风险 `callback, funds, gateway, idempotency`
-- 还有 474 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 475 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 5 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
+- pruned_directory 5 项、sensitive_file 6 项；明细只写入 `rag/init-reports/20261026T051855Z-project-betwin.json`。
 
 ## 使用约束
 

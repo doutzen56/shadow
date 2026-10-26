@@ -2,7 +2,7 @@
 
 ## 目标
 
-确保角色清单、召唤标签、角色文件和核心规则一致，避免出现“有标签但没有角色定义”的情况。
+确保角色清单、召唤标签、角色文件、路由、知识矩阵、索引脚本和核心规则一致，避免出现“有标签但没有角色定义”或“有角色但检索不到”的情况。
 
 ## 校验范围
 
@@ -13,17 +13,22 @@
 - `.cursor/rules/simpx-core.mdc`
 - `agents/<role>/agent.yaml`
 - `agents/<role>/system.md`
+- `agents/<role>/workflows/README.md`
+- `config/rag-x-routing.yaml`（`role_chain`、`domain_substitution`、`role_stages`）
+- `config/rag-role-matrix.yaml`
+- `tools/rag_index.py` 的 `ALL_ROLES`、`CODE_ROLES`、`AGENT_DIR_TO_ROLE`
 
 角色定义只以 `agents/<role>/agent.yaml` 和 `agents/<role>/system.md` 为准，不再维护 `core/roles/*` 副本。
 
 ## 必须满足
 
 - `config/simpx.yaml` 里的正式成员，在 `agents/` 下必须有目录。
-- 每个正式角色必须有 `agent.yaml` 和 `system.md`。
+- 每个正式角色必须有 `agent.yaml`、`system.md` 和 `workflows/README.md`。
 - 召唤标签必须在 `README.md`、`simpx.yaml`、`simpx-core.mdc` 中一致。
 - `simpx-core.mdc` 的角色加载路径必须真实存在，正式成员和辅助成员（`reviewer`、`researcher`）都要列出。
 - 辅助角色也要说明启用方式和调用边界。
-- `config/rag-x-routing.yaml` 的 `role_chain` 和 `config/rag-role-matrix.yaml` 的 `roles` 里出现的每个角色，都要能在 `simpx-core.mdc` 找到加载路径。
+- `config/rag-x-routing.yaml` 和 `config/rag-role-matrix.yaml` 里出现的每个角色，都要能在 `simpx-core.mdc` 找到加载路径。
+- `tools/rag_index.py` 的 `AGENT_DIR_TO_ROLE` 要覆盖 `agents/` 下每个目录，`ALL_ROLES` 要包含所有正式成员和辅助成员；改完跑 `python tools/rag_index.py bootstrap`，确认新角色的文档被导入。
 
 ## 发现不一致时
 
@@ -31,7 +36,7 @@
 
 1. 先停止新增功能改动。
 2. 列出不一致项。
-3. 判断哪个文件是源头。
+3. 判断哪个文件是源头（成员以 `config/simpx.yaml` 为准，加载路径以 `simpx-core.mdc` 为准）。
 4. 同步其余文件。
 5. 重新读取校验结果。
 
@@ -41,7 +46,8 @@
 - 召唤标签。
 - 是否在 `simpx.yaml`。
 - 是否在 `README.md`。
-- 是否有 `agent.yaml`。
-- 是否有 `system.md`。
+- 是否有 `agent.yaml` / `system.md` / `workflows/README.md`。
 - 是否被 `simpx-core.mdc` 正确引用。
+- 是否在路由和知识矩阵。
+- 是否在 `rag_index.py` 角色常量。
 - 结论：通过 / 阻塞。

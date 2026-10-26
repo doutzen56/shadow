@@ -10,7 +10,7 @@
 - rag_doc_id:
 - title:
 - domain: search / cache / messaging / data-consistency / reliability / rollout
-- owner: @@BA / @@BE / @@DEVOPS
+- owner: @@BA / @@FE / @@BE / @@QA / @@DEVOPS
 - created_at:
 - role_scope:
 - task_scope:

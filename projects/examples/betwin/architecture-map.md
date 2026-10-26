@@ -6,6 +6,8 @@ BetWin 是一个单解决方案多宿主项目。解决方案入口是仓库根�
 
 整体结构可以按运行入口、请求面、业务 Agent、外部网关、后台进程和前端模板来理解。
 
+图里的 `Web.Admin`、`Web.System`、`Web.H5_Web.T_Mobile` 只表示调用关系；前端源码不在本仓，本仓这些目录忽略（见 `README.md` 前端说明）。
+
 ```mermaid
 flowchart TB
   webHandler[Web.Handler]

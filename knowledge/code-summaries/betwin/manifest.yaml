@@ -3,17 +3,17 @@ project_id: betwin
 status: active
 source_profile: projects/examples/betwin/profile.yaml
 solution_file: BetWin5.0.sln
-last_ingestion_run: 20261018T091023Z-project-betwin
-generated_at: 2026-10-18T09:10:23Z
+last_ingestion_run: 20261026T051855Z-project-betwin
+generated_at: 2026-10-26T05:18:55Z
 generator: tools/rag_index.py project
-summarized_files: 1531
+summarized_files: 1537
 summary_groups:
   - group_id: core-agents
     title: 业务 Agent
     host_or_layer: business-agent
     roots:
       - Library/BetWin
-    file_count: 177
+    file_count: 178
     project_count: 1
     skipped: {"pruned_directory": 1, "sensitive_file": 2}
     summary_file: knowledge/code-summaries/betwin/core-agents.md
@@ -23,7 +23,7 @@ summary_groups:
     host_or_layer: domain-model
     roots:
       - Library/BetWin.Common
-    file_count: 428
+    file_count: 430
     project_count: 1
     skipped: {"pruned_directory": 1, "sensitive_file": 2}
     summary_file: knowledge/code-summaries/betwin/common-models.md
@@ -47,7 +47,7 @@ summary_groups:
       - Library/BetWin.Handler.Admin
       - Library/BetWin.Handler.System
       - Library/Handler/BetWin.Handler.Api
-    file_count: 290
+    file_count: 292
     project_count: 5
     skipped: {"pruned_directory": 5, "sensitive_file": 13}
     summary_file: knowledge/code-summaries/betwin/handlers.md
@@ -61,7 +61,7 @@ summary_groups:
       - Library/GateWay/BetWin.Gateway.Withdraw
       - Library/GateWay/BetWin.Gateway.Payment.Special
       - Library/GateWay/BetWin.Gateway.Withdraw.Special
-    file_count: 524
+    file_count: 525
     project_count: 5
     skipped: {"pruned_directory": 5, "sensitive_file": 6}
     summary_file: knowledge/code-summaries/betwin/gateways.md
@@ -88,14 +88,18 @@ forbidden_scope:
   - ".vs"
   - "appsettings*.json"
   - "bin"
+  - "bower_components"
   - "dist"
   - "envs.secrets.example.yaml"
   - "envs.secrets.yaml"
   - "node_modules"
   - "obj"
   - "packages"
+  - "unpackage"
+  - "vendor"
 notes:
-  - 只导入 .cs 和 .csproj；.config、appsettings*.json、密钥和证书文件不读。
+  - 只导入 .cs、.csproj 和前端 .ts/.tsx/.js/.jsx/.vue；.config、appsettings*.json、密钥和证书文件不读。
+  - 前端文件名带内容哈希、.min.js、超过 200KB 的当作打包产物或第三方库跳过，原因写进导入报告。
   - 业务源码没有复制进 SimpX，只记录路径、符号、哈希和风险标签。
   - 每组 Markdown 最多列 50 个定位样例，其余只在 SQLite；没查过 SQLite 不能当作已读取。
   - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。

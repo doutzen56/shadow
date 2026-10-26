@@ -6,7 +6,7 @@
 - summary_group: `caching`
 - host_or_layer: `cache`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T091023Z-project-betwin`
+- last_ingestion_run: `20261026T051855Z-project-betwin`
 - file_count: 51
 - project_count: 1
 - risk_tags: `cache-consistency`, `funds`, `gateway`, `idempotency`, `order-state`, `permission`, `user-data`
@@ -81,7 +81,7 @@ Redis 业务缓存：用户态、资金点位、活动次数、站点配置等�
 
 ## 跳过项
 
-- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261026T051855Z-project-betwin.json`。
 
 ## 使用约束
 

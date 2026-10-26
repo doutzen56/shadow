@@ -24,7 +24,8 @@ key_tech:
   - Elasticsearch
   - Quartz
   - NLog
-  - Vue 前端多模板
+  - Vue 前端多模板（源码不在本仓）
+frontend_source: 前端页面源码在别的文件夹，实际位置待确认；本仓 WebSite/ 下的前端项目一律忽略，不扫描、不作改动依据（用户 2026-10-26）
 knowledge_strategy:
   - 项目档案放在项目样本目录
   - 架构与边界放入架构知识

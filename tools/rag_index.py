@@ -61,13 +61,15 @@ NOW_DT = datetime.now(timezone.utc)
 NOW = NOW_DT.strftime("%Y-%m-%dT%H:%M:%SZ")
 STAMP = NOW_DT.strftime("%Y%m%dT%H%M%SZ")
 
-ALL_ROLES = ["@@X", "@@TL", "@@BA", "@@BE", "@@DEVOPS", "reviewer", "researcher"]
-CODE_ROLES = ["@@BA", "@@BE", "@@DEVOPS", "reviewer"]
+ALL_ROLES = ["@@X", "@@TL", "@@BA", "@@FE", "@@BE", "@@QA", "@@DEVOPS", "reviewer", "researcher"]
+CODE_ROLES = ["@@BA", "@@FE", "@@BE", "@@QA", "@@DEVOPS", "reviewer"]
 AGENT_DIR_TO_ROLE = {
     "orchestrator": "@@X",
     "technical-leader": "@@TL",
     "architect": "@@BA",
+    "frontend": "@@FE",
     "backend": "@@BE",
+    "qa": "@@QA",
     "devops": "@@DEVOPS",
     "reviewer": "reviewer",
     "researcher": "researcher",
@@ -86,6 +88,8 @@ DOC_SOURCES = [
     ("formal_knowledge", "knowledge/incidents", ["**/*.md"]),
     ("formal_knowledge", "knowledge/glossary", ["**/*.md"]),
     ("candidates", "knowledge/candidates", ["*.md"]),
+    ("contracts", "contracts", ["README.md", "templates/*.yaml"]),
+    ("orchestration", "orchestration", ["README.md", "policies/*.yaml", "examples/*/README.md"]),
     ("project_profiles", "projects/examples", [
         "*/README.md",
         "*/profile.yaml",
@@ -104,11 +108,17 @@ KNOWLEDGE_DOC_TYPES = {
     "knowledge/candidates": "candidate",
 }
 
-PRUNED_DIRS = {".git", "bin", "obj", "node_modules", "dist", "packages", ".vs"}
+PRUNED_DIRS = {".git", "bin", "obj", "node_modules", "dist", "packages", ".vs", "vendor", "bower_components", "unpackage"}
 SENSITIVE_NAMES = {"envs.secrets.yaml", "envs.secrets.example.yaml"}
 SENSITIVE_SUFFIXES = {".pfx", ".key", ".pem", ".config"}
 SENSITIVE_PATTERNS = [re.compile(r"^appsettings.*\.json$", re.IGNORECASE)]
-SOURCE_SUFFIXES = {".cs", ".csproj"}
+CSHARP_SUFFIXES = {".cs", ".csproj"}
+FRONTEND_SUFFIXES = {".ts", ".tsx", ".js", ".jsx", ".vue"}
+SOURCE_SUFFIXES = CSHARP_SUFFIXES | FRONTEND_SUFFIXES
+# 前端目录里常混着打包产物和第三方库：文件名带内容哈希、.min.js、单个文件超过这个大小的都不索引，
+# 否则真正的业务代码会被几十万行打包代码淹没。
+MAX_FRONTEND_FILE_BYTES = 200 * 1024
+BUILD_OUTPUT_NAME = re.compile(r"[.-][0-9a-f]{8,}\.(?:js|ts)$", re.IGNORECASE)
 MAX_LISTED_FILES = 50
 MAX_SKIP_SAMPLES = 30
 
@@ -166,6 +176,7 @@ PROJECTS = {
                 "Services/MqServer",
             ], "background-service", ["mq", "elasticsearch", "async", "retry", "funds"],
              "Quartz 调度、数据分析与对账、注单采集、RabbitMQ 消费等后台进程。"),
+            # 前端页面源码不在本仓（见项目档案 README 前端说明），WebSite/ 下的前端目录一律不扫描。
         ],
     },
     "hx-matching": {
@@ -693,25 +704,133 @@ def risk_tags_for(path: str, defaults: list[str]) -> tuple[list[str], int]:
     return sorted(found | set(defaults)), len(found & HIGH_RISK_TAGS)
 
 
-def extract_symbols(text: str) -> list[str]:
-    """提取少量 C# 类型名和方法名，只做定位，不把源码写进知识库。"""
+MAX_SYMBOLS_PER_FILE = 12
+CSHARP_SYMBOL_PATTERNS = [
+    re.compile(r"\b(?:public|internal|private|protected)?\s*(?:static\s+|sealed\s+|abstract\s+)*(?:partial\s+)?(?:class|interface|enum|record|struct)\s+([A-Za-z_][A-Za-z0-9_]*)"),
+    re.compile(r"\b(?:public|internal|private|protected)\s+(?:static\s+|override\s+|virtual\s+)*(?:async\s+)?[A-Za-z0-9_<>,\[\]\.\?]+\s+([A-Za-z_][A-Za-z0-9_]*)\s*\("),
+]
+_JS_NAME = r"([A-Za-z_$][\w$]*)"
+# 先认导出的，再认顶层声明，最后认老式 layui 模块导出和对象字面量里的方法；排在前面的优先占满名额。
+FRONTEND_SYMBOL_PATTERNS = [
+    re.compile(rf"\bexport\s+(?:default\s+)?(?:async\s+)?function\s*\*?\s*{_JS_NAME}"),
+    re.compile(rf"\bexport\s+(?:default\s+)?(?:abstract\s+)?class\s+{_JS_NAME}"),
+    re.compile(rf"\bexport\s+(?:declare\s+)?(?:interface|type|enum)\s+{_JS_NAME}"),
+    re.compile(rf"\bexport\s+(?:const|let|var)\s+{_JS_NAME}"),
+    re.compile(rf"^\s*(?:async\s+)?function\s*\*?\s*{_JS_NAME}\s*\(", re.MULTILINE),
+    re.compile(rf"^\s*class\s+{_JS_NAME}", re.MULTILINE),
+    re.compile(rf"^\s*(?:interface|enum)\s+{_JS_NAME}", re.MULTILINE),
+    re.compile(rf"^\s*(?:const|let|var)\s+{_JS_NAME}\s*=\s*(?:async\s+)?(?:function\b|\([^)]*\)\s*=>|[A-Za-z_$][\w$]*\s*=>)", re.MULTILINE),
+    re.compile(rf"\bexports\(\s*['\"]{_JS_NAME}['\"]"),
+    re.compile(rf"^\s{{0,12}}{_JS_NAME}\s*:\s*(?:async\s+)?function\b", re.MULTILINE),
+]
+VUE_COMPONENT_NAME = re.compile(r"\bname\s*:\s*['\"]([\w-]+)['\"]")
+VUE_SCRIPT_BLOCK = re.compile(r"<script\b[^>]*>(.*?)</script>", re.DOTALL | re.IGNORECASE)
+JS_KEYWORDS = {"if", "for", "while", "switch", "catch", "function", "return", "new", "typeof", "default"}
+
+
+def collect_symbols(text: str, patterns: list[re.Pattern], skip: set[str] | None = None) -> list[str]:
+    """按顺序用一组正则从源码里取名字，去重，最多取 MAX_SYMBOLS_PER_FILE 个。
+
+    Args:
+        text: 源码文本。
+        patterns: 第一个分组是名字的正则列表，排在前面的优先。
+        skip: 不当作符号的词，如 JS 关键字。
+
+    Returns:
+        符号名列表。
+    """
     symbols: list[str] = []
-    patterns = [
-        r"\b(?:public|internal|private|protected)?\s*(?:static\s+|sealed\s+|abstract\s+)*(?:partial\s+)?(?:class|interface|enum|record|struct)\s+([A-Za-z_][A-Za-z0-9_]*)",
-        r"\b(?:public|internal|private|protected)\s+(?:static\s+|override\s+|virtual\s+)*(?:async\s+)?[A-Za-z0-9_<>,\[\]\.\?]+\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(",
-    ]
     for pattern in patterns:
-        for match in re.finditer(pattern, text):
+        for match in pattern.finditer(text):
             name = match.group(1)
-            if name not in symbols:
-                symbols.append(name)
-            if len(symbols) >= 12:
+            if name in symbols or (skip and name in skip):
+                continue
+            symbols.append(name)
+            if len(symbols) >= MAX_SYMBOLS_PER_FILE:
                 return symbols
     return symbols
 
 
+def extract_symbols(text: str) -> list[str]:
+    """提取少量 C# 类型名和方法名，只做定位，不把源码写进知识库。"""
+    return collect_symbols(text, CSHARP_SYMBOL_PATTERNS)
+
+
+def extract_frontend_symbols(text: str, suffix: str) -> list[str]:
+    """提取前端文件里的导出函数、类、类型、组件名和老式模块导出，只做定位，不把源码写进知识库。
+
+    .vue 文件只看 <script> 里的内容，组件名（name: 'Xxx'）排在最前面。
+
+    Args:
+        text: 源码文本。
+        suffix: 小写扩展名，.ts / .tsx / .js / .jsx / .vue。
+
+    Returns:
+        符号名列表。
+    """
+    if suffix == ".vue":
+        script = "\n".join(VUE_SCRIPT_BLOCK.findall(text))
+        component = VUE_COMPONENT_NAME.search(script)
+        names = [component.group(1)] if component else []
+        for name in collect_symbols(script, FRONTEND_SYMBOL_PATTERNS, JS_KEYWORDS):
+            if name not in names and len(names) < MAX_SYMBOLS_PER_FILE:
+                names.append(name)
+        return names
+    return collect_symbols(text, FRONTEND_SYMBOL_PATTERNS, JS_KEYWORDS)
+
+
+def symbols_for(path: Path, text: str) -> tuple[list[str], str]:
+    """按文件类型选符号提取方式；.csproj 这类工程文件不提取符号。
+
+    Args:
+        path: 源码文件路径。
+        text: 源码文本。
+
+    Returns:
+        (符号名列表, 写进 symbol 表的 symbol_kind)。
+    """
+    suffix = path.suffix.lower()
+    if suffix == ".cs":
+        return extract_symbols(text), "csharp-symbol"
+    if suffix in FRONTEND_SUFFIXES:
+        kind = {".vue": "vue-symbol", ".ts": "ts-symbol", ".tsx": "ts-symbol"}.get(suffix, "js-symbol")
+        return extract_frontend_symbols(text, suffix), kind
+    return [], "none"
+
+
+def frontend_skip_reason(path: Path) -> str | None:
+    """判断一个前端文件是不是打包产物或第三方大文件，是的话返回跳过原因。
+
+    Args:
+        path: 前端源码文件路径。
+
+    Returns:
+        跳过原因；要索引时返回 None。
+    """
+    name = path.name.lower()
+    if name.endswith(".min.js"):
+        return "minified_file"
+    if BUILD_OUTPUT_NAME.search(name):
+        return "build_output"
+    try:
+        if path.stat().st_size > MAX_FRONTEND_FILE_BYTES:
+            return "oversize_frontend_file"
+    except OSError:
+        return "unreadable_file"
+    return None
+
+
 def scan_root(repo_root: Path, root: str, skipped: dict) -> list[Path]:
-    """遍历一个扫描根目录，跳过构建产物目录和敏感文件，只返回 .cs 和 .csproj。"""
+    """遍历一个扫描根目录，跳过构建产物目录、敏感文件和前端打包产物，返回 C# 和前端源码文件。
+
+    Args:
+        repo_root: 业务仓根目录。
+        root: 相对业务仓根目录的扫描根。
+        skipped: 跳过原因到路径列表的字典，会被就地追加。
+
+    Returns:
+        排好序的源码文件路径。
+    """
     base = repo_root / root
     if not base.exists():
         skipped.setdefault("missing_root", []).append(root)
@@ -724,9 +843,16 @@ def scan_root(repo_root: Path, root: str, skipped: dict) -> list[Path]:
                 skipped.setdefault("pruned_directory", []).append(rel(Path(current) / name, repo_root))
         for name in files:
             path = Path(current) / name
+            suffix = path.suffix.lower()
             if is_sensitive(name):
                 skipped.setdefault("sensitive_file", []).append(rel(path, repo_root))
-            elif path.suffix.lower() in SOURCE_SUFFIXES:
+            elif suffix in FRONTEND_SUFFIXES:
+                reason = frontend_skip_reason(path)
+                if reason:
+                    skipped.setdefault(reason, []).append(rel(path, repo_root))
+                else:
+                    found.append(path)
+            elif suffix in SOURCE_SUFFIXES:
                 found.append(path)
     return sorted(found)
 
@@ -830,15 +956,15 @@ def run_project(project_id: str, repo_arg: str, quiet: bool = False) -> None:
                     text = read_text(path)
                     file_hash = digest(text)
                     tags, score = risk_tags_for(relative, defaults)
-                    symbols = extract_symbols(text) if path.suffix.lower() == ".cs" else []
+                    symbols, symbol_kind = symbols_for(path, text)
                     source_id = insert_source(conn, project_id, relative, "code_file", group_id, file_hash)
                     summary = f"{title}；层次 {host}；符号 {', '.join(symbols[:6]) or '无'}"
                     insert_chunk(conn, source_id, project_id, "code_summary", relative, summary, relative, CODE_ROLES, tags)
                     for symbol in symbols:
                         conn.execute(
-                            "insert or replace into symbol values (?, ?, ?, ?, ?, 'csharp-symbol', ?, ?, 'active')",
+                            "insert or replace into symbol values (?, ?, ?, ?, ?, ?, ?, ?, 'active')",
                             (digest(f"{relative}:{symbol}:{file_hash}")[:32], project_id, source_id, relative,
-                             symbol, digest(symbol)[:16], file_hash),
+                             symbol, symbol_kind, digest(symbol)[:16], file_hash),
                         )
                     items.append({"path": relative, "symbols": symbols, "risk_tags": tags, "score": score})
                     imported.append((relative, file_hash))
@@ -919,7 +1045,8 @@ def run_project(project_id: str, repo_arg: str, quiet: bool = False) -> None:
         manifest_lines.extend(f"  - \"{item}\"" for item in forbidden_scope)
         manifest_lines.extend([
             "notes:",
-            "  - 只导入 .cs 和 .csproj；.config、appsettings*.json、密钥和证书文件不读。",
+            "  - 只导入 .cs、.csproj 和前端 .ts/.tsx/.js/.jsx/.vue；.config、appsettings*.json、密钥和证书文件不读。",
+            f"  - 前端文件名带内容哈希、.min.js、超过 {MAX_FRONTEND_FILE_BYTES // 1024}KB 的当作打包产物或第三方库跳过，原因写进导入报告。",
             "  - 业务源码没有复制进 SimpX，只记录路径、符号、哈希和风险标签。",
             "  - 每组 Markdown 最多列 50 个定位样例，其余只在 SQLite；没查过 SQLite 不能当作已读取。",
             "  - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。",

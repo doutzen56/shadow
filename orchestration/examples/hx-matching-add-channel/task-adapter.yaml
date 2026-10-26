@@ -1,0 +1,61 @@
+schema_version: v1
+contract_type: task
+task_id: TASK-CH-ADAPTER
+title: 渠道下单与回调适配
+status: approved
+state: Ready
+task_type: implementation
+owner_role: "@@BE"
+project_id: hx-matching
+goal: 实现下单请求与响应解析、回调验签、幂等和状态推进
+non_goals:
+  - 不做查单补偿任务
+depends_on: []
+contract_refs:
+  - id: API-CHANNEL-CALLBACK
+    version: "1.0.0"
+    path: api-channel-callback.yaml
+  - id: DATA-CHANNEL-STATUS
+    version: "1.0.0"
+    path: data-channel-status.yaml
+risk_tags: [funds, callback, idempotency, order-state]
+parallel:
+  class: P1
+  rationale: 按已批准的回调契约和状态映射契约实现，不等 MODEL 的代码
+  group_id: G1
+workspace:
+  mode: session
+  workspace_ref: null
+  allowed_paths:
+    - HX.Matching.Channels/**
+  forbidden_paths: []
+  shared_resources: []
+acceptance:
+  - id: AC-001
+    description: 伪造签名的成功和失败回调都不改订单状态
+    verification_method: 单元测试加测试环境回调
+    evidence_required: true
+  - id: AC-002
+    description: 同一回调重复推送只推进一次状态
+    verification_method: 测试环境重复回调，查订单状态和资金流水
+    evidence_required: true
+verification:
+  required_checks: [构建, 单元测试]
+  commands: []
+  not_run_reason: 演练样例，还没进入实现
+handoff:
+  next_role: "@@QA"
+  required_evidence: [变更文件清单, 单元测试输出]
+state_history:
+  - at: "2026-10-26T05:00:00Z"
+    actor: "@@X"
+    from: Draft
+    to: Planned
+    reason: 从渠道案例拆出
+  - at: "2026-10-26T05:05:00Z"
+    actor: "@@X"
+    from: Planned
+    to: Ready
+    reason: 两份契约已批准，没有硬依赖
+created_by: "@@X"
+approved_by: "@@TL"

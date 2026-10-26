@@ -6,8 +6,8 @@
 - summary_group: `core-agents`
 - host_or_layer: `business-agent`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T091023Z-project-betwin`
-- file_count: 177
+- last_ingestion_run: `20261026T051855Z-project-betwin`
+- file_count: 178
 - project_count: 1
 - risk_tags: `cache-consistency`, `callback`, `elasticsearch`, `funds`, `gateway`, `order-state`, `permission`, `user-data`
 
@@ -77,11 +77,11 @@
 - `Library/BetWin/Jobs/CleanUp/AdminLogClearJob.cs`：符号 `AdminLogClearJob`；风险 `cache-consistency, funds, gateway, order-state, permission`
 - `Library/BetWin/Jobs/Rebate/RebateOrderV2SyncJob.cs`：符号 `RebateOrderV2SyncJob, ExecuteJobAsync`；风险 `cache-consistency, funds, gateway, order-state`
 - `Library/BetWin/Jobs/ReportStatistics/UpdateUserMoneyJob.cs`：符号 `UpdateUserMoneyJob, ExecuteJobAsync`；风险 `cache-consistency, funds, gateway, order-state, user-data`
-- 还有 127 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 128 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261026T051855Z-project-betwin.json`。
 
 ## 使用约束
 

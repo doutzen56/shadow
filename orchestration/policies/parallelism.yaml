@@ -1,0 +1,49 @@
+# 并行判断规则。orchestration/tools/task_graph_validate.py 读这份文件；改字段名要同步脚本。
+schema_version: v1
+# 将来接入真实执行器时的并行上限；现在没有执行器，只用来出任务图。
+default_max_parallel_tasks: 3
+
+classes:
+  P0:
+    name: independent
+    rule: "无未满足依赖、无公共契约变更、无共享资源冲突"
+    allow_parallel: true
+    allow_unsatisfied_dependencies: false
+    require_contract_refs: false
+  P1:
+    name: contract_decoupled
+    rule: "依赖已批准契约，不依赖对方具体实现"
+    allow_parallel: true
+    allow_unsatisfied_dependencies: false
+    require_contract_refs: true
+  P2:
+    name: partially_parallel
+    rule: "拆分出独立子任务后并行；依赖部分等待前置产物"
+    allow_parallel: true
+    allow_unsatisfied_dependencies: true
+    require_contract_refs: false
+    require_split: true
+  P3:
+    name: serial_dependency
+    rule: "存在未解除硬依赖或无法隔离的共享资源冲突"
+    allow_parallel: false
+    allow_unsatisfied_dependencies: true
+    require_contract_refs: false
+
+conflicts:
+  # 可能同时推进的两个任务，允许修改路径重叠时直接报错；要么指定唯一 owner，要么加依赖改成先后。
+  same_file: block
+  # 可能同时推进的两个任务，shared_resources 有同名资源时直接报错。
+  shared_environment: serialize
+  public_contract:
+    require_approval: true
+  database_migration:
+    require_explicit_order: true
+
+safety:
+  # 进入 Ready 及以后状态的实现类任务，必须写允许修改路径。
+  require_allowed_paths: true
+  require_verification_evidence: true
+  never_treat_agent_claim_as_acceptance: true
+  # 真正并行执行时才需要；现在没有执行器，工具不检查这一项。
+  require_isolated_workspace: true

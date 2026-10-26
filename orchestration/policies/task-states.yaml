@@ -1,0 +1,65 @@
+# 任务执行状态和合法跳转。contract_validate.py 和 task_graph_validate.py 读这份文件；
+# 状态名要和 contracts/schemas/task-contract.schema.json 的 state 枚举一致，工具启动时会核对。
+schema_version: v1
+
+states:
+  - Draft
+  - Planned
+  - ContractReady
+  - Ready
+  - Running
+  - Implemented
+  - Integrated
+  - Verified
+  - Accepted
+  - Blocked
+  - Failed
+  - Cancelled
+
+# 进入这些状态前，任务契约要 approved、引用的契约要 approved、依赖要满足。
+ready_or_later:
+  - Ready
+  - Running
+  - Implemented
+  - Integrated
+  - Verified
+  - Accepted
+
+# 依赖任务到了这些状态，才算依赖满足。
+dependency_satisfied:
+  - Implemented
+  - Integrated
+  - Verified
+  - Accepted
+
+# 到了这些状态，verification.commands 不能为空（手工步骤写成“手工：……”），not_run_reason 要是 null。
+requires_verification_record:
+  - Verified
+  - Accepted
+
+# 进入这些状态的那条 state_history 要带 evidence_refs；处在这些状态的任务必须有 state_history。
+evidence_required_on_enter:
+  - Implemented
+  - Integrated
+  - Verified
+  - Accepted
+
+# 已经结束的状态，不再参与并行冲突检查。
+finished:
+  - Accepted
+  - Cancelled
+
+# 每个状态能跳到哪些状态。Implemented 不能直接跳到 Verified 或 Accepted，要先 Integrated。
+transitions:
+  Draft: [Planned, Cancelled]
+  Planned: [ContractReady, Ready, Blocked, Cancelled]
+  ContractReady: [Ready, Blocked, Cancelled]
+  Ready: [Running, Blocked, Cancelled]
+  Running: [Implemented, Blocked, Failed, Cancelled]
+  Implemented: [Integrated, Running, Blocked, Failed]
+  Integrated: [Verified, Running, Blocked, Failed]
+  Verified: [Accepted, Running, Blocked]
+  Accepted: []
+  Blocked: [Planned, ContractReady, Ready, Running, Cancelled]
+  Failed: [Running, Cancelled]
+  Cancelled: []

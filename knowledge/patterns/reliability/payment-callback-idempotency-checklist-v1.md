@@ -21,6 +21,7 @@ role_scope:
   - "@@BA"
   - "@@BE"
   - "@@DEVOPS"
+  - "@@QA"
   - reviewer
 task_scope:
   - 方案设计

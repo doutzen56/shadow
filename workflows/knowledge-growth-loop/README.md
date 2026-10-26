@@ -14,12 +14,12 @@
 
 ## 标准步骤
 
-1. 任务结束时，`@@X` 汇总沉淀线索（复用结果、失败教训、新模式、反例）。
-2. `@@TL` 按 `knowledge/candidates/README.md` 的“使用时机”判断：不沉淀、写 raw、写 candidate，还是直接入正式知识。不沉淀时写明原因。
+1. 任务结束时，`@@X` 汇总沉淀线索（复用结果、失败教训、新模式、反例）。有任务目录（`orchestration/runs/`）时，线索来自收口摘要：目标、结果、证据位置、学到了什么，三到五行；可复用的拆法写成模式卡并附任务图骨架。
+2. `@@TL` 按 `knowledge/candidates/README.md` 的“使用时机”判断：不沉淀、写 raw、写 candidate，还是直接入正式知识。这次出现过值得沉淀的线索、但决定不沉淀时，一句话写原因；没有线索就不提沉淀。
 3. 判断要写时直接写 SimpX，不再询问用户；写 candidate 先走 `workflows/knowledge-candidate-intake/README.md`。
 4. 直接入正式知识时，必须满足 `config/rag-growth.yaml` 的 `promotion_requirements`，并标 `confirmed_by: "@@TL"`、`user_reviewed: false`。
 5. 每周由 `agent-governance` 汇总候选和 `@@TL` 已入库条目。
-6. `@@BA` / `@@BE` / `@@DEVOPS` 按职责补齐抽象、证据和验证提示。
+6. `@@BA` / `@@FE` / `@@BE` / `@@QA` / `@@DEVOPS` 按职责补齐抽象、证据和验证提示。
 7. 用户周审：保留、修正、合并、驳回或归档；复核后改 `user_reviewed: true`。
 8. 入库、修正或归档后触发 `knowledge-index-maintenance`。
 

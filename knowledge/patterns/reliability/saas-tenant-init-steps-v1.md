@@ -21,6 +21,7 @@ role_scope:
   - "@@BA"
   - "@@BE"
   - "@@DEVOPS"
+  - "@@QA"
 task_scope:
   - 方案设计
   - 发布交付

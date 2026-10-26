@@ -10,6 +10,7 @@ role_scope:
   - "@@BE"
   - reviewer
   - "@@DEVOPS"
+  - "@@QA"
 task_scope:
   - 缺陷定位
   - 事故处理

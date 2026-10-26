@@ -1,32 +1,32 @@
 schema_version: v1
 purpose: RAG ingestion 的机器可读清单。索引维护、自动修复和评估都以本文件登记的来源为准。
-manifest_version: 0.4.0
+manifest_version: 0.5.0
 status: active
 path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务仓用 solution_file 标识，运行时按 workspace-hosting.mdc 和 .sln 定位。
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261019T161633Z
-  run_id: 20261019T161633Z-baseline
-  manifest_hash: 39c6e30836adcb11568f87205ddb4a06d73f133f1ae2468125a267efed22eadf
+  version: rag-baseline-20261026T052704Z
+  run_id: 20261026T052704Z-baseline
+  manifest_hash: 4a67e5923613b77ac78247fab676c68a1c8bee3fd862f752b4863a98cb1a2a9c
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
-  doc_sources: 136
-  knowledge_items: 15
+  doc_sources: 152
+  knowledge_items: 16
   sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
   chunk_strategy: markdown-heading-yaml-top-key-code-summary
-  routing_table_version: rag-x-routing-v2
-  role_matrix_version: rag-role-matrix-v1
-  note: 2026-10-20 为落盘 Host 定租户 ADR/档案后重建文档层；向量召回仍不可用。
+  routing_table_version: rag-x-routing-v3
+  role_matrix_version: rag-role-matrix-v2
+  note: 2026-10-26 SimpX 2.0 迁移：新增 @@FE / @@QA 角色文档、@@TL 工作流说明、契约和编排文档、contract-and-parallelism 规则，共新增 14 个来源（138 → 152）；向量召回仍不可用。
 
 latest_run:
-  run_id: 20261019T161633Z-baseline
+  run_id: 20261026T052704Z-baseline
   run_type: bootstrap
   project_id: null
-  manifest_hash: 39c6e30836adcb11568f87205ddb4a06d73f133f1ae2468125a267efed22eadf
-  prior_project_import: 20261018T093230Z-project-hx-matching
+  manifest_hash: 4a67e5923613b77ac78247fab676c68a1c8bee3fd862f752b4863a98cb1a2a9c
+  prior_project_import: 20261026T051855Z-project-betwin
 
 artifact_policy:
   mode: rebuildable_index
@@ -81,6 +81,12 @@ sources:
     path: knowledge/candidates
     include: ["*.md"]
     retrieve_default: false
+  contracts:
+    path: contracts
+    include: ["README.md", "templates/*.yaml"]
+  orchestration:
+    path: orchestration
+    include: ["README.md", "policies/*.yaml", "examples/*/README.md"]
   project_profiles:
     path: projects/examples
     include:
@@ -108,7 +114,15 @@ excluded:
   - path: rag
     reason: 运行时产物和初始化报告，不作为知识来源。
   - path: tools
-    reason: 导入脚本，不作为知识来源。
+    reason: 导入脚本和它的测试，不作为知识来源。
+  - path: contracts/schemas
+    reason: 机器校验用的 JSON Schema，按 contract_validate.py 确定性读取。
+  - path: orchestration/tools
+    reason: 校验脚本，不作为知识来源。
+  - path: orchestration/tests
+    reason: 校验脚本的测试，不作为知识来源。
+  - glob: "orchestration/examples/*/*.yaml"
+    reason: 演练用契约文件，只登记演练说明 README。
   - path: projects/profiles
     reason: 项目风格说明，按 profile.yaml 确定性读取。
   - glob: "**/envs.secrets.yaml"
@@ -139,8 +153,10 @@ seed_projects:
     summary_manifest: knowledge/code-summaries/betwin/manifest.yaml
     solution_file: BetWin5.0.sln
     profile_docs: 5
-    summarized_files: 1531
+    summarized_files: 1537
     summary_groups: 6
     deep_cards: 6
-    last_ingestion_run: 20261018T091023Z-project-betwin
-    manifest_hash: 7996b9f67daeb521786b27afe538aa37d6e74b0e0b8f3ba3f96b80a9fbaf47fd
+    stale_cards: 5
+    last_ingestion_run: 20261026T051855Z-project-betwin
+    manifest_hash: 44bc545882d8ea15b8b1a13058114aed9c4f08a98a7bcf7d9c1d62365affb21b
+    note_2026_10_26: "前端页面源码不在本仓（用户 2026-10-26），WebSite/ 下的前端项目一律不扫描；5 张深挖卡因 10-18 之后业务仓提交变成 stale，要按 knowledge-index-maintenance 回读源码更新卡片。"

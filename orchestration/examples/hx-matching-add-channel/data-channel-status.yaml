@@ -1,0 +1,17 @@
+# 演练用数据契约：渠道状态到平台订单状态的映射。
+schema_version: v1
+contract_type: data
+contract_id: DATA-CHANNEL-STATUS
+version: "1.0.0"
+status: approved
+owner_role: "@@BA"
+consumers:
+  - TASK-CH-MODEL
+  - TASK-CH-ADAPTER
+approved_by: "@@TL"
+superseded_by: null
+spec_ref: null
+mapping:
+  - 渠道成功对应平台已支付
+  - 渠道失败对应平台支付失败
+  - 渠道处理中和未知状态都对应平台处理中，交查单任务补偿

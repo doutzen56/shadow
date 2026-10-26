@@ -1,0 +1,42 @@
+schema_version: v1
+contract_type: task
+task_id: TASK-CH-VERIFY
+title: 新渠道场景验证
+status: draft
+state: Planned
+task_type: verification
+owner_role: "@@QA"
+project_id: hx-matching
+goal: 按验收条件和渠道测试重点做断言比对和场景验证
+depends_on:
+  - TASK-CH-MODEL
+  - TASK-CH-ADAPTER
+  - TASK-CH-QUERY-JOB
+  - TASK-CH-ENV
+contract_refs:
+  - id: API-CHANNEL-CALLBACK
+    version: "1.0.0"
+    path: api-channel-callback.yaml
+risk_tags: [funds, callback, idempotency, order-state]
+parallel:
+  class: P3
+  rationale: 要等全部实现和环境都好了才能验
+  group_id: null
+workspace:
+  mode: session
+  workspace_ref: null
+  allowed_paths: []
+  forbidden_paths: []
+  shared_resources:
+    - env:hx-matching-dev
+acceptance:
+  - id: AC-001
+    description: 金额精度、重复订单号、超时、处理中、未知状态、重复回调、乱序回调、伪造签名、启停 9 类场景都有期望值和实际值
+    verification_method: 测试环境逐个场景执行，记录接口返回、订单状态和资金流水
+    evidence_required: true
+verification:
+  required_checks: [场景验证, 断言比对]
+  commands: []
+  not_run_reason: 演练样例，还没执行
+created_by: "@@X"
+approved_by: null

@@ -26,9 +26,11 @@ BetWin 是一个多站点游戏平台，覆盖会员与代理前台、站点管�
 | 宿主 | 职责 | 关键特点 |
 | --- | --- | --- |
 | Web.Handler | 站点 HTTP 入口 | ASP.NET Handler 宿主，加载各 Handler 程序集 |
-| Web.Admin | 站点管理端前端 | 运营后台页面，走 Handler.Admin |
-| Web.System | 平台系统端前端 | 多站点配置与平台治理，走 Handler.System |
-| Web.H5 / Web.T* / Web.Mobile / Web.Common | 会员与代理前台 | 多套模板与 H5，走 Handler.Request |
+| Web.Admin | 站点管理端前端 | 运营后台页面，走 Handler.Admin；本仓目录忽略，见下方前端说明 |
+| Web.System | 平台系统端前端 | 多站点配置与平台治理，走 Handler.System；本仓目录忽略，见下方前端说明 |
+| Web.H5 / Web.T* / Web.Mobile / Web.Common | 会员与代理前台 | 多套模板与 H5，走 Handler.Request；本仓目录忽略，见下方前端说明 |
+
+前端说明（用户 2026-10-26）：前端页面源码在别的文件夹，实际位置待确认。本仓 `WebSite/` 下的所有前端项目一律忽略：不扫描、不建代码摘要、不当改动和分析依据。`WebSite/Web.Handler`（ASP.NET 宿主）和 `WebSite/Web.Sites`（静态资源和证书）不是前端项目，照旧。
 | JobSchedule | 后台任务调度 | Topshelf + Quartz，定时作业宿主 |
 | DataAnalysis | 数据分析与对账 | 注单同步、报表、返水、风控等后台动作 |
 | GameLog | 注单采集 | 游戏日志拉取与写入 |
@@ -58,7 +60,7 @@ BetWin 是一个多站点游戏平台，覆盖会员与代理前台、站点管�
 - 搜索：Elasticsearch，注单存在 `gamelogv2` 等索引演进
 - 任务调度：Quartz，由 JobSchedule 宿主加载
 - 日志：NLog
-- 前端：Vue / 多套站点模板（Web.T1–T8、Web.H5、Web.Mobile）
+- 前端：Vue / 多套站点模板；源码不在本仓，见上方前端说明
 
 ## 工作约束
 

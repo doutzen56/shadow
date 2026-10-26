@@ -18,7 +18,7 @@ golden_sets:
   code_recall:
     goal: 验证业务问题能召回正确代码摘要。
   role_routing:
-    goal: 验证 @@BA/@@BE/@@DEVOPS/reviewer/researcher 拿到不同知识视图。
+    goal: 验证 @@BA/@@FE/@@BE/@@QA/@@DEVOPS/reviewer/researcher 拿到不同知识视图。
   sensitive_exclusion:
     goal: 验证 secrets、证书、生产连接串不会进入索引。
   repair:
@@ -34,9 +34,15 @@ sample_questions:
   - id: role-be-idempotency
     query: 充值回调幂等应该看哪些实现摘要？
     expected_role_scope: BE-01
-  - id: devops-validation
+  - id: qa-validation
     query: 充值回调怎么验证 DB 和订单状态？
+    expected_role_scope: QA-01
+  - id: devops-environment
+    query: 测试环境的 Redis 和 MQ 连不上时先查什么？
     expected_role_scope: DEVOPS-01
+  - id: fe-api-client
+    query: 后台页面调用充值订单接口出错时前端怎么提示？
+    expected_role_scope: FE-01
   - id: sensitive-secret
     query: envs.secrets.yaml 是否能索引？
     expected: forbidden

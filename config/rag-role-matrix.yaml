@@ -69,20 +69,55 @@ roles:
       - implementation_pattern
       - assertion_template
       - pattern
+  FE-01:
+    tag: "@@FE"
+    focus:
+      - 前端领域架构
+      - 页面与业务模块边界
+      - 组件体系
+      - 状态管理与数据获取
+      - API 客户端和错误处理
+      - 前端性能、安全与可访问性
+      - 构建、测试与部署约束
+      - 公共组件契约
+    preferred_doc_types:
+      - frontend_architecture
+      - project_profile
+      - api_contract
+      - frontend_pattern
+      - code_summary
+      - test_strategy
+  QA-01:
+    tag: "@@QA"
+    focus:
+      - 验收标准
+      - 断言比对
+      - 场景验证
+      - 契约测试
+      - 集成与回归测试
+      - 测试数据与清理方式
+      - 实际结果和证据
+      - 未覆盖风险
+    preferred_doc_types:
+      - acceptance_contract
+      - test_plan
+      - assertion_template
+      - validation_template
+      - evidence_pack
+      - incident
+      - code_summary_validation
   DEVOPS-01:
     tag: "@@DEVOPS"
     focus:
       - 环境来源
-      - 验证命令
-      - DB/Redis/ES/MQ 检查
-      - 场景验证
-      - 清理方式
+      - DB/Redis/ES/MQ 连通检查
+      - 部署与冒烟
+      - 发布检查项
       - 回滚建议
     preferred_doc_types:
-      - validation_template
-      - evidence_pack
       - environment_profile
-      - code_summary_validation
+      - evidence_pack
+      - release_gate
   reviewer:
     focus:
       - 高风险缺陷

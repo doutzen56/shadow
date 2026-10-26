@@ -6,8 +6,8 @@
 - summary_group: `common-models`
 - host_or_layer: `domain-model`
 - solution_file: `BetWin5.0.sln`
-- last_ingestion_run: `20261018T091023Z-project-betwin`
-- file_count: 428
+- last_ingestion_run: `20261026T051855Z-project-betwin`
+- file_count: 430
 - project_count: 1
 - risk_tags: `cache-consistency`, `callback`, `database-schema`, `elasticsearch`, `funds`, `gateway`, `login`, `mq`, `order-state`, `permission`, `user-data`
 
@@ -77,11 +77,11 @@
 - `Library/BetWin.Common/Users/part/UserFund-part.cs`：符号 `UserFund`；风险 `database-schema, elasticsearch, funds, user-data`
 - `Library/BetWin.Common/Users/part/UserMoney-part.cs`：符号 `UserMoney, FillHashEntry, ToHashEntry`；风险 `database-schema, elasticsearch, funds, user-data`
 - `Library/BetWin.Common/Users/part/UserToken-enum.cs`：符号 `User, TokenType`；风险 `database-schema, elasticsearch, login, user-data`
-- 还有 378 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
+- 还有 380 个文件只写入 SQLite 控制面；本会话没用 `tools/rag_index.py search` 或 SQL 查过时，不能当作已读取。
 
 ## 跳过项
 
-- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261018T091023Z-project-betwin.json`。
+- pruned_directory 1 项、sensitive_file 2 项；明细只写入 `rag/init-reports/20261026T051855Z-project-betwin.json`。
 
 ## 使用约束
 

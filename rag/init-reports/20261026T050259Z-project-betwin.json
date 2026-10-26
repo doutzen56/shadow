@@ -1,0 +1,496 @@
+{
+  "run_id": "20261026T050259Z-project-betwin",
+  "run_type": "project_import",
+  "project_id": "betwin",
+  "solution_file": "BetWin5.0.sln",
+  "generated_at": "2026-10-26T05:02:59Z",
+  "generator": "tools/rag_index.py project",
+  "manifest_hash": "ff45e71b4982def3e6bf49aa73429763d199d621a56c243aa4c6d6566bed5039",
+  "manifest_hash_meaning": "本次导入的全部业务文件（路径 + 内容哈希）拼起来的哈希；源码不变，哈希就不变。",
+  "summarized_files": 2235,
+  "sqlite": "rag/index/projects/betwin.db",
+  "sqlite_size_kb": 4712,
+  "counts_before": {
+    "source": 1544,
+    "chunk": 1585,
+    "symbol": 7283
+  },
+  "counts_after": {
+    "source": 2251,
+    "chunk": 2292,
+    "symbol": 8169
+  },
+  "groups": [
+    {
+      "group_id": "core-agents",
+      "title": "业务 Agent",
+      "file_count": 178,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "elasticsearch",
+        "funds",
+        "gateway",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/core-agents.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin/app.config",
+          "Library/BetWin/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "common-models",
+      "title": "公共模型",
+      "file_count": 430,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "database-schema",
+        "elasticsearch",
+        "funds",
+        "gateway",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/common-models.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Common/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Common/app.config",
+          "Library/BetWin.Common/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "caching",
+      "title": "业务缓存",
+      "file_count": 51,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "funds",
+        "gateway",
+        "idempotency",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/caching.md",
+      "skip_counts": {
+        "pruned_directory": 1,
+        "sensitive_file": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Caching/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Caching/app.config",
+          "Library/BetWin.Caching/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "handlers",
+      "title": "请求 Handler",
+      "file_count": 292,
+      "project_count": 5,
+      "risk_tags": [
+        "cache-consistency",
+        "callback",
+        "funds",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/handlers.md",
+      "skip_counts": {
+        "pruned_directory": 5,
+        "sensitive_file": 13
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/BetWin.Handler/obj",
+          "Library/BetWin.Handler.Request/obj",
+          "Library/BetWin.Handler.Admin/obj",
+          "Library/BetWin.Handler.System/obj",
+          "Library/Handler/BetWin.Handler.Api/obj"
+        ],
+        "sensitive_file": [
+          "Library/BetWin.Handler/packages.config",
+          "Library/BetWin.Handler.Request/packages.config",
+          "Library/BetWin.Handler.Request/Resources/web.config",
+          "Library/BetWin.Handler.Admin/app.config",
+          "Library/BetWin.Handler.Admin/packages.config",
+          "Library/BetWin.Handler.System/app.config",
+          "Library/BetWin.Handler.System/packages.config",
+          "Library/BetWin.Handler.System/Resources/web.config",
+          "Library/Handler/BetWin.Handler.Api/app.config",
+          "Library/Handler/BetWin.Handler.Api/packages.config",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/cdn_hhweb_top.key",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/_avia2018_com.key",
+          "Library/Handler/BetWin.Handler.Api/Resources/cert/_sys_avia01_com.key"
+        ]
+      }
+    },
+    {
+      "group_id": "gateways",
+      "title": "第三方网关",
+      "file_count": 525,
+      "project_count": 5,
+      "risk_tags": [
+        "callback",
+        "funds",
+        "gateway",
+        "idempotency",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/gateways.md",
+      "skip_counts": {
+        "pruned_directory": 5,
+        "sensitive_file": 6
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Library/GateWay/BetWin.Gateway.Game/obj",
+          "Library/GateWay/BetWin.Gateway.Payment/obj",
+          "Library/GateWay/BetWin.Gateway.Withdraw/obj",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/obj",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/obj"
+        ],
+        "sensitive_file": [
+          "Library/GateWay/BetWin.Gateway.Game/app.config",
+          "Library/GateWay/BetWin.Gateway.Game/packages.config",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/app.config",
+          "Library/GateWay/BetWin.Gateway.Payment.Special/packages.config",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/app.config",
+          "Library/GateWay/BetWin.Gateway.Withdraw.Special/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "background-services",
+      "title": "后台服务",
+      "file_count": 61,
+      "project_count": 4,
+      "risk_tags": [
+        "async",
+        "cache-consistency",
+        "callback",
+        "elasticsearch",
+        "funds",
+        "mq",
+        "order-state",
+        "retry",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/background-services.md",
+      "skip_counts": {
+        "pruned_directory": 6,
+        "sensitive_file": 12
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "Services/JobSchedule/bin",
+          "Services/JobSchedule/obj",
+          "Services/DataAnalysis/obj",
+          "Services/GameLog/obj",
+          "Services/MqServer/bin",
+          "Services/MqServer/obj"
+        ],
+        "sensitive_file": [
+          "Services/JobSchedule/App.config",
+          "Services/JobSchedule/NLog.config",
+          "Services/JobSchedule/packages.config",
+          "Services/DataAnalysis/App.config",
+          "Services/DataAnalysis/NLog.config",
+          "Services/DataAnalysis/packages.config",
+          "Services/GameLog/App.config",
+          "Services/GameLog/NLog.config",
+          "Services/GameLog/packages.config",
+          "Services/MqServer/App.config",
+          "Services/MqServer/appsettings.json",
+          "Services/MqServer/packages.config"
+        ]
+      }
+    },
+    {
+      "group_id": "admin-frontend",
+      "title": "站点管理端前端",
+      "file_count": 19,
+      "project_count": 0,
+      "risk_tags": [
+        "funds",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/admin-frontend.md",
+      "skip_counts": {
+        "sensitive_file": 1,
+        "oversize_frontend_file": 1
+      },
+      "skip_samples": {
+        "sensitive_file": [
+          "WebSite/Web.Admin/packages.config"
+        ],
+        "oversize_frontend_file": [
+          "WebSite/Web.Admin/src/lib/extend/echarts.js"
+        ]
+      }
+    },
+    {
+      "group_id": "system-frontend",
+      "title": "平台系统端前端",
+      "file_count": 12,
+      "project_count": 0,
+      "risk_tags": [
+        "permission",
+        "production-config",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/system-frontend.md",
+      "skip_counts": {
+        "sensitive_file": 4,
+        "oversize_frontend_file": 1
+      },
+      "skip_samples": {
+        "sensitive_file": [
+          "WebSite/Web.System/packages.config",
+          "WebSite/Web.System/Web - 副本.config",
+          "WebSite/Web.System/Web.config",
+          "WebSite/Web.System/shell/_avia2018_com.key"
+        ],
+        "oversize_frontend_file": [
+          "WebSite/Web.System/src/lib/extend/echarts.js"
+        ]
+      }
+    },
+    {
+      "group_id": "member-frontends",
+      "title": "会员与代理前台模板",
+      "file_count": 667,
+      "project_count": 0,
+      "risk_tags": [
+        "callback",
+        "elasticsearch",
+        "funds",
+        "login",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/betwin/member-frontends.md",
+      "skip_counts": {
+        "sensitive_file": 26,
+        "oversize_frontend_file": 18,
+        "minified_file": 10,
+        "build_output": 1554,
+        "pruned_directory": 1
+      },
+      "skip_samples": {
+        "sensitive_file": [
+          "WebSite/Web.Common/packages.config",
+          "WebSite/Web.Common/web.config",
+          "WebSite/Web.Mobile/packages.config",
+          "WebSite/Web.Mobile/Web.config",
+          "WebSite/Web.Mobile/Common/web.config",
+          "WebSite/Web.Mobile/M1/web.config",
+          "WebSite/Web.Mobile/M2/packages.config",
+          "WebSite/Web.PC/packages.config",
+          "WebSite/Web.PC/Web.config",
+          "WebSite/Web.T1/packages.config",
+          "WebSite/Web.T1/Web.config",
+          "WebSite/Web.T2/packages.config",
+          "WebSite/Web.T2/Web.config",
+          "WebSite/Web.T3/packages.config",
+          "WebSite/Web.T3/Web.config",
+          "WebSite/Web.T4/packages.config",
+          "WebSite/Web.T4/Web.config",
+          "WebSite/Web.T5/packages.config",
+          "WebSite/Web.T5/Web.config",
+          "WebSite/Web.T6/packages.config",
+          "WebSite/Web.T6/Web.config",
+          "WebSite/Web.T7/packages.config",
+          "WebSite/Web.T7/Web.config",
+          "WebSite/Web.T8/packages.config",
+          "WebSite/Web.T8/Web.config",
+          "WebSite/Web.T55/web.config"
+        ],
+        "oversize_frontend_file": [
+          "WebSite/Web.Common/agent/src/lib/extend/echarts.js",
+          "WebSite/Web.Common/mobile/m1/mui/js/mui.js",
+          "WebSite/Web.Common/mobile/m1/static/mui/js/mui.js",
+          "WebSite/Web.Common/mobile/m2/static/js/vendor.js",
+          "WebSite/Web.Common/mobile/m2.test/static/js/vendor.js",
+          "WebSite/Web.Common/mobile/m2_raybet/static/js/vendor.js",
+          "WebSite/Web.Common/mobile/m2_test/static/js/vendor.js",
+          "WebSite/Web.Common/user/src/lib/extend/echarts.js",
+          "WebSite/Web.Mobile/M1/static/mui/js/mui.js",
+          "WebSite/Web.PC/src/lib/extend/echarts.js",
+          "WebSite/Web.T1/src/lib/extend/echarts.js",
+          "WebSite/Web.T2/src/lib/extend/echarts.js",
+          "WebSite/Web.T3/src/lib/extend/echarts.js",
+          "WebSite/Web.T4/src/lib/extend/echarts.js",
+          "WebSite/Web.T5/src/lib/extend/echarts.js",
+          "WebSite/Web.T6/src/lib/extend/echarts.js",
+          "WebSite/Web.T7/src/lib/extend/echarts.js",
+          "WebSite/Web.T8/src/lib/extend/echarts.js"
+        ],
+        "minified_file": [
+          "WebSite/Web.Common/mobile/m1/mui/js/mui.min.js",
+          "WebSite/Web.Common/mobile/m1/static/mui/js/mui.min.js",
+          "WebSite/Web.Common/mobile/m1/static/mui/js/mui.picker.min.js",
+          "WebSite/Web.Common/mobile/m2/static/libs/zepto.min.js",
+          "WebSite/Web.Common/mobile/m2.test/static/libs/zepto.min.js",
+          "WebSite/Web.Common/mobile/m2_raybet/static/libs/zepto.min.js",
+          "WebSite/Web.Common/mobile/m2_test/static/libs/zepto.min.js",
+          "WebSite/Web.Mobile/M1/static/mui/js/mui.min.js",
+          "WebSite/Web.Mobile/M1/static/mui/js/mui.picker.min.js",
+          "WebSite/Web.T2/js/circleChart.min.js"
+        ],
+        "build_output": [
+          "WebSite/Web.Common/mobile/m1001/static/js/chunk-vendors.0820002d.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/chunk-vendors.6425b0e4.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/chunk-vendors.9ff9aecd.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/index.0085d0a4.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/index.a634ee1f.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/index.ad2ba4e5.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/index.ddcf952c.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-event.18b708b5.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-event.aecebf74.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery-record.28f061d6.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery-record.9da40a63.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery-record.dd3a8e32.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery.75e8caf9.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery.b6b70586.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-event-lottery.f888bea5.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-forgot-pwd-forgot.511e580c.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-forgot-pwd-forgot.885f6adb.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-forgot-pwd-forgot.f08e5536.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist.42ee3d17.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist.997e5bd8.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist.a515f467.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist~pages-games-games~pages-games-slot-game~pages-main-main.1268a69d.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist~pages-games-games~pages-games-slot-game~pages-main-main.1878461e.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-gamelist~pages-games-games~pages-games-slot-game~pages-main-main.5455228a.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-games.20f3e651.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-games.25bf5ff6.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-games.90e208d0.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-slot-game.311a5938.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-slot-game.afb913a8.js",
+          "WebSite/Web.Common/mobile/m1001/static/js/pages-games-slot-game.d24aad5d.js"
+        ],
+        "pruned_directory": [
+          "WebSite/Web.Mobile/djzj/unpackage"
+        ]
+      }
+    }
+  ],
+  "cards": [
+    {
+      "card": "knowledge/code-summaries/betwin/cards/admin-token-site-binding.md",
+      "file_path": "Library/BetWin/Agent/Sites/AdminAgent.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/api-cert-down.md",
+      "file_path": "Library/Handler/BetWin.Handler.Api/server/cert.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/check-recharge-order.md",
+      "file_path": "Library/BetWin/Agent/User/UserAgent-Money.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/money-agent-addmoneylog.md",
+      "file_path": "Library/BetWin/Agent/Users/MoneyAgent.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/result-interface-api-auth.md",
+      "file_path": "Library/BetWin.Handler/HandlerBase/ResultInterface.cs",
+      "status": "active"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/withdraw-fail-order.md",
+      "file_path": "Library/BetWin/Agent/Users/WithdrawOrderAgent.cs",
+      "status": "stale"
+    }
+  ],
+  "stale_cards": [
+    {
+      "card": "knowledge/code-summaries/betwin/cards/admin-token-site-binding.md",
+      "file_path": "Library/BetWin/Agent/Sites/AdminAgent.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/api-cert-down.md",
+      "file_path": "Library/Handler/BetWin.Handler.Api/server/cert.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/check-recharge-order.md",
+      "file_path": "Library/BetWin/Agent/User/UserAgent-Money.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/money-agent-addmoneylog.md",
+      "file_path": "Library/BetWin/Agent/Users/MoneyAgent.cs",
+      "status": "stale"
+    },
+    {
+      "card": "knowledge/code-summaries/betwin/cards/withdraw-fail-order.md",
+      "file_path": "Library/BetWin/Agent/Users/WithdrawOrderAgent.cs",
+      "status": "stale"
+    }
+  ],
+  "forbidden_scope": [
+    ".config",
+    ".git",
+    ".key",
+    ".pem",
+    ".pfx",
+    ".vs",
+    "appsettings*.json",
+    "bin",
+    "bower_components",
+    "dist",
+    "envs.secrets.example.yaml",
+    "envs.secrets.yaml",
+    "node_modules",
+    "obj",
+    "packages",
+    "unpackage",
+    "vendor"
+  ],
+  "global_manifest_updated": false,
+  "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 latest_run 和 seed_projects.betwin。"
+}

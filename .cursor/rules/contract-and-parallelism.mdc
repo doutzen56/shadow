@@ -1,0 +1,18 @@
+---
+description: 契约、任务依赖、并行边界与状态门槛
+alwaysApply: true
+---
+
+# 契约与并行规则
+
+- 只有一个任务时，在交接块写 `task_id`、允许修改路径和验收条件即可；拆成两个以上任务、有跨领域或公共契约、要跨会话追踪时，按 `contracts/templates/task.yaml` 落文件到 `orchestration/runs/<日期-简称>/`，并跑 `orchestration/tools/` 的校验。
+- 全部任务到 `Accepted` 或 `Cancelled` 后：`@@X` 写收口摘要交 `@@TL` 按 `knowledge-growth-loop` 判断沉淀，长期有效的契约提升进项目档案或 ADR，然后删除这个任务目录。
+- 没做依赖分析，不能说任务可以并行。并行类别只能是 P0/P1/P2/P3 之一，要写判断依据；初始一律 P3。
+- 依赖对方实现的任务，不能只凭口头约定开工；优先用已批准的契约解耦。
+- 公共 API、数据模型、共享组件和跨模块协议的变更，要走契约变更：记版本、列消费者、写重新验证范围；不能静默改已批准的契约。
+- 并行任务要写允许修改路径；改动超出范围要停下并升级。
+- Git worktree 只隔离文件，不能代替契约兼容检查。
+- 没有真实独立执行环境和任务标识，只能说“按角色分阶段处理”，不能说“已并行执行”。
+- Agent 自己说完成不等于任务通过；状态变化要符合 `orchestration/policies/task-states.yaml` 的跳转并附证据。
+- `Implemented`、`Integrated`、`Verified`、`Accepted` 是不同状态，不能合并成一个“完成”。
+- 契约或任务图校验没过，不能进入执行阶段。
