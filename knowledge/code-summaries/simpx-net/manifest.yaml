@@ -1,0 +1,123 @@
+schema_version: v1
+project_id: simpx-net
+status: active
+source_profile: projects/examples/simpx-net/profile.yaml
+solution_file: SimpX.Net/SimpX.Net.sln
+last_ingestion_run: 20261028T041009Z-project-simpx-net
+generated_at: 2026-10-28T04:10:09Z
+generator: tools/rag_index.py project
+summarized_files: 532
+summary_groups:
+  - group_id: platform-hosts
+    title: 总后台与租户后台宿主
+    host_or_layer: web-host
+    roots:
+      - SimpX.Net/SimpX.Net.Host.SuperAdmin
+      - SimpX.Net/SimpX.Net.Host.Admin
+      - SimpX.Net/SimpX.Net.Application.SuperAdmin
+      - SimpX.Net/SimpX.Net.Application.Admin
+    file_count: 221
+    project_count: 4
+    skipped: {"pruned_directory": 8, "sensitive_file": 6}
+    summary_file: knowledge/code-summaries/simpx-net/platform-hosts.md
+    risk_tags: ["cache-consistency", "elasticsearch", "login", "order-state", "permission", "user-data"]
+  - group_id: api-worker-hosts
+    title: 会员 API 与内部宿主
+    host_or_layer: web-host
+    roots:
+      - SimpX.Net/SimpX.Net.Host.WebApi
+      - SimpX.Net/SimpX.Net.Host.Schedule
+      - SimpX.Net/SimpX.Net.Host.Channels
+      - SimpX.Net/SimpX.Net.Application.WebApi
+      - SimpX.Net/SimpX.Net.Application.Schedule
+      - SimpX.Net/SimpX.Net.Application.Channels
+    file_count: 41
+    project_count: 6
+    skipped: {"pruned_directory": 12, "sensitive_file": 3}
+    summary_file: knowledge/code-summaries/simpx-net/api-worker-hosts.md
+    risk_tags: ["async", "callback", "funds", "gateway", "login", "order-state", "permission", "user-data"]
+  - group_id: hosting-pipeline
+    title: 宿主装配与管道
+    host_or_layer: infrastructure
+    roots:
+      - SimpX.Net/SimpX.Net.Hosting
+    file_count: 11
+    project_count: 1
+    skipped: {"pruned_directory": 2}
+    summary_file: knowledge/code-summaries/simpx-net/hosting-pipeline.md
+    risk_tags: ["login", "permission"]
+  - group_id: data-tenant
+    title: 数据访问与定租
+    host_or_layer: data-access
+    roots:
+      - SimpX.Net/SimpX.Net.Data
+    file_count: 39
+    project_count: 1
+    skipped: {"pruned_directory": 2}
+    summary_file: knowledge/code-summaries/simpx-net/data-tenant.md
+    risk_tags: ["cache-consistency", "database-schema", "user-data"]
+  - group_id: features
+    title: 可点选 Feature
+    host_or_layer: infrastructure
+    roots:
+      - SimpX.Net/SimpX.Net.Feature.Auth
+      - SimpX.Net/SimpX.Net.Feature.Captcha
+      - SimpX.Net/SimpX.Net.Feature.Storage
+      - SimpX.Net/SimpX.Net.Feature.Sms
+      - SimpX.Net/SimpX.Net.Feature.Email
+      - SimpX.Net/SimpX.Net.Feature.Logging
+      - SimpX.Net/SimpX.Net.Feature.EventBus
+      - SimpX.Net/SimpX.Net.Feature.ExternalLogin
+      - SimpX.Net/SimpX.Net.Feature.Translation
+    file_count: 69
+    project_count: 9
+    skipped: {"pruned_directory": 18}
+    summary_file: knowledge/code-summaries/simpx-net/features.md
+    risk_tags: ["cache-consistency", "login", "mq", "permission", "user-data"]
+  - group_id: core-contracts-cache
+    title: 内核、契约与缓存
+    host_or_layer: infrastructure
+    roots:
+      - SimpX.Net/SimpX.Net.Core
+      - SimpX.Net/SimpX.Net.Contracts.Jobs
+      - SimpX.Net/SimpX.Net.Caching
+      - SimpX.Net/SimpX.Net.ElasticSearch
+    file_count: 146
+    project_count: 4
+    skipped: {"pruned_directory": 8}
+    summary_file: knowledge/code-summaries/simpx-net/core-contracts-cache.md
+    risk_tags: ["cache-consistency", "elasticsearch", "idempotency", "login", "mq", "order-state", "permission", "user-data"]
+  - group_id: tests
+    title: 测试项目
+    host_or_layer: test
+    roots:
+      - SimpX.Net/SimpX.Net.Test
+    file_count: 5
+    project_count: 1
+    skipped: {"pruned_directory": 2}
+    summary_file: knowledge/code-summaries/simpx-net/tests.md
+    risk_tags: ["user-data"]
+forbidden_scope:
+  - ".config"
+  - ".git"
+  - ".key"
+  - ".pem"
+  - ".pfx"
+  - ".vs"
+  - "appsettings*.json"
+  - "bin"
+  - "bower_components"
+  - "dist"
+  - "envs.secrets.example.yaml"
+  - "envs.secrets.yaml"
+  - "node_modules"
+  - "obj"
+  - "packages"
+  - "unpackage"
+  - "vendor"
+notes:
+  - 只导入 .cs、.csproj 和前端 .ts/.tsx/.js/.jsx/.vue；.config、appsettings*.json、密钥和证书文件不读。
+  - 前端文件名带内容哈希、.min.js、超过 200KB 的当作打包产物或第三方库跳过，原因写进导入报告。
+  - 业务源码没有复制进 SimpX，只记录路径、符号、哈希和风险标签。
+  - 每组 Markdown 最多列 50 个定位样例，其余只在 SQLite；没查过 SQLite 不能当作已读取。
+  - 代码摘要只作为定位锚点，涉及行为结论必须回读当前源码。

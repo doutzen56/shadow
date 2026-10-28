@@ -47,3 +47,12 @@
     - INC-2026-10-18-betwin-withdraw-fail-back-to-wait
     - INC-2026-10-18-betwin-api-cert-unauth
   - decisions: []
+- simpx-net:
+  - simpx_path: `projects/examples/simpx-net`
+  - summary_manifest: `knowledge/code-summaries/simpx-net/manifest.yaml`
+  - deep_cards: `knowledge/code-summaries/simpx-net/cards/`
+  - patterns: []
+  - decisions:
+    - knowledge/decisions/2026/ADR-2026-10-27-simpx-net-tenant-db-and-furion-first.md
+    - knowledge/decisions/2026/ADR-2026-10-28-simpx-net-tenant-host-and-superadmin.md
+  - note: 解决方案相对仓库根为 `SimpX.Net/SimpX.Net.sln`；前端在 `Web/`

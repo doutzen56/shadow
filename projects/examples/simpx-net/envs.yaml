@@ -1,0 +1,37 @@
+project_id: simpx-net
+display_name: SimpX.Net
+owner: "@@DEVOPS"
+# 框架本地开发以本机为主；没有单独 uat
+default_envs:
+  - dev
+
+environments:
+  dev:
+    description: 本机开发（Sqlite / Memory 或本机 Redis）
+    notes:
+      - Admin 默认 http://localhost:5005
+      - SuperAdmin 默认 http://localhost:5004
+      - WebApi 默认 http://localhost:5006（与 Admin 共用中心库）
+      - 前端 admin :8888，super-admin :8889
+      - 中心库开发期常用 Sqlite（Host.Admin 目录下 SimpX.Net.db）
+    db:
+      engine: sqlite
+      path: "<host-admin-output>/SimpX.Net.db"
+    redis:
+      host: "127.0.0.1"
+      port: 6379
+      db: 5
+      optional: true
+
+verification:
+  required_components:
+    - db
+  smoke_checks:
+    - superadmin_host_mode
+    - superadmin_login_and_tenant_page
+    - admin_host_bound_tenant_list
+    - admin_reject_superadmin_login
+    - webapi_host_info_resolve_by_host
+    - webapi_multi_host_member_local
+  cleanup:
+    strategy: 测试账号与临时租户按标记清理；不删中心库文件

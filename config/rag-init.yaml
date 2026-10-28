@@ -47,6 +47,7 @@ qdrant:
 seed_projects:
   - hx-matching
   - betwin
+  - simpx-net
 
 outputs:
   manifest: knowledge/indexes/rag-manifest.yaml

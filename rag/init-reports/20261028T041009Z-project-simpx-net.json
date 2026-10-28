@@ -1,0 +1,256 @@
+{
+  "run_id": "20261028T041009Z-project-simpx-net",
+  "run_type": "project_import",
+  "project_id": "simpx-net",
+  "solution_file": "SimpX.Net/SimpX.Net.sln",
+  "generated_at": "2026-10-28T04:10:09Z",
+  "generator": "tools/rag_index.py project",
+  "manifest_hash": "377d52367f94f5dea8aea142fa5566edad58fe67b5d8b005273e3d8cbfd67108",
+  "manifest_hash_meaning": "本次导入的全部业务文件（路径 + 内容哈希）拼起来的哈希；源码不变，哈希就不变。",
+  "summarized_files": 532,
+  "sqlite": "rag/index/projects/simpx-net.db",
+  "sqlite_size_kb": 1132,
+  "counts_before": {},
+  "counts_after": {
+    "source": 540,
+    "chunk": 539,
+    "symbol": 1566
+  },
+  "groups": [
+    {
+      "group_id": "platform-hosts",
+      "title": "总后台与租户后台宿主",
+      "file_count": 221,
+      "project_count": 4,
+      "risk_tags": [
+        "cache-consistency",
+        "elasticsearch",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/platform-hosts.md",
+      "skip_counts": {
+        "pruned_directory": 8,
+        "sensitive_file": 6
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Host.SuperAdmin/bin",
+          "SimpX.Net/SimpX.Net.Host.SuperAdmin/obj",
+          "SimpX.Net/SimpX.Net.Host.Admin/bin",
+          "SimpX.Net/SimpX.Net.Host.Admin/obj",
+          "SimpX.Net/SimpX.Net.Application.SuperAdmin/bin",
+          "SimpX.Net/SimpX.Net.Application.SuperAdmin/obj",
+          "SimpX.Net/SimpX.Net.Application.Admin/bin",
+          "SimpX.Net/SimpX.Net.Application.Admin/obj"
+        ],
+        "sensitive_file": [
+          "SimpX.Net/SimpX.Net.Host.SuperAdmin/appsettings.Development.json",
+          "SimpX.Net/SimpX.Net.Host.SuperAdmin/appsettings.json",
+          "SimpX.Net/SimpX.Net.Host.SuperAdmin/web.config",
+          "SimpX.Net/SimpX.Net.Host.Admin/appsettings.Development.json",
+          "SimpX.Net/SimpX.Net.Host.Admin/appsettings.json",
+          "SimpX.Net/SimpX.Net.Host.Admin/web.config"
+        ]
+      }
+    },
+    {
+      "group_id": "api-worker-hosts",
+      "title": "会员 API 与内部宿主",
+      "file_count": 41,
+      "project_count": 6,
+      "risk_tags": [
+        "async",
+        "callback",
+        "funds",
+        "gateway",
+        "login",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/api-worker-hosts.md",
+      "skip_counts": {
+        "pruned_directory": 12,
+        "sensitive_file": 3
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Host.WebApi/bin",
+          "SimpX.Net/SimpX.Net.Host.WebApi/obj",
+          "SimpX.Net/SimpX.Net.Host.Schedule/bin",
+          "SimpX.Net/SimpX.Net.Host.Schedule/obj",
+          "SimpX.Net/SimpX.Net.Host.Channels/bin",
+          "SimpX.Net/SimpX.Net.Host.Channels/obj",
+          "SimpX.Net/SimpX.Net.Application.WebApi/bin",
+          "SimpX.Net/SimpX.Net.Application.WebApi/obj",
+          "SimpX.Net/SimpX.Net.Application.Schedule/bin",
+          "SimpX.Net/SimpX.Net.Application.Schedule/obj",
+          "SimpX.Net/SimpX.Net.Application.Channels/bin",
+          "SimpX.Net/SimpX.Net.Application.Channels/obj"
+        ],
+        "sensitive_file": [
+          "SimpX.Net/SimpX.Net.Host.WebApi/appsettings.json",
+          "SimpX.Net/SimpX.Net.Host.Schedule/appsettings.json",
+          "SimpX.Net/SimpX.Net.Host.Channels/appsettings.json"
+        ]
+      }
+    },
+    {
+      "group_id": "hosting-pipeline",
+      "title": "宿主装配与管道",
+      "file_count": 11,
+      "project_count": 1,
+      "risk_tags": [
+        "login",
+        "permission"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/hosting-pipeline.md",
+      "skip_counts": {
+        "pruned_directory": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Hosting/bin",
+          "SimpX.Net/SimpX.Net.Hosting/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "data-tenant",
+      "title": "数据访问与定租",
+      "file_count": 39,
+      "project_count": 1,
+      "risk_tags": [
+        "cache-consistency",
+        "database-schema",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/data-tenant.md",
+      "skip_counts": {
+        "pruned_directory": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Data/bin",
+          "SimpX.Net/SimpX.Net.Data/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "features",
+      "title": "可点选 Feature",
+      "file_count": 69,
+      "project_count": 9,
+      "risk_tags": [
+        "cache-consistency",
+        "login",
+        "mq",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/features.md",
+      "skip_counts": {
+        "pruned_directory": 18
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Feature.Auth/bin",
+          "SimpX.Net/SimpX.Net.Feature.Auth/obj",
+          "SimpX.Net/SimpX.Net.Feature.Captcha/bin",
+          "SimpX.Net/SimpX.Net.Feature.Captcha/obj",
+          "SimpX.Net/SimpX.Net.Feature.Storage/bin",
+          "SimpX.Net/SimpX.Net.Feature.Storage/obj",
+          "SimpX.Net/SimpX.Net.Feature.Sms/bin",
+          "SimpX.Net/SimpX.Net.Feature.Sms/obj",
+          "SimpX.Net/SimpX.Net.Feature.Email/bin",
+          "SimpX.Net/SimpX.Net.Feature.Email/obj",
+          "SimpX.Net/SimpX.Net.Feature.Logging/bin",
+          "SimpX.Net/SimpX.Net.Feature.Logging/obj",
+          "SimpX.Net/SimpX.Net.Feature.EventBus/bin",
+          "SimpX.Net/SimpX.Net.Feature.EventBus/obj",
+          "SimpX.Net/SimpX.Net.Feature.ExternalLogin/bin",
+          "SimpX.Net/SimpX.Net.Feature.ExternalLogin/obj",
+          "SimpX.Net/SimpX.Net.Feature.Translation/bin",
+          "SimpX.Net/SimpX.Net.Feature.Translation/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "core-contracts-cache",
+      "title": "内核、契约与缓存",
+      "file_count": 146,
+      "project_count": 4,
+      "risk_tags": [
+        "cache-consistency",
+        "elasticsearch",
+        "idempotency",
+        "login",
+        "mq",
+        "order-state",
+        "permission",
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/core-contracts-cache.md",
+      "skip_counts": {
+        "pruned_directory": 8
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Core/bin",
+          "SimpX.Net/SimpX.Net.Core/obj",
+          "SimpX.Net/SimpX.Net.Contracts.Jobs/bin",
+          "SimpX.Net/SimpX.Net.Contracts.Jobs/obj",
+          "SimpX.Net/SimpX.Net.Caching/bin",
+          "SimpX.Net/SimpX.Net.Caching/obj",
+          "SimpX.Net/SimpX.Net.ElasticSearch/bin",
+          "SimpX.Net/SimpX.Net.ElasticSearch/obj"
+        ]
+      }
+    },
+    {
+      "group_id": "tests",
+      "title": "测试项目",
+      "file_count": 5,
+      "project_count": 1,
+      "risk_tags": [
+        "user-data"
+      ],
+      "summary_file": "knowledge/code-summaries/simpx-net/tests.md",
+      "skip_counts": {
+        "pruned_directory": 2
+      },
+      "skip_samples": {
+        "pruned_directory": [
+          "SimpX.Net/SimpX.Net.Test/bin",
+          "SimpX.Net/SimpX.Net.Test/obj"
+        ]
+      }
+    }
+  ],
+  "cards": [],
+  "stale_cards": [],
+  "forbidden_scope": [
+    ".config",
+    ".git",
+    ".key",
+    ".pem",
+    ".pfx",
+    ".vs",
+    "appsettings*.json",
+    "bin",
+    "bower_components",
+    "dist",
+    "envs.secrets.example.yaml",
+    "envs.secrets.yaml",
+    "node_modules",
+    "obj",
+    "packages",
+    "unpackage",
+    "vendor"
+  ],
+  "global_manifest_updated": false,
+  "next_step": "按 workflows/knowledge-index-maintenance 回填 rag-manifest.yaml 的 latest_run 和 seed_projects.simpx-net。"
+}

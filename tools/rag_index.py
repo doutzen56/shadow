@@ -179,6 +179,60 @@ PROJECTS = {
             # 前端页面源码不在本仓（见项目档案 README 前端说明），WebSite/ 下的前端目录一律不扫描。
         ],
     },
+    "simpx-net": {
+        "display_name": "SimpX.Net",
+        "solution_file": "SimpX.Net/SimpX.Net.sln",
+        "primary_language": "C#/.NET 8/10",
+        "groups": [
+            ("platform-hosts", "总后台与租户后台宿主", [
+                "SimpX.Net/SimpX.Net.Host.SuperAdmin",
+                "SimpX.Net/SimpX.Net.Host.Admin",
+                "SimpX.Net/SimpX.Net.Application.SuperAdmin",
+                "SimpX.Net/SimpX.Net.Application.Admin",
+            ], "web-host", ["permission", "login", "user-data"],
+             "总后台与租户后台入口：域名定租、登录、权限、租户注册与租户内管理。"),
+            ("api-worker-hosts", "会员 API 与内部宿主", [
+                "SimpX.Net/SimpX.Net.Host.WebApi",
+                "SimpX.Net/SimpX.Net.Host.Schedule",
+                "SimpX.Net/SimpX.Net.Host.Channels",
+                "SimpX.Net/SimpX.Net.Application.WebApi",
+                "SimpX.Net/SimpX.Net.Application.Schedule",
+                "SimpX.Net/SimpX.Net.Application.Channels",
+            ], "web-host", ["login", "async", "callback"],
+             "会员 WebApi、调度与渠道宿主，内部调用与对外会员面。"),
+            ("hosting-pipeline", "宿主装配与管道", [
+                "SimpX.Net/SimpX.Net.Hosting",
+            ], "infrastructure", ["login", "permission"],
+             "HostLauncher、能力点选、公共管道与域名定租中间件。"),
+            ("data-tenant", "数据访问与定租", [
+                "SimpX.Net/SimpX.Net.Data",
+            ], "data-access", ["database-schema", "cache-consistency", "user-data"],
+             "SqlSugar、仓储、SysTenant、定租解析与当前租户访问器。"),
+            ("features", "可点选 Feature", [
+                "SimpX.Net/SimpX.Net.Feature.Auth",
+                "SimpX.Net/SimpX.Net.Feature.Captcha",
+                "SimpX.Net/SimpX.Net.Feature.Storage",
+                "SimpX.Net/SimpX.Net.Feature.Sms",
+                "SimpX.Net/SimpX.Net.Feature.Email",
+                "SimpX.Net/SimpX.Net.Feature.Logging",
+                "SimpX.Net/SimpX.Net.Feature.EventBus",
+                "SimpX.Net/SimpX.Net.Feature.ExternalLogin",
+                "SimpX.Net/SimpX.Net.Feature.Translation",
+            ], "infrastructure", ["login", "permission"],
+             "认证、验证码、存储、短信、邮件、日志、事件等可点选能力。"),
+            ("core-contracts-cache", "内核、契约与缓存", [
+                "SimpX.Net/SimpX.Net.Core",
+                "SimpX.Net/SimpX.Net.Contracts.Jobs",
+                "SimpX.Net/SimpX.Net.Caching",
+                "SimpX.Net/SimpX.Net.ElasticSearch",
+            ], "infrastructure", ["cache-consistency", "elasticsearch"],
+             "常量枚举错误码、作业契约、缓存抽象与可选 ES。"),
+            ("tests", "测试项目", [
+                "SimpX.Net/SimpX.Net.Test",
+            ], "test", [],
+             "框架测试入口。"),
+        ],
+    },
     "hx-matching": {
         "display_name": "HX.Matching",
         "solution_file": "HX.Matching.sln",

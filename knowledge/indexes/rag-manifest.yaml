@@ -6,27 +6,28 @@ path_rule: 路径一律相对 SimpX 根或业务仓根，不写盘符；业务�
 
 baseline:
   description: 全局 baseline，只在首次初始化或重建时更新；单项目导入只更新 latest_run 和 seed_projects.<id>。
-  version: rag-baseline-20261026T052704Z
-  run_id: 20261026T052704Z-baseline
-  manifest_hash: 4a67e5923613b77ac78247fab676c68a1c8bee3fd862f752b4863a98cb1a2a9c
+  version: rag-baseline-20261028T040950Z
+  run_id: 20261028T040950Z-baseline
+  manifest_hash: 22eec8541770df57e188851cbea3e70a1066ae702b41b3f4c4ee55048dfb8fd7
   manifest_hash_meaning: 本次导入的全部来源（路径 + 内容哈希）拼起来的哈希，见对应 init-report。
   generator: tools/rag_index.py bootstrap
-  doc_sources: 152
-  knowledge_items: 16
+  doc_sources: 158
+  knowledge_items: 18
   sqlite_schema_version: rag-data-model-v3
   qdrant_collection_version: local-file-collection-v1
   embedding_model: not-configured-local-placeholder
   chunk_strategy: markdown-heading-yaml-top-key-code-summary
   routing_table_version: rag-x-routing-v3
   role_matrix_version: rag-role-matrix-v2
-  note: 2026-10-26 SimpX 2.0 迁移：新增 @@FE / @@QA 角色文档、@@TL 工作流说明、契约和编排文档、contract-and-parallelism 规则，共新增 14 个来源（138 → 152）；向量召回仍不可用。
+  note: 2026-10-28 接入 simpx-net 项目登记（project 表 2→3）；文档来源 152→158；向量召回仍不可用。
 
 latest_run:
-  run_id: 20261026T052704Z-baseline
-  run_type: bootstrap
-  project_id: null
-  manifest_hash: 4a67e5923613b77ac78247fab676c68a1c8bee3fd862f752b4863a98cb1a2a9c
+  run_id: 20261028T041009Z-project-simpx-net
+  run_type: project_import
+  project_id: simpx-net
+  manifest_hash: 377d52367f94f5dea8aea142fa5566edad58fe67b5d8b005273e3d8cbfd67108
   prior_project_import: 20261026T051855Z-project-betwin
+  prior_baseline: 20261028T040950Z-baseline
 
 artifact_policy:
   mode: rebuildable_index
@@ -160,3 +161,15 @@ seed_projects:
     last_ingestion_run: 20261026T051855Z-project-betwin
     manifest_hash: 44bc545882d8ea15b8b1a13058114aed9c4f08a98a7bcf7d9c1d62365affb21b
     note_2026_10_26: "前端页面源码不在本仓（用户 2026-10-26），WebSite/ 下的前端项目一律不扫描；5 张深挖卡因 10-18 之后业务仓提交变成 stale，要按 knowledge-index-maintenance 回读源码更新卡片。"
+  simpx-net:
+    status: active
+    profile: projects/examples/simpx-net/profile.yaml
+    summary_manifest: knowledge/code-summaries/simpx-net/manifest.yaml
+    solution_file: SimpX.Net/SimpX.Net.sln
+    profile_docs: 4
+    summarized_files: 532
+    summary_groups: 7
+    deep_cards: 0
+    last_ingestion_run: 20261028T041009Z-project-simpx-net
+    manifest_hash: 377d52367f94f5dea8aea142fa5566edad58fe67b5d8b005273e3d8cbfd67108
+    note_2026_10_28: "独立项目档案已接入；bootstrap 登记 + project 导入完成。前端在 Web/ 未纳入本次代码摘要分组（仅 .NET 宿主与 Feature）。"

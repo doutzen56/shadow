@@ -4,10 +4,10 @@
 
 | 风格名 | 目录 | 状态 | 使用的项目 |
 | --- | --- | --- | --- |
-| 企业稳定型 | `projects/profiles/enterprise/` | 已启用 | hx-matching、betwin |
-| 遗留系统改造型 | `projects/profiles/legacy-modernization/` | 已启用 | betwin |
+| 企业稳定型 | `projects/profiles/enterprise/` | 已启用 | hx-matching、betwin、simpx-net |
+| 遗留系统改造型 | `projects/profiles/legacy-modernization/` | 已启用 | betwin、simpx-net |
 | 性能优先型 | `projects/profiles/performance-first/` | 已启用 | hx-matching |
-| 业务交付型 | 未建目录 | 缺口 | hx-matching、betwin（次风格） |
+| 业务交付型 | 未建目录 | 缺口 | hx-matching、betwin、simpx-net（次风格） |
 | 创业快速型 | `projects/profiles/startup/` | 规划 | 无 |
 | 人工智能原生型 | `projects/profiles/ai-native/` | 规划 | 无 |
 

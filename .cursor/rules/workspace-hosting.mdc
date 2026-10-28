@@ -18,6 +18,7 @@ alwaysApply: true
 
 - `HX.Matching.sln` → `projects/examples/hx-matching`
 - `BetWin5.0.sln` → `projects/examples/betwin`
+- `SimpX.Net.sln` → `projects/examples/simpx-net`
 - 当前窗口就是 SimpX 根或空窗口：不建档案
 - 未知业务仓：遵循 SimpX 核心规则，不自动建档案
 

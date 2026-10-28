@@ -1,0 +1,39 @@
+project_name: SimpX.Net
+project_type: 多宿主通用权限与多租户框架
+identify_by: 工程名 SimpX.Net.sln（在仓库 SimpX.Net/ 子目录；不看工作区目录名和盘符）
+simpx_path: projects/examples/simpx-net
+stage: 一阶段真实项目样本（框架型）
+primary_style: 企业稳定型
+secondary_style: 业务交付型
+extra_style: 遗留系统改造型
+governance_tag: 演进中的框架拆分
+key_hosts:
+  - 总后台 SuperAdmin
+  - 租户后台 Admin
+  - 会员 WebApi
+  - 调度 Schedule
+  - 渠道 Channels
+key_tech:
+  - .NET 8 / .NET 10
+  - Furion
+  - SqlSugar
+  - Redis / Memory 缓存
+  - Vue3 + Vite（Web monorepo）
+  - SignalR
+  - Elasticsearch（可选审计）
+frontend_source: Web/（pnpm workspace：apps/admin、apps/super-admin、packages/shared）
+knowledge_strategy:
+  - 项目档案放在项目样本目录
+  - 架构与边界放入架构知识
+  - 接口契约和工程约定放入工程知识
+  - 租户定租与宿主边界以 ADR-2026-10-28 为准
+  - 业务仓库原文不整体复制
+pending_work: []
+done_2026_10_28:
+  - Application.Shared 已建；SuperAdmin 不再引用 Application.Admin；实体迁入 Data
+  - Admin 前端已物理移除平台页（租户管理/菜单/平台参数/字典/模板/任务/监控/缓存/区域/注册方案），保留 tenantSelect 与租户参数页
+  - 一租户多域名：TenantHostBinding + Resolver 多匹配；增改租户规范化/冲突校验；Admin 登录页按多域名匹配
+  - Auth 收敛：Login/GetCaptcha/LoginPhone 委托 AuthLoginService；LDAP/短信经接口点选
+  - 两库口径：仅 Admin 初始化中心库；SuperAdmin/WebApi/Schedule/Channels 只连不初始化
+  - WebApi/Admin 定租冒烟；支付与 WebApi 挂租户、不各自起库（ADR-2026-10-28 已补）
+  - 正式提交由人审授权后在本会话执行（Agent 不 push）
