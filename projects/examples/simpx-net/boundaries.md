@@ -28,14 +28,15 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 
 职责：
 
-- 当前租户内的用户、权限、配置与业务后台。
-- 管道按绑定域名定租；匹配失败直接失败。
+- 当前租户内的用户、权限、配置、会员管理与业务后台。
+- 按绑定域名定租；匹配失败直接失败。
 
 边界：
 
 - 超管账号不得在此登录（`Z1006`）。
 - 租户增删改仅允许总后台进程调用；Admin 进程调用应拒绝。
 - 业务服务禁止再按 `Request.Host` 查租户，只读当前租户上下文。
+- 会员管理走 Shared `MemberService`；与 WebApi 共用写库规则，本宿主做后台管理员入口。
 
 ### 会员 WebApi
 
@@ -47,8 +48,9 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 
 边界：
 
-- 租户面向时同样走域名定租能力开关。
+- 按域名定租（与 Admin 相同能力开关）。
 - 不承担总后台租户注册。
+- 会员实体与写库规则在 Data / Shared；本宿主只做注册登录与会员自己改资料的 HTTP 入口。
 
 ### Schedule / Channels
 
@@ -67,7 +69,7 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 
 | 层 | 允许 | 禁止 |
 | --- | --- | --- |
-| Hosting 管道 | Host→TenantId，写入上下文 | 业务规则、账号类型判断堆在业务里重复解析域名 |
+| Hosting 请求处理链 | Host→TenantId，写入上下文 | 业务规则、账号类型判断堆在业务里重复解析域名 |
 | Data | `ITenantHostResolver`、`ICurrentTenantAccessor`、`SysTenant` | 登录/CRUD 流程 |
 | Application.* | 读当前租户 Id / Claim 办事 | 再读 Host 查租户表 |
 

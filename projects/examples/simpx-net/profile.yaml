@@ -29,6 +29,10 @@ knowledge_strategy:
   - 租户定租与宿主边界以 ADR-2026-10-28 为准
   - 业务仓库原文不整体复制
 pending_work: []
+done_2026_10_28_member_domain:
+  - Member 实体迁 Data（按租户隔离）；Shared MemberService；WebApi/Admin 各留 HTTP 入口
+  - Contracts.Jobs 保留（Schedule 跨进程）；删除未使用的 JobStatusEnum 错文案
+  - 注释用词扫修：去掉面向/管道/重放/匿名等黑话
 done_2026_10_28:
   - Application.Shared 已建；SuperAdmin 不再引用 Application.Admin；实体迁入 Data
   - Admin 前端已物理移除平台页（租户管理/菜单/平台参数/字典/模板/任务/监控/缓存/区域/注册方案），保留 tenantSelect 与租户参数页

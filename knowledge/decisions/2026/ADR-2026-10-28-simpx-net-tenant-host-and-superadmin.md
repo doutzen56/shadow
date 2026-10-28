@@ -33,16 +33,18 @@ evidence_refs:
 3. 新建租户的隔离方式跟配置/入参走；独立库时连接串必填。
 4. **库拓扑只有两类**：中心库 + 租户库（`TenantType=Id` 时租户数据仍在中心库用 TenantId 隔离；`TenantType=Db` 时才有独立租户库文件/实例）。不做按宿主、按支付/WebApi 进程再拆库。
 5. **只有 Admin 宿主初始化中心库**（CodeFirst / 种子）。SuperAdmin、WebApi、Schedule、Channels 以及后续支付等进程：只连中心库（及按租户配置切到的租户库），**禁止**对本机再开一份空库或抢初始化。WebApi、支付挂在具体租户下面，定租后读当前租户上下文办事。
-6. Furion-first 拆分原则继续有效（见 ADR-2026-10-27 第 2 节，未废止）。
+6. **跨宿主同一实体**：实体在 Data，写库与业务规则在 Shared 领域服务（无 DynamicApi）；各宿主只保留带身份约束的 HTTP 入口。例：会员 `Member` + `MemberService`；Admin 做后台管理，WebApi 做注册登录与会员自己改资料。
+7. **跨进程运维**（如 Admin→Schedule 作业）：保留 `Contracts.Jobs` 一类内部 HTTP 契约；不要与第 6 条领域服务混成一种模式。Schedule 若并进 Admin 进程，再评估是否删除该契约。
+8. Furion-first 拆分原则继续有效（见 ADR-2026-10-27 第 2 节，未废止）。
 
-### 2. 定租方式（租户面向站点）
+### 2. 定租方式（Admin / WebApi 等按域名定租的站点）
 
 1. **按域名绑定租户**；一租户至少一个域名；`SysTenant.Host` 可存多个域名（逗号分隔）。
 2. 入口：`Request.Host` → 查绑定 → 得到 `TenantId`。
 3. 会话：登录后 JWT 仍带 `TenantId`；过滤、切库认 Claim。
-4. 租户站域名**匹配失败：直接失败**，不静默落到默认租户。
+4. 域名**匹配失败：直接失败**，不静默落到默认租户。
 5. 登录页不靠选手动租户列表定身份（由域名锁定）。
-6. **定租只发生在宿主/基础设施**（管道中间件 + `ITenantHostResolver` / `ICurrentTenantAccessor`）。登录、租户管理等业务**禁止**再按 Host 查租户；只读当前租户上下文或 Claim。
+6. **定租只发生在宿主/基础设施**（请求处理链中间件 + `ITenantHostResolver` / `ICurrentTenantAccessor`）。登录、租户管理等业务**禁止**再按 Host 查租户；只读当前租户上下文或 Claim。
 
 ### 3. 总后台 SuperAdmin（方案 C）
 
@@ -67,5 +69,5 @@ evidence_refs:
 ## 后果
 
 - 废止 ADR-2026-10-27 中与「一律独立库 / 不以 Id 为默认」冲突的数据拓扑表述；该 ADR 的 Furion-first 与「不做按域分库」仍然有效。
-- Admin / WebApi 等租户面向宿主启用 Host→TenantId；SuperAdmin / Worker 不定租户域。
+- Admin / WebApi 等按域名定租的宿主启用 Host→TenantId；SuperAdmin / Schedule / Channels 不定租户域。
 - 默认种子与 `DbConnectionConfig.TenantType` 不得再写死偏向必须 Db。
