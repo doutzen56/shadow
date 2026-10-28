@@ -3,10 +3,12 @@ id: glossary-hx-matching-domain
 title: HX.Matching 领域术语
 lifecycle_status: confirmed
 confirmed_by: "@@TL"
-user_reviewed: false
+user_reviewed: true
+reviewed_at: 2026-10-26
+reviewed_by: user
 projects:
   - hx-matching
-last_verified_at: 2026-10-20
+last_verified_at: 2026-10-26
 ---
 
 # HX.Matching 领域术语
@@ -37,5 +39,10 @@ last_verified_at: 2026-10-20
 | 收银台绑定域 | Purpose=`Cashier` | 仅 `/api/cashier`；不靠 `mc` |
 | 首租户 / Legacy | `MultiTenantRuntime.LegacyTenantCode` | 常为 T0001；Admin V1 默认库世界 |
 | Admin V1 回调 | 打到 Admin.WebApi 的旧回调入口 | 只服务首库；多租户新租户应打 MerchantApi |
+| 用户等级标签 | `HxMerchantUserLabel`；用户 `LabelId` 指向它 | 删标签不迁用户 Id → 孤儿 LabelId |
+| 孤儿 LabelId | 用户仍挂已删等级标签 Id | `MatchSellRule` 直接 NotMatched，代付不进 NXH |
+| NXH / SF | 内循环撮合 / 四方供应商 | 代付阶段 B 二选一；失败回写可能不落平台类型 |
 
 权威状态枚举见业务仓 `OrderStateEnum` 注释。定租户细则见 `flows-multitenant-and-review.md` 与 ADR-2026-10-20。
+
+代付进池与标签孤儿见 `flows-order-and-matching.md` §2.1 与 ADR-2026-10-26。
