@@ -30,8 +30,10 @@
   - decisions:
     - knowledge/decisions/2026/ADR-2026-10-07-hx-matching-encoding-comments.md
     - knowledge/decisions/2026/ADR-2026-10-20-hx-matching-host-tenant-resolve.md
+    - knowledge/decisions/2026/ADR-2026-10-26-hx-matching-withdrawal-enter-pool-gate.md
   - deep_cards_extra:
     - knowledge/code-summaries/hx-matching/cards/host-tenant-resolve.md
+    - knowledge/code-summaries/hx-matching/cards/withdrawal-enter-matching-pool.md
     - knowledge/code-summaries/hx-matching/cards/channel-callback-ack-query.md
     - knowledge/code-summaries/hx-matching/cards/tenant-init-worker.md
     - knowledge/code-summaries/hx-matching/cards/review-owner-boundary.md
