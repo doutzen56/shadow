@@ -14,7 +14,7 @@ key_hosts:
   - 调度 Schedule
   - 渠道 Channels
 key_tech:
-  - .NET 8 / .NET 10
+  - .NET 10
   - Furion
   - SqlSugar
   - Redis / Memory 缓存
@@ -29,6 +29,22 @@ knowledge_strategy:
   - 租户定租与宿主边界以 ADR-2026-10-28 为准
   - 业务仓库原文不整体复制
 pending_work: []
+done_2026_10_29_batch_ops:
+  - Shared 命名空间统一 Application.Shared；AuthLoginService/TenantPlatformService 改为宿主显式注册（Channels 无验证码也能起）
+  - ObsoletePlatformMenuCleaner：旧库清掉已废弃平台管理菜单
+  - docker shared/admin Database.json：仅 Admin InitDb
+  - super-admin：编辑租户 + 授权菜单（AllMenus/MenuList/GrantMenu）
+  - Admin 前端清理已删页对应 api-services
+  - 支付：HttpJson 可配置通道骨架（channelCode=http-json）；mock-http 冒烟通过
+  - TenantHostBinding 行为单测 6 条通过
+done_2026_10_29_http_caller:
+  - Feature.Http：IHttpCaller / HttpCaller（Furion HttpRemote 薄封装）；Hosting AddHttpCaller
+  - 存量：Translation、Region 同步、Schedule HttpJob 已迁；Common 压测保留 HttpClient 例外
+done_2026_10_29_tenant_payment_ops:
+  - 租户运维收拢到 Shared TenantPlatformService + SuperAdmin /api/platform/tenant（含 CreateDb/GrantMenu/SyncGrantMenu/ResetPwd/SetStatus 等）；Admin TenantAppService 只留当前租户辅助
+  - 菜单种子去掉「平台管理」整棵（已删前端页）；系统参数/缓存等仍挂系统管理
+  - 支付：PaymentOrder 进 Data（TenantId）+ Shared PaymentOrderService；Channels 按域名定租（HostCapabilities.Channels）
+  - super-admin 前端补齐新增/启停/建库/重置密码/同步菜单/删除
 done_2026_10_28_member_domain:
   - Member 实体迁 Data（按租户隔离）；Shared MemberService；WebApi/Admin 各留 HTTP 入口
   - Contracts.Jobs 保留（Schedule 跨进程）；删除未使用的 JobStatusEnum 错文案

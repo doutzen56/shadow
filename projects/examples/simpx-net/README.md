@@ -56,12 +56,19 @@ SimpX.Net 是基于 Furion + SqlSugar 的多宿主通用权限与多租户框架
 - 默认租户种子 Host 为 `localhost`；`TenantHostResolver` 把 `127.0.0.1` 与 `localhost` 互相认作同一绑定。空 Host 不能定租。
 - 总后台前端约定只调 `/api/platform/*`（auth / tenant / host）；Admin 进程上租户增删改会 `SA001`。
 - 库只有中心库与租户库两类；开发上 SuperAdmin / WebApi / Schedule / Channels 都指向 Admin 的 Sqlite，并关闭本机 CodeFirst/种子。
-- WebApi、支付挂在具体租户下，定租后办事，不各自起空库。
+- WebApi、支付挂在具体租户下，定租后办事，不各自起空库；Channels 按域名定租，支付表由 Admin 初始化。
+- 租户增删改/建库/授权只走总后台 `/api/platform/tenant`；Admin 进程不再暴露这套运维 API。
 - `SysTenant.Host` 可存多个域名（逗号分隔）；`localhost` 与 `127.0.0.1` 互相认。
 - 业务仓禁止写 Agent 规则目录；禁止 Agent git push / 开 PR。
+
+## HTTP 约定（摘要）
+
+- 内部互调：Declarative API；外部出站：`IHttpCaller`（Feature.Http）。
+- 详见 `boundaries.md`「HTTP 出站约定」。
 
 ## 工作约束
 
 - 只做本地修改，不 git push、不提 PR。
 - 提交前由人审。
 - 知识只写 SimpX，不写业务仓。
+
