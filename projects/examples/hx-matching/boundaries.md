@@ -125,9 +125,12 @@ HX.Matching 是单仓多宿主系统。不同宿主共享核心业务层，但�
 
 原则：只有总后台（平台）能审核撮合单，租户后台不审核。
 
-- 一审、二审、终审、转派、撮合客服配置，都只放在总后台菜单和接口里（V2 路由 `/api/v2/platform/review/...`、`/api/v2/platform/customerService/...`）。
+- 一审、二审、终审、转派：总后台走 hx 路径（与 V1 同 URL/入参），只多「选租户」切库；客服档案与计数在公共库。不再提供 `/api/v2/platform/review/*` HTTP。
+- 总后台 hx 转派/提交的权限码须同时接受 `platform:review:transfer` / `platform:review:first|second|final`（与列表并上 `platform:review:list` 同理）；平台待审自动分人靠公共库任务 `platform-review-assign`（`Job_PlatformReview`，部署种子默认启用）。
+- 与 V1 隔离：V1 `Admin.WebApi` 仍只认 `hx:ordermatching:review:*:transfer|submit`；`Job_OrderReview` 只跑 `ReviewOwner=Tenant`（含 T0001）；`Job_PlatformReview` 只跑 `ReviewOwner=Platform`。共享 ServiceCore 的平台分支靠 `AdminType=Platform` / 多租户开关，不改 V1 默认路径。
+- 撮合客服配置仍可走总后台 `/api/v2/platform/customerService/...`（或兼容旧 hx 客服路径，带头不切租户库）。
 - 租户后台只保留和自己订单有关的查看和处理：撮合超时订单、渠道凭证超时（含取消充值单、取消记录）、撮合补充凭证、撮合审单查询（只看详情和导出，不放「跳转终审」）。
-- 租户侧旧的审核和客服接口暂时保留，但由 `[TenantSelfReviewOnly]` 按租户的 `ReviewOwner` 拦截：新租户默认 `Platform`，调用直接返回 403；只有存量首租户 T0001 还是 `Tenant`，作为过渡期自审。T0001 迁到平台审核后，这批接口可以下线。
+- 租户侧自审写接口由 `[TenantSelfReviewOnly]` 按租户的 `ReviewOwner` 拦截：新租户默认 `Platform`，调用直接返回 403；只有存量首租户 T0001 还是 `Tenant`，作为过渡期自审。T0001 迁到平台审核后，这批接口可以下线。
 - 租户审单查询的详情、AI 识别、历史凭证是只读接口，不走 `ReviewOwner` 拦截，只看审单相关权限。
 - 新增撮合审核相关功能，默认做在总后台；如果要在租户侧加审核动作，先找用户拍板。
 
