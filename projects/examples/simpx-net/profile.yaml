@@ -28,7 +28,20 @@ knowledge_strategy:
   - 接口契约和工程约定放入工程知识
   - 租户定租与宿主边界以 ADR-2026-10-28 为准
   - 业务仓库原文不整体复制
-pending_work: []
+pending_work:
+  - docker compose 尚未纳入 SuperAdmin 宿主与 super-admin 前端；总后台 Job/字典管理页面目前不在 :9100 栈内
+done_2026_10_30_gitlab_deploy_test:
+  - GitLab CI：推送 dev → 标签 simpx-test 的 Runner 执行 docker/deploy-test.sh
+  - Telegram 通知：TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID（CI Variables）
+  - 脚本同步 Web/apps/admin/dist → Web/dist 供 nginx 挂载
+done_2026_10_30_platform_dict_job:
+  - Job 远程管理迁总后台 /api/platform/job/*（Admin 不再转发 Schedule）
+  - 字典管理迁总后台 /api/platform/dictType|dictData；Admin 仅保留内部 Dict* 服务给 Excel/校验
+  - super-admin 前端增加「字典」「作业 Job」页签
+done_2026_10_30_region_purge_p1:
+  - 行政区域整棵删除：实体/API/DTO/配置种子/错误码/前端 models；Admin 启动丢掉 SysRegion 表与同步配置
+  - 孤儿菜单清理扩展：已下线页路径（dict/job/template/server/schedule/userRegWay/swagger/region）+ 平台管理树
+  - Admin tenant-api 只留 list；Shared DI 约定落地 SharedServiceRegistration
 done_2026_10_29_batch_ops:
   - Shared 命名空间统一 Application.Shared；AuthLoginService/TenantPlatformService 改为宿主显式注册（Channels 无验证码也能起）
   - ObsoletePlatformMenuCleaner：旧库清掉已废弃平台管理菜单

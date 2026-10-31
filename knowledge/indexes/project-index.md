@@ -48,7 +48,10 @@
     - INC-2026-10-18-betwin-recharge-callback-swallow
     - INC-2026-10-18-betwin-withdraw-fail-back-to-wait
     - INC-2026-10-18-betwin-api-cert-unauth
-  - decisions: []
+  - decisions:
+    - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-naming.md
+    - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-io-parity.md
+    - knowledge/decisions/2026/ADR-2026-10-31-betwin-admin-ui-ops-parity.md
 - simpx-net:
   - simpx_path: `projects/examples/simpx-net`
   - summary_manifest: `knowledge/code-summaries/simpx-net/manifest.yaml`
@@ -57,4 +60,7 @@
   - decisions:
     - knowledge/decisions/2026/ADR-2026-10-27-simpx-net-tenant-db-and-furion-first.md
     - knowledge/decisions/2026/ADR-2026-10-28-simpx-net-tenant-host-and-superadmin.md
+    - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-naming.md
+    - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-io-parity.md
+    - knowledge/decisions/2026/ADR-2026-10-31-betwin-admin-ui-ops-parity.md
   - note: 解决方案相对仓库根为 `SimpX.Net/SimpX.Net.sln`；前端在 `Web/`

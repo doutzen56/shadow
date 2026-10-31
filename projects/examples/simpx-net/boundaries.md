@@ -20,7 +20,7 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 
 - 不承接单租户日常业务菜单。
 - 代操作某租户时显式传/选 `TenantId`，不靠请求域名认租户。
-- 对外约定：`/api/platform/host`、`/api/platform/auth`、`/api/platform/tenant`（含增删改、建库、授权菜单、重置密码、启停等）；实现在 `Application.Shared`，总后台进程不再加载 `Application.Admin`。
+- 对外约定：`/api/platform/host`、`/api/platform/auth`、`/api/platform/tenant`（含增删改、建库、授权菜单、重置密码、启停等）、`/api/platform/dictType`、`/api/platform/dictData`、`/api/platform/job`（作业远程管理，转 Schedule）；租户注册等实现在 `Application.Shared`，总后台进程不再加载 `Application.Admin`。
 
 ### 租户后台 Admin
 
@@ -37,6 +37,7 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 - 租户增删改仅允许总后台进程调用；Admin 进程调用应拒绝。
 - 业务服务禁止再按 `Request.Host` 查租户，只读当前租户上下文。
 - 会员管理走 Shared `MemberService`；与 WebApi 共用写库规则，本宿主做后台管理员入口。
+- 不提供 Job 远程管理与字典维护 HTTP（已迁总后台）；字典内部服务仍可供 Excel/校验读取。
 
 ### 会员 WebApi
 
@@ -96,9 +97,13 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 ## HTTP 出站约定
 
 - 内部宿主互调：Furion `IHttpDeclarative` + 命名 HttpClient + 内部签名（如 Jobs 契约）。
-- 外部 HTTP（支付通道、翻译、区域同步、调度 HTTP 作业等）：统一 `IHttpCaller`（`SimpX.Net.Feature.Http`，底层 Furion HttpRemote）。
+- 外部 HTTP（支付通道、翻译、调度 HTTP 作业等）：统一 `IHttpCaller`（`SimpX.Net.Feature.Http`，底层 Furion HttpRemote）。
 - 禁止业务里 `new HttpClient()`；禁止新代码散装 `IHttpClientFactory` 直发。
 - 例外：Admin 压测接口可自管 `HttpClient`（高并发），须在代码注释标明例外。
+
+## 已移除能力
+
+- 行政区域（`SysRegion` / `/api/system/region`）：代码与种子已删；Admin 启动会丢掉旧表与 `sys_region_sync_level` 配置，并清理相关菜单。
 
 ## 改动升级条件
 

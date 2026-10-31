@@ -39,7 +39,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 路径：`Library/BetWin.Handler.Admin`
 
-前端：源码不在本仓（见 `README.md` 前端说明）；本仓 `WebSite/Web.Admin` 忽略。
+前端：对照源为独立仓 **Web.Admin**（见 `README.md` 前端说明）；本仓 `WebSite/Web.Admin` 忽略。SimpX.Net `Web/apps/admin` 的操作与功能须对齐 Web.Admin。
 
 职责：
 
@@ -55,7 +55,7 @@ BetWin 是单仓多宿主系统。前台、站点后台、平台系统端、游�
 
 路径：`Library/BetWin.Handler.System`
 
-前端：源码不在本仓（见 `README.md` 前端说明）；本仓 `WebSite/Web.System` 忽略。
+前端：对照源为独立仓 **Web.System**（见 `README.md` 前端说明）；本仓 `WebSite/Web.System` 忽略。SimpX.Net `Web/apps/super-admin` 的操作与功能须对齐 Web.System。
 
 职责：
 

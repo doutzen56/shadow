@@ -25,7 +25,7 @@ key_tech:
   - Quartz
   - NLog
   - Vue 前端多模板（源码不在本仓）
-frontend_source: 前端页面源码在别的文件夹，实际位置待确认；本仓 WebSite/ 下的前端项目一律忽略，不扫描、不作改动依据（用户 2026-10-26）
+frontend_source: 对照源为独立仓 Web.Admin（站点后台）与 Web.System（总后台）；本仓 WebSite/ 下前端项目一律忽略（用户 2026-10-26）。SimpX.Net admin↔Web.Admin、super-admin↔Web.System；界面操作与功能对齐旧版（用户 2026-10-31）
 knowledge_strategy:
   - 项目档案放在项目样本目录
   - 架构与边界放入架构知识

@@ -30,7 +30,10 @@ BetWin 是一个多站点游戏平台，覆盖会员与代理前台、站点管�
 | Web.System | 平台系统端前端 | 多站点配置与平台治理，走 Handler.System；本仓目录忽略，见下方前端说明 |
 | Web.H5 / Web.T* / Web.Mobile / Web.Common | 会员与代理前台 | 多套模板与 H5，走 Handler.Request；本仓目录忽略，见下方前端说明 |
 
-前端说明（用户 2026-10-26）：前端页面源码在别的文件夹，实际位置待确认。本仓 `WebSite/` 下的所有前端项目一律忽略：不扫描、不建代码摘要、不当改动和分析依据。`WebSite/Web.Handler`（ASP.NET 宿主）和 `WebSite/Web.Sites`（静态资源和证书）不是前端项目，照旧。
+前端说明：
+
+- 用户 2026-10-26：前端页面源码在别的文件夹；本仓 `WebSite/` 下的所有前端项目一律忽略：不扫描、不建代码摘要、不当改动和分析依据。`WebSite/Web.Handler`（ASP.NET 宿主）和 `WebSite/Web.Sites`（静态资源和证书）不是前端项目，照旧。
+- 用户 2026-10-31 确认对照源：站点后台看 **Web.Admin**，总后台看 **Web.System**（工作区独立前端仓；不写盘符）。SimpX.Net 的 `Web/apps/admin` ↔ Web.Admin，`Web/apps/super-admin` ↔ Web.System。壳用 Vue+Element，**操作与功能要对齐旧页**（见 `knowledge/decisions/2026/ADR-2026-10-31-betwin-admin-ui-ops-parity.md`）。
 | JobSchedule | 后台任务调度 | Topshelf + Quartz，定时作业宿主 |
 | DataAnalysis | 数据分析与对账 | 注单同步、报表、返水、风控等后台动作 |
 | GameLog | 注单采集 | 游戏日志拉取与写入 |
