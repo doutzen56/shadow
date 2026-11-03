@@ -16,6 +16,7 @@ evidence_refs:
   - 会话 2026-10-31：用户 @@X「类名根据职责来命名，不要 queryservice writeservice」
   - 会话 2026-10-31：用户 @@X「dto也要规范一下按照职责」
   - 会话 2026-10-31：用户 @@X 纠正——业务能力叫 SiteDomain 就应叫 SiteDomainService，不要 XxxAdminService
+  - 会话 2026-11-01：用户 @@X 规范化——禁止 Guard 命名；DTO 按 Payment/Recharge|Withdraw 镜像；类级 NonUnify；见 ADR-2026-11-01-betwin-migrate-layering
 ---
 
 # ADR-2026-10-30：迁移代码命名与实体目录
@@ -37,8 +38,11 @@ evidence_refs:
 4. **旧版实体类名不改**：原来叫什么还叫什么（`User`、`Site`、`SiteAdmin`、`UserGroup` 等）。用户举例里的 `member` / `siteinfo` **只说明目录形态，不是改名要求**。
 5. **ES 文档模型**类名统一 `Es` 前缀（如 `EsAdminLog`），放 `Entity/Es/`。与 SQL 表实体同名并存时，ES 侧用 `Es` 前缀区分；已有 SQL 映射实体不因举例被改名。
 6. **定站基础设施**（解析器、访问器）不是实体，放 `SimpX.Net.Data/SiteContext/`，不进 `Entity/`，也不挂 `BetWin` 目录。
-7. **应用服务按业务能力命名，禁止按读写拆、禁止加宿主标签**：不要 `XxxQueryService` / `XxxWriteService` / `XxxCommandService`；也不要 `XxxAdminService`（`Admin` 不是业务职责，只是宿主）。同一业务能力一个服务，能力叫什么服务就叫什么，例如 `SiteDomainService`、`SiteNewsService`、`ExchangeRateService`。与框架已有 `MemberService`（租户 Member 表）撞名时，BetWin 会员后台用 `UserMemberService`（对齐 `userMember` API）。只读报表可用 `TipReportService` 这类职责名。租户后台 HTTP 入口仍是 Furion 的 `XxxAppService`，用这一层区分宿主。AppService 注入字段统一 `_svc`。存量已于 2026-10-31 批量去掉 `Admin` 后缀。
+7. **应用服务按业务能力命名，禁止按读写拆、禁止加宿主标签**：不要 `XxxQueryService` / `XxxWriteService` / `XxxCommandService`；也不要 `XxxAdminService`（`Admin` 不是业务职责，只是宿主）。同一业务能力一个服务，能力叫什么服务就叫什么，例如 `SiteDomainService`、`SiteNewsService`、`ExchangeRateService`。与框架已有 `MemberService`（租户 Member 表）撞名时，BetWin 会员后台用 `UserMemberService`（对齐 `userMember` API）。只读报表可用 `TipReportService` 这类职责名。租户后台 HTTP 入口仍是 Furion 的 `XxxAppService`，用这一层区分宿主。AppService 注入字段统一 `_svc`。存量已于 2026-10-31 批量去掉 `Admin` 后缀；**2026-11-01 存量 `*QueryService` 已批量改为能力名**（如 `RechargeOrderService`、`EventLogService`），禁止再新增。
 8. **DTO 文件按业务能力命名，禁止按读写拆、禁止加宿主标签**：不要 `XxxQueryDtos.cs` / `XxxWriteDtos.cs` / `XxxAdminDtos.cs`。同一业务能力一个文件（如 `SiteDomainDtos.cs`、`UserMemberDtos.cs`、`SiteNewsDtos.cs`），列表/详情/保存入参放一起。类型名仍用 `*PageInput` / `*ListItemDto` / `*DetailDto` / `*SaveInput` 等职责后缀，不叫 QueryDto/WriteDto/AdminDto。
+9. **DTO 目录镜像 Shared 业务目录**：支付等已按能力分子目录时，DTO 同步，例如 `Dto/Payment/Recharge/`、`Dto/Payment/Withdraw/`；不要把建单 DTO 与列表 DTO 拆成无必要的第二个文件名（可并入同一 `RechargeOrderDtos.cs`）。
+10. **禁止 `Guard` 命名**（类、接口、方法、文件、配置项）：用 `Checker` / `Validator` 等；与 `.cursor/rules/coding.mdc` 一致。
+11. **旧版返回与 `[NonUnify]`**：返回 `OldApiResult` 的接口必须跳过统一包装；整类都是旧版返回时允许**类级** `[NonUnify]`。分层与合并边界见 `ADR-2026-11-01-betwin-migrate-layering.md`。
 
 ## 不做
 

@@ -52,6 +52,8 @@
     - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-naming.md
     - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-io-parity.md
     - knowledge/decisions/2026/ADR-2026-10-31-betwin-admin-ui-ops-parity.md
+    - knowledge/decisions/2026/ADR-2026-11-01-betwin-migrate-http-caller.md
+    - knowledge/decisions/2026/ADR-2026-11-01-betwin-migrate-layering.md
 - simpx-net:
   - simpx_path: `projects/examples/simpx-net`
   - summary_manifest: `knowledge/code-summaries/simpx-net/manifest.yaml`
@@ -63,4 +65,6 @@
     - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-naming.md
     - knowledge/decisions/2026/ADR-2026-10-30-betwin-migrate-io-parity.md
     - knowledge/decisions/2026/ADR-2026-10-31-betwin-admin-ui-ops-parity.md
+    - knowledge/decisions/2026/ADR-2026-11-01-betwin-migrate-http-caller.md
+    - knowledge/decisions/2026/ADR-2026-11-01-betwin-migrate-layering.md
   - note: 解决方案相对仓库根为 `SimpX.Net/SimpX.Net.sln`；前端在 `Web/`

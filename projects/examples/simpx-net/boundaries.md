@@ -97,9 +97,16 @@ SimpX.Net 是单仓多宿主框架。总后台、租户后台、会员 API、调
 ## HTTP 出站约定
 
 - 内部宿主互调：Furion `IHttpDeclarative` + 命名 HttpClient + 内部签名（如 Jobs 契约）。
-- 外部 HTTP（支付通道、翻译、调度 HTTP 作业等）：统一 `IHttpCaller`（`SimpX.Net.Feature.Http`，底层 Furion HttpRemote）。
-- 禁止业务里 `new HttpClient()`；禁止新代码散装 `IHttpClientFactory` 直发。
+- 外部 HTTP（支付通道、翻译、调度 HTTP 作业、充值/代付网关插件等）：统一 `IHttpCaller`（`SimpX.Net.Feature.Http`，底层 Furion HttpRemote）。
+- 禁止业务里 `new HttpClient()`；禁止业务代码用 `IHttpClientFactory.CreateClient` 直接发请求（用户 2026-11-01 迁移硬规则）。
 - 例外：Admin 压测接口可自管 `HttpClient`（高并发），须在代码注释标明例外。
+- 正式知识：`knowledge/decisions/2026/ADR-2026-11-01-betwin-migrate-http-caller.md`。
+
+## BetWin 迁移代码组织（摘要）
+
+- Shared 厚、宿主 `*AppService` 薄；同聚合多生命周期同目录分服务（如 `Service/Payment/Recharge|Withdraw`），DTO 镜像。
+- 插件与契约共文件；禁 Create↔Notify↔Check 硬并、PaymentOrder↔Recharge 硬并；禁 `Guard` 命名。
+- 旧版 `success/msg/info` 须 `[NonUnify]`（可类级）。细则：`ADR-2026-11-01-betwin-migrate-layering.md`；Agent 执行以 `upgrade docs/AGENT-迁移硬约束.md` B15/B22 为准。
 
 ## 已移除能力
 
