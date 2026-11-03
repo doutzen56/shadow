@@ -1,0 +1,33 @@
+/**
+ * 在线聊天：跨组件共享的全局样式
+ *
+ * 抽屉 append-to-body 后 scoped 的 :deep 选择器会失效；且"头像 / 在线状态点"
+ * 在左侧列表与右侧面板里各出现一次，抽到此处统一维护（由 index.vue 的非 scoped 块引入）。
+ */
+
+// 无头像照片时的兜底样式：主题色渐变打底 + 姓名首字，比默认的灰底更像产品
+.chat-avatar.el-avatar {
+	flex: none;
+	font-size: 15px;
+	font-weight: 600;
+	color: #fff;
+	background: linear-gradient(135deg, var(--el-color-primary-light-5), var(--el-color-primary));
+}
+
+// 在线状态点：压在头像右下角，在线为绿点并带一圈柔和光晕（父元素需 position: relative）
+.chat-dot {
+	position: absolute;
+	right: -1px;
+	bottom: -1px;
+	width: 11px;
+	height: 11px;
+	border: 2px solid var(--el-bg-color);
+	border-radius: 50%;
+	background-color: var(--el-color-info);
+	transition: background-color 0.25s;
+
+	&.is-online {
+		background-color: var(--el-color-success);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--el-color-success) 22%, transparent);
+	}
+}

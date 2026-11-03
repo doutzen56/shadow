@@ -1,0 +1,29 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // feature/betwin1.0：来自 BetWin.UnitTest App.config ElasticSearch*（生效段，29200）
+  "ElasticSearch:Logging": {
+    "Enabled": true,
+    "AuthType": "Basic",
+    "User": "elastic",
+    "Password": "rKzD5BKcRN9lGg9VP0DF",
+    "ApiId": "",
+    "ApiKey": "",
+    "Base64ApiKey": "",
+    "Fingerprint": "",
+    "ServerUris": [ "http://43.198.37.153:29200" ],
+    "DefaultIndex": "simpxnet"
+  },
+  "ElasticSearch:Business": {
+    "Enabled": true,
+    "AuthType": "Basic",
+    "User": "elastic",
+    "Password": "rKzD5BKcRN9lGg9VP0DF",
+    "ApiId": "",
+    "ApiKey": "",
+    "Base64ApiKey": "",
+    "Fingerprint": "",
+    "ServerUris": [ "http://43.198.37.153:29200" ],
+    "DefaultIndex": "simpxnet"
+  }
+}

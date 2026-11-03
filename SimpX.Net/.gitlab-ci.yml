@@ -1,0 +1,34 @@
+# 测试环境自动部署：推送 dev 分支后，由挂载了 docker 的 GitLab Runner 在测试机执行。
+# Runner 建议：shell 执行器，标签 simpx-test，工作目录能访问本仓库的 docker/ 与宿主机 Docker。
+# 必填 CI/CD Variables（Settings → CI/CD → Variables，敏感项勾 Masked）：
+#   TELEGRAM_BOT_TOKEN  Telegram 机器人 token
+#   TELEGRAM_CHAT_ID    目标群/频道 chat_id（群一般是负数）
+# 可选：
+#   DEPLOY_BASE_URL     对外访问根，如 http://测试机IP:9100；通知里展示用
+#   DEPLOY_HEALTH_PATH  健康检查路径，默认 /
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+stages:
+  - deploy
+
+deploy_test:
+  stage: deploy
+  tags:
+    - simpx-test
+  interruptible: true
+  timeout: 45m
+  variables:
+    GIT_STRATEGY: fetch
+    GIT_DEPTH: "50"
+  script:
+    - chmod +x docker/deploy-test.sh docker/notify-telegram.sh
+    - ./docker/deploy-test.sh
+  after_script:
+    - |
+      if [ "${CI_JOB_STATUS:-}" != "success" ]; then
+        chmod +x docker/notify-telegram.sh 2>/dev/null || true
+        ./docker/notify-telegram.sh failure "deploy_test 失败，见流水线 ${CI_PIPELINE_URL:-}" || true
+      fi

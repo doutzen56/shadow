@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>1701;1702;1591;8632</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>SimpX.Net</Copyright>
+    <Description>日志装配与脱敏；附带 IP/UA 解析包。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IPTools.China" Version="1.6.0" />
+    <PackageReference Include="IPTools.International" Version="1.6.0" />
+    <PackageReference Include="UAParser" Version="3.1.47" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpX.Net.Core\SimpX.Net.Core.csproj" />
+  </ItemGroup>
+
+</Project>

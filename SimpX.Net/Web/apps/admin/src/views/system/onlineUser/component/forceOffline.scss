@@ -1,0 +1,236 @@
+/* 强制下线提示框：ElMessageBox 会被传送到 body 下，样式必须写在非 scoped 块 */
+
+.fo-msgbox {
+	// 主题变量先行：EP 用 --el-messagebox-padding-primary 给 .el-message-box 本体和内边距，
+	//     置 0 后横幅才能真正顶到左右边缘（否则四周会留 12px 白边）
+	--el-messagebox-width: 440px;
+	--el-messagebox-padding-primary: 0;
+	width: 440px;
+	// max-width 与主题的 var(--el-messagebox-width) 同特异性，必须 !important 才压得住
+	max-width: calc(100vw - 32px) !important;
+	padding: 0 !important;
+	border: none;
+	border-radius: var(--el-dialog-border-radius);
+	overflow: hidden;
+
+	// 标题由内容区自带（带图标横幅），隐藏原生头部
+	.el-message-box__header {
+		display: none;
+	}
+
+	.el-message-box__content {
+		padding: 0;
+	}
+
+	// EP 默认 flex + gap，会把 message 收成内容宽度；改 block 才能 100% 铺满
+	.el-message-box__container {
+		display: block;
+	}
+
+	.el-message-box__message {
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 13px;
+		line-height: 1.6;
+	}
+
+	// 按钮只定尺寸，颜色交给 el-button--danger（hover/active 档由组件库提供）
+	.el-message-box__btns {
+		padding: 20px 22px 22px;
+
+		button {
+			width: 100%;
+			height: 40px;
+			margin-left: 0;
+			font-size: 14px;
+			font-weight: 600;
+			border: none;
+			border-radius: 10px;
+		}
+	}
+}
+
+// 暗色下弹窗底只比页面底亮一档，没有描边就看不出边界；亮色下投影本身够用
+[data-theme='dark'] .fo-msgbox {
+	border: 1px solid var(--el-border-color-lighter);
+
+	// danger 原色压在深蓝底上太跳，按钮底改为向页面底色递减；只覆盖组件自己读的那个变量，hover/active 仍走组件库档
+	.el-message-box__btns button {
+		--el-button-bg-color: color-mix(in srgb, var(--el-color-danger) 78%, var(--next-dark-background));
+	}
+}
+
+.fo-wrap {
+	text-align: left;
+}
+
+/* 顶部警示横幅：固定用 danger 语义色，不跟主题主色（这是告警框，主色可能是任何色相）；
+   三段一律向黑混合、末端取 danger 原色，是因为 danger 已经偏亮，再混白白字就掉到 3:1 以下 */
+.fo-hero {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 20px 22px;
+	color: var(--el-color-white);
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--el-color-danger), #000000 45%) 0%,
+		color-mix(in srgb, var(--el-color-danger), #000000 20%) 50%,
+		var(--el-color-danger) 100%
+	);
+	overflow: hidden;
+
+	// 斜向流光，给静态弹窗一点"进行中"的动感
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -60%;
+		width: 45%;
+		height: 100%;
+		background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--el-color-white) 22%, transparent), transparent);
+		animation: fo-shine 2.6s ease-in-out infinite;
+	}
+}
+
+// 暗色档：向页面底色（深蓝）递减而不是向黑递减，整块亮度降一档，色相也归到同一族
+[data-theme='dark'] .fo-hero {
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--el-color-danger) 45%, var(--next-dark-background)) 0%,
+		color-mix(in srgb, var(--el-color-danger) 62%, var(--next-dark-background)) 50%,
+		color-mix(in srgb, var(--el-color-danger) 78%, var(--next-dark-background)) 100%
+	);
+}
+
+.fo-hero__ring {
+	position: relative;
+	flex-shrink: 0;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--el-color-white);
+	background: color-mix(in srgb, var(--el-color-white) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--el-color-white) 30%, transparent);
+}
+
+// 双层扩散波纹：模仿心跳/报警的脉冲感
+.fo-hero__wave {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	border: 1px solid color-mix(in srgb, var(--el-color-white) 45%, transparent);
+	animation: fo-wave 1.9s ease-out infinite;
+}
+
+.fo-hero__wave--2 {
+	animation-delay: 0.65s;
+}
+
+.fo-hero__ico {
+	position: relative;
+	filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.fo-hero__title {
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.fo-hero__sub {
+	margin-top: 2px;
+	font-size: 11px;
+	letter-spacing: 1.4px;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--el-color-white) 85%, transparent);
+}
+
+/* 正文：文字色不单独声明，继承 el-message-box 的 --el-messagebox-content-color，
+   层级只靠字号与色档区分，暗色下不会再压成一块灰 */
+.fo-body {
+	padding: 18px 22px 6px;
+}
+
+.fo-body__main {
+	margin: 0;
+	font-size: 14px;
+
+	// 操作人用朱红强调，色相比 danger 偏橙，无法由 danger 推出，只能留这一个色值
+	b {
+		color: #d4380d;
+	}
+}
+
+// 14px 小字要过 4.5:1，同一支色不可能在白底与暗色弹窗底上同时达标，暗色按同色相向白提亮
+[data-theme='dark'] .fo-body__main b {
+	color: color-mix(in srgb, #d4380d, #ffffff 25%);
+}
+
+.fo-meta {
+	display: flex;
+	gap: 8px;
+	margin-top: 14px;
+	padding: 12px 14px;
+	border-radius: 10px;
+	background: var(--el-fill-color-lighter);
+	border: 1px solid var(--el-border-color-lighter);
+}
+
+.fo-meta__i {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+
+	span {
+		font-size: 11px;
+		color: var(--el-text-color-secondary);
+	}
+
+	em {
+		font-style: normal;
+		font-size: 12.5px;
+		font-weight: 600;
+		color: var(--el-text-color-primary);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.fo-tip {
+	margin: 12px 0 0;
+	padding-left: 10px;
+	border-left: 3px solid color-mix(in srgb, var(--el-color-danger) 35%, transparent);
+	font-size: 12px;
+}
+
+@keyframes fo-shine {
+	0% {
+		left: -60%;
+	}
+
+	60%,
+	100% {
+		left: 120%;
+	}
+}
+
+@keyframes fo-wave {
+	0% {
+		transform: scale(1);
+		opacity: 0.85;
+	}
+
+	100% {
+		transform: scale(1.85);
+		opacity: 0;
+	}
+}

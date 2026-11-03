@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS [site_Language];
+CREATE TABLE [site_Language] (
+  [LangID] INTEGER PRIMARY KEY AUTOINCREMENT,
+  [Category] INTEGER NOT NULL,
+  [Language] INTEGER NOT NULL,
+  [ExpandID] INTEGER NOT NULL,
+  [SiteID] INTEGER NOT NULL,
+  [Content] TEXT NOT NULL
+);

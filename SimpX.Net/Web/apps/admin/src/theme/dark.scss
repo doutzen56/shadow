@@ -1,0 +1,532 @@
+/* 深色模式样式
+------------------------------- */
+[data-theme='dark'] {
+	/* 色板
+	   暗色下的所有取值都集中在这一段，下面的规则一律只引用变量，不再出现字面色值。
+	   两套色板二选一：生效的那套保持展开，另一套整段注释掉。 */
+
+	// ---- 深蓝档 ----
+	--next-dark-background: #101b2e; // 页面底
+	--next-dark-surface: #111f33; // 卡片 / 顶栏 / 菜单 / 输入框 / 禁用底
+	--next-dark-popover: #122437; // 弹层 / 下拉 / 日期面板（实色，比 surface 高一档做层级）
+	--next-dark-popover-hover: #153448; // 弹层内条目 hover，需高于弹层底色一档
+	--next-dark-muted-bg: #303030; // 灰底档：tabs 激活、分页按钮、tag 底
+	--next-dark-settings-bg: #505050; // 设置抽屉主底
+	--next-dark-primary-plate: #153448; // 主色浅底档（plain 按钮、tag 底、选中行），与强调底同档抬起；黑透明只留给遮罩
+	--next-dark-accent: #153448; // 选中 / hover / 强调底
+	--next-dark-accent-hover: #153448; // 强 hover（深蓝档只有一档，与强调底同值）
+	--next-dark-table-header: #122437; // 表头底（比 surface 高一档即可，需低于选中底）
+	--next-dark-table-stripe: #122437; // 斑马行
+	--next-dark-border: #0d475d; // 描边（各档同值）
+	--next-dark-border-columns: #2a2a2a; // 分栏分隔线
+	--next-dark-border-strong: #58585b; // 更亮描边：评分空星、上传虚框
+	--next-dark-border-stronger: #636466;
+	--next-dark-text: #dadada; // 正文 / 标题
+	--next-dark-text-bar: #dadada; // 顶栏文字
+	--next-dark-text-menu: #dadada; // 菜单常规项
+	--next-dark-text-secondary: #9b9da1; // 次要文字
+	--next-dark-text-muted: #7a7a7a; // 占位符
+	--next-dark-text-disabled: #7a7a7a; // 禁用文字
+	--next-dark-fill: rgb(255 255 255 / 8%); // 中等填充（暗色填充必须比宿主亮，黑透明会压成凹坑）
+	--next-dark-fill-soft: rgb(255 255 255 / 5%); // 轻填充（派生 extra-light）
+	--next-dark-fill-strong: rgb(255 255 255 / 12%); // 重填充（派生 dark / darker，需高于中等档）
+	--next-dark-mask-soft: rgb(0 0 0 / 30%); // 轻遮罩：表格 loading、按钮 loading（对话框遮罩由组件库暗色包供值）
+
+	// ---- 中性灰档（当前停用，与上面一组互换注释即可）----
+	// --next-dark-background: #14161a;
+	// --next-dark-surface: #181a1f;
+	// --next-dark-popover: #242424;
+	// --next-dark-popover-hover: #2e3033;
+	// --next-dark-muted-bg: #2e3033;
+	// --next-dark-settings-bg: #242424;
+	// --next-dark-primary-plate: #2e3033;
+	// --next-dark-accent: #2e3033;
+	// --next-dark-accent-hover: #3a3d40;
+	// --next-dark-table-header: #2e3033;
+	// --next-dark-table-stripe: #212328;
+	// --next-dark-border: #36363a;
+	// --next-dark-border-columns: #36363a;
+	// --next-dark-border-strong: #58585b;
+	// --next-dark-border-stronger: #636466;
+	// --next-dark-text: #f2f2f2;
+	// --next-dark-text-bar: #e4e4e7;
+	// --next-dark-text-menu: #c7c9ce;
+	// --next-dark-text-secondary: #a1a1aa;
+	// --next-dark-text-muted: #71717a;
+	// --next-dark-text-disabled: #6f727a;
+	// --next-dark-fill: rgb(255 255 255 / 8%);
+	// --next-dark-fill-soft: rgb(255 255 255 / 5%);
+	// --next-dark-fill-strong: rgb(255 255 255 / 12%);
+	// --next-dark-mask-soft: rgb(0 0 0 / 30%);
+
+	// 表单原生控件、原生滚动条、自动填充由浏览器绘制，需显式声明暗色档
+	color-scheme: dark;
+
+	// 变量(自定义时，只需修改色板段的值)
+	--next-bg-main: var(--next-dark-background);
+	--next-color-white: #ffffff;
+	--next-color-disabled: var(--next-dark-surface);
+	--next-color-bar: var(--next-dark-text-bar);
+	--next-color-primary: var(--next-dark-muted-bg);
+	--next-border-color: var(--next-dark-border);
+	--next-border-black: var(--next-dark-border);
+	--next-border-columns: var(--next-dark-border-columns);
+	--next-color-seting: var(--next-dark-settings-bg);
+	--next-color-hover: var(--next-dark-accent);
+	// 列表项 hover 底走选中档：主色浅底档在暗色下比 surface 更暗，hover 会"陷下去"
+	--next-color-hover-bg: var(--next-dark-accent);
+
+	// Empty：由强调档向页面底均分递减，跟随色板自动变化
+	.el-empty {
+		@for $i from 0 through 9 {
+			$tint: (100 - $i * 10) * 1%;
+			--el-empty-fill-color-#{$i}: color-mix(in srgb, var(--next-dark-accent) #{$tint}, var(--next-dark-background)) !important;
+		}
+	}
+
+	// root
+	--next-bg-main-color: var(--next-bg-main) !important;
+	--next-bg-topBar: var(--next-color-disabled) !important;
+	--next-bg-topBarColor: var(--next-color-bar) !important;
+	--next-bg-menuBar: var(--next-color-disabled) !important;
+	--next-bg-menuBarColor: var(--next-dark-text-menu) !important;
+	--next-bg-menuBarActiveColor: var(--next-dark-accent) !important;
+	--next-bg-columnsMenuBar: var(--next-color-disabled) !important;
+	--next-bg-columnsMenuBarColor: var(--next-dark-text-menu) !important;
+	--next-border-color-light: var(--next-border-black) !important;
+	--next-color-primary-lighter: var(--next-dark-muted-bg) !important;
+	--next-bg-color: var(--next-dark-muted-bg) !important;
+	--next-color-menu-hover: var(--next-color-hover-bg) !important;
+	--next-color-user-hover: var(--next-color-hover-bg) !important;
+	--next-color-seting-main: var(--next-dark-settings-bg) !important;
+	--next-color-seting-aside: var(--next-dark-accent-hover) !important;
+	--next-color-seting-header: var(--next-dark-muted-bg) !important;
+
+	// element plus
+	--el-color-white: #ffffff !important;
+	--el-text-color-primary: var(--next-dark-text) !important;
+	--el-text-color-regular: var(--next-dark-text) !important;
+	--el-text-color-secondary: var(--next-dark-text-secondary) !important;
+	--el-text-color-disabled: var(--next-dark-text-disabled) !important;
+	--el-text-color-disabled-base: var(--next-dark-text-muted) !important;
+	--el-text-color-placeholder: var(--next-dark-text-muted) !important;
+	--el-bg-color: var(--next-dark-surface) !important;
+	--el-bg-color-page: var(--next-dark-background) !important;
+	--el-bg-color-overlay: var(--next-dark-popover) !important;
+	// 暗色下边框不做递减，各档统一取基础档，1px 分隔线才始终可见
+	--el-border-color: var(--next-dark-border) !important;
+	--el-border-color-light: var(--next-dark-border) !important;
+	--el-border-color-lighter: var(--next-dark-border) !important;
+	--el-border-color-extra-light: var(--next-dark-border) !important;
+	// dark/darker 是比基础档更亮的描边，供评分空星、上传虚框等需要可见边框的场景
+	--el-border-color-dark: var(--next-dark-border-strong) !important;
+	--el-border-color-darker: var(--next-dark-border-stronger) !important;
+	--el-fill-color: var(--next-dark-fill) !important;
+	--el-fill-color-light: color-mix(in srgb, var(--next-dark-fill) 83%, transparent) !important;
+	--el-fill-color-lighter: color-mix(in srgb, var(--next-dark-fill) 67%, transparent) !important;
+	--el-fill-color-extra-light: color-mix(in srgb, var(--next-dark-fill-soft) 75%, transparent) !important;
+	--el-fill-color-dark: color-mix(in srgb, var(--next-dark-fill-strong) 80%, transparent) !important;
+	--el-fill-color-darker: var(--next-dark-fill-strong) !important;
+	--el-fill-color-blank: var(--next-dark-surface) !important;
+	--el-disabled-bg-color: var(--next-dark-surface) !important;
+	--el-fill-base: var(--next-dark-surface) !important;
+	--el-fill-colo: var(--next-dark-fill) !important;
+	// 零偏移的四周黑晕会在抬亮一档的块体周围描出黑边，改为只往下方投影 + 1px 亮边描轮廓
+	--el-box-shadow-light: 0 4px 12px rgb(0 0 0 / 40%), 0 0 0 1px rgb(255 255 255 / 6%) !important;
+	--el-box-shadow-lighter: 0 2px 8px rgb(0 0 0 / 35%), 0 0 0 1px rgb(255 255 255 / 5%) !important;
+	--el-menu-bg-color: var(--next-dark-surface) !important;
+	--el-menu-hover-bg-color: var(--next-dark-accent) !important;
+	// 菜单选中态文字取中性亮色，主色在暗底上对比度不足
+	--el-menu-active-color: var(--next-dark-text) !important;
+	--el-color-primary-light-9: var(--next-dark-primary-plate) !important;
+
+	// 主色的浅色档：深色模式下改为向页面底色递减的暗色梯度
+	@for $i from 1 through 8 {
+		$tint: (90 - ($i - 1) * 10) * 1%;
+		--el-color-primary-light-#{$i}: color-mix(in srgb, var(--el-color-primary) #{$tint}, var(--next-dark-background)) !important;
+	}
+
+	// 语义色的加深档：深色模式的按下/激活态向白色递增，避免在暗底上越点越暗
+	@each $type in (primary, success, warning, danger, info, error) {
+		--el-color-#{$type}-dark-2: color-mix(in srgb, var(--el-color-#{$type}) 80%, var(--el-color-white)) !important;
+	}
+
+	// 指示条是图形不承担文字可读性，只需与暗底分得开：按预设主色自动提亮一档
+	--next-color-menu-indicator: color-mix(in srgb, var(--el-color-primary) 55%, var(--el-color-white)) !important;
+
+	// vxe
+	--vxe-pager-background-color: var(--next-color-disabled) !important;
+	--vxe-toolbar-background-color: var(--next-color-disabled) !important;
+	--vxe-input-background-color: var(--next-dark-surface) !important;
+	--vxe-primary-lighten-color: var(--el-color-primary) !important;
+	--vxe-primary-darken-color: var(--el-color-primary) !important;
+	--vxe-font-color: var(--el-text-color-regular) !important;
+	--vxe-ui-font-color: var(--el-text-color-regular) !important;
+	--vxe-ui-font-primary-color: var(--el-color-primary) !important;
+	--vxe-ui-base-active-background-color: var(--next-dark-accent-hover) !important;
+	--vxe-input-border-color: var(--next-dark-border) !important;
+	--vxe-pager-perfect-button-background-color: var(--el-color-info) !important;
+
+	/*input*/
+	--vxe-ui-input-border-color: var(--next-dark-border) !important;
+	--vxe-ui-font-disabled-color: var(--next-dark-text-disabled) !important;
+	--vxe-ui-input-placeholder-color: var(--next-dark-text-muted) !important;
+	--vxe-ui-base-popup-border-color: var(--next-dark-border) !important;
+
+	/*layout*/
+	--vxe-ui-layout-background-color: var(--next-dark-surface) !important;
+
+	/*loading*/
+	--vxe-ui-loading-background-color: var(--next-dark-mask-soft) !important;
+
+	/*table*/
+	--vxe-ui-table-header-background-color: var(--next-dark-table-header) !important;
+	--vxe-ui-table-row-striped-background-color: var(--next-dark-table-stripe) !important;
+	--vxe-ui-table-row-hover-striped-background-color: var(--next-dark-accent) !important;
+	--vxe-ui-table-border-color: var(--next-dark-border) !important;
+	--vxe-ui-table-row-hover-background-color: var(--next-dark-accent) !important;
+	--vxe-ui-table-row-current-background-color: var(--next-dark-accent) !important;
+	--vxe-ui-table-row-hover-current-background-color: var(--next-dark-accent-hover) !important;
+	--vxe-ui-table-row-radio-checked-background-color: var(--next-dark-accent) !important;
+	--vxe-ui-table-row-checkbox-checked-background-color: var(--next-dark-accent) !important;
+	--vxe-ui-table-row-hover-radio-checked-background-color: var(--next-dark-accent-hover) !important;
+	--vxe-ui-table-row-hover-checkbox-checked-background-color: var(--next-dark-accent-hover) !important;
+
+	// json 预览（vue-json-pretty）：库内 hover 与选中底是写死的亮蓝，暗色下会变成白条压住浅色文字
+	.vjs-tree-node:hover,
+	.vjs-tree-node.is-highlight {
+		background-color: var(--next-dark-accent) !important;
+	}
+
+	.vjs-tree-node .vjs-tree-node-actions {
+		background-color: var(--next-dark-accent) !important;
+	}
+
+	// 引导浮层：primary 类型底是主色实色，暗色下同样压成页面底上的低比例主色，白字保持不变
+	.el-tour.el-tour--primary {
+		--el-tour-bg-color: color-mix(in srgb, var(--el-color-primary) 38%, var(--next-dark-background)) !important;
+	}
+
+	// button
+	.el-button:not(.is-text):not(.is-link) {
+		&:hover {
+			border-color: var(--next-border-color) !important;
+		}
+	}
+
+	.el-button--primary,
+	.el-button--info,
+	.el-button--danger,
+	.el-button--success,
+	.el-button--warning {
+		&:not(.is-text):not(.is-link):hover {
+			border-color: var(--el-button-hover-border-color, var(--el-button-hover-bg-color)) !important;
+		}
+	}
+
+	// card：EP 官方暗色把卡片抬到 overlay 档，这里归回主体档，卡片与其内部表格不分层
+	.el-card {
+		--el-card-bg-color: var(--next-dark-surface) !important;
+	}
+
+	// drawer
+	.el-divider__text {
+		background-color: var(--el-bg-color) !important;
+	}
+
+	.el-drawer {
+		border-left: 1px solid var(--next-border-color-light) !important;
+	}
+
+	// tabs
+	.el-tabs--border-card {
+		background-color: var(--el-bg-color) !important;
+	}
+
+	.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+		background: var(--next-color-primary-lighter);
+	}
+
+	// alert / notice-bar
+	.home-card-item {
+		border: 1px solid var(--next-border-color-light) !important;
+	}
+
+	.el-alert,
+	.notice-bar {
+		border: 1px solid var(--next-border-color) !important;
+		background-color: var(--next-color-disabled) !important;
+	}
+
+	// topBar
+	// menu
+	.layout-aside {
+		border-right: 1px solid var(--next-border-color-light) !important;
+	}
+
+	// colorPicker
+	.el-color-picker__mask {
+		background: unset !important;
+	}
+
+	.el-color-picker__trigger {
+		border: 1px solid var(--next-border-color-light) !important;
+	}
+
+	// popper / dropdown
+	.el-popper {
+		border: 1px solid var(--next-border-color) !important;
+		color: var(--el-text-color-primary) !important;
+
+		.el-popper__arrow:before {
+			background: var(--next-dark-popover) !important;
+			border: 1px solid var(--next-border-color);
+		}
+
+		a {
+			color: var(--el-text-color-primary) !important;
+		}
+	}
+
+	.el-popper,
+	.el-dropdown-menu {
+		background: var(--next-dark-popover) !important;
+	}
+
+	.el-dropdown-menu__item:hover:not(.is-disabled) {
+		background: var(--next-dark-popover-hover) !important;
+	}
+
+	.el-dropdown-menu__item.is-disabled {
+		font-weight: 700 !important;
+	}
+
+	// input
+	.el-input-group__append,
+	.el-input-group__prepend {
+		border: var(--el-input-border) !important;
+		border-right: none !important;
+		background: var(--next-color-disabled) !important;
+		border-left: 0 !important;
+	}
+
+	.el-input-number__decrease,
+	.el-input-number__increase {
+		background: var(--next-color-disabled) !important;
+	}
+
+	// tag
+	.el-select .el-select__tags .el-tag {
+		background-color: var(--next-bg-color) !important;
+	}
+
+	// pagination
+	.el-pagination.is-background .el-pager li:not(.disabled).active {
+		color: var(--next-color-white) !important;
+	}
+
+	.el-pagination.is-background .btn-next,
+	.el-pagination.is-background .btn-prev,
+	.el-pagination.is-background .el-pager li {
+		background-color: var(--next-bg-color);
+	}
+
+	/*深色模式时分页高亮问题*/
+	.el-pagination.is-background .btn-next.is-active,
+	.el-pagination.is-background .btn-prev.is-active,
+	.el-pagination.is-background .el-pager li.is-active {
+		color: var(--next-color-white) !important;
+	}
+
+	// radio
+	.el-radio-button:not(.is-active) .el-radio-button__inner {
+		border: 1px solid var(--next-border-color-light) !important;
+		border-left: 0 !important;
+	}
+
+	.el-radio-button.is-active .el-radio-button__inner {
+		color: var(--next-color-white) !important;
+	}
+
+	// countup
+	.countup-card-item-flex {
+		color: var(--el-text-color-primary) !important;
+	}
+
+	// editor
+	.editor-container {
+		.w-e-toolbar {
+			background: var(--el-bg-color) !important;
+			border: 1px solid var(--next-border-color-light) !important;
+
+			.w-e-menu:hover {
+				background: var(--next-color-user-hover) !important;
+
+				i {
+					color: var(--el-text-color-primary) !important;
+				}
+			}
+		}
+
+		.w-e-text-container {
+			border: 1px solid var(--next-border-color-light) !important;
+			border-top: none !important;
+
+			.w-e-text {
+				background: var(--el-bg-color) !important;
+			}
+		}
+	}
+
+	// date-picker
+	.el-picker-panel {
+		background: var(--next-dark-popover) !important;
+	}
+
+	// dialog
+	.el-dialog {
+		border: 1px solid var(--el-border-color-lighter);
+
+		.el-dialog__header {
+			color: var(--el-text-color-primary) !important;
+		}
+	}
+
+	// columns
+	.layout-columns-aside {
+		border-right: 1px solid var(--next-border-columns);
+	}
+
+	// tagsView
+	.tags-style-one {
+		.layout-navbars-tagsview-ul-li:hover {
+			border-color: var(--el-border-color-lighter) !important;
+		}
+	}
+
+	// 分栏一级、页签与 Logo 的选中态文字改用中性亮色，主色在暗底上对比度不足
+	// 风格4 的选中色在组件内带 !important 且多一层祖先，需更高一级特异度才能压住
+	.layout-logo,
+	.layout-columns-active,
+	.layout-columns-active a,
+	.layout-navbars-tagsview-ul-li.is-active,
+	.layout-navbars-tagsview .tags-style-four .layout-navbars-tagsview-ul-li.is-active {
+		color: var(--next-dark-text) !important;
+	}
+
+	// 悬停态文字与选中态同档：这些组件的 hover 文字色内置取主色，暗底上偏暗
+	.el-menu-item:hover,
+	.el-sub-menu__title:hover,
+	.layout-columns-hover,
+	.layout-columns-hover a,
+	.layout-columns-aside li:not(.layout-columns-active):hover,
+	.layout-navbars-tagsview-ul-li:hover {
+		color: var(--next-dark-text) !important;
+	}
+
+	// 悬停文字色内置取主色的控件：主色原值在暗底上对比不足，就地把这一档主色换成提亮档
+	.layout-navbars-breadcrumb-icon:hover,
+	.layout-navbars-breadcrumb-user-icon:hover,
+	.global-search-trigger:hover,
+	.el-breadcrumb__inner a:hover,
+	.el-breadcrumb__inner.is-link:hover,
+	.layout-navbars-close-full:hover {
+		--el-color-primary: var(--next-color-menu-indicator);
+	}
+
+	// 横向菜单激活下划线是图形指示物，与纵向菜单的左侧竖条同档（组件内置把它与文字色绑在同一个变量上）
+	.el-menu--horizontal .el-menu-item.is-active {
+		border-bottom-color: var(--next-color-menu-indicator) !important;
+	}
+
+	// table
+	.el-table th.el-table__cell {
+		background-color: var(--next-dark-table-header) !important;
+	}
+
+	// menu hover
+	.el-menu-item:hover::after,
+	.el-menu.el-menu--horizontal .el-menu-item:hover::after {
+		background-color: var(--next-color-hover-bg) !important;
+	}
+
+	.el-menu.el-menu--horizontal .el-menu-item:hover {
+		background-color: var(--next-dark-accent) !important;
+	}
+
+	// 主色浅底抬到选中档后，主色原值在其上不足对比，文字改用提亮主色档、描边退到 light-5
+	.el-tag--primary {
+		--el-tag-text-color: var(--next-color-menu-indicator);
+		--el-tag-border-color: var(--el-color-primary-light-5);
+	}
+
+	.el-button--primary.is-plain,
+	.el-button--primary.is-text,
+	.el-button--primary.is-link,
+	.el-button--primary.is-dashed {
+		--el-button-text-color: var(--next-color-menu-indicator);
+	}
+
+	.el-message--primary {
+		--el-message-text-color: var(--next-color-menu-indicator);
+		--el-message-border-color: var(--el-color-primary-light-5);
+	}
+
+	.el-alert--primary.is-light {
+		color: var(--next-color-menu-indicator);
+	}
+
+	// loading 遮罩与 vxe 表格 loading 同源：--el-mask-color 同时管对话框背景遮罩，需保持不透明
+	.el-loading-mask {
+		background-color: var(--next-dark-mask-soft) !important;
+	}
+
+	/* ---- 老内核兜底（Chromium 102 / 奇安信可信浏览器）----
+	   上面若干变量是用 color-mix 现算的。在不支持的内核里，自定义属性本身照常存下来，
+	   但「使用处」的属性会在计算值阶段失效、直接回落到初始值 —— 暗色模式下就是大面积透明/发白。
+	   这里换成可推算的静态等价值；主色浅档依赖主题色实时混合、静态算不出来，塌陷到已定义的浅色板。 */
+	@supports not (background: color-mix(in srgb, red, blue)) {
+		/* fill 档本身已是 rgb(255 255 255 / N%)，再混 transparent 只是按比例缩小 alpha，可直接算 */
+		--el-fill-color-light: rgb(255 255 255 / 6.6%) !important;
+		--el-fill-color-lighter: rgb(255 255 255 / 5.4%) !important;
+		--el-fill-color-extra-light: rgb(255 255 255 / 3.8%) !important;
+		--el-fill-color-dark: rgb(255 255 255 / 9.6%) !important;
+
+		/* 主色浅档：老内核统一取 --next-dark-primary-plate（即 light-9）。
+		   代价是从 1~8 档的层次没了，但色相正确，不会出现透明底 */
+		--el-color-primary-light-1: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-2: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-3: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-4: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-5: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-6: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-7: var(--next-dark-primary-plate) !important;
+		--el-color-primary-light-8: var(--next-dark-primary-plate) !important;
+
+		/* 语义色加深档：原意向白递增 20%，老内核退回满色（偏深一档，仍然可见） */
+		--el-color-primary-dark-2: var(--el-color-primary) !important;
+		--el-color-success-dark-2: var(--el-color-success) !important;
+		--el-color-warning-dark-2: var(--el-color-warning) !important;
+		--el-color-danger-dark-2: var(--el-color-danger) !important;
+		--el-color-info-dark-2: var(--el-color-info) !important;
+		--el-color-error-dark-2: var(--el-color-error) !important;
+
+		/* 菜单指示条：原意向白递增 45%，老内核退回满色主色 */
+		--next-color-menu-indicator: var(--el-color-primary) !important;
+
+		/* Empty 插图色阶：accent #153448 与 background #101b2e 按 100%~10% 预混好的静态值
+		   （换色板时这两处要一起改） */
+		.el-empty {
+			--el-empty-fill-color-0: #153448 !important;
+			--el-empty-fill-color-1: #143245 !important;
+			--el-empty-fill-color-2: #142f43 !important;
+			--el-empty-fill-color-3: #142c40 !important;
+			--el-empty-fill-color-4: #132a3e !important;
+			--el-empty-fill-color-5: #12283b !important;
+			--el-empty-fill-color-6: #122538 !important;
+			--el-empty-fill-color-7: #122236 !important;
+			--el-empty-fill-color-8: #112033 !important;
+			--el-empty-fill-color-9: #101e31 !important;
+		}
+	}
+}

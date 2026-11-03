@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>1701;1702;1591;8632</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>disable</Nullable>
+    <Copyright>SimpX.Net</Copyright>
+    <Description>SimpX.Net Channels 应用层</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpX.Net.Core\SimpX.Net.Core.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Application.Shared\SimpX.Net.Application.Shared.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.EventBus\SimpX.Net.Feature.EventBus.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Logging\SimpX.Net.Feature.Logging.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Auth\SimpX.Net.Feature.Auth.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Http\SimpX.Net.Feature.Http.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Data\SimpX.Net.Data.csproj" />
+  </ItemGroup>
+
+</Project>

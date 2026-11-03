@@ -1,0 +1,25 @@
+{
+	"name": "simpx-web",
+	"private": true,
+	"version": "2.4.33",
+	"packageManager": "pnpm@12.3.4",
+	"description": "SimpX.Net 前端工作区，管理端和总后台两个应用",
+	"scripts": {
+		"dev": "pnpm --filter admin dev",
+		"dev:admin": "pnpm --filter admin dev",
+		"dev:super-admin": "pnpm --filter super-admin dev",
+		"build": "pnpm --filter admin build",
+		"build:admin": "pnpm --filter admin build",
+		"build:super-admin": "pnpm --filter super-admin build",
+		"lint-fix": "pnpm --filter admin lint-fix",
+		"format": "pnpm --filter admin format",
+		"build-api": "pnpm --filter admin build-api",
+		"build-all-api": "pnpm --filter admin build-all-api",
+		"build-api-ps": "pnpm --filter admin build-api-ps",
+		"build-all-api-ps": "pnpm --filter admin build-all-api-ps",
+		"translate": "pnpm --filter admin translate"
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	}
+}

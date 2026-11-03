@@ -1,0 +1,53 @@
+/* ==========================================================================
+ * 旧内核兼容层
+ * 目标浏览器：奇安信可信浏览器 1.1.46401.52（Chromium 102 / WOW64）
+ * 已知缺失特性：:has()（Chromium 105+）、color-mix()（111+）、100dvh（108+）
+ *
+ * 做法：统一包在 @supports not(...) 里，只在「新特性不可用」时才命中；
+ *      新版 Chrome / Edge 会把整块跳过，现有视觉完全不受影响。
+ * 说明：:has() 的降级不在本文件 —— 见 theme/element.scss 的 .layout-full-table
+ *      规则与 layout/routerView/parent.vue 里的根节点标记。
+ * ========================================================================== */
+
+@supports not (background: color-mix(in srgb, #000 10%, transparent)) {
+	/* 页面头图：整条背景渐变由 color-mix() 拼出，任一色标失效会让 background 整条作废，
+	   表现为「头图消失、只剩白底白字」。这里退回纯主题色渐变 + 静态阴影。 */
+	.page-hero {
+		background: linear-gradient(135deg, var(--el-color-primary) 0%, var(--el-color-primary) 100%);
+		box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.28);
+	}
+
+	/* 柔光圆斑 */
+	.page-hero__blob {
+		background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.42), transparent 70%);
+	}
+
+	/* 细网格 */
+	.page-hero__mesh {
+		background-image: linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+	}
+
+	/* 扫光带 */
+	.page-hero__shine {
+		background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	}
+
+	/* 统计面板：border 整条失效会连边框一起消失，必须写完整声明 */
+	.page-hero__stats {
+		background: rgba(255, 255, 255, 0.14);
+		border: 1px solid rgba(255, 255, 255, 0.26);
+	}
+
+	.page-hero__stat + .page-hero__stat {
+		border-left: 1px solid rgba(255, 255, 255, 0.22);
+	}
+
+	.page-hero__stat-v.is-on {
+		color: #e4f8ec; /* color-mix(白 88%, #22c55e 12%) */
+	}
+
+	.page-hero__stat-v.is-off {
+		color: #fef0ca; /* color-mix(白 76%, #fbbf24 24%) */
+	}
+}

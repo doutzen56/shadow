@@ -1,0 +1,59 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+# 运行时生成的数据库和日志（各宿主启动时自动创建）
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.log
+logs/
+# IP 归属地库是程序依赖的数据文件，要跟踪
+!**/ip2region.db
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+/SimpX.Net/.vs
+/SimpX.Net/packages
+/SimpX.Net/SimpX.Net.Host.Admin/wwwroot/[Uu]pload
+/SimpX.Net/SimpX.Net.Host.Admin/wwwroot/[Aa]vatar
+/SimpX.Net/SimpX.Net.Host.Admin/wwwroot/[Ss]ignature
+/SimpX.Net/SimpX.Net.Host.Admin/wwwroot/is-cache
+/SimpX.Net/SimpX.Net.Host.Admin/Properties/PublishProfiles
+/SimpX.Net/SimpX.Net.Host.Admin/publish
+/SimpX.Net/SimpX.Net.Host.Admin/.config
+
+# folders
+dist/
+node_modules/
+/Web/package-lock.json
+/Web/public/config.js
+/Web/stats.html
+.vs
+.idea
+.DS_Store
+/SimpX.Net/SimpX.Net.sln.DotSettings.user
+SimpX.Net/SimpX.Net.Host.Admin/Configuration/TextTranslator.json
+*.user
+/SimpX.Net/.github
+# docker 部署的密码、密钥和运行数据
+/docker/.env
+/docker/shared/Secrets.json
+/docker/redis/data
+# 宿主部署覆盖目录（docker 挂载或手工放到输出目录），可能带密钥
+**/Deploy/Shared/
+**/Deploy/Host/
+/SimpX.Net/SimpX.Net.lutconfig

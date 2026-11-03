@@ -1,0 +1,12 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // 短信：具体服务商实现 ISmsSender 后在 Admin 的 Startup 里注册
+  "Sms": {
+    "VerifyCodeExpireSeconds": 60, // 验证码有效期（秒）
+    "Demo": {
+      "Enabled": false, // 演示通道：不真发短信，验证码固定，只用于开发联调，上线前一定要关掉
+      "FixedVerifyCode": "123456"
+    }
+  }
+}

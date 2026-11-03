@@ -1,0 +1,75 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // 默认：本地 Sqlite 文件库 + 建系统表壳 + 灌默认种子。先不连 SQL Server。
+  // 需要连 BetWin30 时，把下面 SqlServer 段解开，并关掉 EnableInit*（禁止改业务表）。
+  // 日常启动：EnableInitDb/Table/Seed 一律 false；空库首次建壳再临时开 true。
+  "DbConnection": {
+    "EnableConsoleSql": false,
+    "ConnectionConfigs": [
+      {
+        "ConfigId": "1300000000001",
+        "DbType": "Sqlite",
+        "DbNickName": "本地主库",
+        "ConnectionString": "DataSource=./SimpX.Net.db",
+        "DbSettings": {
+          "EnableInitDb": false,
+          "EnableInitView": false,
+          "EnableDiffLog": false,
+          "EnableUnderLine": false,
+          "EnableConnEncrypt": false
+        },
+        "TableSettings": {
+          "EnableInitTable": false,
+          "EnableIncreTable": false
+        },
+        "SeedSettings": {
+          "EnableInitSeed": false,
+          "EnableIncreSeed": false
+        }
+      },
+      {
+        "ConfigId": "1300000000002",
+        "DbNickName": "本地日志库",
+        "DbType": "Sqlite",
+        "ConnectionString": "DataSource=./SimpX.Net.Log.db",
+        "DbSettings": {
+          "EnableInitDb": false,
+          "EnableInitView": false,
+          "EnableDiffLog": false,
+          "EnableUnderLine": false,
+          "EnableConnEncrypt": false
+        },
+        "TableSettings": {
+          "EnableInitTable": false,
+          "EnableIncreTable": false
+        },
+        "SeedSettings": {
+          "EnableInitSeed": false,
+          "EnableIncreSeed": false
+        }
+      },
+      {
+        "ConfigId": "BetWin30Biz",
+        "DbType": "SqlServer",
+        "DbNickName": "BetWin30业务库",
+        "ConnectionString": "Server=43.198.37.153,21433;Database=BetWin30;User Id=sa;Password=Admin@123;Encrypt=True;TrustServerCertificate=True;",
+        "DbSettings": {
+          "EnableInitDb": false,
+          "EnableInitView": false,
+          "EnableDiffLog": false,
+          "EnableUnderLine": false,
+          "EnableConnEncrypt": false
+        },
+        "TableSettings": {
+          "EnableInitTable": false,
+          "EnableIncreTable": false
+        },
+        "SeedSettings": {
+          "EnableInitSeed": false,
+          "EnableIncreSeed": false
+        }
+      }
+    ]
+  }
+}

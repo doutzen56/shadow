@@ -1,0 +1,195 @@
+/* 租户业务页共用壳：查询条 + 表格区。P0 竖切页统一用 .admin-page */
+
+.admin-page,
+.user-member-list-page,
+.money-recharge-order-page,
+.money-withdraw-order-page,
+.report-page,
+.migrated-list-page {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100%;
+	min-height: 0;
+	padding: 0 2px;
+}
+
+.admin-page .page-header-actions,
+.user-member-list-page .page-header-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.admin-page .query-toolbar,
+.user-member-list-page .query-toolbar,
+.money-recharge-order-page .query-toolbar,
+.money-withdraw-order-page .query-toolbar,
+.report-page .query-toolbar,
+.migrated-list-page .query-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 8px 12px;
+	padding: 12px 14px;
+	background: var(--el-bg-color);
+	border: 1px solid var(--el-border-color-lighter);
+	border-radius: 8px;
+}
+
+.admin-page .query-form,
+.user-member-list-page .query-form,
+.money-recharge-order-page .query-form,
+.money-withdraw-order-page .query-form,
+.report-page .query-form,
+.migrated-list-page .query-form {
+	flex: 1 1 auto;
+	margin-bottom: 0;
+
+	.el-form-item {
+		margin-bottom: 8px;
+		margin-right: 12px;
+	}
+}
+
+.admin-page .query-actions,
+.user-member-list-page .query-actions,
+.money-recharge-order-page .query-actions,
+.money-withdraw-order-page .query-actions,
+.report-page .query-actions,
+.migrated-list-page .query-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+	flex: 0 0 auto;
+	padding-top: 2px;
+}
+
+.admin-page .full-table,
+.user-member-list-page .full-table,
+.money-recharge-order-page .full-table,
+.money-withdraw-order-page .full-table,
+.report-page .full-table,
+.migrated-list-page .full-table {
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+
+	> .el-card__body {
+		flex: 1 1 auto;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		padding: 10px 12px 12px;
+	}
+}
+
+.admin-page .grid-holder,
+.user-member-list-page .grid-holder,
+.money-recharge-order-page .grid-holder,
+.money-withdraw-order-page .grid-holder,
+.money-recharge-check-page .grid-holder,
+.report-page .grid-holder,
+.migrated-list-page .grid-holder {
+	flex: 1 1 auto;
+	min-height: 360px;
+	height: calc(100vh - 280px);
+}
+
+/* 多行单元格：避开 vxe 固定行高 + col--rs-height 的 overflow:hidden 裁切 */
+.cell-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	padding: 0;
+	font-size: 12px;
+	line-height: 1.3;
+	white-space: normal;
+	text-align: left;
+	width: 100%;
+}
+
+.vxe-multiline {
+	.vxe-body--row {
+		height: auto !important;
+	}
+
+	.vxe-body--column,
+	.vxe-body--column.col--rs-height,
+	.vxe-body--column.col--cs-height,
+	.vxe-body--column.col--auto-height,
+	.vxe-body--column.col--ellipsis {
+		vertical-align: middle !important;
+		overflow: visible !important;
+		height: auto !important;
+		max-height: none !important;
+	}
+
+	.vxe-body--column > .vxe-cell,
+	.vxe-body--column.col--rs-height > .vxe-cell,
+	.vxe-body--column.col--cs-height > .vxe-cell,
+	.vxe-body--column.col--auto-height > .vxe-cell {
+		display: flex !important;
+		align-items: center !important;
+		overflow: visible !important;
+		max-height: none !important;
+		height: auto !important;
+		white-space: normal !important;
+		line-height: 1.3 !important;
+		padding-top: 6px !important;
+		padding-bottom: 6px !important;
+	}
+
+	.vxe-cell--wrapper,
+	.vxe-body-cell--wrapper {
+		overflow: visible !important;
+		max-height: none !important;
+		height: auto !important;
+		white-space: normal !important;
+		width: 100%;
+	}
+}
+
+/* 仍给虚拟滚动一个保底行高（内容更高时由上面 auto/visible 撑开） */
+.vxe-multiline.vxe-row-4line .vxe-body--column {
+	min-height: 112px !important;
+}
+
+.vxe-multiline.vxe-row-3line .vxe-body--column {
+	min-height: 96px !important;
+}
+
+.vxe-multiline.vxe-row-2line .vxe-body--column {
+	min-height: 56px !important;
+}
+
+.admin-page,
+.money-recharge-check-page {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100%;
+	min-height: 0;
+}
+
+.money-recharge-check-page .query-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 8px 12px;
+	padding: 12px 14px;
+	background: var(--el-bg-color);
+	border: 1px solid var(--el-border-color-lighter);
+	border-radius: 8px;
+}
+
+.money-recharge-check-page .query-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>1701;1702;1591;8632</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>SimpX.Net</Copyright>
+    <Description>文本翻译抽象与默认实现。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpX.Net.Core\SimpX.Net.Core.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Http\SimpX.Net.Feature.Http.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS [game_Setting];
+CREATE TABLE [game_Setting] (
+  [SiteID] INTEGER NOT NULL,
+  [Game] INTEGER NOT NULL,
+  [IsOpen] INTEGER NOT NULL,
+  [Credit] REAL NOT NULL,
+  [Rate] REAL NOT NULL,
+  [IsMonthly] INTEGER NOT NULL,
+  [IsSelf] INTEGER NOT NULL,
+  [Setting] TEXT NOT NULL,
+  [IsFree] INTEGER NOT NULL,
+  [Sort] INTEGER NOT NULL,
+  [Name] TEXT NOT NULL,
+  [AgentRate] REAL NOT NULL,
+  [IsWater] INTEGER NOT NULL,
+  [Label] TEXT NOT NULL,
+  [Backdrop] TEXT NOT NULL,
+  [Logo] TEXT NOT NULL,
+  [IsBackdrop] INTEGER NOT NULL,
+  [DetailRate] TEXT,
+  [IsDisable] INTEGER NOT NULL,
+  [MinTransfer] INTEGER NOT NULL,
+  [MaxTransfer] INTEGER NOT NULL,
+  [Status] INTEGER NOT NULL,
+  [Maintenance] TEXT NOT NULL
+);

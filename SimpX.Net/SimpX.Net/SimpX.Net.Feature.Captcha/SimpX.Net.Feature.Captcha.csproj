@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>1701;1702;1591;8632</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>SimpX.Net</Copyright>
+    <Description>验证码（Lazy.Captcha）。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lazy.Captcha.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpX.Net.Core\SimpX.Net.Core.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Caching\SimpX.Net.Caching.csproj" />
+  </ItemGroup>
+
+</Project>

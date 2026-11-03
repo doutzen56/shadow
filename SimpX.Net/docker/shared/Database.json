@@ -1,0 +1,33 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // docker：四个宿主共用 compose 里这一台 SQL Server 上的「中心库」。
+  // 连接串（含密码）写在同目录 Secrets.json，由部署覆盖 ConnectionString。
+  // 只有 Admin 开 Init/Seed；其它宿主只连不初始化（与本地多宿主约定一致）。
+  // 租户独立库不在这里枚举——总后台创建租户时写入，运行时按租户挂接。
+  "DbConnection": {
+    "EnableConsoleSql": false,
+    "ConnectionConfigs": [
+      {
+        "DbType": "SqlServer",
+        "DbNickName": "系统库",
+        "ConnectionString": "Server=sqlserver;Database=SimpX;User Id=sa;Password=__FROM_SECRETS__;Encrypt=True;TrustServerCertificate=True;",
+        "DbSettings": {
+          "EnableInitDb": false,
+          "EnableInitView": false,
+          "EnableDiffLog": false,
+          "EnableUnderLine": false,
+          "EnableConnEncrypt": false
+        },
+        "TableSettings": {
+          "EnableInitTable": false,
+          "EnableIncreTable": false
+        },
+        "SeedSettings": {
+          "EnableInitSeed": false,
+          "EnableIncreSeed": false
+        }
+      }
+    ]
+  }
+}

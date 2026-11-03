@@ -1,0 +1,8 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // 文件存到哪。Local 写到站点目录；Oss 还没实现，配成 Oss 后保存文件会直接失败并提示改回 Local。
+  "FileStorage": {
+    "Provider": "Local"
+  }
+}

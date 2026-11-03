@@ -1,0 +1,82 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "Urls": "http://*:5007", // 默认端口
+  "AllowedHosts": "*", // 允许所有地址
+
+  // 调度宿主自身配置：看板账号留空则 /schedule 不允许登录
+  "ScheduleHost": {
+    "SendErrorMail": false,
+    "DashboardUsername": "",
+    "DashboardPassword": "",
+    "DashboardAppSecret": "0D7174503141C11DC1A79A7C72B44E0B", // 看板登录凭据的签名密钥，至少 16 位；这里是开发环境默认值，生产环境不换会启动失败
+    "ClusterHeartbeatSeconds": 10, // 集群心跳间隔（秒）
+    "ClusterTimeoutSeconds": 30, // 工作中的节点超过这么久没心跳就由其他节点接管（秒），至少是心跳间隔的 2 倍；多机部署要做时间同步
+    "AutoReturnV2RuntimeEnabled": false // 自助反水 V2 到点切换/同步总开关；对齐旧 AppSettings:AutoReturnV2RuntimeEnabled
+  },
+  // 宿主之间内部调用：各宿主同一对 AccessKey/AccessSecret；这里是开发环境默认值，上线前一定要换掉
+  "InternalCall": {
+    "AccessKey": "simpx-internal",
+    "AccessSecret": "e6ea2bee6957271e78de1684ccffbd0e8703fbb4e544336f3152250d3ba5d811",
+    "TimeoutSeconds": 30,
+    "Services": { "Admin": "http://127.0.0.1:5005" }
+  },
+  "AppSettings": {
+    "InjectSpecificationDocument": true, // 生产环境是否开启Swagger
+    "ExternalAssemblies": [], // 额外加载的外部程序集，不用就留空
+    "VirtualPath": "" // 二级虚拟目录
+  },
+  "DynamicApiControllerSettings": {
+    //"DefaultRoutePrefix": "api", // 默认路由前缀
+    "CamelCaseSeparator": "", // 驼峰命名分隔符
+    "SplitCamelCase": false, // 切割骆驼(驼峰)/帕斯卡命名
+    "LowercaseRoute": false, // 小写路由格式
+    "AsLowerCamelCase": true, // 小驼峰命名（首字母小写）
+    "KeepVerb": false, // 保留动作方法请求谓词
+    "KeepName": false // 保持原有名称不处理
+  },
+  "FriendlyExceptionSettings": {
+    "DefaultErrorMessage": "系统异常，请联系管理员",
+    "ThrowBah": true, // 是否将 Oops.Oh 默认抛出为业务异常
+    "LogError": false // 是否输出异常日志
+  },
+  // 静态资源处理方式(允许这些文件被访问)，包含".*": "application/octet-stream"允许访问所有静态资源
+  "StaticContentTypeMappings": {
+    ".dll": "application/octet-stream",
+    ".exe": "application/octet-stream",
+    ".pdb": "application/octet-stream",
+    ".so": "application/octet-stream"
+  },
+  "LocalizationSettings": {
+    "SupportedCultures": [ "zh-CN", "en" ], // 语言列表
+    "DefaultCulture": "zh-CN", // 默认语言
+    "DateTimeFormatCulture": "zh-CN" // 固定时间区域为特定时区（多语言）
+  },
+  "CorsAccessorSettings": {
+    //"PolicyName": "App.Cors.Policy", // 跨域策略名称
+    //"WithOrigins": [ "http://localhost:5005", "https://www.example.com" ], // 允许的跨域地址
+    "WithExposedHeaders": [ "Content-Disposition", "X-Pagination", "access-token", "x-access-token", "Access-Control-Expose-Headersx-access-token" ], // 如果前端不代理且是axios请求
+    "SignalRSupport": true // 启用 SignalR 跨域支持
+  },
+  // 定时任务/作业调度
+  "JobSchedule": {
+    "Enabled": true // 是否开启
+  },
+  // 雪花Id
+  "SnowId": {
+    "WorkerId": 1, // 雪花Id机器码，多服务器时全局唯一
+    "WorkerIdBitLength": 6, // 机器码位长 默认值6，取值范围 [1, 19]
+    "SeqBitLength": 6, // 序列数位长 默认值6，取值范围 [3, 21]（建议不小于4，值越大性能越高、Id位数也更长）
+    "WorkerPrefix": "simpxnet_" // 缓存前缀
+  },
+  // 密码策略
+  "Cryptogram": {
+    "StrongPassword": false, // 是否开启密码强度验证
+    "PasswordStrengthValidation": "(?=^.{6,16}$)(?=.*\\d)(?=.*\\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\\n).*$", // 密码强度验证正则表达式，必须包含大小写字母、数字和特殊字符的组合，长度在6-16之间
+    "PasswordStrengthValidationMsg": "密码必须包含大小写字母、数字和特殊字符的组合，长度在6-16之间", // 密码强度验证消息提示
+    "CryptoType": "SM2", // 密码加密算法：MD5、SM2、SM4
+    // 新业务系统记得改密钥：登录后调接口 /api/system/common/smKeyPair 生成一对，同步修改前端公钥配置 VITE_SM_PUBLIC_KEY；生产环境还用这里的默认值会启动失败
+    "PublicKey": "0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312", // 公钥
+    "PrivateKey": "8EDB615B1D48B8BE188FC0F18EC08A41DF50EA731FA28BF409E6552809E3A111" // 私钥
+  }
+}

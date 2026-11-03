@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS [usr_Group];
+CREATE TABLE [usr_Group] (
+  [GroupID] INTEGER PRIMARY KEY AUTOINCREMENT,
+  [SiteID] INTEGER NOT NULL,
+  [GroupName] TEXT NOT NULL,
+  [Payment] TEXT NOT NULL,
+  [IsDefault] INTEGER NOT NULL,
+  [CreateAt] TEXT NOT NULL,
+  [Withdraw] TEXT NOT NULL,
+  [Member] INTEGER NOT NULL,
+  [IsUpdate] INTEGER NOT NULL,
+  [Condition] TEXT NOT NULL,
+  [Sort] INTEGER NOT NULL,
+  [SettingInfo] TEXT NOT NULL,
+  [IsNight] INTEGER NOT NULL
+);

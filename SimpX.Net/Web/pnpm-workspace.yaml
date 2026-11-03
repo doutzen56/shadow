@@ -1,0 +1,25 @@
+packages:
+  - apps/*
+  - packages/*
+
+# pnpm 12 不再读取 package.json 里的 pnpm 字段，构建白名单必须写在这里
+allowBuilds:
+  '@code-inspector/core': true
+  '@logicflow/core': true
+  '@parcel/watcher': true
+  '@vue-office/docx': true
+  '@vue-office/excel': true
+  '@vue-office/pdf': true
+  core-js: true
+  core-js-pure: true
+  es5-ext: true
+  json-editor-vue: true
+  node-pty: true
+  vue-demi: true
+
+onlyBuiltDependencies:
+  - '@logicflow/core'
+  - '@vue-office/docx'
+  - '@vue-office/excel'
+  - '@vue-office/pdf'
+  - core-js-pure

@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS [usr_LoginLog];
+CREATE TABLE [usr_LoginLog] (
+  [LogID] INTEGER PRIMARY KEY AUTOINCREMENT,
+  [SiteID] INTEGER NOT NULL,
+  [UserID] INTEGER NOT NULL,
+  [LoginAt] TEXT NOT NULL,
+  [IP] TEXT NOT NULL,
+  [IPAddress] TEXT NOT NULL,
+  [LoginDomain] TEXT NOT NULL,
+  [IsLast] INTEGER NOT NULL,
+  [Platform] INTEGER NOT NULL,
+  [DeviceID] TEXT
+);

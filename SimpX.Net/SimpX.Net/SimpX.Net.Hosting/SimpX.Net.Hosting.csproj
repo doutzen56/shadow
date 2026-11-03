@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <DocumentationFile></DocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>SimpX.Net</Copyright>
+    <Description>SimpX.Net 宿主装配：启动入口、能力点选、公共管道</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.12" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.17.3" />
+    <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.2.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ip2region.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="GeoLite2-City.mmdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpX.Net.Core\SimpX.Net.Core.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Contracts.Jobs\SimpX.Net.Contracts.Jobs.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Data\SimpX.Net.Data.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Auth\SimpX.Net.Feature.Auth.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Http\SimpX.Net.Feature.Http.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Captcha\SimpX.Net.Feature.Captcha.csproj" />
+
+    <ProjectReference Include="..\SimpX.Net.Feature.Email\SimpX.Net.Feature.Email.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.EventBus\SimpX.Net.Feature.EventBus.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Logging\SimpX.Net.Feature.Logging.csproj" />
+    <ProjectReference Include="..\SimpX.Net.Feature.Storage\SimpX.Net.Feature.Storage.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,291 @@
+/* ==========================================================================
+ * 页面头图（Page Hero）—— 全站统一规范
+ * --------------------------------------------------------------------------
+ * 基准样式来自「文件管理」页（views/system/file），此后新增卡片页一律照此写，
+ * 不要再每页自造一套渐变/圆斑/网格 —— 视觉不一致的根源就是重复定义。
+ *
+ * 用法（结构固定，装饰层与内容层不能颠倒，否则 z-index 会压住文字）：
+ *   <div class="page-hero">
+ *     <div class="page-hero__deco">
+ *       <span class="page-hero__blob is-1"></span>
+ *       <span class="page-hero__blob is-2"></span>
+ *       <span class="page-hero__blob is-3"></span>
+ *       <span class="page-hero__mesh"></span>
+ *       <span class="page-hero__shine"></span>
+ *     </div>
+ *     <div class="page-hero__main">
+ *       <div class="page-hero__left">
+ *         <h2 class="page-hero__title">标题</h2>
+ *         <p class="page-hero__desc">一句话说明这个页面在做什么。</p>
+ *       </div>
+ *       <div class="page-hero__right">
+ *         <div class="page-hero__stats">
+ *           <div class="page-hero__stat">
+ *             <span class="page-hero__stat-v">0</span>
+ *             <span class="page-hero__stat-k">指标名</span>
+ *           </div>
+ *         </div>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ * 三条铁律：
+ *   1. 只允许 var(--el-*) / color-mix()，禁止硬编码主题色；
+ *   2. 装饰层只动 transform / opacity，不要动 left / top（每帧触发布局）；
+ *   3. 页面若需微调（间距、隐藏某些装饰），在自己的 scoped 样式里覆盖，
+ *      不要复制一份新的头图样式。
+ *
+ * 内容规范（2026-10-21 定）：头图左上角不放「平台管理 / 当前页」这类面包屑小标题，
+ * 只保留大标题 + 一句话副标题，视线直接落在页面上；新增页面不要再加 __crumb 节点。
+ * ========================================================================== */
+
+.page-hero {
+	position: relative;
+	overflow: hidden;
+	border-radius: 14px;
+	padding: 20px 24px;
+	/* 页面根节点多是 flex 列容器，头图必须「不参与压缩」：
+	   否则下方内容（splitpanes / 卡片）的 flex-basis 一旦大于剩余高度，
+	   收缩量会按比例分到头图身上，配合 overflow:hidden 直接把标题/统计裁掉，
+	   看起来就是「头图和下面的内容叠在一起」（文件日志、接口压测曾出现）。 */
+	flex-shrink: 0;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--el-color-primary), #000000 32%) 0%,
+		var(--el-color-primary) 48%,
+		color-mix(in srgb, var(--el-color-primary), #ffffff 22%) 100%
+	);
+	color: var(--el-color-white);
+	box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--el-color-primary) 55%, transparent);
+}
+
+/* 暗色下大块主色实底会在深色页面里发亮：主色只取低比例压到页面底色上，
+   既保住品牌色相，又让亮色主题色下的白字仍有足够对比度 */
+[data-theme='dark'] .page-hero {
+	/* 旧内核（Chromium 102）不支持 color-mix：先用纯黑叠加压暗兜底 */
+	background:
+		linear-gradient(135deg, rgb(0 0 0 / 58%) 0%, rgb(0 0 0 / 44%) 100%),
+		linear-gradient(135deg, var(--el-color-primary) 0%, var(--el-color-primary) 100%);
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--el-color-primary) 34%, var(--el-bg-color)) 0%,
+		color-mix(in srgb, var(--el-color-primary) 24%, var(--el-bg-color)) 100%
+	);
+	box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--el-color-primary) 32%, transparent);
+
+	/* 白色膜压在主色深底上会褪成灰色：统计条改用黑色玻璃，保住头图的色相与饱和度 */
+	.page-hero__stats {
+		background: rgb(0 0 0 / 22%);
+		border-color: rgb(255 255 255 / 16%);
+		box-shadow: 0 6px 18px -12px rgb(0 0 0 / 55%);
+	}
+
+	.page-hero__stat + .page-hero__stat {
+		border-left-color: rgb(255 255 255 / 16%);
+	}
+}
+
+/* 装饰层：统一绝对定位 + 关掉鼠标事件，绝不参与内容排版 */
+.page-hero__deco {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	contain: paint;
+
+	span {
+		position: absolute;
+		display: block;
+	}
+}
+
+/* 三处柔光圆斑：右上一大、右中一小、左侧一枚，
+ * 位置错开是为了无论头图多宽都不会在中间堆成一片 */
+.page-hero__blob {
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--el-color-white) 42%, transparent), transparent 70%);
+	will-change: transform;
+
+	&.is-1 {
+		width: 230px;
+		height: 230px;
+		top: -90px;
+		right: 12%;
+		animation: pageHeroFloat 13s ease-in-out infinite;
+	}
+
+	&.is-2 {
+		width: 150px;
+		height: 150px;
+		bottom: -60px;
+		right: 32%;
+		animation: pageHeroFloat 17s ease-in-out infinite reverse;
+	}
+
+	&.is-3 {
+		width: 90px;
+		height: 90px;
+		top: 40%;
+		left: 6%;
+		animation: pageHeroFloat 11s ease-in-out infinite;
+	}
+}
+
+/* 细网格：只铺右半边，左侧留给标题文字保证对比度 */
+.page-hero__mesh {
+	inset: 0;
+	background-image:
+		linear-gradient(color-mix(in srgb, var(--el-color-white) 16%, transparent) 1px, transparent 1px),
+		linear-gradient(90deg, color-mix(in srgb, var(--el-color-white) 16%, transparent) 1px, transparent 1px);
+	background-size: 26px 26px;
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 55%);
+	mask-image: linear-gradient(90deg, transparent, #000 55%);
+	opacity: 0.45;
+}
+
+/* 扫光：定宽 + 位移动画，模拟一条光带从左侧掠过。
+ * 这里用的是 left 而不是 transform：left 的百分比相对「头图宽度」，
+ * 无论头图多宽都能准确扫到右边缘；transform 的百分比相对元素自身宽度（240px），
+ * 宽屏下光带会停在半路。单元素小幅位移，实测帧间隔无抖动 */
+.page-hero__shine {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 240px;
+	background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--el-color-white) 20%, transparent), transparent);
+	animation: pageHeroShine 7s ease-in-out infinite;
+}
+
+/* 内容层：抬到装饰层之上 */
+.page-hero__main {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px 24px;
+	flex-wrap: wrap;
+}
+
+.page-hero__left {
+	flex: 1 1 320px;
+	min-width: 0;
+}
+
+/* 头图只保留「大标题 + 副标题」两行，不再放面包屑小标题
+ *（2026-10-21 用户定为全站规范，以后新增页面直接省略 __crumb 节点） */
+.page-hero__title {
+	margin: 0 0 6px;
+	font-size: 25px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	line-height: 1.25;
+}
+
+.page-hero__desc {
+	margin: 0;
+	max-width: 620px;
+	font-size: 13px;
+	line-height: 1.6;
+	opacity: 0.85;
+}
+
+.page-hero__right {
+	/* 一定要允许收缩（0 1 auto）：flex: 0 0 auto 时统计面板宁可溢出也不缩，
+	   会被 .page-hero 的 overflow:hidden 裁在右边缘，看起来就是「右边距没了」 */
+	flex: 0 1 auto;
+	min-width: 0;
+	max-width: 100%;
+}
+
+/* 统计面板：一整块半透明面板 + 竖分隔线，
+ * 比「三个各自带底色的方块」更克制，也不会跟主题色抢眼 */
+.page-hero__stats {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 100%;
+	padding: 8px 12px;
+	border-radius: 12px;
+	background: color-mix(in srgb, var(--el-color-white) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--el-color-white) 26%, transparent);
+	/* 指标多 / 值很长时换行，而不是把面板顶出 hero 的右内边距 */
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+.page-hero__stat {
+	min-width: 0;
+	max-width: 100%;
+	padding: 0 8px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+
+	+ .page-hero__stat {
+		border-left: 1px solid color-mix(in srgb, var(--el-color-white) 22%, transparent);
+	}
+}
+
+.page-hero__stat-v {
+	display: block;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.2;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+
+	/* 状态色只做轻微偏色，保持「白字为主」的整体观感 */
+	&.is-on {
+		color: color-mix(in srgb, var(--el-color-white) 88%, #22c55e);
+	}
+
+	&.is-off {
+		color: color-mix(in srgb, var(--el-color-white) 76%, #fbbf24);
+	}
+}
+
+.page-hero__stat-k {
+	display: block;
+	margin-top: 2px;
+	font-size: 12px;
+	opacity: 0.78;
+}
+
+@keyframes pageHeroFloat {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+	50% {
+		transform: translate(14px, -16px) scale(1.06);
+	}
+}
+
+@keyframes pageHeroShine {
+	0% {
+		left: -240px;
+	}
+	55%,
+	100% {
+		left: 112%;
+	}
+}
+
+@media (max-width: 900px) {
+	.page-hero {
+		padding: 16px 18px;
+	}
+
+	.page-hero__title {
+		font-size: 21px;
+	}
+
+	.page-hero__right {
+		width: 100%;
+	}
+
+	.page-hero__stats {
+		width: 100%;
+		justify-content: center;
+	}
+}

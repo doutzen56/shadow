@@ -1,0 +1,13 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // 文本翻译（后台多语言的 AI 翻译）：复制本文件并改名为 TextTranslator.json 再填写，该文件不入库，密钥不要提交
+  // 兼容 chat/completions 协议的大模型服务都可以用；地址、密钥、模型都填了才会开通
+  "TextTranslator": {
+    "SourceLang": "zh-cn", // 源语言
+    "ApiUrl": "", // 对话补全接口地址，如 https://api.example.com/v1/chat/completions
+    "ApiKey": "", // 接口密钥
+    "Model": "", // 模型名称
+    "TimeoutSeconds": 60 // 请求超时（秒）
+  }
+}

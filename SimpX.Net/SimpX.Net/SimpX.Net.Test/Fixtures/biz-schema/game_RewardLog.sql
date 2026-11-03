@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS [game_RewardLog];
+CREATE TABLE [game_RewardLog] (
+  [LogID] INTEGER PRIMARY KEY AUTOINCREMENT,
+  [Type] INTEGER NOT NULL,
+  [SiteID] INTEGER NOT NULL,
+  [UserID] INTEGER NOT NULL,
+  [PlayerName] TEXT NOT NULL,
+  [SourceID] TEXT NOT NULL,
+  [Table] TEXT NOT NULL,
+  [RoundID] TEXT NOT NULL,
+  [CreateAt] TEXT NOT NULL,
+  [TradeType] INTEGER NOT NULL,
+  [TradeAmount] REAL NOT NULL,
+  [RawData] TEXT NOT NULL,
+  [UpdateAt] TEXT NOT NULL,
+  [RewardAt] TEXT NOT NULL,
+  [Currency] INTEGER NOT NULL,
+  [Remark] TEXT NOT NULL
+);

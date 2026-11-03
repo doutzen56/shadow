@@ -1,0 +1,70 @@
+// ============================================================
+// 主题切换过渡动画
+// - 亮 → 暗：新画面（暗）从鼠标点击位置向外圆形扩散（点击扩散）
+// - 暗 → 亮：旧画面（暗）从全屏向鼠标位置反向收缩（远处收缩）
+// 依赖 View Transitions API，动画通过 ::view-transition-old/new 伪元素实现
+// ============================================================
+
+// 过渡动画基础变量
+$bg-animation-color-light: #000; // 亮色主题下的过渡遮罩背景色
+$bg-animation-color-dark: #fff; // 暗色主题下的过渡遮罩背景色
+$bg-animation-duration: 0.5s; // 圆形扩散 / 收缩动画时长
+
+html {
+	// 当前过渡遮罩背景色，默认取亮色值
+	--bg-animation-color: #{$bg-animation-color-light};
+
+	// 暗色主题下切换为暗色值
+	&.dark {
+		--bg-animation-color: #{$bg-animation-color-dark};
+	}
+
+	// ---------- 亮色（默认）状态 ----------
+
+	// 旧画面：不做动画，仅作为底层被新画面覆盖
+	&::view-transition-old(root) {
+		z-index: 1;
+		animation: none;
+	}
+
+	// 新画面：正向播放 clip，从鼠标位置圆形扩散（点击扩散）
+	// 层级置于最上层，保证扩散可见
+	&::view-transition-new(root) {
+		z-index: 9999;
+		animation: clip $bg-animation-duration ease-in both;
+	}
+
+	// ---------- 暗色主题状态（与亮色相反） ----------
+	&.dark {
+		// 旧画面：反向播放 clip，从全屏收缩回鼠标位置（远处收缩）
+		// 需浮到上层，才能在收缩过程中遮挡住新画面
+		&::view-transition-old(root) {
+			z-index: 9999;
+			animation: clip $bg-animation-duration ease-in reverse both;
+		}
+
+		// 新画面：不做动画，沉到下层
+		&::view-transition-new(root) {
+			z-index: 1;
+			animation: none;
+		}
+	}
+}
+
+// 圆形扩散 / 收缩动画帧
+@keyframes clip {
+	from {
+		// 起始：半径 0，收敛于鼠标点
+		clip-path: circle(0% at var(--x) var(--y));
+	}
+
+	to {
+		// 结束：扩散到最大半径，覆盖整屏
+		clip-path: circle(var(--r) at var(--x) var(--y));
+	}
+}
+
+// body 背景色跟随过渡遮罩色，避免切换瞬间出现底色跳变
+body {
+	background-color: var(--bg-animation-color);
+}

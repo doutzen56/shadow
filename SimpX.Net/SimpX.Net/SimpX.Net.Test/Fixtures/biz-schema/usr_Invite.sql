@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS [usr_Invite];
+CREATE TABLE [usr_Invite] (
+  [InviteID] TEXT NOT NULL,
+  [SiteID] INTEGER NOT NULL,
+  [UserID] INTEGER NOT NULL,
+  [Member] INTEGER NOT NULL,
+  [IsOpen] INTEGER NOT NULL,
+  [CreateAt] TEXT NOT NULL,
+  [Setting] TEXT NOT NULL
+);

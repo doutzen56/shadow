@@ -1,0 +1,6 @@
+{
+  // Admin 在 docker 里调用调度宿主、渠道宿主，用容器名访问
+  "InternalCall": {
+    "Services": { "Schedule": "http://simpx-schedule:5007", "Channels": "http://simpx-channels:5008" }
+  }
+}

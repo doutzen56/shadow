@@ -1,0 +1,6 @@
+{
+  // 调度宿主在 docker 里回调 Admin，用容器名访问
+  "InternalCall": {
+    "Services": { "Admin": "http://simpx-admin:5005" }
+  }
+}

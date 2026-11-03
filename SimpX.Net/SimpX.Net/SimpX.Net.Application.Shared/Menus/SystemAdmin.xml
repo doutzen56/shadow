@@ -1,0 +1,124 @@
+<root ID="c4dd4f85eb044ac78f44b3cc366b6509">
+  <menu name="系统首页" icon="am-icon-home" ID="24f6ebb965594e7cbfa100067b73aa7c">
+    <menu name="主页" href="/" ID="e598d33403754c1e877ce1c439437986" />
+  </menu>
+  <menu name="站点管理" icon="am-icon-user" ID="3f0ab8e6dbe34cbabf98ca4febda584d">
+    <menu name="站点列表" href="/site/list" ID="d8802dfc53aa4c448624aa242d40bc0c">
+      <action name="站点修改" ID="18461df9ee044e6d89c026c68c14fb68" />
+      <action name="白名单保存" ID="432dbf6e7a44489093cd69fd09e83611" />
+      <action name="后台地址" ID="71a4409ed2064cdfb0ef08b6bf4e388c" />
+      <action name="游戏" ID="d44a45ce14ff4cfb916f81684011309a" />
+      <action name="APP" ID="395919854dbd400ca6f84c5e18acc404" />
+      <action name="PC" ID="dad238414ba546a89a52da5c44f9441f" />
+      <action name="页面配置" ID="892fc4098fd346838ad34efc8dc6798f" />
+      <action name="节点管理" ID="5117c0f1ab9c47ae942f4dc535be43b3" />
+      <action name="证书配置" ID="36b3af03ba2c40258cb3b75d6f0b17e5" />
+      <action name="节点配置" ID="745328e133c94eacb3d74f01ca05f1b5" />
+      <action name="登录后台" ID="fdab0e7f7d104f27b398571803917e0d" />
+      <action name="维护" ID="3d86f8530c7c4068b4077aec2146a9df" />
+      <action name="重置管理员密码" ID="7b7459b37ede4bf7b446aaec4d41daba" />
+      <action name="清除站点出款验证码" ID="4a3fcaa033212bb2818555c5a147cf15" />
+      <action name="站点主机" ID="8c446b9b544948ee88ba7cc44014b0f9" />
+      <action name="背景" ID="473a4493af6ff3006eb3a5d280c3ef14" />
+      <action name="语言" ID="5108211e0468d7f0cfaa2af27c2ee1be" />
+      <action name="货币" ID="8ed1236b1a152c4dc8d9510d41f51973" />
+      <action name="钱包" ID="5d414a1073fbcfc17d46277b210c6444" />
+      <action name="授信额度" ID="e2f90884b42478e64096e3067a5ffaef" />
+    </menu>
+    <menu name="会员管理" ID="d9928032376e49db88dc516153fee983">
+      <menu name="会员列表" href="/site/user/" ID="55090fea6fcc43cd8a0c46faeb65ac03">
+        <action name="手动解锁" ID="72612fbcee5b446e9ccb97d291e4ba3e" />
+      </menu>
+    </menu>
+    <menu name="额度记录" href="/site/user/transfer" ID="84a0f3455dcca894ace136be62efa292" />
+    <menu name="节点监控" href="/site/monitor" ID="ade2cf06f1f843f4b5271804831fdffd" />
+  </menu>
+  <menu name="系统配置" icon="am-icon-gear" ID="9dba2098f2cf4369ab18a8f9a37550a6">
+    <menu name="充值接口" href="/setting/payment/" ID="81103fd305514537b465e272a41e77a6"></menu>
+    <menu name="代付接口" href="/setting/withdraw/" ID="582b7203c2ee4ab7a869988c9ee08027"></menu>
+    <menu name="更新公告" href="/setting/update/" ID="4c297ede937f43bc99696f5de1f9cc8b"></menu>
+    <menu name="游戏配置" href="/setting/game/" ID="204c867a4dd84edd98f900e4ca3ba568">
+      <action name="维护" ID="dead66d97e3a45a58416d9d248fbc823" />
+      <action name="配置" ID="0a9e5296824b4f40aaa2c6420efe1950" />
+      <action name="入口" ID="4d135582d9454800917f5c9e4061ddc1" />
+      <action name="字典" ID="0b4a902d208a43bb8072e618226e5643" />
+      <action name="转出游戏金额" ID="0b4a902d208a43bb8072e618226e5640" />
+    </menu>
+    <menu name="权限管理" href="/setting/admin/" ID="80f5d515703640ae8d72fc1d0902b4e0">
+      <action name="清除谷歌验证码" ID="8be28a2565d14a708001b316d9f57d12" />
+      <action name="重置密码" ID="c11da66e8f604ce08c0fbcd3a7c11b50" />
+    </menu>
+    <!--<menu name="报表配置" ID="65d7ae8db6c449fbac1420b86c585c37">
+      <menu href="/setting/chart/" name="报表配置V1" ID="7a9e6b8cb83c4a6986a260d8fb5a1936"></menu>
+      <menu href="/setting/chart/v2/" name="报表配置V2" ID="a6c01606720b44d0a200264b666a3dc1"></menu>
+    </menu>-->
+    <menu name="页面配置" ID="ea33df2b8dd34680b252a88dfc5f59d8">
+      <menu name="菜单配置" href="/setting/page/menu" ID="238018c4bbd14afcb1477d327a33831a" />
+      <menu name="控件配置" href="/setting/page/control" ID="3adbb7164b5e419087f39de78e364152" />
+      <menu name="模板配置" href="/setting/page/template" ID="befc225196eb4b778fd91275ac505770" />
+    </menu>
+    <menu name="积分等级" ID="71cc9f8a4f344aa5ac5b5b74a35a26f8">
+      <menu name="积分项" href="/setting/points/point" ID="6394feb6fc8e43b4b3a2fcb1c165591a" />
+    </menu>
+    <menu name="黑名单" ID="7a2631d9a4f44b9e885c7bc6460d6ad7">
+      <menu name="提现黑名单" href="/setting/black/" ID="0e172ae1d6284ecb83a3f75253761ccf" />
+    </menu>
+    <menu name="标签管理" href="/setting/tag/" ID="fac05689337a4d06814244776a0b2c5c"></menu>
+    <menu name="语种翻译" href="/setting/config/translate" ID="89ad5b7118c14742a41f09d7805682aa"></menu>
+    <menu name="货币汇率" href="/setting/config/exchange" ID="0461031336491576a3bab537059aba01"></menu>
+    <menu name="游戏标签" href="/setting/config/gametag" ID="8d534ee3960daa0722d3635d2baac822"></menu>
+  </menu>
+  
+  <menu name="运营管理" icon="am-icon-shopping-bag" ID="b000da3338274a139733fb39461ffd2c">
+    <menu name="客户留言" href="/service/feedback" ID="bec34c94be6d459cb3f1504673b6d10d" />
+    <menu name="游戏账单" href="/service/bill" ID="8322e7b6e7a941469c8045a50e5653ac" />
+    <menu name="平台账单" href="/service/billdate" ID="34adc7e3f0c5a00899745a6cf35cc2bb" />
+    <menu name="打赏账单" href="/service/rewarddate" ID="b528b0d48ecfeb2fffb03ce9ecd7e517" />
+    <menu name="游戏订单" ID="f48b758c2ec94790af8fb4c2767d4340">
+      <menu name="订单管理" href="/service/order/list" ID="54a1301a8eec440ca4e6d48f1270284f" />
+      <menu name="打赏记录" href="/game/order/reward" ID="f395f6ddcdfb9b681cf3dc0e5f6ed499" />
+      <menu name="对战游戏记录" href="/game/order/fantasy" ID="b1902bede5508ac06e3f20ca2fe371e2" />
+      <menu name="手动同步" href="/service/order" ID="7d7df4897c764e95b268df21aac62022" />
+      <menu name="重新结算" href="/service/resettle" ID="7d7df4897c764e95b268df21aac62023" />
+      <menu name="同步通用表" href="/service/orderlog" ID="8cc609a1af36a4ef66c878372bb781c1" />
+    </menu>
+    <menu name="游戏日报表" ID="0af52f284d3e4d929bd4c146477ff2b8">
+      <menu name="彩票数据" href="/database/dategame/Type=Lottery" ID="4edaa51727f24efdbb535cccef419b14" />
+      <menu name="电竞数据" href="/database/dategame/Type=ESport" ID="0ac27c600ff14619a7b5e97221139ec0" />
+      <menu name="电子数据" href="/database/dategame/Type=Slot" ID="eee7c3eec6b640bc97695edd3fcda7c6" />
+      <menu name="真人数据" href="/database/dategame/Type=Live" ID="c6416cc183c144b9851fa5ce19b8df71" />
+      <menu name="棋牌数据" href="/database/dategame/Type=Chess" ID="ed899041ce004609b360cd9e3cf4d59a" />
+      <menu name="体育数据" href="/database/dategame/Type=Sport" ID="9c07cc895fa645ad97418b606578f081" />
+      <menu name="捕鱼数据" href="/database/dategame/Type=Fish" ID="1e71b9bba88d0563323fa25d72d759da" />
+      <menu name="动物数据" href="/database/dategame/Type=Animal" ID="aa3523e16d9ed6962cbc0a526091c010" />
+      <menu name="小游戏数据" href="/database/dategame/Type=MiniGame" ID="f01fe83645264613d8607a16cffd0fa4" />
+      <menu name="对战数据" href="/database/dategame/Type=Battle" ID="67587ca1cee4661cb83a28c5d6b9e127" />
+	  <menu name="会员报表同步" href="/database/dategamenew" ID="4edaa51727f24efdbb535abcedfgjb14" />
+    </menu>
+    <menu name="游戏报表" ID="0af52f284d3e4d929bd4c146477ff2b9">
+      <menu name="体育日报表" href="/database/dategamestatistic/Type=Sport" ID="9c07cc895fa645ad97418b606578f082" />
+      <menu name="结算时间同步" href="/database/gamesettlement" ID="69750c2ae2cde223d77ee387d96bc920" />
+      <menu name="IG手动撤单同步" href="/database/igrevoke" ID="7d46c4e56d9d531ad9ae883458e267cd" />
+      <menu name="代理报表同步" href="/database/checkagentreport" ID="189833f23600a73c5c35216c68ecd18f" />
+    </menu>
+  </menu>
+  <menu name="运维管理" icon="am-icon-server" ID="b2752e1bc4534cecadeec9e60de59077">
+    <menu name="错误日志" href="/server/error/" ID="092f20c73e9d4b858631fb25df1f83a0" />
+    <menu name="数据缓存" href="/setting/server/cache" ID="9729da1c9a764db6ba7cac833eee320c" />
+    <menu name="集群管理" href="/setting/server/cluster" ID="ececf061432e4568b68d9a442970d5fa" />
+    <menu name="任务调度" href="/server/report/rptwork" ID="c8f1a2b34d5e6f708192a3b4c5d6e7f8" />
+    <menu name="参数配置" href="/setting/config" ID="6cc7d5cb1a8e471bacf64f5a6dff8988" />
+    <menu name="支付提交" href="/logs/payment/payment" ID="1d397d6970174196a04bf194a4ddaaef" />
+    <menu name="支付回调" href="/logs/payment/callback" ID="86113a17bf6546c59851194f2d3b73b5" />
+    <menu name="亚博赛事" href="/setting/sports/yabo" ID="86222a17bf6546c59851194f2d3b73b5" />
+    <menu name="日志采集时间" href="/setting/game/mark" ID="2e04765af8004db0867feed7f6d2a215" />
+   <!-- <menu name="资产管理" ID="dc68dc4d22be4eff87df31b8b5f68167">
+      <menu name="资产列表" href="/server/asset/" ID="52e339af20084ef284957c247b89eb52" />
+      <menu name="标签管理" href="/server/asset/tag" ID="61a584a5f67b4553a99d993e7198c500" />
+      <menu name="密钥管理" href="/server/asset/auth" ID="6240e0954852438bb1782570b397565e" />
+    </menu>-->
+    <menu name="工单管理" href="/ticket/" ID="bda137b74b45405dbe277ac460a5f05f"/>
+    <menu name="信誉网设置" href="/setting/credit/sitelist" ID="a5460a439fe85382f6a639d70bc4e8fa"/>
+    <menu name="报表纠正" href="/server/report/resetreport" ID="b26cd19299e64e46e00dc8fbae10e126"/>
+  </menu>
+</root>
