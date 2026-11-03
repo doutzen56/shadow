@@ -1,6 +1,0 @@
-{
-  // docker 部署：四个宿主共用 compose 里的 Redis。连接串带密码，写在同目录的 Secrets.json
-  "Cache": {
-    "CacheType": "Redis"
-  }
-}

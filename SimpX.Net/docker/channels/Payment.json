@@ -1,6 +1,0 @@
-{
-  "Payment": {
-    // 支付渠道回调的站点根：要填外网能访问到的地址，经 nginx 的 /channels 前缀转到渠道宿主
-    "NotifyBaseUrl": "http://127.0.0.1:9100/channels"
-  }
-}

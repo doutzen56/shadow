@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS [site_EventColumn];
-CREATE TABLE [site_EventColumn] (
-  [ColID] INTEGER PRIMARY KEY AUTOINCREMENT,
-  [SiteID] INTEGER NOT NULL,
-  [ColName] TEXT NOT NULL,
-  [Sort] INTEGER NOT NULL,
-  [EventCount] INTEGER NOT NULL
-);

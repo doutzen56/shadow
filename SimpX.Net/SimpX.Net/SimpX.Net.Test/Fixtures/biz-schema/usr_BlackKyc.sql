@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS [usr_BlackKyc];
-CREATE TABLE [usr_BlackKyc] (
-  [ID] INTEGER PRIMARY KEY AUTOINCREMENT,
-  [SiteID] INTEGER NOT NULL,
-  [BlackKyc] TEXT NOT NULL,
-  [Demo] TEXT NOT NULL,
-  [CreateAt] TEXT NOT NULL,
-  [RelatedUsers] TEXT NOT NULL
-);

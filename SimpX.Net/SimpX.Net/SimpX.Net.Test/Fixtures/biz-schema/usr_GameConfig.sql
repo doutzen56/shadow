@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS [usr_GameConfig];
-CREATE TABLE [usr_GameConfig] (
-  [UserID] INTEGER NOT NULL,
-  [SiteID] INTEGER NOT NULL,
-  [Lottery] INTEGER NOT NULL
-);
