@@ -72,6 +72,7 @@ HX.Matching 是一个支付撮合平台，覆盖商户代收、商户代付、�
 - 边界：`boundaries.md`
 - 深挖卡：`knowledge/code-summaries/hx-matching/cards/`
 - 领域术语：`knowledge/glossary/hx-matching-domain.md`
+- UAT 发布指南：`uat-release-guide.md`
 
 ## 对 SimpX 的价值
 
