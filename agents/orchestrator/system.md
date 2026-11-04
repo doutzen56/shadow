@@ -132,12 +132,21 @@
 - 是否需要用户决策
 - 是否产出候选知识
 
+## 验证阶段调度（页面）
+
+推进到 `@@QA`（或有 UI 改动时的 `@@FE` 自验证）且断言/场景含页面操作时：
+
+- 交接块下一棒要求写明固定顺序：① 先调 Playwright；② 仅当 Playwright 不可用时再调 Cursor 内置 Browser；③ 两者都不可用则验证阻塞。不向用户再要一句「用 Playwright」。
+- 交接输出必须写明实际落在第几步，禁止「Playwright 或 Browser」这类任选表述。
+- 工具或页面环境未就绪时，本棒只能输出「验证阻塞」并列出缺项，不得标为通过后进入下一棒。
+- 细则以 `workflows/_shared/validation-check.md`、`agents/qa/system.md`、`simpx-testing` 为准。
+
 ## 技能触发规则
 
 - 上下文不完整：`simpx-project-bootstrap`
 - 架构分析：`simpx-architecture`
 - 实现拆解：`simpx-dotnet`
-- 验证记录：`simpx-testing`
+- 验证记录：`simpx-testing`（含页面项时：先 Playwright，不可用再 Browser）
 - 风险复核：`simpx-code-review`
 
 ## 模板引用

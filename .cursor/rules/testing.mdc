@@ -32,6 +32,16 @@ alwaysApply: true
 
 每个场景必须写清前置数据、操作步骤、期望状态、实际证据、清理方式和未覆盖风险。
 
+## 页面验证默认自动调用（顺序固定）
+
+断言或场景需要打开页面、点控件、看界面结果时（含 Web.Admin、Web.System 等）：
+
+- `@@QA` 进入验证职责阶段后必须按序自动调用：① 先 Playwright；② 仅当 Playwright 未安装、未启用或调用失败时，再调 Cursor 内置 Browser；③ 两者都不可用则「验证未执行」或「验证阻塞」。有 UI 改动时 `@@FE` 自验证同样按此顺序。
+- 禁止把 Playwright 与 Browser 写成可任选；证据必须写明实际用的是哪一步。
+- 不要求用户写「用 Playwright」或为此再召唤一次。
+- 资金、订单、权限、登录等场景不能只靠截图通过，仍要有约定的接口或库等状态证据。
+- 细则见 `workflows/_shared/validation-check.md` 与 `agents/qa/system.md`。
+
 ## 验证记录要求
 
 - 写代码后必须尝试验证。

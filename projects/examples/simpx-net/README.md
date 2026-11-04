@@ -15,7 +15,8 @@ SimpX.Net 是基于 Furion + SqlSugar 的多宿主通用权限与多租户框架
 
 - 解决方案：`SimpX.Net.sln`（相对仓库根：`SimpX.Net/SimpX.Net.sln`）
 - SimpX 档案：`projects/examples/simpx-net`
-- 前端：`Web/`（pnpm monorepo）
+- 前端：`Web/`（pnpm monorepo：`apps/admin` / `apps/super-admin`）
+- 租户后台从旧站 Web.Admin 迁移：[`docs/admin-frontend-migration.md`](docs/admin-frontend-migration.md)
 
 ## 主要宿主
 
